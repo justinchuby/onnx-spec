@@ -1,15 +1,10 @@
-attributes:
-- default_value: null
-  description: legacy optimization attribute.
-  name: consumed_inputs
-  required: false
-  type: AttrType.INTS
-- default_value: 9.999999747378752e-06
-  description: The epsilon value to use to avoid division by zero, default is 1e-5f.
-  name: epsilon
-  required: false
-  type: AttrType.FLOAT
-deprecated: false
+domain: ''
+name: InstanceNormalization
+since_version: 1
+min_input: 3
+max_input: 3
+min_output: 1
+max_output: 1
 doc: '
 
   Carries out instance normalization as described in the paper
@@ -23,40 +18,45 @@ doc: '
 
 
   '
-domain: ''
+attributes:
+- name: consumed_inputs
+  description: legacy optimization attribute.
+  type: AttrType.INTS
+  required: false
+  default_value: null
+- name: epsilon
+  description: The epsilon value to use to avoid division by zero, default is 1e-5f.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 9.999999747378752e-06
 inputs:
-- description: The input 4-dimensional tensor of shape NCHW.
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T
-- description: The input 1-dimensional scale tensor of size C.
+  description: The input 4-dimensional tensor of shape NCHW.
   min_arity: 1
-  name: scale
   tags: []
+- name: scale
   type_str: T
-- description: The input 1-dimensional bias tensor of size C.
+  description: The input 1-dimensional scale tensor of size C.
   min_arity: 1
-  name: B
   tags: []
+- name: B
   type_str: T
-max_input: 3
-max_output: 1
-min_input: 3
-min_output: 1
-name: InstanceNormalization
+  description: The input 1-dimensional bias tensor of size C.
+  min_arity: 1
+  tags: []
 outputs:
-- description: The output 4-dimensional tensor of the same shape as input.
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: The output 4-dimensional tensor of the same shape as input.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

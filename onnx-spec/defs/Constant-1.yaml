@@ -1,30 +1,30 @@
-attributes:
-- default_value: null
-  description: The value for the elements of the output tensor.
-  name: value
-  required: true
-  type: AttrType.TENSOR
-deprecated: false
-doc: A constant tensor.
 domain: ''
-inputs: []
-max_input: 0
-max_output: 1
-min_input: 0
-min_output: 1
 name: Constant
-outputs:
-- description: Output tensor containing the same value of the provided tensor.
-  min_arity: 1
-  name: output
-  tags: []
-  type_str: T
 since_version: 1
-support_level: SupportType.COMMON
+min_input: 0
+max_input: 0
+min_output: 1
+max_output: 1
+doc: A constant tensor.
+attributes:
+- name: value
+  description: The value for the elements of the output tensor.
+  type: AttrType.TENSOR
+  required: true
+  default_value: null
+inputs: []
+outputs:
+- name: output
+  type_str: T
+  description: Output tensor containing the same value of the provided tensor.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

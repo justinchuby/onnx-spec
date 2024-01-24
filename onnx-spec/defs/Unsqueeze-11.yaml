@@ -1,12 +1,10 @@
-attributes:
-- default_value: null
-  description: List of integers indicating the dimensions to be inserted. Negative
-    value means counting dimensions from the back. Accepted range is [-r, r-1] where
-    r = rank(expanded).
-  name: axes
-  required: true
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Unsqueeze
+since_version: 11
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: "\nInsert single-dimensional entries to the shape of an input tensor (`data`).\n\
   Takes one required argument `axes` - which contains a list of dimension indices\
   \ and this operator will insert a dimension of value `1` into the corresponding\
@@ -19,28 +17,30 @@ doc: "\nInsert single-dimensional entries to the shape of an input tensor (`data
   \ in `axes` should be within the (inclusive) range [-output_rank , output_rank -\
   \ 1].\nThe order of values in `axes` does not matter and can come in any order.\n\
   \n"
-domain: ''
+attributes:
+- name: axes
+  description: List of integers indicating the dimensions to be inserted. Negative
+    value means counting dimensions from the back. Accepted range is [-r, r-1] where
+    r = rank(expanded).
+  type: AttrType.INTS
+  required: true
+  default_value: null
 inputs:
-- description: Original tensor
-  min_arity: 1
-  name: data
-  tags: []
+- name: data
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Unsqueeze
+  description: Original tensor
+  min_arity: 1
+  tags: []
 outputs:
-- description: Reshaped tensor with same data as input.
-  min_arity: 1
-  name: expanded
-  tags: []
+- name: expanded
   type_str: T
-since_version: 11
-support_level: SupportType.COMMON
+  description: Reshaped tensor with same data as input.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -56,5 +56,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

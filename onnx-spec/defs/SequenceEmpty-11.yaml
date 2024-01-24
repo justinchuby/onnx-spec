@@ -1,33 +1,33 @@
-attributes:
-- default_value: null
-  description: (Optional) The data type of the tensors in the output sequence. The
-    default type is 'float'.
-  name: dtype
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: SequenceEmpty
+since_version: 11
+min_input: 0
+max_input: 0
+min_output: 1
+max_output: 1
 doc: '
 
   Construct an empty tensor sequence, with given data type.
 
   '
-domain: ''
+attributes:
+- name: dtype
+  description: (Optional) The data type of the tensors in the output sequence. The
+    default type is 'float'.
+  type: AttrType.INT
+  required: false
+  default_value: null
 inputs: []
-max_input: 0
-max_output: 1
-min_input: 0
-min_output: 1
-name: SequenceEmpty
 outputs:
-- description: Empty sequence.
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: S
-since_version: 11
-support_level: SupportType.COMMON
+  description: Empty sequence.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: S
+  description: Constrain output types to any tensor type.
+  allowed_type_strs:
   - seq(tensor(uint8))
   - seq(tensor(uint16))
   - seq(tensor(uint32))
@@ -43,5 +43,5 @@ type_constraints:
   - seq(tensor(bool))
   - seq(tensor(complex64))
   - seq(tensor(complex128))
-  description: Constrain output types to any tensor type.
-  type_param_str: S
+support_level: COMMON
+deprecated: false

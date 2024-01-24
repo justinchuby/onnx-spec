@@ -1,74 +1,10 @@
-attributes:
-- default_value: null
-  description: Maximum n-gram length. If this value is 3, 3-grams will be used to
-    generate the output.
-  name: max_gram_length
-  required: true
-  type: AttrType.INT
-- default_value: null
-  description: Maximum number of items (integers/strings) to be skipped when constructing
-    an n-gram from X. If max_skip_count=1, min_gram_length=2, max_gram_length=3, this
-    operator may generate 2-grams with skip_count=0 and skip_count=1, and 3-grams
-    with skip_count=0 and skip_count=1
-  name: max_skip_count
-  required: true
-  type: AttrType.INT
-- default_value: null
-  description: Minimum n-gram length. If this value is 2 and max_gram_length is 3,
-    output may contain counts of 2-grams and 3-grams.
-  name: min_gram_length
-  required: true
-  type: AttrType.INT
-- default_value: null
-  description: The weighting criteria. It can be one of "TF" (term frequency), "IDF"
-    (inverse document frequency), and "TFIDF" (the combination of TF and IDF)
-  name: mode
-  required: true
-  type: AttrType.STRING
-- default_value: null
-  description: The starting indexes of 1-grams, 2-grams, and so on in pool. It is
-    useful when determining the boundary between two consecutive collections of n-grams.
-    For example, if ngram_counts is [0, 17, 36], the first index (zero-based) of 1-gram/2-gram/3-gram
-    in pool are 0/17/36. This format is essentially identical to CSR (or CSC) sparse
-    matrix format, and we choose to use this due to its popularity.
-  name: ngram_counts
-  required: true
-  type: AttrType.INTS
-- default_value: null
-  description: 'list of int64s (type: AttributeProto::INTS). This list is parallel
-    to the specified ''pool_*'' attribute. The i-th element in ngram_indexes indicate
-    the coordinate of the i-th n-gram in the output tensor.'
-  name: ngram_indexes
-  required: true
-  type: AttrType.INTS
-- default_value: null
-  description: List of int64 n-grams learned from the training set. Either this or
-    pool_strings attributes must be present but not both. It's an 1-D tensor starting
-    with the collections of all 1-grams and ending with the collections of n-grams.
-    The i-th element in pool stores the n-gram that should be mapped to coordinate
-    ngram_indexes[i] in the output vector.
-  name: pool_int64s
-  required: false
-  type: AttrType.INTS
-- default_value: null
-  description: List of strings n-grams learned from the training set. Either this
-    or pool_int64s attributes must be present but not both. It's an 1-D tensor starting
-    with the collections of all 1-grams and ending with the collections of n-grams.
-    The i-th element in pool stores the n-gram that should be mapped to coordinate
-    ngram_indexes[i] in the output vector.
-  name: pool_strings
-  required: false
-  type: AttrType.STRINGS
-- default_value: null
-  description: list of floats. This attribute stores the weight of each n-gram in
-    pool. The i-th element in weights is the weight of the i-th n-gram in pool. Its
-    length equals to the size of ngram_indexes. By default, weights is an all-one
-    tensor.This attribute is used when mode is "IDF" or "TFIDF" to scale the associated
-    word counts.
-  name: weights
-  required: false
-  type: AttrType.FLOATS
-deprecated: false
+domain: ''
+name: TfIdfVectorizer
+since_version: 9
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   This transform extracts n-grams from the input sequence and save them as a vector.
@@ -140,36 +76,100 @@ doc: '
   If pool_strings is set, the input must be a string tensor.
 
   '
-domain: ''
+attributes:
+- name: max_gram_length
+  description: Maximum n-gram length. If this value is 3, 3-grams will be used to
+    generate the output.
+  type: AttrType.INT
+  required: true
+  default_value: null
+- name: max_skip_count
+  description: Maximum number of items (integers/strings) to be skipped when constructing
+    an n-gram from X. If max_skip_count=1, min_gram_length=2, max_gram_length=3, this
+    operator may generate 2-grams with skip_count=0 and skip_count=1, and 3-grams
+    with skip_count=0 and skip_count=1
+  type: AttrType.INT
+  required: true
+  default_value: null
+- name: min_gram_length
+  description: Minimum n-gram length. If this value is 2 and max_gram_length is 3,
+    output may contain counts of 2-grams and 3-grams.
+  type: AttrType.INT
+  required: true
+  default_value: null
+- name: mode
+  description: The weighting criteria. It can be one of "TF" (term frequency), "IDF"
+    (inverse document frequency), and "TFIDF" (the combination of TF and IDF)
+  type: AttrType.STRING
+  required: true
+  default_value: null
+- name: ngram_counts
+  description: The starting indexes of 1-grams, 2-grams, and so on in pool. It is
+    useful when determining the boundary between two consecutive collections of n-grams.
+    For example, if ngram_counts is [0, 17, 36], the first index (zero-based) of 1-gram/2-gram/3-gram
+    in pool are 0/17/36. This format is essentially identical to CSR (or CSC) sparse
+    matrix format, and we choose to use this due to its popularity.
+  type: AttrType.INTS
+  required: true
+  default_value: null
+- name: ngram_indexes
+  description: 'list of int64s (type: AttributeProto::INTS). This list is parallel
+    to the specified ''pool_*'' attribute. The i-th element in ngram_indexes indicate
+    the coordinate of the i-th n-gram in the output tensor.'
+  type: AttrType.INTS
+  required: true
+  default_value: null
+- name: pool_int64s
+  description: List of int64 n-grams learned from the training set. Either this or
+    pool_strings attributes must be present but not both. It's an 1-D tensor starting
+    with the collections of all 1-grams and ending with the collections of n-grams.
+    The i-th element in pool stores the n-gram that should be mapped to coordinate
+    ngram_indexes[i] in the output vector.
+  type: AttrType.INTS
+  required: false
+  default_value: null
+- name: pool_strings
+  description: List of strings n-grams learned from the training set. Either this
+    or pool_int64s attributes must be present but not both. It's an 1-D tensor starting
+    with the collections of all 1-grams and ending with the collections of n-grams.
+    The i-th element in pool stores the n-gram that should be mapped to coordinate
+    ngram_indexes[i] in the output vector.
+  type: AttrType.STRINGS
+  required: false
+  default_value: null
+- name: weights
+  description: list of floats. This attribute stores the weight of each n-gram in
+    pool. The i-th element in weights is the weight of the i-th n-gram in pool. Its
+    length equals to the size of ngram_indexes. By default, weights is an all-one
+    tensor.This attribute is used when mode is "IDF" or "TFIDF" to scale the associated
+    word counts.
+  type: AttrType.FLOATS
+  required: false
+  default_value: null
 inputs:
-- description: Input for n-gram extraction
-  min_arity: 1
-  name: X
-  tags:
-  - non-differentiable
+- name: X
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: TfIdfVectorizer
-outputs:
-- description: Ngram results
+  description: Input for n-gram extraction
   min_arity: 1
-  name: Y
   tags:
   - non-differentiable
+outputs:
+- name: Y
   type_str: T1
-since_version: 9
-support_level: SupportType.COMMON
+  description: Ngram results
+  min_arity: 1
+  tags:
+  - non-differentiable
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Input is ether string UTF-8 or int32/int64
+  allowed_type_strs:
   - tensor(string)
   - tensor(int32)
   - tensor(int64)
-  description: Input is ether string UTF-8 or int32/int64
-  type_param_str: T
-- allowed_type_strs:
-  - tensor(float)
+- type_param_str: T1
   description: 1-D tensor of floats
-  type_param_str: T1
+  allowed_type_strs:
+  - tensor(float)
+support_level: COMMON
+deprecated: false

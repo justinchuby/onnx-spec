@@ -1,22 +1,10 @@
-attributes:
-- default_value: 6
-  description: (Optional) The data type for the elements of the output tensor, if
-    not specified, we will use int32.
-  name: dtype
-  required: false
-  type: AttrType.INT
-- default_value: 1
-  description: Number of times to sample.
-  name: sample_size
-  required: false
-  type: AttrType.INT
-- default_value: null
-  description: (Optional) Seed to the random generator, if not specified we will auto
-    generate one.
-  name: seed
-  required: false
-  type: AttrType.FLOAT
-deprecated: false
+domain: ''
+name: Multinomial
+since_version: 7
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Generate a tensor of samples from a multinomial distribution according to the probabilities
@@ -24,39 +12,51 @@ doc: '
   of each of the possible outcomes.
 
   '
-domain: ''
+attributes:
+- name: dtype
+  description: (Optional) The data type for the elements of the output tensor, if
+    not specified, we will use int32.
+  type: AttrType.INT
+  required: false
+  default_value: 6
+- name: sample_size
+  description: Number of times to sample.
+  type: AttrType.INT
+  required: false
+  default_value: 1
+- name: seed
+  description: (Optional) Seed to the random generator, if not specified we will auto
+    generate one.
+  type: AttrType.FLOAT
+  required: false
+  default_value: null
 inputs:
-- description: Input tensor with shape [batch_size, class_size], where class_size
+- name: input
+  type_str: T1
+  description: Input tensor with shape [batch_size, class_size], where class_size
     is the number of all possible outcomes. Each value along the axis zero represents
     the unnormalized log-probability of each corresponding outcome in a batch.
   min_arity: 1
-  name: input
   tags: []
-  type_str: T1
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Multinomial
 outputs:
-- description: Output tensor with shape [batch_size, sample_size], where sample_size
+- name: output
+  type_str: T2
+  description: Output tensor with shape [batch_size, sample_size], where sample_size
     is the number of times to sample. Each value along the axis zero represents the
     outcome of the corresponding sample in a batch.
   min_arity: 1
-  name: output
   tags: []
-  type_str: T2
-since_version: 7
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain input types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input types to float tensors.
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: Constrain output types to integral tensors.
+  allowed_type_strs:
   - tensor(int32)
   - tensor(int64)
-  description: Constrain output types to integral tensors.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

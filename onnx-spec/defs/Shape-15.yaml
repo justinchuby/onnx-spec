@@ -1,18 +1,10 @@
-attributes:
-- default_value: null
-  description: (Optional) Ending axis for slicing the shape. Negative value means
-    counting dimensions from the back. If omitted, sizes of all axes upto (including)
-    the last one will be included.
-  name: end
-  required: false
-  type: AttrType.INT
-- default_value: 0
-  description: (Optional) Starting axis for slicing the shape. Default value is 0.Negative
-    value means counting dimensions from the back.
-  name: start
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: Shape
+since_version: 15
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Takes a tensor as input and outputs an 1D int64 tensor containing the shape of the
@@ -91,30 +83,38 @@ doc: '
   ```
 
   '
-domain: ''
+attributes:
+- name: end
+  description: (Optional) Ending axis for slicing the shape. Negative value means
+    counting dimensions from the back. If omitted, sizes of all axes upto (including)
+    the last one will be included.
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: start
+  description: (Optional) Starting axis for slicing the shape. Default value is 0.Negative
+    value means counting dimensions from the back.
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: An input tensor.
-  min_arity: 1
-  name: data
-  tags:
-  - non-differentiable
+- name: data
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Shape
-outputs:
-- description: Shape of the input tensor
+  description: An input tensor.
   min_arity: 1
-  name: shape
   tags:
   - non-differentiable
+outputs:
+- name: shape
   type_str: T1
-since_version: 15
-support_level: SupportType.COMMON
+  description: Shape of the input tensor
+  min_arity: 1
+  tags:
+  - non-differentiable
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Input tensor can be of arbitrary type.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -131,9 +131,9 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Input tensor can be of arbitrary type.
-  type_param_str: T
-- allowed_type_strs:
-  - tensor(int64)
+- type_param_str: T1
   description: Constrain output to int64 tensor.
-  type_param_str: T1
+  allowed_type_strs:
+  - tensor(int64)
+support_level: COMMON
+deprecated: false

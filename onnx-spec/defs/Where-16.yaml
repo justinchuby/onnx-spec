@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Where
+since_version: 16
+min_input: 3
+max_input: 3
+min_output: 1
+max_output: 1
 doc: '
 
   Return elements, either from X or Y, depending on condition.
@@ -13,47 +18,42 @@ doc: '
 
   This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for
   more details please check [the doc](Broadcasting.md).'
-domain: ''
+attributes: []
 inputs:
-- description: When True (nonzero), yield X, otherwise yield Y
+- name: condition
+  type_str: B
+  description: When True (nonzero), yield X, otherwise yield Y
   min_arity: 1
-  name: condition
   tags:
   - non-differentiable
-  type_str: B
-- description: values selected at indices where condition is True
+- name: X
+  type_str: T
+  description: values selected at indices where condition is True
   min_arity: 1
-  name: X
   tags:
   - differentiable
+- name: Y
   type_str: T
-- description: values selected at indices where condition is False
+  description: values selected at indices where condition is False
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T
-max_input: 3
-max_output: 1
-min_input: 3
-min_output: 1
-name: Where
 outputs:
-- description: Tensor of shape equal to the broadcasted shape of condition, X, and
+- name: output
+  type_str: T
+  description: Tensor of shape equal to the broadcasted shape of condition, X, and
     Y.
   min_arity: 1
-  name: output
   tags:
   - differentiable
-  type_str: T
-since_version: 16
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
-  - tensor(bool)
+- type_param_str: B
   description: Constrain to boolean tensors.
-  type_param_str: B
-- allowed_type_strs:
+  allowed_type_strs:
+  - tensor(bool)
+- type_param_str: T
+  description: Constrain input and output types to all tensor types (including bfloat).
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -70,5 +70,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types (including bfloat).
-  type_param_str: T
+support_level: COMMON
+deprecated: false

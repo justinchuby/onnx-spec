@@ -1,46 +1,50 @@
+domain: ai.onnx.ml
+name: Scaler
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: '
+
+  Rescale input data, for example to standardize features by removing the mean and
+  scaling to unit variance.
+
+  '
 attributes:
-- default_value: null
+- name: offset
   description: First, offset by this.<br>Can be length of features in an [N,F] tensor
     or length 1, in which case it applies to all features, regardless of dimension
     count.
-  name: offset
-  required: false
   type: AttrType.FLOATS
-- default_value: null
+  required: false
+  default_value: null
+- name: scale
   description: Second, multiply by this.<br>Can be length of features in an [N,F]
     tensor or length 1, in which case it applies to all features, regardless of dimension
     count.<br>Must be same length as 'offset'
-  name: scale
-  required: false
   type: AttrType.FLOATS
-deprecated: false
-doc: "\n    Rescale input data, for example to standardize features by removing the\
-  \ mean and scaling to unit variance.\n"
-domain: ai.onnx.ml
+  required: false
+  default_value: null
 inputs:
-- description: Data to be scaled.
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Scaler
-outputs:
-- description: Scaled output data.
+  description: Data to be scaled.
   min_arity: 1
-  name: Y
   tags: []
+outputs:
+- name: Y
   type_str: tensor(float)
-since_version: 1
-support_level: SupportType.COMMON
+  description: Scaled output data.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: The input must be a tensor of a numeric type.
+  allowed_type_strs:
   - tensor(float)
   - tensor(double)
   - tensor(int64)
   - tensor(int32)
-  description: The input must be a tensor of a numeric type.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

@@ -1,54 +1,10 @@
-attributes:
-- default_value: null
-  description: 'The graph run each iteration. It has N+M inputs: (loop state variables...,
-    scan_input_elts...). It has N+K outputs: (loop state variables..., scan_output_elts...).
-    Each scan_output is created by concatenating the value of the specified scan_output_elt
-    value at the end of each iteration of the loop. It is an error if the dimensions
-    of these values change across loop iterations.'
-  name: body
-  required: true
-  type: AttrType.GRAPH
-- default_value: null
-  description: 'An attribute specifying the number of scan_inputs M. '
-  name: num_scan_inputs
-  required: true
-  type: AttrType.INT
-- default_value: null
-  description: An optional list of M flags. The i-th element of the list specifies
-    the axis to be scanned (the sequence axis) for the i-th scan_input. If omitted,
-    0 will be used as the scan axis for every scan_input. Negative value for an axis
-    means counting dimensions from the back. Accepted range is [-r, r-1] where r =
-    rank(input).
-  name: scan_input_axes
-  required: false
-  type: AttrType.INTS
-- default_value: null
-  description: 'An optional list of M flags. The i-th element of the list specifies
-    the direction to be scanned for the i-th scan_input tensor: 0 indicates forward
-    direction and 1 indicates reverse direction. If omitted, all scan_input tensors
-    will be scanned in the forward direction.'
-  name: scan_input_directions
-  required: false
-  type: AttrType.INTS
-- default_value: null
-  description: An optional list of K flags. The i-th element of the list specifies
-    the axis for the i-th scan_output. The scan outputs are accumulated along the
-    specified axis. If omitted, 0 will be used as the scan axis for every scan_output.
-    Negative value for an axis means counting dimensions from the back. Accepted range
-    is [-r, r-1].
-  name: scan_output_axes
-  required: false
-  type: AttrType.INTS
-- default_value: null
-  description: 'An optional list of K flags, one for each scan_output. The i-th element
-    of the list specifies whether the i-th scan_output should be constructed by appending
-    or prepending a new value in each iteration: 0 indicates appending and 1 indicates
-    prepending. If omitted, all scan_output tensors will be produced by appending
-    a value in each iteration.'
-  name: scan_output_directions
-  required: false
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Scan
+since_version: 16
+min_input: 1
+max_input: 2147483647
+min_output: 1
+max_output: 2147483647
 doc: "\nScan can be used to iterate over one or more scan_input tensors,\nconstructing\
   \ zero or more scan_output tensors. It combines ideas from general recurrences,\n\
   functional programming constructs such as scan, fold, map, and zip, and is intended\
@@ -123,32 +79,76 @@ doc: "\nScan can be used to iterate over one or more scan_input tensors,\nconstr
   \      %t3 = Add(%t1, %t2)\n      %t4 = Add(%t3, %Wbi)\n      %t5 = Add(%t4, %Rbi)\n\
   \      %Ht = Tanh(%t5)\n      %Accumulate = Identity(%Ht)\n      return %Ht, %Accumulate\n\
   \    }\n\n"
-domain: ''
+attributes:
+- name: body
+  description: 'The graph run each iteration. It has N+M inputs: (loop state variables...,
+    scan_input_elts...). It has N+K outputs: (loop state variables..., scan_output_elts...).
+    Each scan_output is created by concatenating the value of the specified scan_output_elt
+    value at the end of each iteration of the loop. It is an error if the dimensions
+    of these values change across loop iterations.'
+  type: AttrType.GRAPH
+  required: true
+  default_value: null
+- name: num_scan_inputs
+  description: 'An attribute specifying the number of scan_inputs M. '
+  type: AttrType.INT
+  required: true
+  default_value: null
+- name: scan_input_axes
+  description: An optional list of M flags. The i-th element of the list specifies
+    the axis to be scanned (the sequence axis) for the i-th scan_input. If omitted,
+    0 will be used as the scan axis for every scan_input. Negative value for an axis
+    means counting dimensions from the back. Accepted range is [-r, r-1] where r =
+    rank(input).
+  type: AttrType.INTS
+  required: false
+  default_value: null
+- name: scan_input_directions
+  description: 'An optional list of M flags. The i-th element of the list specifies
+    the direction to be scanned for the i-th scan_input tensor: 0 indicates forward
+    direction and 1 indicates reverse direction. If omitted, all scan_input tensors
+    will be scanned in the forward direction.'
+  type: AttrType.INTS
+  required: false
+  default_value: null
+- name: scan_output_axes
+  description: An optional list of K flags. The i-th element of the list specifies
+    the axis for the i-th scan_output. The scan outputs are accumulated along the
+    specified axis. If omitted, 0 will be used as the scan axis for every scan_output.
+    Negative value for an axis means counting dimensions from the back. Accepted range
+    is [-r, r-1].
+  type: AttrType.INTS
+  required: false
+  default_value: null
+- name: scan_output_directions
+  description: 'An optional list of K flags, one for each scan_output. The i-th element
+    of the list specifies whether the i-th scan_output should be constructed by appending
+    or prepending a new value in each iteration: 0 indicates appending and 1 indicates
+    prepending. If omitted, all scan_output tensors will be produced by appending
+    a value in each iteration.'
+  type: AttrType.INTS
+  required: false
+  default_value: null
 inputs:
-- description: Initial values of the loop's N state variables followed by M scan_inputs
+- name: initial_state_and_scan_inputs
+  type_str: V
+  description: Initial values of the loop's N state variables followed by M scan_inputs
   min_arity: 1
-  name: initial_state_and_scan_inputs
   tags:
   - variadic
   - heterogeneous
-  type_str: V
-max_input: 2147483647
-max_output: 2147483647
-min_input: 1
-min_output: 1
-name: Scan
 outputs:
-- description: Final values of the loop's N state variables followed by K scan_outputs
+- name: final_state_and_scan_outputs
+  type_str: V
+  description: Final values of the loop's N state variables followed by K scan_outputs
   min_arity: 1
-  name: final_state_and_scan_outputs
   tags:
   - variadic
   - heterogeneous
-  type_str: V
-since_version: 16
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: V
+  description: All Tensor types up to IRv4.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -165,5 +165,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: All Tensor types up to IRv4.
-  type_param_str: V
+support_level: COMMON
+deprecated: false

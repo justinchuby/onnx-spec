@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: OptionalHasElement
+since_version: 18
+min_input: 0
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Returns true if (1) the input is an optional-type and contains an element,
@@ -9,30 +14,25 @@ doc: '
   If the input is not provided or is an empty optional-type, this op returns false.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: The optional input.
+- name: input
+  type_str: O
+  description: The optional input.
   min_arity: 1
-  name: input
   tags:
   - optional
-  type_str: O
-max_input: 1
-max_output: 1
-min_input: 0
-min_output: 1
-name: OptionalHasElement
 outputs:
-- description: A scalar boolean tensor. If true, it indicates that optional-type input
+- name: output
+  type_str: B
+  description: A scalar boolean tensor. If true, it indicates that optional-type input
     contains an element. Otherwise, it is empty.
   min_arity: 1
-  name: output
   tags: []
-  type_str: B
-since_version: 18
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: O
+  description: Constrain input type to optional tensor and optional sequence types.
+  allowed_type_strs:
   - optional(seq(tensor(uint8)))
   - optional(seq(tensor(uint16)))
   - optional(seq(tensor(uint32)))
@@ -93,9 +93,9 @@ type_constraints:
   - seq(tensor(bool))
   - seq(tensor(complex64))
   - seq(tensor(complex128))
-  description: Constrain input type to optional tensor and optional sequence types.
-  type_param_str: O
-- allowed_type_strs:
-  - tensor(bool)
+- type_param_str: B
   description: Constrain output to a boolean tensor.
-  type_param_str: B
+  allowed_type_strs:
+  - tensor(bool)
+support_level: COMMON
+deprecated: false

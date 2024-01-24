@@ -1,25 +1,10 @@
-attributes:
-- default_value: 1.0
-  description: Scalar multiplier for the product of input tensors A * B.
-  name: alpha
-  required: false
-  type: AttrType.FLOAT
-- default_value: 1.0
-  description: Scalar multiplier for input tensor C.
-  name: beta
-  required: false
-  type: AttrType.FLOAT
-- default_value: 0
-  description: Whether A should be transposed
-  name: transA
-  required: false
-  type: AttrType.INT
-- default_value: 0
-  description: Whether B should be transposed
-  name: transB
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: Gemm
+since_version: 9
+min_input: 3
+max_input: 3
+min_output: 1
+max_output: 1
 doc: 'General Matrix multiplication:
 
   https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3
@@ -43,41 +28,56 @@ doc: 'General Matrix multiplication:
 
   This operator supports **unidirectional broadcasting** (tensor C should be unidirectional
   broadcastable to tensor A * B); for more details please check [the doc](Broadcasting.md).'
-domain: ''
+attributes:
+- name: alpha
+  description: Scalar multiplier for the product of input tensors A * B.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 1.0
+- name: beta
+  description: Scalar multiplier for input tensor C.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 1.0
+- name: transA
+  description: Whether A should be transposed
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: transB
+  description: Whether B should be transposed
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: Input tensor A. The shape of A should be (M, K) if transA is 0, or
+- name: A
+  type_str: T
+  description: Input tensor A. The shape of A should be (M, K) if transA is 0, or
     (K, M) if transA is non-zero.
   min_arity: 1
-  name: A
   tags: []
+- name: B
   type_str: T
-- description: Input tensor B. The shape of B should be (K, N) if transB is 0, or
+  description: Input tensor B. The shape of B should be (K, N) if transB is 0, or
     (N, K) if transB is non-zero.
   min_arity: 1
-  name: B
   tags: []
+- name: C
   type_str: T
-- description: Input tensor C. The shape of C should be unidirectional broadcastable
+  description: Input tensor C. The shape of C should be unidirectional broadcastable
     to (M, N).
   min_arity: 1
-  name: C
   tags: []
-  type_str: T
-max_input: 3
-max_output: 1
-min_input: 3
-min_output: 1
-name: Gemm
 outputs:
-- description: Output tensor of shape (M, N).
-  min_arity: 1
-  name: Y
-  tags: []
+- name: Y
   type_str: T
-since_version: 9
-support_level: SupportType.COMMON
+  description: Output tensor of shape (M, N).
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float/int tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
@@ -85,5 +85,5 @@ type_constraints:
   - tensor(uint64)
   - tensor(int32)
   - tensor(int64)
-  description: Constrain input and output types to float/int tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

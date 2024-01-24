@@ -1,75 +1,79 @@
+domain: ai.onnx.ml
+name: LinearClassifier
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 2
+max_output: 2
+doc: '
+
+  Linear classifier
+
+  '
 attributes:
-- default_value: null
+- name: classlabels_ints
   description: Class labels when using integer labels. One and only one 'classlabels'
     attribute must be defined.
-  name: classlabels_ints
-  required: false
   type: AttrType.INTS
-- default_value: null
+  required: false
+  default_value: null
+- name: classlabels_strings
   description: Class labels when using string labels. One and only one 'classlabels'
     attribute must be defined.
-  name: classlabels_strings
-  required: false
   type: AttrType.STRINGS
-- default_value: null
+  required: false
+  default_value: null
+- name: coefficients
   description: A collection of weights of the model(s).
-  name: coefficients
+  type: AttrType.FLOATS
   required: true
-  type: AttrType.FLOATS
-- default_value: null
+  default_value: null
+- name: intercepts
   description: A collection of intercepts.
-  name: intercepts
-  required: false
   type: AttrType.FLOATS
-- default_value: 0
-  description: Indicates whether to do OvR or multinomial (0=OvR is the default).
-  name: multi_class
   required: false
+  default_value: null
+- name: multi_class
+  description: Indicates whether to do OvR or multinomial (0=OvR is the default).
   type: AttrType.INT
-- default_value: NONE
+  required: false
+  default_value: 0
+- name: post_transform
   description: Indicates the transform to apply to the scores vector.<br>One of 'NONE,'
     'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
-  name: post_transform
-  required: false
   type: AttrType.STRING
-deprecated: false
-doc: "\n    Linear classifier\n"
-domain: ai.onnx.ml
+  required: false
+  default_value: NONE
 inputs:
-- description: Data to be classified.
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T1
-max_input: 1
-max_output: 2
-min_input: 1
-min_output: 2
-name: LinearClassifier
+  description: Data to be classified.
+  min_arity: 1
+  tags: []
 outputs:
-- description: Classification outputs (one class per example).
-  min_arity: 1
-  name: Y
-  tags: []
+- name: Y
   type_str: T2
-- description: Classification scores ([N,E] - one score for each class and example
+  description: Classification outputs (one class per example).
   min_arity: 1
-  name: Z
   tags: []
+- name: Z
   type_str: tensor(float)
-since_version: 1
-support_level: SupportType.COMMON
+  description: Classification scores ([N,E] - one score for each class and example
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: The input must be a tensor of a numeric type, and of shape [N,C] or
+    [C]. In the latter case, it will be treated as [1,C]
+  allowed_type_strs:
   - tensor(float)
   - tensor(double)
   - tensor(int64)
   - tensor(int32)
-  description: The input must be a tensor of a numeric type, and of shape [N,C] or
-    [C]. In the latter case, it will be treated as [1,C]
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: The output will be a tensor of strings or integers.
+  allowed_type_strs:
   - tensor(string)
   - tensor(int64)
-  description: The output will be a tensor of strings or integers.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

@@ -1,44 +1,48 @@
-attributes:
-- default_value: 2
-  description: p value of the Lp norm used to pool over the input data.
-  name: p
-  required: false
-  type: AttrType.INT
-deprecated: false
-doc: "\n GlobalLpPool consumes an input tensor X and applies lp pool pooling across\n\
-  \ the values in the same channel. This is equivalent to LpPool with kernel size\n\
-  \ equal to the spatial dimension of input tensor."
 domain: ''
+name: GlobalLpPool
+since_version: 2
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: '
+
+  GlobalLpPool consumes an input tensor X and applies lp pool pooling across
+
+  the values in the same channel. This is equivalent to LpPool with kernel size
+
+  equal to the spatial dimension of input tensor.'
+attributes:
+- name: p
+  description: p value of the Lp norm used to pool over the input data.
+  type: AttrType.INT
+  required: false
+  default_value: 2
 inputs:
-- description: Input data tensor from the previous operator; dimensions for image
+- name: X
+  type_str: T
+  description: Input data tensor from the previous operator; dimensions for image
     case are (N x C x H x W), where N is the batch size, C is the number of channels,
     and H and W are the height and the width of the data. For non image case, the
     dimensions are in the form of (N x C x D1 x D2 ... Dn), where N is the batch size.
   min_arity: 1
-  name: X
   tags:
   - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: GlobalLpPool
 outputs:
-- description: Output data tensor from pooling across the input tensor. The output
+- name: Y
+  type_str: T
+  description: Output data tensor from pooling across the input tensor. The output
     tensor has the same rank as the input. The first two dimensions of output shape
     are the same as the input (N x C), while the other dimensions are all 1.
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T
-since_version: 2
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

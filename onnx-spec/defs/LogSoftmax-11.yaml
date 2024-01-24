@@ -1,12 +1,10 @@
-attributes:
-- default_value: 1
-  description: Describes the axis of the inputs when coerced to 2D; defaults to one
-    because the 0th axis most likely describes the batch_size. Negative value means
-    counting dimensions from the back. Accepted range is [-r, r-1] where r = rank(input).
-  name: axis
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: LogSoftmax
+since_version: 11
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: "\nThe operator computes the logsoftmax (log of softmax) values for each layer\
   \ in the batch\n of the given input.\n\nThe input does not need to explicitly be\
   \ a 2D vector; rather, it will be\ncoerced into one. For an arbitrary n-dimensional\
@@ -18,32 +16,34 @@ doc: "\nThe operator computes the logsoftmax (log of softmax) values for each la
   \ must have a_0 = N and a_1 * ... * a_{n-1} = D.\nEach of these dimensions must\
   \ be matched correctly, or else the operator\nwill throw errors. The output tensor\
   \ has the same shape\nand contains the logsoftmax values of the corresponding input.\n"
-domain: ''
+attributes:
+- name: axis
+  description: Describes the axis of the inputs when coerced to 2D; defaults to one
+    because the 0th axis most likely describes the batch_size. Negative value means
+    counting dimensions from the back. Accepted range is [-r, r-1] where r = rank(input).
+  type: AttrType.INT
+  required: false
+  default_value: 1
 inputs:
-- description: The input tensor that's coerced into a 2D matrix of size (NxD) as described
+- name: input
+  type_str: T
+  description: The input tensor that's coerced into a 2D matrix of size (NxD) as described
     above.
   min_arity: 1
-  name: input
   tags: []
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: LogSoftmax
 outputs:
-- description: The output values with the same shape as input tensor (the original
+- name: output
+  type_str: T
+  description: The output values with the same shape as input tensor (the original
     size without coercion).
   min_arity: 1
-  name: output
   tags: []
-  type_str: T
-since_version: 11
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

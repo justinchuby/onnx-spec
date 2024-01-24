@@ -1,15 +1,10 @@
-attributes:
-- default_value: 3.4028234663852886e+38
-  description: Maximum value, above which element is replaced by max
-  name: max
-  required: false
-  type: AttrType.FLOAT
-- default_value: -3.4028234663852886e+38
-  description: Minimum value, under which element is replaced by min
-  name: min
-  required: false
-  type: AttrType.FLOAT
-deprecated: false
+domain: ''
+name: Clip
+since_version: 6
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Clip operator limits the given input within an interval. The interval is
@@ -19,30 +14,35 @@ doc: '
   numeric_limits::lowest() and numeric_limits::max() respectively.
 
   '
-domain: ''
+attributes:
+- name: max
+  description: Maximum value, above which element is replaced by max
+  type: AttrType.FLOAT
+  required: false
+  default_value: 3.4028234663852886e+38
+- name: min
+  description: Minimum value, under which element is replaced by min
+  type: AttrType.FLOAT
+  required: false
+  default_value: -3.4028234663852886e+38
 inputs:
-- description: Input tensor whose elements to be clipped
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Clip
+  description: Input tensor whose elements to be clipped
+  min_arity: 1
+  tags: []
 outputs:
-- description: Output tensor with clipped input elements
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: T
-since_version: 6
-support_level: SupportType.COMMON
+  description: Output tensor with clipped input elements
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

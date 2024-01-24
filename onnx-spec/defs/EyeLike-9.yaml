@@ -1,19 +1,10 @@
-attributes:
-- default_value: null
-  description: (Optional) The data type for the elements of the output tensor. If
-    not specified,the data type of the input tensor T1 is used. If input tensor T1
-    is also notspecified, then type defaults to 'float'.
-  name: dtype
-  required: false
-  type: AttrType.INT
-- default_value: 0
-  description: (Optional) Index of the diagonal to be populated with ones. Default
-    is 0. If T2 is the output, this op sets T2[i, i+k] = 1. k = 0 populates the main
-    diagonal, k > 0 populates an upper diagonal,  and k < 0 populates a lower diagonal.
-  name: k
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: EyeLike
+since_version: 9
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Generate a 2D tensor (matrix) with ones on the diagonal and zeros everywhere else.
@@ -37,43 +28,37 @@ doc: '
   TensorProto message and be valid as an output type.
 
   '
-domain: ''
+attributes:
+- name: dtype
+  description: (Optional) The data type for the elements of the output tensor. If
+    not specified,the data type of the input tensor T1 is used. If input tensor T1
+    is also notspecified, then type defaults to 'float'.
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: k
+  description: (Optional) Index of the diagonal to be populated with ones. Default
+    is 0. If T2 is the output, this op sets T2[i, i+k] = 1. k = 0 populates the main
+    diagonal, k > 0 populates an upper diagonal,  and k < 0 populates a lower diagonal.
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: 2D input tensor to copy shape, and optionally, type information from.
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T1
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: EyeLike
-outputs:
-- description: Output tensor, same shape as input tensor T1.
+  description: 2D input tensor to copy shape, and optionally, type information from.
   min_arity: 1
-  name: output
   tags: []
+outputs:
+- name: output
   type_str: T2
-since_version: 9
-support_level: SupportType.COMMON
+  description: Output tensor, same shape as input tensor T1.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(bool)
+- type_param_str: T1
   description: Constrain input types. Strings and complex are not supported.
-  type_param_str: T1
-- allowed_type_strs:
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
@@ -86,5 +71,20 @@ type_constraints:
   - tensor(uint32)
   - tensor(uint64)
   - tensor(bool)
+- type_param_str: T2
   description: Constrain output types. Strings and complex are not supported.
-  type_param_str: T2
+  allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(bool)
+support_level: COMMON
+deprecated: false

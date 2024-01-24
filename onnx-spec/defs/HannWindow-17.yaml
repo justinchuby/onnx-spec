@@ -1,53 +1,53 @@
-attributes:
-- default_value: 1
-  description: 'The data type of the output tensor. Strictly must be one of the values
-    from DataType enum in TensorProto whose values correspond to T2. The default value
-    is 1 = FLOAT. '
-  name: output_datatype
-  required: false
-  type: AttrType.INT
-- default_value: 1
-  description: 'If 1, returns a window to be used as periodic function. If 0, return
-    a symmetric window. When ''periodic'' is specified, hann computes a window of
-    length size + 1 and returns the first size points. The default value is 1. '
-  name: periodic
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: HannWindow
+since_version: 17
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Generates a Hann window as described in the paper https://ieeexplore.ieee.org/document/1455106.
 
   '
-domain: ''
+attributes:
+- name: output_datatype
+  description: 'The data type of the output tensor. Strictly must be one of the values
+    from DataType enum in TensorProto whose values correspond to T2. The default value
+    is 1 = FLOAT. '
+  type: AttrType.INT
+  required: false
+  default_value: 1
+- name: periodic
+  description: 'If 1, returns a window to be used as periodic function. If 0, return
+    a symmetric window. When ''periodic'' is specified, hann computes a window of
+    length size + 1 and returns the first size points. The default value is 1. '
+  type: AttrType.INT
+  required: false
+  default_value: 1
 inputs:
-- description: A scalar value indicating the length of the window.
-  min_arity: 1
-  name: size
-  tags:
-  - non-differentiable
+- name: size
   type_str: T1
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: HannWindow
-outputs:
-- description: 'A Hann window with length: size. The output has the shape: [size].'
+  description: A scalar value indicating the length of the window.
   min_arity: 1
-  name: output
   tags:
   - non-differentiable
+outputs:
+- name: output
   type_str: T2
-since_version: 17
-support_level: SupportType.COMMON
+  description: 'A Hann window with length: size. The output has the shape: [size].'
+  min_arity: 1
+  tags:
+  - non-differentiable
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain the input size to int64_t.
+  allowed_type_strs:
   - tensor(int32)
   - tensor(int64)
-  description: Constrain the input size to int64_t.
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: Constrain output types to numeric tensors.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -60,5 +60,5 @@ type_constraints:
   - tensor(float)
   - tensor(double)
   - tensor(bfloat16)
-  description: Constrain output types to numeric tensors.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

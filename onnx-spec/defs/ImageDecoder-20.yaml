@@ -1,10 +1,10 @@
-attributes:
-- default_value: RGB
-  description: Pixel format. Can be one of "RGB", "BGR", or "Grayscale".
-  name: pixel_format
-  required: false
-  type: AttrType.STRING
-deprecated: false
+domain: ''
+name: ImageDecoder
+since_version: 20
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: 'Loads and decodes and image from a file. If it can''t decode for any reason
   (e.g. corrupted encoded
 
@@ -57,34 +57,34 @@ doc: 'Loads and decodes and image from a file. If it can''t decode for any reaso
   also referred as "smooth" or "fancy" upsampling.
 
   '
-domain: ''
+attributes:
+- name: pixel_format
+  description: Pixel format. Can be one of "RGB", "BGR", or "Grayscale".
+  type: AttrType.STRING
+  required: false
+  default_value: RGB
 inputs:
-- description: Encoded stream
-  min_arity: 1
-  name: encoded_stream
-  tags:
-  - non-differentiable
+- name: encoded_stream
   type_str: T1
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: ImageDecoder
-outputs:
-- description: Decoded image
+  description: Encoded stream
   min_arity: 1
-  name: image
   tags:
   - non-differentiable
+outputs:
+- name: image
   type_str: T2
-since_version: 20
-support_level: SupportType.COMMON
+  description: Decoded image
+  min_arity: 1
+  tags:
+  - non-differentiable
 type_constraints:
-- allowed_type_strs:
-  - tensor(uint8)
+- type_param_str: T1
   description: Constrain input types to 8-bit unsigned integer tensor.
-  type_param_str: T1
-- allowed_type_strs:
+  allowed_type_strs:
   - tensor(uint8)
+- type_param_str: T2
   description: Constrain output types to 8-bit unsigned integer tensor.
-  type_param_str: T2
+  allowed_type_strs:
+  - tensor(uint8)
+support_level: COMMON
+deprecated: false

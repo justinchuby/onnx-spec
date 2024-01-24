@@ -1,10 +1,10 @@
-attributes:
-- default_value: 0.5
-  description: The ratio of random dropout
-  name: ratio
-  required: false
-  type: AttrType.FLOAT
-deprecated: false
+domain: ''
+name: Dropout
+since_version: 10
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 2
 doc: '
 
   Dropout takes one input floating tensor and produces two tensor outputs,
@@ -24,40 +24,40 @@ doc: '
   omitted.
 
   '
-domain: ''
+attributes:
+- name: ratio
+  description: The ratio of random dropout
+  type: AttrType.FLOAT
+  required: false
+  default_value: 0.5
 inputs:
-- description: The input data as Tensor.
-  min_arity: 1
-  name: data
-  tags: []
+- name: data
   type_str: T
-max_input: 1
-max_output: 2
-min_input: 1
-min_output: 1
-name: Dropout
+  description: The input data as Tensor.
+  min_arity: 1
+  tags: []
 outputs:
-- description: The output.
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: T
-- description: The output mask.
+  description: The output.
   min_arity: 1
-  name: mask
+  tags: []
+- name: mask
+  type_str: T1
+  description: The output mask.
+  min_arity: 1
   tags:
   - optional
-  type_str: T1
-since_version: 10
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
-- allowed_type_strs:
-  - tensor(bool)
+- type_param_str: T1
   description: Constrain output mask types to boolean tensors.
-  type_param_str: T1
+  allowed_type_strs:
+  - tensor(bool)
+support_level: COMMON
+deprecated: false

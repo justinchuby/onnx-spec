@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Sub
+since_version: 13
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Performs element-wise binary subtraction (with Numpy-style broadcasting support).
@@ -9,36 +14,31 @@ doc: '
   more details please check [the doc](Broadcasting.md).
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: First operand.
+- name: A
+  type_str: T
+  description: First operand.
   min_arity: 1
-  name: A
   tags:
   - differentiable
+- name: B
   type_str: T
-- description: Second operand.
+  description: Second operand.
   min_arity: 1
-  name: B
   tags:
   - differentiable
-  type_str: T
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Sub
 outputs:
-- description: Result, has same element type as two inputs
+- name: C
+  type_str: T
+  description: Result, has same element type as two inputs
   min_arity: 1
-  name: C
   tags:
   - differentiable
-  type_str: T
-since_version: 13
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to high-precision numeric tensors.
+  allowed_type_strs:
   - tensor(uint32)
   - tensor(uint64)
   - tensor(int32)
@@ -47,5 +47,5 @@ type_constraints:
   - tensor(float)
   - tensor(double)
   - tensor(bfloat16)
-  description: Constrain input and output types to high-precision numeric tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

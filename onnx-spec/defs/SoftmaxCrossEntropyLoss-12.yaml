@@ -1,18 +1,10 @@
-attributes:
-- default_value: null
-  description: Specifies a target value that is ignored and does not contribute to
-    the input gradient. It's an optional value.
-  name: ignore_index
-  required: false
-  type: AttrType.INT
-- default_value: mean
-  description: 'Type of reduction to apply to loss: none, sum, mean(default). ''none'':
-    no reduction will be applied, ''sum'': the output will be summed. ''mean'': the
-    sum of the output will be divided by the number of elements in the output.'
-  name: reduction
-  required: false
-  type: AttrType.STRING
-deprecated: false
+domain: ''
+name: SoftmaxCrossEntropyLoss
+since_version: 12
+min_input: 2
+max_input: 3
+min_output: 1
+max_output: 2
 doc: "Loss function that measures the softmax cross entropy\nbetween 'scores' and\
   \ 'labels'.\nThis operator first computes a loss tensor whose shape is identical\
   \ to the labels input.\nIf the input is 2-D with shape (N, C), the loss tensor may\
@@ -34,62 +26,70 @@ doc: "Loss function that measures the softmax cross entropy\nbetween 'scores' an
   If reduction = 'mean', the output is scalar: ReduceMean(L), or if weight is provided:\
   \ ReduceSum(L) / ReduceSum(W),\nwhere tensor W is of shape (N, D1, D2, ..., Dk)\
   \ and W[n][d1][d2]...[dk] = weights[labels[i][d1][d2]...[dk]].\n"
-domain: ''
+attributes:
+- name: ignore_index
+  description: Specifies a target value that is ignored and does not contribute to
+    the input gradient. It's an optional value.
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: reduction
+  description: 'Type of reduction to apply to loss: none, sum, mean(default). ''none'':
+    no reduction will be applied, ''sum'': the output will be summed. ''mean'': the
+    sum of the output will be divided by the number of elements in the output.'
+  type: AttrType.STRING
+  required: false
+  default_value: mean
 inputs:
-- description: The predicted outputs with shape [batch_size, class_size], or [batch_size,
+- name: scores
+  type_str: T
+  description: The predicted outputs with shape [batch_size, class_size], or [batch_size,
     class_size, D1, D2 , ..., Dk], where K is the number of dimensions.
   min_arity: 1
-  name: scores
   tags: []
-  type_str: T
-- description: The ground truth output tensor, with shape [batch_size], or [batch_size,
+- name: labels
+  type_str: Tind
+  description: The ground truth output tensor, with shape [batch_size], or [batch_size,
     D1, D2, ..., Dk], where K is the number of dimensions. Labels element value shall
     be in range of [0, C). If ignore_index is specified, it may have a value outside
     [0, C) and the label values should either be in the range [0, C) or have the value
     ignore_index.
   min_arity: 1
-  name: labels
   tags: []
-  type_str: Tind
-- description: A manual rescaling weight given to each class. If given, it has to
+- name: weights
+  type_str: T
+  description: A manual rescaling weight given to each class. If given, it has to
     be a 1D Tensor assigning weight to each of the classes. Otherwise, it is treated
     as if having all ones.
   min_arity: 1
-  name: weights
   tags:
   - optional
-  type_str: T
-max_input: 3
-max_output: 2
-min_input: 2
-min_output: 1
-name: SoftmaxCrossEntropyLoss
 outputs:
-- description: Weighted loss float Tensor. If reduction is 'none', this has the shape
+- name: output
+  type_str: T
+  description: Weighted loss float Tensor. If reduction is 'none', this has the shape
     of [batch_size], or [batch_size, D1, D2, ..., Dk] in case of K-dimensional loss.
     Otherwise, it is a scalar.
   min_arity: 1
-  name: output
   tags: []
+- name: log_prob
   type_str: T
-- description: Log probability tensor. If the output of softmax is prob, its value
+  description: Log probability tensor. If the output of softmax is prob, its value
     is log(prob).
   min_arity: 1
-  name: log_prob
   tags:
   - optional
-  type_str: T
-since_version: 12
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
-- allowed_type_strs:
+- type_param_str: Tind
+  description: Constrain target to integer types
+  allowed_type_strs:
   - tensor(int32)
   - tensor(int64)
-  description: Constrain target to integer types
-  type_param_str: Tind
+support_level: COMMON
+deprecated: false

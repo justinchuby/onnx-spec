@@ -1,123 +1,122 @@
+domain: ai.onnx.ml
+name: LabelEncoder
+since_version: 4
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: "\nMaps each element in the input tensor to another value.\n\nThe mapping is\
+  \ determined by the two parallel attributes, 'keys_*' and\n'values_*' attribute.\
+  \ The i-th value in the specified 'keys_*' attribute\nwould be mapped to the i-th\
+  \ value in the specified 'values_*' attribute. It\nimplies that input's element\
+  \ type and the element type of the specified\n'keys_*' should be identical while\
+  \ the output type is identical to the\nspecified 'values_*' attribute. Note that\
+  \ the 'keys_*' and 'values_*' attributes\nmust have the same length. If an input\
+  \ element can not be found in the\nspecified 'keys_*' attribute, the 'default_*'\
+  \ that matches the specified\n'values_*' attribute may be used as its output value.\
+  \ The type of the 'default_*'\nattribute must match the 'values_*' attribute chosen.\
+  \ \n\nLet's consider an example which maps a string tensor to an integer tensor.\n\
+  Assume and 'keys_strings' is [\"Amy\", \"Sally\"], 'values_int64s' is [5, 6],\n\
+  and 'default_int64' is '-1'.  The input [\"Dori\", \"Amy\", \"Amy\", \"Sally\",\n\
+  \"Sally\"] would be mapped to [-1, 5, 5, 6, 6].\n\nSince this operator is an one-to-one\
+  \ mapping, its input and output shapes\nare the same. Notice that only one of 'keys_*'/'values_*'\
+  \ can be set.\n\nFloat keys with value 'NaN' match any input 'NaN' value regardless\
+  \ of bit\nvalue. If a key is repeated, the last key takes precedence.\n"
 attributes:
-- default_value: -0.0
+- name: default_float
   description: A float.
-  name: default_float
-  required: false
   type: AttrType.FLOAT
-- default_value: -1
+  required: false
+  default_value: -0.0
+- name: default_int64
   description: An integer.
-  name: default_int64
-  required: false
   type: AttrType.INT
-- default_value: _Unused
+  required: false
+  default_value: -1
+- name: default_string
   description: A string.
-  name: default_string
-  required: false
   type: AttrType.STRING
-- default_value: null
+  required: false
+  default_value: _Unused
+- name: default_tensor
   description: A default tensor.
-  name: default_tensor
-  required: false
   type: AttrType.TENSOR
-- default_value: null
+  required: false
+  default_value: null
+- name: keys_floats
   description: A list of floats.
-  name: keys_floats
-  required: false
   type: AttrType.FLOATS
-- default_value: null
+  required: false
+  default_value: null
+- name: keys_int64s
   description: A list of ints.
-  name: keys_int64s
-  required: false
   type: AttrType.INTS
-- default_value: null
-  description: A list of strings.
-  name: keys_strings
   required: false
+  default_value: null
+- name: keys_strings
+  description: A list of strings.
   type: AttrType.STRINGS
-- default_value: null
+  required: false
+  default_value: null
+- name: keys_tensor
   description: Keys encoded as a 1D tensor. One and only one of 'keys_*'s should be
     set.
-  name: keys_tensor
-  required: false
   type: AttrType.TENSOR
-- default_value: null
+  required: false
+  default_value: null
+- name: values_floats
   description: A list of floats.
-  name: values_floats
-  required: false
   type: AttrType.FLOATS
-- default_value: null
+  required: false
+  default_value: null
+- name: values_int64s
   description: A list of ints.
-  name: values_int64s
-  required: false
   type: AttrType.INTS
-- default_value: null
-  description: A list of strings.
-  name: values_strings
   required: false
+  default_value: null
+- name: values_strings
+  description: A list of strings.
   type: AttrType.STRINGS
-- default_value: null
+  required: false
+  default_value: null
+- name: values_tensor
   description: Values encoded as a 1D tensor. One and only one of 'values_*'s should
     be set.
-  name: values_tensor
-  required: false
   type: AttrType.TENSOR
-deprecated: false
-doc: "\n    Maps each element in the input tensor to another value.\n\n    The mapping\
-  \ is determined by the two parallel attributes, 'keys_*' and\n    'values_*' attribute.\
-  \ The i-th value in the specified 'keys_*' attribute\n    would be mapped to the\
-  \ i-th value in the specified 'values_*' attribute. It\n    implies that input's\
-  \ element type and the element type of the specified\n    'keys_*' should be identical\
-  \ while the output type is identical to the\n    specified 'values_*' attribute.\
-  \ Note that the 'keys_*' and 'values_*' attributes\n    must have the same length.\
-  \ If an input element can not be found in the\n    specified 'keys_*' attribute,\
-  \ the 'default_*' that matches the specified\n    'values_*' attribute may be used\
-  \ as its output value. The type of the 'default_*'\n    attribute must match the\
-  \ 'values_*' attribute chosen. \n\n    Let's consider an example which maps a string\
-  \ tensor to an integer tensor.\n    Assume and 'keys_strings' is [\"Amy\", \"Sally\"\
-  ], 'values_int64s' is [5, 6],\n    and 'default_int64' is '-1'.  The input [\"Dori\"\
-  , \"Amy\", \"Amy\", \"Sally\",\n    \"Sally\"] would be mapped to [-1, 5, 5, 6,\
-  \ 6].\n\n    Since this operator is an one-to-one mapping, its input and output\
-  \ shapes\n    are the same. Notice that only one of 'keys_*'/'values_*' can be set.\n\
-  \n    Float keys with value 'NaN' match any input 'NaN' value regardless of bit\n\
-  \    value. If a key is repeated, the last key takes precedence.\n"
-domain: ai.onnx.ml
+  required: false
+  default_value: null
 inputs:
-- description: Input data. It must have the same element type as the keys_* attribute
-    set.
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T1
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: LabelEncoder
-outputs:
-- description: Output data. This tensor's element type is based on the values_* attribute
+  description: Input data. It must have the same element type as the keys_* attribute
     set.
   min_arity: 1
-  name: Y
   tags: []
+outputs:
+- name: Y
   type_str: T2
-since_version: 4
-support_level: SupportType.COMMON
+  description: Output data. This tensor's element type is based on the values_* attribute
+    set.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
-  - tensor(string)
-  - tensor(int64)
-  - tensor(float)
-  - tensor(int32)
-  - tensor(int16)
-  - tensor(double)
+- type_param_str: T1
   description: The input type is a tensor of any shape.
-  type_param_str: T1
-- allowed_type_strs:
+  allowed_type_strs:
   - tensor(string)
   - tensor(int64)
   - tensor(float)
   - tensor(int32)
   - tensor(int16)
   - tensor(double)
+- type_param_str: T2
   description: Output type is determined by the specified 'values_*' attribute.
-  type_param_str: T2
+  allowed_type_strs:
+  - tensor(string)
+  - tensor(int64)
+  - tensor(float)
+  - tensor(int32)
+  - tensor(int16)
+  - tensor(double)
+support_level: COMMON
+deprecated: false

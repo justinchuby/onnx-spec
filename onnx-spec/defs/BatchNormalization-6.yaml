@@ -1,28 +1,10 @@
-attributes:
-- default_value: 9.999999747378752e-06
-  description: The epsilon value to use to avoid division by zero, default is 1e-5f.
-  name: epsilon
-  required: false
-  type: AttrType.FLOAT
-- default_value: 0
-  description: If set to nonzero, run spatial batch normalization in test mode, default
-    is 0.
-  name: is_test
-  required: false
-  type: AttrType.INT
-- default_value: 0.8999999761581421
-  description: Factor used in computing the running mean and variance.e.g., running_mean
-    = running_mean * momentum + mean * (1 - momentum), default is 0.9f.
-  name: momentum
-  required: false
-  type: AttrType.FLOAT
-- default_value: 1
-  description: If true, compute the mean and variance across all spatial elements
-    If false, compute the mean and variance across per feature.Default is 1.
-  name: spatial
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: BatchNormalization
+since_version: 6
+min_input: 5
+max_input: 5
+min_output: 1
+max_output: 5
 doc: '
 
   Carries out batch normalization as described in the paper
@@ -37,84 +19,102 @@ doc: '
   Output case #2: Y (test mode)
 
   '
-domain: ''
+attributes:
+- name: epsilon
+  description: The epsilon value to use to avoid division by zero, default is 1e-5f.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 9.999999747378752e-06
+- name: is_test
+  description: If set to nonzero, run spatial batch normalization in test mode, default
+    is 0.
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: momentum
+  description: Factor used in computing the running mean and variance.e.g., running_mean
+    = running_mean * momentum + mean * (1 - momentum), default is 0.9f.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 0.8999999761581421
+- name: spatial
+  description: If true, compute the mean and variance across all spatial elements
+    If false, compute the mean and variance across per feature.Default is 1.
+  type: AttrType.INT
+  required: false
+  default_value: 1
 inputs:
-- description: Input data tensor from the previous operator; dimensions for image
+- name: X
+  type_str: T
+  description: Input data tensor from the previous operator; dimensions for image
     case are (N x C x H x W), where N is the batch size, C is the number of channels,
     and H and W are the height and the width of the data. For non image case, the
     dimensions are in the form of (N x C x D1 x D2 ... Dn), where N is the batch size.
   min_arity: 1
-  name: X
   tags: []
+- name: scale
   type_str: T
-- description: The scale as a 1-dimensional tensor of size C to be applied to the
+  description: The scale as a 1-dimensional tensor of size C to be applied to the
     output.
   min_arity: 1
-  name: scale
   tags: []
+- name: B
   type_str: T
-- description: The bias as a 1-dimensional tensor of size C to be applied to the output.
+  description: The bias as a 1-dimensional tensor of size C to be applied to the output.
   min_arity: 1
-  name: B
   tags: []
+- name: mean
   type_str: T
-- description: The running mean (training) or the estimated mean (testing) as a 1-dimensional
+  description: The running mean (training) or the estimated mean (testing) as a 1-dimensional
     tensor of size C.
   min_arity: 1
-  name: mean
   tags: []
+- name: var
   type_str: T
-- description: The running variance (training) or the estimated variance (testing)
+  description: The running variance (training) or the estimated variance (testing)
     as a 1-dimensional tensor of size C.
   min_arity: 1
-  name: var
   tags: []
-  type_str: T
-max_input: 5
-max_output: 5
-min_input: 5
-min_output: 1
-name: BatchNormalization
 outputs:
-- description: The output tensor of the same shape as X.
-  min_arity: 1
-  name: Y
-  tags: []
+- name: Y
   type_str: T
-- description: The running mean after the BatchNormalization operator. Must be in-place
+  description: The output tensor of the same shape as X.
+  min_arity: 1
+  tags: []
+- name: mean
+  type_str: T
+  description: The running mean after the BatchNormalization operator. Must be in-place
     with the input mean. Should not be used for testing.
   min_arity: 1
-  name: mean
   tags:
   - optional
+- name: var
   type_str: T
-- description: The running variance after the BatchNormalization operator. Must be
+  description: The running variance after the BatchNormalization operator. Must be
     in-place with the input var. Should not be used for testing.
   min_arity: 1
-  name: var
   tags:
   - optional
+- name: saved_mean
   type_str: T
-- description: Saved mean used during training to speed up gradient computation. Should
+  description: Saved mean used during training to speed up gradient computation. Should
     not be used for testing.
   min_arity: 1
-  name: saved_mean
   tags:
   - optional
+- name: saved_var
   type_str: T
-- description: Saved variance used during training to speed up gradient computation.
+  description: Saved variance used during training to speed up gradient computation.
     Should not be used for testing.
   min_arity: 1
-  name: saved_var
   tags:
   - optional
-  type_str: T
-since_version: 6
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

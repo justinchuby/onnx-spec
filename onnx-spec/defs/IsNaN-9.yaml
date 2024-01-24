@@ -1,34 +1,34 @@
-attributes: []
-deprecated: false
-doc: Returns which elements of the input are NaN.
 domain: ''
-inputs:
-- description: input
-  min_arity: 1
-  name: X
-  tags: []
-  type_str: T1
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
 name: IsNaN
-outputs:
-- description: output
-  min_arity: 1
-  name: Y
-  tags: []
-  type_str: T2
 since_version: 9
-support_level: SupportType.COMMON
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: Returns which elements of the input are NaN.
+attributes: []
+inputs:
+- name: X
+  type_str: T1
+  description: input
+  min_arity: 1
+  tags: []
+outputs:
+- name: Y
+  type_str: T2
+  description: output
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain input types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input types to float tensors.
-  type_param_str: T1
-- allowed_type_strs:
-  - tensor(bool)
+- type_param_str: T2
   description: Constrain output types to boolean tensors.
-  type_param_str: T2
+  allowed_type_strs:
+  - tensor(bool)
+support_level: COMMON
+deprecated: false

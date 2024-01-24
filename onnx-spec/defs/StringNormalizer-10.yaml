@@ -1,29 +1,10 @@
-attributes:
-- default_value: NONE
-  description: string enum that cases output to be lowercased/uppercases/unchanged.
-    Valid values are "LOWER", "UPPER", "NONE". Default is "NONE"
-  name: case_change_action
-  required: false
-  type: AttrType.STRING
-- default_value: 0
-  description: Boolean. Whether the identification of stop words in X is case-sensitive.
-    Default is false
-  name: is_case_sensitive
-  required: false
-  type: AttrType.INT
-- default_value: null
-  description: Environment dependent string that denotes the locale according to which
-    output strings needs to be upper/lowercased.Default en_US or platform specific
-    equivalent as decided by the implementation.
-  name: locale
-  required: false
-  type: AttrType.STRING
-- default_value: null
-  description: List of stop words. If not set, no word would be removed from X.
-  name: stopwords
-  required: false
-  type: AttrType.STRINGS
-deprecated: false
+domain: ''
+name: StringNormalizer
+since_version: 10
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   StringNormalization performs string operations for basic cleaning.
@@ -46,24 +27,43 @@ doc: '
   if input shape is [C] and shape [1, 1] if input shape is [1, C].
 
   '
-domain: ''
+attributes:
+- name: case_change_action
+  description: string enum that cases output to be lowercased/uppercases/unchanged.
+    Valid values are "LOWER", "UPPER", "NONE". Default is "NONE"
+  type: AttrType.STRING
+  required: false
+  default_value: NONE
+- name: is_case_sensitive
+  description: Boolean. Whether the identification of stop words in X is case-sensitive.
+    Default is false
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: locale
+  description: Environment dependent string that denotes the locale according to which
+    output strings needs to be upper/lowercased.Default en_US or platform specific
+    equivalent as decided by the implementation.
+  type: AttrType.STRING
+  required: false
+  default_value: null
+- name: stopwords
+  description: List of stop words. If not set, no word would be removed from X.
+  type: AttrType.STRINGS
+  required: false
+  default_value: null
 inputs:
-- description: UTF-8 strings to normalize
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: tensor(string)
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: StringNormalizer
+  description: UTF-8 strings to normalize
+  min_arity: 1
+  tags: []
 outputs:
-- description: UTF-8 Normalized strings
-  min_arity: 1
-  name: Y
-  tags: []
+- name: Y
   type_str: tensor(string)
-since_version: 10
-support_level: SupportType.COMMON
+  description: UTF-8 Normalized strings
+  min_arity: 1
+  tags: []
 type_constraints: []
+support_level: COMMON
+deprecated: false

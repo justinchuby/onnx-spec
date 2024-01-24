@@ -1,12 +1,10 @@
-attributes:
-- default_value: 0
-  description: if align_corners=1, consider -1 and 1 to refer to the centers of the
-    corner pixels. if align_corners=0, consider -1 and 1 to refer to the outer edge
-    the corner pixels.
-  name: align_corners
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: AffineGrid
+since_version: 20
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: "\nGenerates a 2D or 3D flow field (sampling grid), given a batch of affine matrices\
   \ theta\n(https://pytorch.org/docs/stable/generated/torch.nn.functional.affine_grid.html).\n\
   An affine matrix `theta` is applied to a position tensor represented in its homogeneous\
@@ -25,46 +23,48 @@ doc: "\nGenerates a 2D or 3D flow field (sampling grid), given a batch of affine
   \ refer to the outer edge of the corner pixels.\n```\n    v        v         v \
   \        v\n|------------------|-------------------|\n-1                 0     \
   \              1\n```\n"
-domain: ''
+attributes:
+- name: align_corners
+  description: if align_corners=1, consider -1 and 1 to refer to the centers of the
+    corner pixels. if align_corners=0, consider -1 and 1 to refer to the outer edge
+    the corner pixels.
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: input batch of affine matrices with shape (N, 2, 3) for 2D or (N, 3,
+- name: theta
+  type_str: T1
+  description: input batch of affine matrices with shape (N, 2, 3) for 2D or (N, 3,
     4) for 3D
   min_arity: 1
-  name: theta
   tags:
   - non-differentiable
-  type_str: T1
-- description: the target output image size (N, C, H, W) for 2D or (N, C, D, H, W)
+- name: size
+  type_str: T2
+  description: the target output image size (N, C, H, W) for 2D or (N, C, D, H, W)
     for 3D
   min_arity: 1
-  name: size
   tags:
   - non-differentiable
-  type_str: T2
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: AffineGrid
 outputs:
-- description: output tensor of shape (N, H, W, 2) of 2D sample coordinates or (N,
+- name: grid
+  type_str: T1
+  description: output tensor of shape (N, H, W, 2) of 2D sample coordinates or (N,
     D, H, W, 3) of 3D sample coordinates.
   min_arity: 1
-  name: grid
   tags:
   - differentiable
-  type_str: T1
-since_version: 20
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain grid types to float tensors.
+  allowed_type_strs:
   - tensor(bfloat16)
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain grid types to float tensors.
-  type_param_str: T1
-- allowed_type_strs:
-  - tensor(int64)
+- type_param_str: T2
   description: Constrain size's type to int64 tensors.
-  type_param_str: T2
+  allowed_type_strs:
+  - tensor(int64)
+support_level: COMMON
+deprecated: false

@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Unsqueeze
+since_version: 21
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Insert single-dimensional entries to the shape of an input tensor (`data`).
@@ -27,38 +32,33 @@ doc: '
   The order of values in `axes` does not matter and can come in any order.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Original tensor
+- name: data
+  type_str: T
+  description: Original tensor
   min_arity: 1
-  name: data
   tags:
   - differentiable
-  type_str: T
-- description: List of integers indicating the dimensions to be inserted. Negative
+- name: axes
+  type_str: tensor(int64)
+  description: List of integers indicating the dimensions to be inserted. Negative
     value means counting dimensions from the back. Accepted range is [-r, r-1] where
     r = rank(expanded).
   min_arity: 1
-  name: axes
   tags:
   - non-differentiable
-  type_str: tensor(int64)
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Unsqueeze
 outputs:
-- description: Reshaped tensor with same data as input.
+- name: expanded
+  type_str: T
+  description: Reshaped tensor with same data as input.
   min_arity: 1
-  name: expanded
   tags:
   - differentiable
-  type_str: T
-since_version: 21
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types up to IRv10.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -81,5 +81,5 @@ type_constraints:
   - tensor(float8e5m2fnuz)
   - tensor(uint4)
   - tensor(int4)
-  description: Constrain input and output types to all tensor types up to IRv10.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

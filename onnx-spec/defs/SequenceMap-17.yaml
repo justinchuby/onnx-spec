@@ -1,11 +1,10 @@
-attributes:
-- default_value: null
-  description: The graph to be run for each sample in the sequence(s). It should have
-    as many inputs and outputs as inputs and outputs to the SequenceMap function.
-  name: body
-  required: true
-  type: AttrType.GRAPH
-deprecated: false
+domain: ''
+name: SequenceMap
+since_version: 17
+min_input: 1
+max_input: 2147483647
+min_output: 1
+max_output: 2147483647
 doc: '
 
   Applies a sub-graph to each sample in the input sequence(s).
@@ -39,37 +38,38 @@ doc: '
 
   or in any order. Users cannot expect any specific ordering in which each subgraph
   is computed.'
-domain: ''
+attributes:
+- name: body
+  description: The graph to be run for each sample in the sequence(s). It should have
+    as many inputs and outputs as inputs and outputs to the SequenceMap function.
+  type: AttrType.GRAPH
+  required: true
+  default_value: null
 inputs:
-- description: Input sequence.
+- name: input_sequence
+  type_str: S
+  description: Input sequence.
   min_arity: 1
-  name: input_sequence
   tags: []
-  type_str: S
-- description: Additional inputs to the graph
-  min_arity: 0
-  name: additional_inputs
-  tags:
-  - variadic
-  - heterogeneous
+- name: additional_inputs
   type_str: V
-max_input: 2147483647
-max_output: 2147483647
-min_input: 1
-min_output: 1
-name: SequenceMap
-outputs:
-- description: Output sequence(s)
-  min_arity: 1
-  name: out_sequence
+  description: Additional inputs to the graph
+  min_arity: 0
   tags:
   - variadic
   - heterogeneous
+outputs:
+- name: out_sequence
   type_str: S
-since_version: 17
-support_level: SupportType.COMMON
+  description: Output sequence(s)
+  min_arity: 1
+  tags:
+  - variadic
+  - heterogeneous
 type_constraints:
-- allowed_type_strs:
+- type_param_str: S
+  description: Constrain input types to any sequence type.
+  allowed_type_strs:
   - seq(tensor(uint8))
   - seq(tensor(uint16))
   - seq(tensor(uint32))
@@ -85,9 +85,9 @@ type_constraints:
   - seq(tensor(bool))
   - seq(tensor(complex64))
   - seq(tensor(complex128))
-  description: Constrain input types to any sequence type.
-  type_param_str: S
-- allowed_type_strs:
+- type_param_str: V
+  description: Constrain to any tensor or sequence type.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -118,5 +118,5 @@ type_constraints:
   - seq(tensor(bool))
   - seq(tensor(complex64))
   - seq(tensor(complex128))
-  description: Constrain to any tensor or sequence type.
-  type_param_str: V
+support_level: COMMON
+deprecated: false

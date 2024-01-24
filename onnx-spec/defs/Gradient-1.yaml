@@ -1,28 +1,10 @@
-attributes:
-- default_value: null
-  description: Input tensor names of the differentiated sub-graph. It contains only
-    the necessary differentiated inputs of a (sub-)graph. Variables (usually called
-    intermediate variables) that can be generated from inputs cannot be included in
-    this attribute.
-  name: xs
-  required: true
-  type: AttrType.STRINGS
-- default_value: null
-  description: The targeted tensor. It can be viewed as the output of the differentiated
-    function. The attribute "xs" and attribute "zs" are the minimal independent variable
-    set that determines the value of "y".
-  name: y
-  required: true
-  type: AttrType.STRING
-- default_value: null
-  description: Input tensor names of the differentiated sub-graph. It contains only
-    the necessary non-differentiated inputs of a (sub-)graph. Variables (usually called
-    intermediate variables) that can be generated from inputs cannot be included in
-    this attribute.
-  name: zs
-  required: false
-  type: AttrType.STRINGS
-deprecated: false
+domain: ai.onnx.preview.training
+name: Gradient
+since_version: 1
+min_input: 1
+max_input: 2147483647
+min_output: 1
+max_output: 2147483647
 doc: "\nGradient operator computes the partial derivatives of a specific tensor w.r.t.\n\
   some other tensors. This operator is widely used in gradient-based training\nalgorithms.\
   \ To illustrate its use, let's consider a computation graph,\n\n```\nX -----.\n\
@@ -78,38 +60,56 @@ doc: "\nGradient operator computes the partial derivatives of a specific tensor 
   computation can be optimized. More specifically, intermediate variables in\nforward\
   \ pass can be reused if the gradient is computed via reverse-mode\nauto-differentiation.\n\
   \n"
-domain: ai.onnx.preview.training
+attributes:
+- name: xs
+  description: Input tensor names of the differentiated sub-graph. It contains only
+    the necessary differentiated inputs of a (sub-)graph. Variables (usually called
+    intermediate variables) that can be generated from inputs cannot be included in
+    this attribute.
+  type: AttrType.STRINGS
+  required: true
+  default_value: null
+- name: y
+  description: The targeted tensor. It can be viewed as the output of the differentiated
+    function. The attribute "xs" and attribute "zs" are the minimal independent variable
+    set that determines the value of "y".
+  type: AttrType.STRING
+  required: true
+  default_value: null
+- name: zs
+  description: Input tensor names of the differentiated sub-graph. It contains only
+    the necessary non-differentiated inputs of a (sub-)graph. Variables (usually called
+    intermediate variables) that can be generated from inputs cannot be included in
+    this attribute.
+  type: AttrType.STRINGS
+  required: false
+  default_value: null
 inputs:
-- description: The values fed into graph identified by the attributes. The i-th input
+- name: Inputs
+  type_str: T1
+  description: The values fed into graph identified by the attributes. The i-th input
     is the value of the i-th tensor specified in the concatenated list of the attribute
     "xs" and the attribute  "zs". For example, if xs=["A", "B"] and zs=["C"], the
     first input is used as the value of symbol "A" and the 3rd input is substituted
     for all the occurrences of "C".
   min_arity: 1
-  name: Inputs
   tags:
   - variadic
   - heterogeneous
-  type_str: T1
-max_input: 2147483647
-max_output: 2147483647
-min_input: 1
-min_output: 1
-name: Gradient
 outputs:
-- description: The gradient of the tensor specified by the attribute "y" with respect
+- name: Outputs
+  type_str: T2
+  description: The gradient of the tensor specified by the attribute "y" with respect
     to each of tensors specified in the attribute "xs". The i-th output is the gradient
     of "y" with respect to the i-th tensor specified in the attribute "xs".
   min_arity: 1
-  name: Outputs
   tags:
   - variadic
   - heterogeneous
-  type_str: T2
-since_version: 1
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Allow outputs to be any kind of tensor.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -125,11 +125,11 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Allow outputs to be any kind of tensor.
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: Allow inputs to be any kind of floating-point tensor.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Allow inputs to be any kind of floating-point tensor.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

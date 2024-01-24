@@ -1,12 +1,10 @@
-attributes:
-- default_value: null
-  description: A list of integers. By default, reverse the dimensions, otherwise permute
-    the axes according to the values given. Its length must be equal to the rank of
-    the input.
-  name: perm
-  required: false
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Transpose
+since_version: 21
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Transpose the input tensor similar to numpy.transpose. For example, when
@@ -16,30 +14,32 @@ doc: '
   will be (2, 1, 3).
 
   '
-domain: ''
+attributes:
+- name: perm
+  description: A list of integers. By default, reverse the dimensions, otherwise permute
+    the axes according to the values given. Its length must be equal to the rank of
+    the input.
+  type: AttrType.INTS
+  required: false
+  default_value: null
 inputs:
-- description: An input tensor.
+- name: data
+  type_str: T
+  description: An input tensor.
   min_arity: 1
-  name: data
   tags:
   - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Transpose
 outputs:
-- description: Transposed output.
+- name: transposed
+  type_str: T
+  description: Transposed output.
   min_arity: 1
-  name: transposed
   tags:
   - differentiable
-  type_str: T
-since_version: 21
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -62,5 +62,5 @@ type_constraints:
   - tensor(float8e5m2fnuz)
   - tensor(uint4)
   - tensor(int4)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

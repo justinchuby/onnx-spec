@@ -1,10 +1,10 @@
-attributes:
-- default_value: null
-  description: Einsum expression string.
-  name: equation
-  required: true
-  type: AttrType.STRING
-deprecated: false
+domain: ''
+name: Einsum
+since_version: 12
+min_input: 1
+max_input: 2147483647
+min_output: 1
+max_output: 1
 doc: '
 
   An einsum of the form `term1, term2 -> output-term` produces an output tensor using
@@ -64,31 +64,31 @@ doc: '
   beginning of the output. The equation string may contain space (U+0020) character.
 
   '
-domain: ''
+attributes:
+- name: equation
+  description: Einsum expression string.
+  type: AttrType.STRING
+  required: true
+  default_value: null
 inputs:
-- description: Operands
+- name: Inputs
+  type_str: T
+  description: Operands
   min_arity: 1
-  name: Inputs
   tags:
   - variadic
   - differentiable
-  type_str: T
-max_input: 2147483647
-max_output: 1
-min_input: 1
-min_output: 1
-name: Einsum
 outputs:
-- description: Output tensor
+- name: Output
+  type_str: T
+  description: Output tensor
   min_arity: 1
-  name: Output
   tags:
   - differentiable
-  type_str: T
-since_version: 12
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all numerical tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -100,5 +100,5 @@ type_constraints:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to all numerical tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

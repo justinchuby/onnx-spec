@@ -1,17 +1,10 @@
-attributes:
-- default_value: 0
-  description: Which axis to split on. A negative value means counting dimensions
-    from the back. Accepted range is [-rank, rank-1].
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: 1
-  description: Keep the split dimension or not. Default 1, which means we keep split
-    dimension. If input 'split' is specified, this attribute is ignored.
-  name: keepdims
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: SplitToSequence
+since_version: 11
+min_input: 1
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Split a tensor into a sequence of tensors, along the specified ''axis''.
@@ -42,35 +35,42 @@ doc: '
   in ''split'' must be equal to the dimension size of input tensor on ''axis''.
 
   '
-domain: ''
+attributes:
+- name: axis
+  description: Which axis to split on. A negative value means counting dimensions
+    from the back. Accepted range is [-rank, rank-1].
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: keepdims
+  description: Keep the split dimension or not. Default 1, which means we keep split
+    dimension. If input 'split' is specified, this attribute is ignored.
+  type: AttrType.INT
+  required: false
+  default_value: 1
 inputs:
-- description: The tensor to split
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T
-- description: 'Length of each output. It can be either a scalar(tensor of empty shape),
+  description: The tensor to split
+  min_arity: 1
+  tags: []
+- name: split
+  type_str: I
+  description: 'Length of each output. It can be either a scalar(tensor of empty shape),
     or a 1-D tensor. All values must be >= 0. '
   min_arity: 1
-  name: split
   tags:
   - optional
-  type_str: I
-max_input: 2
-max_output: 1
-min_input: 1
-min_output: 1
-name: SplitToSequence
 outputs:
-- description: One or more outputs forming a sequence of tensors after splitting
-  min_arity: 1
-  name: output_sequence
-  tags: []
+- name: output_sequence
   type_str: S
-since_version: 11
-support_level: SupportType.COMMON
+  description: One or more outputs forming a sequence of tensors after splitting
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -86,14 +86,14 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input types to all tensor types.
-  type_param_str: T
-- allowed_type_strs:
+- type_param_str: I
+  description: Constrain split size to integral tensor.
+  allowed_type_strs:
   - tensor(int32)
   - tensor(int64)
-  description: Constrain split size to integral tensor.
-  type_param_str: I
-- allowed_type_strs:
+- type_param_str: S
+  description: Constrain output types to all tensor types.
+  allowed_type_strs:
   - seq(tensor(uint8))
   - seq(tensor(uint16))
   - seq(tensor(uint32))
@@ -109,5 +109,5 @@ type_constraints:
   - seq(tensor(bool))
   - seq(tensor(complex64))
   - seq(tensor(complex128))
-  description: Constrain output types to all tensor types.
-  type_param_str: S
+support_level: COMMON
+deprecated: false

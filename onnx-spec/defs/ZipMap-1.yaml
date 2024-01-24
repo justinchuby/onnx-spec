@@ -1,45 +1,56 @@
+domain: ai.onnx.ml
+name: ZipMap
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: '
+
+  Creates a map from the input and the attributes.
+
+
+  The values are provided by the input tensor, while the keys are specified by the
+  attributes.
+
+  Must provide keys in either classlabels_strings or classlabels_int64s (but not both).
+
+
+  The columns of the tensor correspond one-by-one to the keys specified by the attributes.
+  There must be as many columns as keys.
+
+
+  '
 attributes:
-- default_value: null
+- name: classlabels_int64s
   description: The keys when using int keys.<br>One and only one of the 'classlabels_*'
     attributes must be defined.
-  name: classlabels_int64s
-  required: false
   type: AttrType.INTS
-- default_value: null
+  required: false
+  default_value: null
+- name: classlabels_strings
   description: The keys when using string keys.<br>One and only one of the 'classlabels_*'
     attributes must be defined.
-  name: classlabels_strings
-  required: false
   type: AttrType.STRINGS
-deprecated: false
-doc: "\n    Creates a map from the input and the attributes.\n\n    The values are\
-  \ provided by the input tensor, while the keys are specified by the attributes.\n\
-  \    Must provide keys in either classlabels_strings or classlabels_int64s (but\
-  \ not both).\n\n    The columns of the tensor correspond one-by-one to the keys\
-  \ specified by the attributes. There must be as many columns as keys.\n\n"
-domain: ai.onnx.ml
+  required: false
+  default_value: null
 inputs:
-- description: The input values
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: tensor(float)
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: ZipMap
-outputs:
-- description: The output map
+  description: The input values
   min_arity: 1
-  name: Z
   tags: []
+outputs:
+- name: Z
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: The output map
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: The output will be a sequence of string or integer maps to float.
+  allowed_type_strs:
   - seq(map(string, float))
   - seq(map(int64, float))
-  description: The output will be a sequence of string or integer maps to float.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

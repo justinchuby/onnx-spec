@@ -1,20 +1,28 @@
+domain: ''
+name: DFT
+since_version: 17
+min_input: 1
+max_input: 2
+min_output: 1
+max_output: 1
+doc: Computes the discrete Fourier transform of input.
 attributes:
-- default_value: 1
+- name: axis
   description: The axis on which to perform the DFT. By default this value is set
     to 1, which corresponds to the first dimension after the batch index. Negative
     value means counting dimensions from the back. Accepted range is $[-r, -2] \cup
     [0, r-2]$ where `r = rank(input)`. The last dimension is for representing complex
     numbers and thus is an invalid axis.
-  name: axis
-  required: false
   type: AttrType.INT
-- default_value: 0
+  required: false
+  default_value: 1
+- name: inverse
   description: Whether to perform the inverse discrete fourier transform. By default
     this value is set to 0, which corresponds to false.
-  name: inverse
-  required: false
   type: AttrType.INT
-- default_value: 0
+  required: false
+  default_value: 0
+- name: onesided
   description: If onesided is 1, only values for w in [0, 1, 2, ..., floor(n_fft/2)
     + 1] are returned because the real-to-complex Fourier transform satisfies the
     conjugate symmetry, i.e., X[m, w] = X[m, n_fft-w]*. Note if the input or window
@@ -22,61 +30,53 @@ attributes:
     real inputs performs a Real-valued fast Fourier transform (RFFT). When invoked
     with real or complex valued input, the default value is 0. Values can be 0 or
     1.
-  name: onesided
-  required: false
   type: AttrType.INT
-deprecated: false
-doc: Computes the discrete Fourier transform of input.
-domain: ''
+  required: false
+  default_value: 0
 inputs:
-- description: 'For real input, the following shape is expected: [batch_idx][signal_dim1][signal_dim2]...[signal_dimN][1].
+- name: input
+  type_str: T1
+  description: 'For real input, the following shape is expected: [batch_idx][signal_dim1][signal_dim2]...[signal_dimN][1].
     For complex input, the following shape is expected: [batch_idx][signal_dim1][signal_dim2]...[signal_dimN][2].
     The first dimension is the batch dimension. The following N dimensions correspond
     to the signal''s dimensions. The final dimension represents the real and imaginary
     parts of the value in that order.'
   min_arity: 1
-  name: input
   tags:
   - non-differentiable
-  type_str: T1
-- description: 'The length of the signal as a scalar. If greater than the axis dimension,
+- name: dft_length
+  type_str: T2
+  description: 'The length of the signal as a scalar. If greater than the axis dimension,
     the signal will be zero-padded up to dft_length. If less than the axis dimension,
     only the first dft_length values will be used as the signal. It''s an optional
     value. '
   min_arity: 1
-  name: dft_length
   tags:
   - optional
   - non-differentiable
-  type_str: T2
-max_input: 2
-max_output: 1
-min_input: 1
-min_output: 1
-name: DFT
 outputs:
-- description: 'The Fourier Transform of the input vector. If onesided is 0, the following
+- name: output
+  type_str: T1
+  description: 'The Fourier Transform of the input vector. If onesided is 0, the following
     shape is expected: [batch_idx][signal_dim1][signal_dim2]...[signal_dimN][2]. If
     axis=1 and onesided is 1, the following shape is expected: [batch_idx][floor(signal_dim1/2)+1][signal_dim2]...[signal_dimN][2].
     If axis=2 and onesided is 1, the following shape is expected: [batch_idx][signal_dim1][floor(signal_dim2/2)+1]...[signal_dimN][2].
     If axis=N and onesided is 1, the following shape is expected: [batch_idx][signal_dim1][signal_dim2]...[floor(signal_dimN/2)+1][2].
     The signal_dim at the specified axis is equal to the dft_length.'
   min_arity: 1
-  name: output
   tags: []
-  type_str: T1
-since_version: 17
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
   - tensor(bfloat16)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: Constrain scalar length types to int64_t.
+  allowed_type_strs:
   - tensor(int32)
   - tensor(int64)
-  description: Constrain scalar length types to int64_t.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

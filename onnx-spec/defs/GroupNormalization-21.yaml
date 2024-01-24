@@ -1,21 +1,10 @@
-attributes:
-- default_value: 9.999999747378752e-06
-  description: The epsilon value to use to avoid division by zero.
-  name: epsilon
-  required: false
-  type: AttrType.FLOAT
-- default_value: null
-  description: The number of groups of channels. It should be a divisor of the number
-    of channels `C`.
-  name: num_groups
-  required: true
-  type: AttrType.INT
-- default_value: 1
-  description: The floating-point precision used in stage one of the computation.
-  name: stash_type
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: GroupNormalization
+since_version: 21
+min_input: 3
+max_input: 3
+min_output: 1
+max_output: 1
 doc: '
 
   A GroupNormalization function. Carries out group normalization as described in
@@ -64,49 +53,60 @@ doc: '
   is equivalent to LayerNormalization.
 
   '
-domain: ''
+attributes:
+- name: epsilon
+  description: The epsilon value to use to avoid division by zero.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 9.999999747378752e-06
+- name: num_groups
+  description: The number of groups of channels. It should be a divisor of the number
+    of channels `C`.
+  type: AttrType.INT
+  required: true
+  default_value: null
+- name: stash_type
+  description: The floating-point precision used in stage one of the computation.
+  type: AttrType.INT
+  required: false
+  default_value: 1
 inputs:
-- description: Input data tensor. Dimensions for image cases are `(N x C x H x W)`,
+- name: X
+  type_str: T
+  description: Input data tensor. Dimensions for image cases are `(N x C x H x W)`,
     where `N` is the batch size, `C` is the number of channels, and `H` and `W` are
     the height and width of the data. Statistics are computed for every group of channels
     over `C`, `H`, and `W`. For non-image cases, the dimensions are in the form of
     `(N x C x D1 x D2 ... Dn)`.
   min_arity: 1
-  name: X
   tags:
   - differentiable
+- name: scale
   type_str: T
-- description: Scale tensor of shape `(C)`.
+  description: Scale tensor of shape `(C)`.
   min_arity: 1
-  name: scale
   tags:
   - differentiable
+- name: bias
   type_str: T
-- description: Bias tensor of shape `(C)`.
+  description: Bias tensor of shape `(C)`.
   min_arity: 1
-  name: bias
   tags:
   - differentiable
-  type_str: T
-max_input: 3
-max_output: 1
-min_input: 3
-min_output: 1
-name: GroupNormalization
 outputs:
-- description: The output tensor of the same shape as `X`.
+- name: Y
+  type_str: T
+  description: The output tensor of the same shape as `X`.
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T
-since_version: 21
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(bfloat16)
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

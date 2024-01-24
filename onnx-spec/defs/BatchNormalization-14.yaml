@@ -1,22 +1,10 @@
-attributes:
-- default_value: 9.999999747378752e-06
-  description: The epsilon value to use to avoid division by zero.
-  name: epsilon
-  required: false
-  type: AttrType.FLOAT
-- default_value: 0.8999999761581421
-  description: Factor used in computing the running mean and variance.e.g., running_mean
-    = running_mean * momentum + mean * (1 - momentum).
-  name: momentum
-  required: false
-  type: AttrType.FLOAT
-- default_value: 0
-  description: If set to true, it indicates BatchNormalization is being used for training,
-    and outputs 1, 2, 3, and 4 would be populated.
-  name: training_mode
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: BatchNormalization
+since_version: 14
+min_input: 5
+max_input: 5
+min_output: 1
+max_output: 3
 doc: '
 
   Carries out batch normalization as described in the paper
@@ -94,86 +82,98 @@ doc: '
   omitted.
 
   '
-domain: ''
+attributes:
+- name: epsilon
+  description: The epsilon value to use to avoid division by zero.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 9.999999747378752e-06
+- name: momentum
+  description: Factor used in computing the running mean and variance.e.g., running_mean
+    = running_mean * momentum + mean * (1 - momentum).
+  type: AttrType.FLOAT
+  required: false
+  default_value: 0.8999999761581421
+- name: training_mode
+  description: If set to true, it indicates BatchNormalization is being used for training,
+    and outputs 1, 2, 3, and 4 would be populated.
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: Input data tensor from the previous operator; dimensions are in the
+- name: X
+  type_str: T
+  description: Input data tensor from the previous operator; dimensions are in the
     form of (N x C x D1 x D2 ... Dn), where N is the batch size, C is the number of
     channels. Statistics are computed for every channel of C over N and D1 to Dn dimensions.
     For image data, input dimensions become (N x C x H x W). The op also accepts single
     dimension input of size N in which case C is assumed to be 1
   min_arity: 1
-  name: X
   tags:
   - differentiable
+- name: scale
   type_str: T
-- description: Scale tensor of shape (C).
+  description: Scale tensor of shape (C).
   min_arity: 1
-  name: scale
   tags:
   - differentiable
+- name: B
   type_str: T
-- description: Bias tensor of shape (C).
+  description: Bias tensor of shape (C).
   min_arity: 1
-  name: B
   tags:
   - differentiable
-  type_str: T
-- description: running (training) or estimated (testing) mean tensor of shape (C).
-  min_arity: 1
-  name: input_mean
-  tags:
-  - differentiable
+- name: input_mean
   type_str: U
-- description: running (training) or estimated (testing) variance tensor of shape
+  description: running (training) or estimated (testing) mean tensor of shape (C).
+  min_arity: 1
+  tags:
+  - differentiable
+- name: input_var
+  type_str: U
+  description: running (training) or estimated (testing) variance tensor of shape
     (C).
   min_arity: 1
-  name: input_var
   tags:
   - differentiable
-  type_str: U
-max_input: 5
-max_output: 3
-min_input: 5
-min_output: 1
-name: BatchNormalization
 outputs:
-- description: The output tensor of the same shape as X
+- name: Y
+  type_str: T
+  description: The output tensor of the same shape as X
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T
-- description: The running mean after the BatchNormalization operator.
+- name: running_mean
+  type_str: U
+  description: The running mean after the BatchNormalization operator.
   min_arity: 1
-  name: running_mean
   tags:
   - optional
   - non-differentiable
+- name: running_var
   type_str: U
-- description: The running variance after the BatchNormalization operator. This op
+  description: The running variance after the BatchNormalization operator. This op
     uses the population size (N) for calculating variance, and not the sample size
     N-1.
   min_arity: 1
-  name: running_var
   tags:
   - optional
   - non-differentiable
-  type_str: U
-since_version: 14
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(bfloat16)
+- type_param_str: T
   description: Constrain input and output types to float tensors.
-  type_param_str: T
-- allowed_type_strs:
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
   - tensor(bfloat16)
+- type_param_str: U
   description: Constrain mean and variance types to float tensors. It allows all float
     type for U.
-  type_param_str: U
+  allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(bfloat16)
+support_level: COMMON
+deprecated: false

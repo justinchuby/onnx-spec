@@ -1,18 +1,10 @@
-attributes:
-- default_value: null
-  description: (Optional) The dimension to apply unique. If not specified, the unique
-    elements of the flattened input are returned. Negative value means counting dimensions
-    from the back. Accepted range is [-r, r-1] where r = rank(input).
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: 1
-  description: (Optional) Whether to sort the unique elements in ascending order before
-    returning as output. Must be one of 0, or 1 (default).
-  name: sorted
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: Unique
+since_version: 11
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 4
 doc: "\nFind the unique elements of a tensor. When an optional attribute 'axis' is\
   \ provided, unique subtensors sliced along the 'axis' are returned.\nOtherwise the\
   \ input tensor is flattened and unique values of the flattened tensor are returned.\n\
@@ -45,60 +37,68 @@ doc: "\nFind the unique elements of a tensor. When an optional attribute 'axis' 
   \noutput_indices is to map from B to A:\n```\n[1, 0, 2]\n```\n\noutput_inverse_indices\
   \ is to map from A to B:\n```\n[1, 0, 2, 0]\n```\n\noutput_counts:\n```\n[2, 1,\
   \ 1]\n```\n"
-domain: ''
+attributes:
+- name: axis
+  description: (Optional) The dimension to apply unique. If not specified, the unique
+    elements of the flattened input are returned. Negative value means counting dimensions
+    from the back. Accepted range is [-r, r-1] where r = rank(input).
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: sorted
+  description: (Optional) Whether to sort the unique elements in ascending order before
+    returning as output. Must be one of 0, or 1 (default).
+  type: AttrType.INT
+  required: false
+  default_value: 1
 inputs:
-- description: A N-D input tensor that is to be processed.
+- name: X
+  type_str: T
+  description: A N-D input tensor that is to be processed.
   min_arity: 1
-  name: X
   tags:
   - non-differentiable
-  type_str: T
-max_input: 1
-max_output: 4
-min_input: 1
-min_output: 1
-name: Unique
 outputs:
-- description: A tensor of the same type as 'X' containing all the unique values or
+- name: Y
+  type_str: T
+  description: A tensor of the same type as 'X' containing all the unique values or
     subtensors sliced along a provided 'axis' in 'X', either sorted or maintained
     in the same order they occur in input 'X'
   min_arity: 1
-  name: Y
   tags:
   - non-differentiable
-  type_str: T
-- description: 'A 1-D INT64 tensor containing indices of ''Y'' elements'' first occurrence
+- name: indices
+  type_str: tensor(int64)
+  description: 'A 1-D INT64 tensor containing indices of ''Y'' elements'' first occurrence
     in ''X''. When ''axis'' is provided, it contains indices to subtensors in input
     ''X'' on the ''axis''. When ''axis'' is not provided, it contains indices to values
     in the flattened input tensor. '
   min_arity: 1
-  name: indices
   tags:
   - optional
   - non-differentiable
+- name: inverse_indices
   type_str: tensor(int64)
-- description: 'A 1-D INT64 tensor containing, for elements of ''X'', its corresponding
+  description: 'A 1-D INT64 tensor containing, for elements of ''X'', its corresponding
     indices in ''Y''. When ''axis'' is provided, it contains indices to subtensors
     in output ''Y'' on the ''axis''. When ''axis'' is not provided, it contains indices
     to values in output ''Y''. '
   min_arity: 1
-  name: inverse_indices
   tags:
   - optional
   - non-differentiable
+- name: counts
   type_str: tensor(int64)
-- description: A 1-D INT64 tensor containing the count of each element of 'Y' in input
+  description: A 1-D INT64 tensor containing the count of each element of 'Y' in input
     'X'
   min_arity: 1
-  name: counts
   tags:
   - optional
   - non-differentiable
-  type_str: tensor(int64)
-since_version: 11
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Input can be of any tensor type.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -114,5 +114,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Input can be of any tensor type.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

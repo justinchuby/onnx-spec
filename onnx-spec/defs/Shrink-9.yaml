@@ -1,15 +1,10 @@
-attributes:
-- default_value: 0.0
-  description: The bias value added to output. Default is 0.
-  name: bias
-  required: false
-  type: AttrType.FLOAT
-- default_value: 0.5
-  description: The lambd value for the Shrink formulation. Default is 0.5.
-  name: lambd
-  required: false
-  type: AttrType.FLOAT
-deprecated: false
+domain: ''
+name: Shrink
+since_version: 9
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Shrink takes one input data (Tensor<numeric>) and produces one Tensor output,
@@ -21,30 +16,35 @@ doc: '
   If x > lambd, y = x - bias; Otherwise, y = 0.
 
   '
-domain: ''
+attributes:
+- name: bias
+  description: The bias value added to output. Default is 0.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 0.0
+- name: lambd
+  description: The lambd value for the Shrink formulation. Default is 0.5.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 0.5
 inputs:
-- description: The input data as Tensor.
+- name: input
+  type_str: T
+  description: The input data as Tensor.
   min_arity: 1
-  name: input
   tags:
   - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Shrink
 outputs:
-- description: The output.
+- name: output
+  type_str: T
+  description: The output.
   min_arity: 1
-  name: output
   tags:
   - differentiable
-  type_str: T
-since_version: 9
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input to only numeric types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -56,5 +56,5 @@ type_constraints:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input to only numeric types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

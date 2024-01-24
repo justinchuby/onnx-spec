@@ -1,34 +1,34 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Log
+since_version: 6
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Calculates the natural log of the given input tensor, element-wise.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Input tensor
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Log
+  description: Input tensor
+  min_arity: 1
+  tags: []
 outputs:
-- description: The natural log of the input tensor computed element-wise
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: T
-since_version: 6
-support_level: SupportType.COMMON
+  description: The natural log of the input tensor computed element-wise
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

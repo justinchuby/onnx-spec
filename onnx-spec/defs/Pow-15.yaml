@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Pow
+since_version: 15
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Pow takes input data (Tensor<T>) and exponent Tensor, and
@@ -10,45 +15,40 @@ doc: '
 
   This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for
   more details please check [the doc](Broadcasting.md).'
-domain: ''
+attributes: []
 inputs:
-- description: First operand, base of the exponent.
-  min_arity: 1
-  name: X
-  tags:
-  - differentiable
+- name: X
   type_str: T
-- description: Second operand, power of the exponent.
+  description: First operand, base of the exponent.
   min_arity: 1
-  name: Y
   tags:
   - differentiable
+- name: Y
   type_str: T1
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Pow
-outputs:
-- description: Output tensor
+  description: Second operand, power of the exponent.
   min_arity: 1
-  name: Z
   tags:
   - differentiable
+outputs:
+- name: Z
   type_str: T
-since_version: 15
-support_level: SupportType.COMMON
+  description: Output tensor
+  min_arity: 1
+  tags:
+  - differentiable
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input X and output types to float/int tensors.
+  allowed_type_strs:
   - tensor(int32)
   - tensor(int64)
   - tensor(float16)
   - tensor(float)
   - tensor(double)
   - tensor(bfloat16)
-  description: Constrain input X and output types to float/int tensors.
-  type_param_str: T
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain input Y types to float/int tensors.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -61,5 +61,5 @@ type_constraints:
   - tensor(float)
   - tensor(double)
   - tensor(bfloat16)
-  description: Constrain input Y types to float/int tensors.
-  type_param_str: T1
+support_level: COMMON
+deprecated: false

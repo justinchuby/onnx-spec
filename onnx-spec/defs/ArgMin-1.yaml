@@ -1,15 +1,10 @@
-attributes:
-- default_value: 0
-  description: The axis in which to compute the arg indices.
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: 1
-  description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
-  name: keepdims
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: ArgMin
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Computes the indices of the min elements of the input tensor''s element along the
@@ -20,28 +15,33 @@ doc: '
   If keepdims equal 0, then the resulted tensor have the reduced dimension pruned.
 
   The type of the output tensor is integer.'
-domain: ''
+attributes:
+- name: axis
+  description: The axis in which to compute the arg indices.
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: keepdims
+  description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
+  type: AttrType.INT
+  required: false
+  default_value: 1
 inputs:
-- description: An input tensor.
-  min_arity: 1
-  name: data
-  tags: []
+- name: data
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: ArgMin
-outputs:
-- description: Reduced output tensor with integer data type.
+  description: An input tensor.
   min_arity: 1
-  name: reduced
   tags: []
+outputs:
+- name: reduced
   type_str: tensor(int64)
-since_version: 1
-support_level: SupportType.COMMON
+  description: Reduced output tensor with integer data type.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all numeric tensors.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -53,5 +53,5 @@ type_constraints:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to all numeric tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

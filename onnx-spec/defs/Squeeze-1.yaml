@@ -1,10 +1,10 @@
-attributes:
-- default_value: null
-  description: List of non-negative integers, indicate the dimensions to squeeze.
-  name: axes
-  required: false
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Squeeze
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Remove single-dimensional entries from the shape of a tensor.
@@ -17,28 +17,28 @@ doc: '
   raised.
 
   '
-domain: ''
+attributes:
+- name: axes
+  description: List of non-negative integers, indicate the dimensions to squeeze.
+  type: AttrType.INTS
+  required: false
+  default_value: null
 inputs:
-- description: Tensors with at least max(dims) dimensions.
-  min_arity: 1
-  name: data
-  tags: []
+- name: data
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Squeeze
+  description: Tensors with at least max(dims) dimensions.
+  min_arity: 1
+  tags: []
 outputs:
-- description: Reshaped tensor with same data as input.
-  min_arity: 1
-  name: squeezed
-  tags: []
+- name: squeezed
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: Reshaped tensor with same data as input.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -54,5 +54,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

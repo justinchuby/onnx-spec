@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Det
+since_version: 11
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Det calculates determinant of a square matrix or batches of square matrices.
@@ -15,32 +20,27 @@ doc: '
   e.g., When the input is 2-D, the output is a scalar(shape is empty: `[]`).
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Input tensor
+- name: X
+  type_str: T
+  description: Input tensor
   min_arity: 1
-  name: X
   tags:
   - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Det
 outputs:
-- description: Output tensor
+- name: Y
+  type_str: T
+  description: Output tensor
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T
-since_version: 11
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to floating-point tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to floating-point tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

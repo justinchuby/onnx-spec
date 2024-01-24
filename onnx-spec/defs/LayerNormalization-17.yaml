@@ -1,103 +1,161 @@
+domain: ''
+name: LayerNormalization
+since_version: 17
+min_input: 2
+max_input: 3
+min_output: 1
+max_output: 3
+doc: '
+
+  This is layer normalization defined in ONNX as function.
+
+  The overall computation can be split into two stages.
+
+  The first stage is standardization, which makes the
+
+  normalized elements have zero mean and unit variances.
+
+  The computation required by standardization can be
+
+  described by the following equations.
+
+  ```
+
+  Mean = ReduceMean<axes=normalized_axes>(X)
+
+  D = Sub(X, Mean)
+
+  DD = Mul(D, D)
+
+  Var = ReduceMean<axes=normalized_axes>(DD)
+
+  VarEps = Add(Var, epsilon)
+
+  StdDev = Sqrt(VarEps)
+
+  InvStdDev = Reciprocal(StdDev)
+
+  Normalized = Mul(D, InvStdDev)
+
+  ```
+
+  where `normalized_axes` is `[axis, ..., rank of X - 1]`.
+
+  The variables `Var` and `StdDev` stand for variance and
+
+  standard deviation, respectively. The second output is
+
+  `Mean` and the last one is `InvStdDev`.
+
+  Depending on `stash_type` attribute, the actual computation
+
+  must happen in different floating-point precision.
+
+  For example, if `stash_type` is 1, this operator casts
+
+  all input variables to 32-bit float, perform the computation, and
+
+  finally cast `Normalized` back to the original type of `X`.
+
+  The second stage then scales and shifts the outcome of the
+
+  first stage using
+
+  ```
+
+  NormalizedScaled = Mul(Normalized, Scale)
+
+  Y = Add(NormalizedScaled, B)
+
+  ```
+
+  The second stage doesn''t depends on `stash_type`.
+
+  All equations are in [this syntax](https://github.com/onnx/onnx/blob/main/docs/Syntax.md).
+
+  The same variable (i.e., input, output, and attribute) uses
+
+  the same name in the equations above and this operator''s definition.
+
+  Let `d[i]` indicate the i-th dimension of `X`.
+
+  If `X`''s shape is `[d[0], ..., d[axis-1], d[axis], ..., d[rank-1]]`,
+
+  the shape of `Mean` and `InvStdDev` is `[d[0], ..., d[axis-1], 1, ..., 1]`.
+
+  `Y` and `X` have the same shape. This operator supports unidirectional broadcasting
+
+  (tensors `Scale` and `B` should be unidirectional broadcastable to tensor `X`);
+
+  for more details please check [the doc](Broadcasting.md).
+
+  '
 attributes:
-- default_value: -1
+- name: axis
   description: The first normalization dimension. If rank(X) is r, axis' allowed range
     is [-r, r). Negative value means counting dimensions from the back.
-  name: axis
-  required: false
   type: AttrType.INT
-- default_value: 9.999999747378752e-06
-  description: The epsilon value to use to avoid division by zero.
-  name: epsilon
   required: false
+  default_value: -1
+- name: epsilon
+  description: The epsilon value to use to avoid division by zero.
   type: AttrType.FLOAT
-- default_value: 1
+  required: false
+  default_value: 9.999999747378752e-06
+- name: stash_type
   description: Type of Mean and InvStdDev. This also specifies stage one's computation
     precision.
-  name: stash_type
-  required: false
   type: AttrType.INT
-deprecated: false
-doc: "\n      This is layer normalization defined in ONNX as function.\n      The\
-  \ overall computation can be split into two stages.\n      The first stage is standardization,\
-  \ which makes the\n      normalized elements have zero mean and unit variances.\n\
-  \      The computation required by standardization can be\n      described by the\
-  \ following equations.\n      ```\n      Mean = ReduceMean<axes=normalized_axes>(X)\n\
-  \      D = Sub(X, Mean)\n      DD = Mul(D, D)\n      Var = ReduceMean<axes=normalized_axes>(DD)\n\
-  \      VarEps = Add(Var, epsilon)\n      StdDev = Sqrt(VarEps)\n      InvStdDev\
-  \ = Reciprocal(StdDev)\n      Normalized = Mul(D, InvStdDev)\n      ```\n      where\
-  \ `normalized_axes` is `[axis, ..., rank of X - 1]`.\n      The variables `Var`\
-  \ and `StdDev` stand for variance and\n      standard deviation, respectively. The\
-  \ second output is\n      `Mean` and the last one is `InvStdDev`.\n      Depending\
-  \ on `stash_type` attribute, the actual computation\n      must happen in different\
-  \ floating-point precision.\n      For example, if `stash_type` is 1, this operator\
-  \ casts\n      all input variables to 32-bit float, perform the computation, and\n\
-  \      finally cast `Normalized` back to the original type of `X`.\n      The second\
-  \ stage then scales and shifts the outcome of the\n      first stage using\n   \
-  \   ```\n      NormalizedScaled = Mul(Normalized, Scale)\n      Y = Add(NormalizedScaled,\
-  \ B)\n      ```\n      The second stage doesn't depends on `stash_type`.\n     \
-  \ All equations are in [this syntax](https://github.com/onnx/onnx/blob/main/docs/Syntax.md).\n\
-  \      The same variable (i.e., input, output, and attribute) uses\n      the same\
-  \ name in the equations above and this operator's definition.\n      Let `d[i]`\
-  \ indicate the i-th dimension of `X`.\n      If `X`'s shape is `[d[0], ..., d[axis-1],\
-  \ d[axis], ..., d[rank-1]]`,\n      the shape of `Mean` and `InvStdDev` is `[d[0],\
-  \ ..., d[axis-1], 1, ..., 1]`.\n      `Y` and `X` have the same shape. This operator\
-  \ supports unidirectional broadcasting\n      (tensors `Scale` and `B` should be\
-  \ unidirectional broadcastable to tensor `X`);\n      for more details please check\
-  \ [the doc](Broadcasting.md).\n"
-domain: ''
+  required: false
+  default_value: 1
 inputs:
-- description: Tensor to be normalized.
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T
-- description: Scale tensor.
+  description: Tensor to be normalized.
   min_arity: 1
-  name: Scale
   tags: []
+- name: Scale
   type_str: T
-- description: Bias tensor.
+  description: Scale tensor.
   min_arity: 1
-  name: B
+  tags: []
+- name: B
+  type_str: T
+  description: Bias tensor.
+  min_arity: 1
   tags:
   - optional
-  type_str: T
-max_input: 3
-max_output: 3
-min_input: 2
-min_output: 1
-name: LayerNormalization
 outputs:
-- description: Normalized tensor.
-  min_arity: 1
-  name: Y
-  tags: []
+- name: Y
   type_str: T
-- description: Saved mean used during training to speed up gradient computation
+  description: Normalized tensor.
   min_arity: 1
-  name: Mean
+  tags: []
+- name: Mean
+  type_str: U
+  description: Saved mean used during training to speed up gradient computation
+  min_arity: 1
   tags:
   - optional
+- name: InvStdDev
   type_str: U
-- description: Saved inverse standard deviation used during training to speed up gradient
+  description: Saved inverse standard deviation used during training to speed up gradient
     computation.
   min_arity: 1
-  name: InvStdDev
   tags:
   - optional
-  type_str: U
-since_version: 17
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input types and output Y type to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
   - tensor(bfloat16)
-  description: Constrain input types and output Y type to float tensors.
-  type_param_str: T
-- allowed_type_strs:
+- type_param_str: U
+  description: Type of Mean and InvStdDev tensors.
+  allowed_type_strs:
   - tensor(float)
   - tensor(bfloat16)
-  description: Type of Mean and InvStdDev tensors.
-  type_param_str: U
+support_level: COMMON
+deprecated: false

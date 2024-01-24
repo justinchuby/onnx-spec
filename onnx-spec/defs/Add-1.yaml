@@ -1,20 +1,10 @@
-attributes:
-- default_value: null
-  description: If set, defines the broadcast dimensions. See doc for details.
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: 0
-  description: Pass 1 to enable broadcasting
-  name: broadcast
-  required: false
-  type: AttrType.INT
-- default_value: null
-  description: legacy optimization attribute.
-  name: consumed_inputs
-  required: false
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Add
+since_version: 1
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: "\nPerforms element-wise binary addition (with limited broadcast support).\n\n\
   If necessary the right-hand-side argument will be broadcasted to match the\nshape\
   \ of left-hand-side argument. When broadcasting is specified, the second\ntensor\
@@ -29,36 +19,46 @@ doc: "\nPerforms element-wise binary addition (with limited broadcast support).\
   \ = (2, 3, 4, 5), shape(B) = (4, 5)\n  shape(A) = (2, 3, 4, 5), shape(B) = (3, 4),\
   \ with axis=1\n  shape(A) = (2, 3, 4, 5), shape(B) = (2), with axis=0\n\nAttribute\
   \ `broadcast=1` needs to be passed to enable broadcasting.\n"
-domain: ''
+attributes:
+- name: axis
+  description: If set, defines the broadcast dimensions. See doc for details.
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: broadcast
+  description: Pass 1 to enable broadcasting
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: consumed_inputs
+  description: legacy optimization attribute.
+  type: AttrType.INTS
+  required: false
+  default_value: null
 inputs:
-- description: First operand, should share the type with the second operand.
-  min_arity: 1
-  name: A
-  tags: []
+- name: A
   type_str: T
-- description: Second operand. With broadcasting can be of smaller size than A. If
+  description: First operand, should share the type with the second operand.
+  min_arity: 1
+  tags: []
+- name: B
+  type_str: T
+  description: Second operand. With broadcasting can be of smaller size than A. If
     broadcasting is disabled it should be of the same size.
   min_arity: 1
-  name: B
   tags: []
-  type_str: T
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Add
 outputs:
-- description: Result, has same dimensions and type as A
-  min_arity: 1
-  name: C
-  tags: []
+- name: C
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: Result, has same dimensions and type as A
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

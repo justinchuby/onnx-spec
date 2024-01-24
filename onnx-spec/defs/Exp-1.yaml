@@ -1,39 +1,39 @@
-attributes:
-- default_value: null
-  description: legacy optimization attribute.
-  name: consumed_inputs
-  required: false
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Exp
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Calculates the exponential of the given input tensor, element-wise.
 
   '
-domain: ''
+attributes:
+- name: consumed_inputs
+  description: legacy optimization attribute.
+  type: AttrType.INTS
+  required: false
+  default_value: null
 inputs:
-- description: Input tensor
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Exp
+  description: Input tensor
+  min_arity: 1
+  tags: []
 outputs:
-- description: The exponential of the input tensor computed element-wise
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: The exponential of the input tensor computed element-wise
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

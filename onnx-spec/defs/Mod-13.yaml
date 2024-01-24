@@ -1,52 +1,70 @@
+domain: ''
+name: Mod
+since_version: 13
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
+doc: '
+
+  Performs element-wise binary modulus (with Numpy-style broadcasting support).
+
+  The sign of the remainder is the same as that of the Divisor.
+
+
+  Mod operator can also behave like C fmod() or numpy.fmod. In this case, the sign
+  of the remainder however, will be the same as the Dividend
+
+  (in contrast to integer mod). To force a behavior like numpy.fmod() an ''fmod''
+  Attribute is provided.
+
+  This attribute is set to 0 by default causing the behavior to be like integer mod.
+
+  Setting this attribute to 1 causes the remainder to be calculated similar to that
+  of numpy.fmod().
+
+
+  If the input type is floating point, then `fmod` attribute must be set to 1.
+
+
+  In case of dividend being zero, the results will be platform dependent.
+
+
+  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for
+  more details please check [the doc](Broadcasting.md).
+
+  '
 attributes:
-- default_value: 0
+- name: fmod
   description: Whether the operator should behave like fmod (default=0 meaning it
     will do integer mods); Set this to 1 to force fmod treatment
-  name: fmod
-  required: false
   type: AttrType.INT
-deprecated: false
-doc: "\n  Performs element-wise binary modulus (with Numpy-style broadcasting support).\n\
-  \  The sign of the remainder is the same as that of the Divisor.\n\n  Mod operator\
-  \ can also behave like C fmod() or numpy.fmod. In this case, the sign of the remainder\
-  \ however, will be the same as the Dividend\n  (in contrast to integer mod). To\
-  \ force a behavior like numpy.fmod() an 'fmod' Attribute is provided.\n  This attribute\
-  \ is set to 0 by default causing the behavior to be like integer mod.\n  Setting\
-  \ this attribute to 1 causes the remainder to be calculated similar to that of numpy.fmod().\n\
-  \n  If the input type is floating point, then `fmod` attribute must be set to 1.\n\
-  \n  In case of dividend being zero, the results will be platform dependent.\n\n\
-  \  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**;\
-  \ for more details please check [the doc](Broadcasting.md).\n"
-domain: ''
+  required: false
+  default_value: 0
 inputs:
-- description: Dividend tensor
+- name: A
+  type_str: T
+  description: Dividend tensor
   min_arity: 1
-  name: A
   tags:
   - differentiable
+- name: B
   type_str: T
-- description: Divisor tensor
+  description: Divisor tensor
   min_arity: 1
-  name: B
   tags:
   - non-differentiable
-  type_str: T
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Mod
 outputs:
-- description: Remainder tensor
+- name: C
+  type_str: T
+  description: Remainder tensor
   min_arity: 1
-  name: C
   tags:
   - differentiable
-  type_str: T
-since_version: 13
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to high-precision numeric tensors.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -59,5 +77,5 @@ type_constraints:
   - tensor(float)
   - tensor(double)
   - tensor(bfloat16)
-  description: Constrain input and output types to high-precision numeric tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

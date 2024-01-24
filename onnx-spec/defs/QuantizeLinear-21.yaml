@@ -1,20 +1,10 @@
-attributes:
-- default_value: 1
-  description: (Optional) The axis of the quantization dimension of the input tensor.
-    Ignored for per-tensor quantization. Negative value means counting dimensions
-    from the back. Accepted range is [-r, r-1] where r = rank(input).
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: 1
-  description: The parameter defines how the conversion behaves if an input value
-    is out of range of the destination type. It only applies for float 8 quantization
-    (float8e4m3fn, float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default.
-    All cases are fully described in two tables inserted in the operator description.
-  name: saturate
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: QuantizeLinear
+since_version: 21
+min_input: 2
+max_input: 3
+min_output: 1
+max_output: 1
 doc: '
 
   The linear quantization operator. It consumes a high precision tensor, a scale,
@@ -43,48 +33,58 @@ doc: '
   the type of the attribute ''y_zero_point'' still determines the quantization type.
 
   '
-domain: ''
+attributes:
+- name: axis
+  description: (Optional) The axis of the quantization dimension of the input tensor.
+    Ignored for per-tensor quantization. Negative value means counting dimensions
+    from the back. Accepted range is [-r, r-1] where r = rank(input).
+  type: AttrType.INT
+  required: false
+  default_value: 1
+- name: saturate
+  description: The parameter defines how the conversion behaves if an input value
+    is out of range of the destination type. It only applies for float 8 quantization
+    (float8e4m3fn, float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default.
+    All cases are fully described in two tables inserted in the operator description.
+  type: AttrType.INT
+  required: false
+  default_value: 1
 inputs:
-- description: N-D full precision Input tensor to be quantized.
-  min_arity: 1
-  name: x
-  tags: []
+- name: x
   type_str: T1
-- description: Scale for doing quantization to get 'y'. It can be a scalar, which
+  description: N-D full precision Input tensor to be quantized.
+  min_arity: 1
+  tags: []
+- name: y_scale
+  type_str: T1
+  description: Scale for doing quantization to get 'y'. It can be a scalar, which
     means per-tensor/layer quantization, or a 1-D Tensor for per-axis quantization.
   min_arity: 1
-  name: y_scale
   tags: []
-  type_str: T1
-- description: Zero point for doing quantization to get 'y'. Shape must match y_scale.
+- name: y_zero_point
+  type_str: T2
+  description: Zero point for doing quantization to get 'y'. Shape must match y_scale.
     Default is uint8 with zero point of 0 if it's not specified.
   min_arity: 1
-  name: y_zero_point
   tags:
   - optional
-  type_str: T2
-max_input: 3
-max_output: 1
-min_input: 2
-min_output: 1
-name: QuantizeLinear
 outputs:
-- description: N-D quantized output tensor. It has same shape as input 'x'.
-  min_arity: 1
-  name: y
-  tags: []
+- name: y
   type_str: T2
-since_version: 21
-support_level: SupportType.COMMON
+  description: N-D quantized output tensor. It has same shape as input 'x'.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: The type of the input 'x'.
+  allowed_type_strs:
   - tensor(float)
   - tensor(float16)
   - tensor(bfloat16)
   - tensor(int32)
-  description: The type of the input 'x'.
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: The type of the input 'y_zero_point' and the output 'y'.
+  allowed_type_strs:
   - tensor(int8)
   - tensor(uint8)
   - tensor(int16)
@@ -95,5 +95,5 @@ type_constraints:
   - tensor(float8e5m2fnuz)
   - tensor(uint4)
   - tensor(int4)
-  description: The type of the input 'y_zero_point' and the output 'y'.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

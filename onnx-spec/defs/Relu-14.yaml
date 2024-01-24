@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Relu
+since_version: 14
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Relu takes one input data (Tensor<T>) and produces one output data
@@ -9,30 +14,25 @@ doc: '
   the tensor elementwise.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Input tensor
+- name: X
+  type_str: T
+  description: Input tensor
   min_arity: 1
-  name: X
   tags:
   - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Relu
 outputs:
-- description: Output tensor
+- name: Y
+  type_str: T
+  description: Output tensor
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T
-since_version: 14
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to signed numeric tensors.
+  allowed_type_strs:
   - tensor(float)
   - tensor(int32)
   - tensor(int8)
@@ -41,5 +41,5 @@ type_constraints:
   - tensor(float16)
   - tensor(double)
   - tensor(bfloat16)
-  description: Constrain input and output types to signed numeric tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

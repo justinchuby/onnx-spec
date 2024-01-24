@@ -1,31 +1,10 @@
-attributes:
-- default_value: 1.0
-  description: Scalar multiplier for the product of input tensors A * B, the default
-    value is 1.0.
-  name: alpha
-  required: false
-  type: AttrType.FLOAT
-- default_value: 1.0
-  description: Scalar multiplier for input tensor C, the default value is 1.0.
-  name: beta
-  required: false
-  type: AttrType.FLOAT
-- default_value: 0
-  description: Whether C should be broadcasted
-  name: broadcast
-  required: false
-  type: AttrType.INT
-- default_value: 0
-  description: Whether A should be transposed
-  name: transA
-  required: false
-  type: AttrType.INT
-- default_value: 0
-  description: Whether B should be transposed
-  name: transB
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: Gemm
+since_version: 1
+min_input: 3
+max_input: 3
+min_output: 1
+max_output: 1
 doc: 'General Matrix multiplication:
 
   https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3
@@ -43,40 +22,61 @@ doc: 'General Matrix multiplication:
   if attribute transA is non-zero, same for B and transB.
 
   '
-domain: ''
+attributes:
+- name: alpha
+  description: Scalar multiplier for the product of input tensors A * B, the default
+    value is 1.0.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 1.0
+- name: beta
+  description: Scalar multiplier for input tensor C, the default value is 1.0.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 1.0
+- name: broadcast
+  description: Whether C should be broadcasted
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: transA
+  description: Whether A should be transposed
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: transB
+  description: Whether B should be transposed
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: Input tensor A
-  min_arity: 1
-  name: A
-  tags: []
+- name: A
   type_str: T
-- description: Input tensor B
+  description: Input tensor A
   min_arity: 1
-  name: B
   tags: []
+- name: B
   type_str: T
-- description: Input tensor C, can be inplace.
+  description: Input tensor B
   min_arity: 1
-  name: C
   tags: []
+- name: C
   type_str: T
-max_input: 3
-max_output: 1
-min_input: 3
-min_output: 1
-name: Gemm
+  description: Input tensor C, can be inplace.
+  min_arity: 1
+  tags: []
 outputs:
-- description: Output tensor.
-  min_arity: 1
-  name: Y
-  tags: []
+- name: Y
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: Output tensor.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

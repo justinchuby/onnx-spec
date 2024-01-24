@@ -1,36 +1,36 @@
-attributes:
-- default_value: null
-  description: Which axis to concat on. A negative value means counting dimensions
-    from the back. Accepted range is [-r, r-1] where r = rank(inputs)..
-  name: axis
-  required: true
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: Concat
+since_version: 11
+min_input: 1
+max_input: 2147483647
+min_output: 1
+max_output: 1
 doc: Concatenate a list of tensors into a single tensor. All input tensors must have
   the same shape, except for the dimension size of the axis to concatenate on.
-domain: ''
+attributes:
+- name: axis
+  description: Which axis to concat on. A negative value means counting dimensions
+    from the back. Accepted range is [-r, r-1] where r = rank(inputs)..
+  type: AttrType.INT
+  required: true
+  default_value: null
 inputs:
-- description: List of tensors for concatenation
+- name: inputs
+  type_str: T
+  description: List of tensors for concatenation
   min_arity: 1
-  name: inputs
   tags:
   - variadic
-  type_str: T
-max_input: 2147483647
-max_output: 1
-min_input: 1
-min_output: 1
-name: Concat
 outputs:
-- description: Concatenated tensor
-  min_arity: 1
-  name: concat_result
-  tags: []
+- name: concat_result
   type_str: T
-since_version: 11
-support_level: SupportType.COMMON
+  description: Concatenated tensor
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain output types to any tensor type.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -46,5 +46,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain output types to any tensor type.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

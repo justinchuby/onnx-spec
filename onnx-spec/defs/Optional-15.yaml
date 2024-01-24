@@ -1,10 +1,10 @@
-attributes:
-- default_value: null
-  description: Type of the element in the optional output
-  name: type
-  required: false
-  type: AttrType.TYPE_PROTO
-deprecated: false
+domain: ''
+name: Optional
+since_version: 15
+min_input: 0
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Constructs an optional-type value containing either an empty optional of a certain
@@ -13,29 +13,29 @@ doc: '
   or a non-empty value containing the input element.
 
   '
-domain: ''
+attributes:
+- name: type
+  description: Type of the element in the optional output
+  type: AttrType.TYPE_PROTO
+  required: false
+  default_value: null
 inputs:
-- description: The input element.
+- name: input
+  type_str: V
+  description: The input element.
   min_arity: 1
-  name: input
   tags:
   - optional
-  type_str: V
-max_input: 1
-max_output: 1
-min_input: 0
-min_output: 1
-name: Optional
 outputs:
-- description: The optional output enclosing the input element.
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: O
-since_version: 15
-support_level: SupportType.COMMON
+  description: The optional output enclosing the input element.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: V
+  description: Constrain input type to all tensor and sequence types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -66,9 +66,9 @@ type_constraints:
   - seq(tensor(bool))
   - seq(tensor(complex64))
   - seq(tensor(complex128))
-  description: Constrain input type to all tensor and sequence types.
-  type_param_str: V
-- allowed_type_strs:
+- type_param_str: O
+  description: Constrain output type to all optional tensor or optional sequence types.
+  allowed_type_strs:
   - optional(seq(tensor(uint8)))
   - optional(seq(tensor(uint16)))
   - optional(seq(tensor(uint32)))
@@ -99,5 +99,5 @@ type_constraints:
   - optional(tensor(bool))
   - optional(tensor(complex64))
   - optional(tensor(complex128))
-  description: Constrain output type to all optional tensor or optional sequence types.
-  type_param_str: O
+support_level: COMMON
+deprecated: false

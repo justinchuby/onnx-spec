@@ -1,17 +1,10 @@
-attributes:
-- default_value: 1.6732631921768188
-  description: Coefficient of SELU default to 1.67326319217681884765625 (i.e., float32
-    approximation of 1.6732632423543772848170429916717).
-  name: alpha
-  required: false
-  type: AttrType.FLOAT
-- default_value: 1.0507010221481323
-  description: Coefficient of SELU default to 1.05070102214813232421875 (i.e., float32
-    approximation of 1.0507009873554804934193349852946).
-  name: gamma
-  required: false
-  type: AttrType.FLOAT
-deprecated: false
+domain: ''
+name: Selu
+since_version: 6
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Selu takes one input data (Tensor<T>) and produces one output data
@@ -23,32 +16,39 @@ doc: '
   is applied to the tensor elementwise.
 
   '
-domain: ''
+attributes:
+- name: alpha
+  description: Coefficient of SELU default to 1.67326319217681884765625 (i.e., float32
+    approximation of 1.6732632423543772848170429916717).
+  type: AttrType.FLOAT
+  required: false
+  default_value: 1.6732631921768188
+- name: gamma
+  description: Coefficient of SELU default to 1.05070102214813232421875 (i.e., float32
+    approximation of 1.0507009873554804934193349852946).
+  type: AttrType.FLOAT
+  required: false
+  default_value: 1.0507010221481323
 inputs:
-- description: Input tensor
+- name: X
+  type_str: T
+  description: Input tensor
   min_arity: 1
-  name: X
   tags:
   - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Selu
 outputs:
-- description: Output tensor
+- name: Y
+  type_str: T
+  description: Output tensor
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T
-since_version: 6
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

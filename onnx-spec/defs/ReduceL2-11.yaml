@@ -1,17 +1,10 @@
-attributes:
-- default_value: null
-  description: A list of integers, along which to reduce. The default is to reduce
-    over all the dimensions of the input tensor. Accepted range is [-r, r-1] where
-    r = rank(data).
-  name: axes
-  required: false
-  type: AttrType.INTS
-- default_value: 1
-  description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
-  name: keepdims
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: ReduceL2
+since_version: 11
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Computes the L2 norm of the input tensor''s element along the provided axes. The
@@ -27,28 +20,35 @@ doc: '
   to
 
   False instead of True.'
-domain: ''
+attributes:
+- name: axes
+  description: A list of integers, along which to reduce. The default is to reduce
+    over all the dimensions of the input tensor. Accepted range is [-r, r-1] where
+    r = rank(data).
+  type: AttrType.INTS
+  required: false
+  default_value: null
+- name: keepdims
+  description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
+  type: AttrType.INT
+  required: false
+  default_value: 1
 inputs:
-- description: An input tensor.
-  min_arity: 1
-  name: data
-  tags: []
+- name: data
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: ReduceL2
+  description: An input tensor.
+  min_arity: 1
+  tags: []
 outputs:
-- description: Reduced output tensor.
-  min_arity: 1
-  name: reduced
-  tags: []
+- name: reduced
   type_str: T
-since_version: 11
-support_level: SupportType.COMMON
+  description: Reduced output tensor.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to high-precision numeric tensors.
+  allowed_type_strs:
   - tensor(uint32)
   - tensor(uint64)
   - tensor(int32)
@@ -56,5 +56,5 @@ type_constraints:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to high-precision numeric tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

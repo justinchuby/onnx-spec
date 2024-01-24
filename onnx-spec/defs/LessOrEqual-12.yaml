@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: LessOrEqual
+since_version: 12
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Returns the tensor resulted from performing the `less_equal` logical operation
@@ -11,36 +16,31 @@ doc: '
   more details please check [the doc](Broadcasting.md).
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: First input operand for the logical operator.
+- name: A
+  type_str: T
+  description: First input operand for the logical operator.
   min_arity: 1
-  name: A
   tags:
   - non-differentiable
+- name: B
   type_str: T
-- description: Second input operand for the logical operator.
+  description: Second input operand for the logical operator.
   min_arity: 1
-  name: B
   tags:
   - non-differentiable
-  type_str: T
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: LessOrEqual
 outputs:
-- description: Result tensor.
+- name: C
+  type_str: T1
+  description: Result tensor.
   min_arity: 1
-  name: C
   tags:
   - non-differentiable
-  type_str: T1
-since_version: 12
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input types to all numeric tensors.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -52,9 +52,9 @@ type_constraints:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input types to all numeric tensors.
-  type_param_str: T
-- allowed_type_strs:
-  - tensor(bool)
+- type_param_str: T1
   description: Constrain output to boolean tensor.
-  type_param_str: T1
+  allowed_type_strs:
+  - tensor(bool)
+support_level: COMMON
+deprecated: false

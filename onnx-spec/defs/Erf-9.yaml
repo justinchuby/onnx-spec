@@ -1,33 +1,33 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Erf
+since_version: 9
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Computes the error function of the given input tensor element-wise.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Input tensor
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Erf
+  description: Input tensor
+  min_arity: 1
+  tags: []
 outputs:
-- description: The error function of the input tensor computed element-wise. It has
+- name: output
+  type_str: T
+  description: The error function of the input tensor computed element-wise. It has
     the same shape and type of the input.
   min_arity: 1
-  name: output
   tags: []
-  type_str: T
-since_version: 9
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all numeric tensors.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -39,5 +39,5 @@ type_constraints:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to all numeric tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

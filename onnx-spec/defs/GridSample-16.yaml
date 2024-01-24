@@ -1,30 +1,10 @@
-attributes:
-- default_value: 0
-  description: If align_corners=1, the extrema (-1 and 1) are considered as referring
-    to the center points of the input's corner pixels. If align_corners=0, they are
-    instead considered as referring to the corner points of the input's corner pixels,
-    making the sampling more resolution agnostic.
-  name: align_corners
-  required: false
-  type: AttrType.INT
-- default_value: bilinear
-  description: 'Three interpolation modes: bilinear (default), nearest and bicubic.'
-  name: mode
-  required: false
-  type: AttrType.STRING
-- default_value: zeros
-  description: 'Support padding modes for outside grid values: `zeros`(default), `border`,
-    `reflection`. zeros: use 0 for out-of-bound grid locations, border: use border
-    values for out-of-bound grid locations, reflection: use values at locations reflected
-    by the border for out-of-bound grid locations. If index 0 represents the margin
-    pixel, the reflected value at index -1 will be the same as the value at index
-    1. For location far away from the border, it will keep being reflected until becoming
-    in bound. If pixel location x = -3.5 reflects by border -1 and becomes x'' = 1.5,
-    then reflects by border 1 and becomes x'''' = 0.5.'
-  name: padding_mode
-  required: false
-  type: AttrType.STRING
-deprecated: false
+domain: ''
+name: GridSample
+since_version: 16
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Given an input `X` and a flow-field `grid`, computes the output `Y` using `X` values
@@ -57,43 +37,63 @@ doc: '
   See also in [torch.nn.functional.grid_sample](https://pytorch.org/docs/master/generated/torch.nn.functional.grid_sample.html#torch-nn-functional-grid-sample).
 
   '
-domain: ''
+attributes:
+- name: align_corners
+  description: If align_corners=1, the extrema (-1 and 1) are considered as referring
+    to the center points of the input's corner pixels. If align_corners=0, they are
+    instead considered as referring to the corner points of the input's corner pixels,
+    making the sampling more resolution agnostic.
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: mode
+  description: 'Three interpolation modes: bilinear (default), nearest and bicubic.'
+  type: AttrType.STRING
+  required: false
+  default_value: bilinear
+- name: padding_mode
+  description: 'Support padding modes for outside grid values: `zeros`(default), `border`,
+    `reflection`. zeros: use 0 for out-of-bound grid locations, border: use border
+    values for out-of-bound grid locations, reflection: use values at locations reflected
+    by the border for out-of-bound grid locations. If index 0 represents the margin
+    pixel, the reflected value at index -1 will be the same as the value at index
+    1. For location far away from the border, it will keep being reflected until becoming
+    in bound. If pixel location x = -3.5 reflects by border -1 and becomes x'' = 1.5,
+    then reflects by border 1 and becomes x'''' = 0.5.'
+  type: AttrType.STRING
+  required: false
+  default_value: zeros
 inputs:
-- description: 4-D tensor of shape (N, C, H, W), where N is the batch size, C is the
+- name: X
+  type_str: T1
+  description: 4-D tensor of shape (N, C, H, W), where N is the batch size, C is the
     numbers of channels, H and W are the height and width of the input data.
   min_arity: 1
-  name: X
   tags:
   - differentiable
-  type_str: T1
-- description: Input offset, 4-D tensor of shape (N, H_out, W_out, 2), where H_out
+- name: grid
+  type_str: T2
+  description: Input offset, 4-D tensor of shape (N, H_out, W_out, 2), where H_out
     and W_out are the height and width of grid and output, Grid specifies the sampling
     pixel locations normalized by the input spatial dimensions. Therefore, it should
     have most values in the range of [-1, 1]. If grid has values outside the range
     of [-1, 1], the corresponding outputs will be handled as defined by padding_mode.
   min_arity: 1
-  name: grid
   tags:
   - non-differentiable
-  type_str: T2
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: GridSample
 outputs:
-- description: 4-D tensor of shape (N, C, H_out, W_out) of sampled values. For integer
+- name: Y
+  type_str: T1
+  description: 4-D tensor of shape (N, C, H_out, W_out) of sampled values. For integer
     input types, intermediate values are computed as floating point and cast to integer
     at the end.
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T1
-since_version: 16
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain input `X` and output `Y` types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -109,11 +109,11 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input `X` and output `Y` types to all tensor types.
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: Constrain grid types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain grid types to float tensors.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

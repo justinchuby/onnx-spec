@@ -1,10 +1,10 @@
-attributes:
-- default_value: MAX
-  description: One of 'MAX,' 'L1,' 'L2'
-  name: norm
-  required: false
-  type: AttrType.STRING
-deprecated: false
+domain: ai.onnx.ml
+name: Normalizer
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: "\n    Normalize the input.  There are three normalization modes, which have\
   \ the corresponding formulas,\n    defined using element-wise infix operators '/'\
   \ and '^' and tensor-wide functions 'max' and 'sum':\n\n\n\n    Max: Y = X / max(X)\n\
@@ -12,31 +12,31 @@ doc: "\n    Normalize the input.  There are three normalization modes, which hav
   \ if the divisor is zero, Y == X.\n\n\n    For batches, that is, [N,C] tensors,\
   \ normalization is done along the C axis. In other words, each row\n    of the batch\
   \ is normalized independently.\n"
-domain: ai.onnx.ml
+attributes:
+- name: norm
+  description: One of 'MAX,' 'L1,' 'L2'
+  type: AttrType.STRING
+  required: false
+  default_value: MAX
 inputs:
-- description: Data to be encoded, a tensor of shape [N,C] or [C]
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Normalizer
-outputs:
-- description: Encoded output data
+  description: Data to be encoded, a tensor of shape [N,C] or [C]
   min_arity: 1
-  name: Y
   tags: []
+outputs:
+- name: Y
   type_str: tensor(float)
-since_version: 1
-support_level: SupportType.COMMON
+  description: Encoded output data
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: The input must be a tensor of a numeric type.
+  allowed_type_strs:
   - tensor(float)
   - tensor(double)
   - tensor(int64)
   - tensor(int32)
-  description: The input must be a tensor of a numeric type.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

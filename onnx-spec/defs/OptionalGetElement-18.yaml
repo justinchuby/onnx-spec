@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: OptionalGetElement
+since_version: 18
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   If the input is a tensor or sequence type, it returns the input.
@@ -10,28 +15,23 @@ doc: '
   and the behavior is undefined in this case.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: The optional input.
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: O
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: OptionalGetElement
-outputs:
-- description: Output element in the optional input.
+  description: The optional input.
   min_arity: 1
-  name: output
   tags: []
+outputs:
+- name: output
   type_str: V
-since_version: 18
-support_level: SupportType.COMMON
+  description: Output element in the optional input.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: O
+  description: Constrain input type to optional tensor and optional sequence types.
+  allowed_type_strs:
   - optional(seq(tensor(uint8)))
   - optional(seq(tensor(uint16)))
   - optional(seq(tensor(uint32)))
@@ -92,9 +92,9 @@ type_constraints:
   - seq(tensor(bool))
   - seq(tensor(complex64))
   - seq(tensor(complex128))
-  description: Constrain input type to optional tensor and optional sequence types.
-  type_param_str: O
-- allowed_type_strs:
+- type_param_str: V
+  description: Constrain output type to all tensor or sequence types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -125,5 +125,5 @@ type_constraints:
   - seq(tensor(bool))
   - seq(tensor(complex64))
   - seq(tensor(complex128))
-  description: Constrain output type to all tensor or sequence types.
-  type_param_str: V
+support_level: COMMON
+deprecated: false

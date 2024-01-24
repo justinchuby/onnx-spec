@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: PRelu
+since_version: 6
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
 
@@ -11,36 +16,31 @@ doc: '
 
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Input tensor
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T
-- description: Slope tensor. If `Slope` is of size 1, the value is sharedacross different
+  description: Input tensor
+  min_arity: 1
+  tags: []
+- name: slope
+  type_str: T
+  description: Slope tensor. If `Slope` is of size 1, the value is sharedacross different
     channels
   min_arity: 1
-  name: slope
   tags: []
-  type_str: T
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: PRelu
 outputs:
-- description: Output tensor
-  min_arity: 1
-  name: Y
-  tags: []
+- name: Y
   type_str: T
-since_version: 6
-support_level: SupportType.COMMON
+  description: Output tensor
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

@@ -1,15 +1,10 @@
-attributes:
-- default_value: 0
-  description: Integer indicate the format of the box data. The default is 0. 0 -
-    the box data is supplied as [y1, x1, y2, x2] where (y1, x1) and (y2, x2) are the
-    coordinates of any diagonal pair of box corners and the coordinates can be provided
-    as normalized (i.e., lying in the interval [0, 1]) or absolute. Mostly used for
-    TF models. 1 - the box data is supplied as [x_center, y_center, width, height].
-    Mostly used for Pytorch models.
-  name: center_point_box
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: NonMaxSuppression
+since_version: 10
+min_input: 2
+max_input: 5
+min_output: 1
+max_output: 1
 doc: '
 
   Filter out boxes that have high intersection-over-union (IOU) overlap with previously
@@ -33,52 +28,57 @@ doc: '
   using the Gather or GatherND operation.
 
   '
-domain: ''
+attributes:
+- name: center_point_box
+  description: Integer indicate the format of the box data. The default is 0. 0 -
+    the box data is supplied as [y1, x1, y2, x2] where (y1, x1) and (y2, x2) are the
+    coordinates of any diagonal pair of box corners and the coordinates can be provided
+    as normalized (i.e., lying in the interval [0, 1]) or absolute. Mostly used for
+    TF models. 1 - the box data is supplied as [x_center, y_center, width, height].
+    Mostly used for Pytorch models.
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: An input tensor with shape [num_batches, spatial_dimension, 4]. The
+- name: boxes
+  type_str: tensor(float)
+  description: An input tensor with shape [num_batches, spatial_dimension, 4]. The
     single box data format is indicated by center_point_box.
   min_arity: 1
-  name: boxes
   tags: []
+- name: scores
   type_str: tensor(float)
-- description: An input tensor with shape [num_batches, num_classes, spatial_dimension]
+  description: An input tensor with shape [num_batches, num_classes, spatial_dimension]
   min_arity: 1
-  name: scores
   tags: []
-  type_str: tensor(float)
-- description: Integer representing the maximum number of boxes to be selected per
+- name: max_output_boxes_per_class
+  type_str: tensor(int64)
+  description: Integer representing the maximum number of boxes to be selected per
     batch per class. It is a scalar. Default to 0, which means no output.
   min_arity: 1
-  name: max_output_boxes_per_class
   tags:
   - optional
-  type_str: tensor(int64)
-- description: Float representing the threshold for deciding whether boxes overlap
+- name: iou_threshold
+  type_str: tensor(float)
+  description: Float representing the threshold for deciding whether boxes overlap
     too much with respect to IOU. It is scalar. Value range [0, 1]. Default to 0.
   min_arity: 1
-  name: iou_threshold
   tags:
   - optional
+- name: score_threshold
   type_str: tensor(float)
-- description: Float representing the threshold for deciding when to remove boxes
+  description: Float representing the threshold for deciding when to remove boxes
     based on score. It is a scalar.
   min_arity: 1
-  name: score_threshold
   tags:
   - optional
-  type_str: tensor(float)
-max_input: 5
-max_output: 1
-min_input: 2
-min_output: 1
-name: NonMaxSuppression
 outputs:
-- description: selected indices from the boxes tensor. [num_selected_indices, 3],
+- name: selected_indices
+  type_str: tensor(int64)
+  description: selected indices from the boxes tensor. [num_selected_indices, 3],
     the selected index format is [batch_index, class_index, box_index].
   min_arity: 1
-  name: selected_indices
   tags: []
-  type_str: tensor(int64)
-since_version: 10
-support_level: SupportType.COMMON
 type_constraints: []
+support_level: COMMON
+deprecated: false

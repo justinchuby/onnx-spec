@@ -1,32 +1,10 @@
-attributes:
-- default_value: 1
-  description: The data type for the elements of the output tensor. If not specified,
-    default is TensorProto::FLOAT.
-  name: dtype
-  required: false
-  type: AttrType.INT
-- default_value: 1.0
-  description: Upper boundary of the output values.
-  name: high
-  required: false
-  type: AttrType.FLOAT
-- default_value: 0.0
-  description: Lower boundary of the output values.
-  name: low
-  required: false
-  type: AttrType.FLOAT
-- default_value: null
-  description: (Optional) Seed to the random generator, if not specified we will auto
-    generate one.
-  name: seed
-  required: false
-  type: AttrType.FLOAT
-- default_value: null
-  description: The shape of the output tensor.
-  name: shape
-  required: true
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: RandomUniform
+since_version: 1
+min_input: 0
+max_input: 0
+min_output: 1
+max_output: 1
 doc: '
 
   Generate a tensor with random values drawn from a uniform distribution. The shape
@@ -41,25 +19,47 @@ doc: '
   TensorProto message.
 
   '
-domain: ''
+attributes:
+- name: dtype
+  description: The data type for the elements of the output tensor. If not specified,
+    default is TensorProto::FLOAT.
+  type: AttrType.INT
+  required: false
+  default_value: 1
+- name: high
+  description: Upper boundary of the output values.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 1.0
+- name: low
+  description: Lower boundary of the output values.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 0.0
+- name: seed
+  description: (Optional) Seed to the random generator, if not specified we will auto
+    generate one.
+  type: AttrType.FLOAT
+  required: false
+  default_value: null
+- name: shape
+  description: The shape of the output tensor.
+  type: AttrType.INTS
+  required: true
+  default_value: null
 inputs: []
-max_input: 0
-max_output: 1
-min_input: 0
-min_output: 1
-name: RandomUniform
 outputs:
-- description: Output tensor of random values drawn from uniform distribution
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: Output tensor of random values drawn from uniform distribution
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

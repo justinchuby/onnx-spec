@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: QLinearMatMul
+since_version: 21
+min_input: 8
+max_input: 8
+min_output: 1
+max_output: 1
 doc: '
 
   Matrix product that behaves like numpy.matmul: https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.matmul.html.
@@ -35,101 +40,96 @@ doc: '
   32 bits.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: N-dimensional quantized matrix a
-  min_arity: 1
-  name: a
-  tags:
-  - non-differentiable
+- name: a
   type_str: T1
-- description: scale of quantized input a
+  description: N-dimensional quantized matrix a
   min_arity: 1
-  name: a_scale
   tags:
   - non-differentiable
+- name: a_scale
   type_str: TS
-- description: zero point of quantized input a
+  description: scale of quantized input a
   min_arity: 1
-  name: a_zero_point
   tags:
   - non-differentiable
+- name: a_zero_point
   type_str: T1
-- description: N-dimensional quantized matrix b
+  description: zero point of quantized input a
   min_arity: 1
-  name: b
   tags:
   - non-differentiable
+- name: b
   type_str: T2
-- description: scale of quantized input b
+  description: N-dimensional quantized matrix b
   min_arity: 1
-  name: b_scale
   tags:
   - non-differentiable
+- name: b_scale
   type_str: TS
-- description: zero point of quantized input b
+  description: scale of quantized input b
   min_arity: 1
-  name: b_zero_point
   tags:
   - non-differentiable
+- name: b_zero_point
   type_str: T2
-- description: scale of quantized output y
+  description: zero point of quantized input b
   min_arity: 1
-  name: y_scale
   tags:
   - non-differentiable
+- name: y_scale
   type_str: TS
-- description: zero point of quantized output y
+  description: scale of quantized output y
   min_arity: 1
-  name: y_zero_point
   tags:
   - non-differentiable
+- name: y_zero_point
   type_str: T3
-max_input: 8
-max_output: 1
-min_input: 8
-min_output: 1
-name: QLinearMatMul
+  description: zero point of quantized output y
+  min_arity: 1
+  tags:
+  - non-differentiable
 outputs:
-- description: Quantized matrix multiply results from a * b
+- name: y
+  type_str: T3
+  description: Quantized matrix multiply results from a * b
   min_arity: 1
-  name: y
   tags:
   - non-differentiable
-  type_str: T3
-since_version: 21
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: TS
+  description: Constrain scales.
+  allowed_type_strs:
   - tensor(float)
   - tensor(float16)
   - tensor(bfloat16)
-  description: Constrain scales.
-  type_param_str: TS
-- allowed_type_strs:
-  - tensor(int8)
-  - tensor(uint8)
-  - tensor(float8e4m3fn)
-  - tensor(float8e4m3fnuz)
-  - tensor(float8e5m2)
-  - tensor(float8e5m2fnuz)
+- type_param_str: T1
   description: The type of input a and its zeropoint.
-  type_param_str: T1
-- allowed_type_strs:
+  allowed_type_strs:
   - tensor(int8)
   - tensor(uint8)
   - tensor(float8e4m3fn)
   - tensor(float8e4m3fnuz)
   - tensor(float8e5m2)
   - tensor(float8e5m2fnuz)
+- type_param_str: T2
   description: The type of input b and its zeropoint.
-  type_param_str: T2
-- allowed_type_strs:
+  allowed_type_strs:
   - tensor(int8)
   - tensor(uint8)
   - tensor(float8e4m3fn)
   - tensor(float8e4m3fnuz)
   - tensor(float8e5m2)
   - tensor(float8e5m2fnuz)
+- type_param_str: T3
   description: The type of the output and its zeropoint.
-  type_param_str: T3
+  allowed_type_strs:
+  - tensor(int8)
+  - tensor(uint8)
+  - tensor(float8e4m3fn)
+  - tensor(float8e4m3fnuz)
+  - tensor(float8e5m2)
+  - tensor(float8e5m2fnuz)
+support_level: COMMON
+deprecated: false

@@ -1,15 +1,10 @@
-attributes:
-- default_value: -1
-  description: Dimension on which to do the sort.
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: null
-  description: Number of top elements to retrieve
-  name: k
-  required: true
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: TopK
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 2
+max_output: 2
 doc: "\nRetrieve the top-K elements along a specified axis. Given an input tensor\
   \ of\nshape [a_1, a_2, ..., a_n, r] and integer argument k, return two outputs:\n\
   \  -Value tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]\n\
@@ -19,41 +14,46 @@ doc: "\nRetrieve the top-K elements along a specified axis. Given an input tenso
   \   tensor).\nGiven two equivalent values, this operator uses the indices along\
   \ the axis  as\n a tiebreaker. That is, the element with the lower index will appear\
   \ first.\n"
-domain: ''
+attributes:
+- name: axis
+  description: Dimension on which to do the sort.
+  type: AttrType.INT
+  required: false
+  default_value: -1
+- name: k
+  description: Number of top elements to retrieve
+  type: AttrType.INT
+  required: true
+  default_value: null
 inputs:
-- description: Tensor of shape [a_1, a_2, ..., a_n, r]
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T
-max_input: 1
-max_output: 2
-min_input: 1
-min_output: 2
-name: TopK
+  description: Tensor of shape [a_1, a_2, ..., a_n, r]
+  min_arity: 1
+  tags: []
 outputs:
-- description: Tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]
+- name: Values
+  type_str: T
+  description: Tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]
     containing top K values from the input tensor
   min_arity: 1
-  name: Values
   tags: []
-  type_str: T
-- description: Tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]
+- name: Indices
+  type_str: I
+  description: Tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]
     containing the corresponding input tensor indices for the top K values.
   min_arity: 1
-  name: Indices
   tags: []
-  type_str: I
-since_version: 1
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
-- allowed_type_strs:
-  - tensor(int64)
+- type_param_str: I
   description: Constrain index tensor to int64
-  type_param_str: I
+  allowed_type_strs:
+  - tensor(int64)
+support_level: COMMON
+deprecated: false

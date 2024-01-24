@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Less
+since_version: 7
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Returns the tensor resulted from performing the `less` logical operation
@@ -11,39 +16,34 @@ doc: '
   more details please check [the doc](Broadcasting.md).
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: First input operand for the logical operator.
-  min_arity: 1
-  name: A
-  tags: []
+- name: A
   type_str: T
-- description: Second input operand for the logical operator.
+  description: First input operand for the logical operator.
   min_arity: 1
-  name: B
   tags: []
+- name: B
   type_str: T
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Less
+  description: Second input operand for the logical operator.
+  min_arity: 1
+  tags: []
 outputs:
-- description: Result tensor.
-  min_arity: 1
-  name: C
-  tags: []
+- name: C
   type_str: T1
-since_version: 7
-support_level: SupportType.COMMON
+  description: Result tensor.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input to float tensors.
-  type_param_str: T
-- allowed_type_strs:
-  - tensor(bool)
+- type_param_str: T1
   description: Constrain output to boolean tensor.
-  type_param_str: T1
+  allowed_type_strs:
+  - tensor(bool)
+support_level: COMMON
+deprecated: false

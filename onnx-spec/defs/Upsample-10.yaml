@@ -1,42 +1,42 @@
-attributes:
-- default_value: nearest
-  description: 'Two interpolation modes: nearest (default), and linear (including
-    bilinear, trilinear, etc)'
-  name: mode
-  required: false
-  type: AttrType.STRING
-deprecated: true
+domain: ''
+name: Upsample
+since_version: 10
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: "\nUpsample the input tensor.\nEach dimension value of the output tensor is:\n\
   \  output_dimension = floor(input_dimension * scale).\n"
-domain: ''
+attributes:
+- name: mode
+  description: 'Two interpolation modes: nearest (default), and linear (including
+    bilinear, trilinear, etc)'
+  type: AttrType.STRING
+  required: false
+  default_value: nearest
 inputs:
-- description: N-D tensor
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T
-- description: The scale array along each dimension. It takes value greater than or
+  description: N-D tensor
+  min_arity: 1
+  tags: []
+- name: scales
+  type_str: tensor(float)
+  description: The scale array along each dimension. It takes value greater than or
     equal to 1. The number of elements of 'scales' should be the same as the rank
     of input 'X'.
   min_arity: 1
-  name: scales
   tags: []
-  type_str: tensor(float)
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Upsample
 outputs:
-- description: N-D tensor after resizing
-  min_arity: 1
-  name: Y
-  tags: []
+- name: Y
   type_str: T
-since_version: 10
-support_level: SupportType.COMMON
+  description: N-D tensor after resizing
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input 'X' and output 'Y' to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -52,5 +52,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input 'X' and output 'Y' to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: true

@@ -1,12 +1,10 @@
-attributes:
-- default_value: 1
-  description: (Optional) The axis of the dequantizing dimension of the input tensor.
-    Ignored for per-tensor quantization. Negative value means counting dimensions
-    from the back. Accepted range is [-r, r-1] where r = rank(input).
-  name: axis
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: DequantizeLinear
+since_version: 13
+min_input: 2
+max_input: 3
+min_output: 1
+max_output: 1
 doc: '
 
   The linear dequantization operator. It consumes a quantized tensor, a scale, and
@@ -23,43 +21,45 @@ doc: '
   there''s no zero point (zero point is supposed to be 0).
 
   '
-domain: ''
+attributes:
+- name: axis
+  description: (Optional) The axis of the dequantizing dimension of the input tensor.
+    Ignored for per-tensor quantization. Negative value means counting dimensions
+    from the back. Accepted range is [-r, r-1] where r = rank(input).
+  type: AttrType.INT
+  required: false
+  default_value: 1
 inputs:
-- description: N-D quantized input tensor to be de-quantized.
-  min_arity: 1
-  name: x
-  tags: []
+- name: x
   type_str: T
-- description: Scale for input 'x'. It can be a scalar, which means a per-tensor/layer
+  description: N-D quantized input tensor to be de-quantized.
+  min_arity: 1
+  tags: []
+- name: x_scale
+  type_str: tensor(float)
+  description: Scale for input 'x'. It can be a scalar, which means a per-tensor/layer
     dequantization, or a 1-D tensor for per-axis dequantization.
   min_arity: 1
-  name: x_scale
   tags: []
-  type_str: tensor(float)
-- description: Zero point for input 'x'. Shape must match x_scale. It's optional.
+- name: x_zero_point
+  type_str: T
+  description: Zero point for input 'x'. Shape must match x_scale. It's optional.
     Zero point is 0 when it's not specified.
   min_arity: 1
-  name: x_zero_point
   tags:
   - optional
-  type_str: T
-max_input: 3
-max_output: 1
-min_input: 2
-min_output: 1
-name: DequantizeLinear
 outputs:
-- description: N-D full precision output tensor. It has same shape as input 'x'.
-  min_arity: 1
-  name: y
-  tags: []
+- name: y
   type_str: tensor(float)
-since_version: 13
-support_level: SupportType.COMMON
+  description: N-D full precision output tensor. It has same shape as input 'x'.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain 'x_zero_point' and 'x' to 8-bit/32-bit integer tensor.
+  allowed_type_strs:
   - tensor(int8)
   - tensor(uint8)
   - tensor(int32)
-  description: Constrain 'x_zero_point' and 'x' to 8-bit/32-bit integer tensor.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

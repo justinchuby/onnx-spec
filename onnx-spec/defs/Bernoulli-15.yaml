@@ -1,17 +1,10 @@
-attributes:
-- default_value: null
-  description: The data type for the elements of the output tensor. if not specified,
-    we will use the data type of the input tensor.
-  name: dtype
-  required: false
-  type: AttrType.INT
-- default_value: null
-  description: (Optional) Seed to the random generator, if not specified we will auto
-    generate one.
-  name: seed
-  required: false
-  type: AttrType.FLOAT
-deprecated: false
+domain: ''
+name: Bernoulli
+since_version: 15
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Draws binary random numbers (0 or 1) from a Bernoulli distribution. The input tensor
@@ -29,35 +22,42 @@ doc: '
   implementations (even if a seed is specified).
 
   '
-domain: ''
+attributes:
+- name: dtype
+  description: The data type for the elements of the output tensor. if not specified,
+    we will use the data type of the input tensor.
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: seed
+  description: (Optional) Seed to the random generator, if not specified we will auto
+    generate one.
+  type: AttrType.FLOAT
+  required: false
+  default_value: null
 inputs:
-- description: All values in input have to be in the range:[0, 1].
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T1
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Bernoulli
+  description: All values in input have to be in the range:[0, 1].
+  min_arity: 1
+  tags: []
 outputs:
-- description: The returned output tensor only has values 0 or 1, same shape as input
+- name: output
+  type_str: T2
+  description: The returned output tensor only has values 0 or 1, same shape as input
     tensor.
   min_arity: 1
-  name: output
   tags: []
-  type_str: T2
-since_version: 15
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain input types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input types to float tensors.
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: Constrain output types to all numeric tensors and bool tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
@@ -71,5 +71,5 @@ type_constraints:
   - tensor(int32)
   - tensor(int64)
   - tensor(bool)
-  description: Constrain output types to all numeric tensors and bool tensors.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

@@ -1,34 +1,34 @@
-attributes: []
-deprecated: false
+domain: ''
+name: BitwiseNot
+since_version: 18
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Returns the bitwise not of the input tensor element-wise.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Input tensor
+- name: X
+  type_str: T
+  description: Input tensor
   min_arity: 1
-  name: X
   tags:
   - non-differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: BitwiseNot
 outputs:
-- description: Output tensor
+- name: Y
+  type_str: T
+  description: Output tensor
   min_arity: 1
-  name: Y
   tags:
   - non-differentiable
-  type_str: T
-since_version: 18
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input/output to integer tensors.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -37,5 +37,5 @@ type_constraints:
   - tensor(int16)
   - tensor(int32)
   - tensor(int64)
-  description: Constrain input/output to integer tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

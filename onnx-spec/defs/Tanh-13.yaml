@@ -1,37 +1,37 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Tanh
+since_version: 13
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Calculates the hyperbolic tangent of the given input tensor element-wise.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Input tensor
+- name: input
+  type_str: T
+  description: Input tensor
   min_arity: 1
-  name: input
   tags:
   - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Tanh
 outputs:
-- description: The hyperbolic tangent values of the input tensor computed element-wise
+- name: output
+  type_str: T
+  description: The hyperbolic tangent values of the input tensor computed element-wise
   min_arity: 1
-  name: output
   tags:
   - differentiable
-  type_str: T
-since_version: 13
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
   - tensor(bfloat16)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

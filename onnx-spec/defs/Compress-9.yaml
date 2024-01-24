@@ -1,46 +1,52 @@
+domain: ''
+name: Compress
+since_version: 9
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
+doc: '
+
+  Selects slices from an input tensor along a given axis where condition evaluates
+  to True for each axis index.
+
+  In case axis is not provided, input is flattened before elements are selected.
+
+  Compress behaves like numpy.compress: https://docs.scipy.org/doc/numpy/reference/generated/numpy.compress.html
+
+  '
 attributes:
-- default_value: null
+- name: axis
   description: (Optional) Axis along which to take slices. If not specified, input
     is flattened before elements being selected.
-  name: axis
-  required: false
   type: AttrType.INT
-deprecated: false
-doc: "\n    Selects slices from an input tensor along a given axis where condition\
-  \ evaluates to True for each axis index.\n    In case axis is not provided, input\
-  \ is flattened before elements are selected.\n    Compress behaves like numpy.compress:\
-  \ https://docs.scipy.org/doc/numpy/reference/generated/numpy.compress.html\n    "
-domain: ''
+  required: false
+  default_value: null
 inputs:
-- description: Tensor of rank r >= 1.
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T
-- description: Rank 1 tensor of booleans to indicate which slices or data elements
+  description: Tensor of rank r >= 1.
+  min_arity: 1
+  tags: []
+- name: condition
+  type_str: T1
+  description: Rank 1 tensor of booleans to indicate which slices or data elements
     to be selected. Its length can be less than the input length alone the axis or
     the flattened input size if axis is not specified. In such cases data slices or
     elements exceeding the condition length are discarded.
   min_arity: 1
-  name: condition
   tags: []
-  type_str: T1
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Compress
 outputs:
-- description: Tensor of rank r if axis is specified. Otherwise output is a Tensor
+- name: output
+  type_str: T
+  description: Tensor of rank r if axis is specified. Otherwise output is a Tensor
     of rank 1.
   min_arity: 1
-  name: output
   tags: []
-  type_str: T
-since_version: 9
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -56,9 +62,9 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
-- allowed_type_strs:
-  - tensor(bool)
+- type_param_str: T1
   description: Constrain to boolean tensors.
-  type_param_str: T1
+  allowed_type_strs:
+  - tensor(bool)
+support_level: COMMON
+deprecated: false

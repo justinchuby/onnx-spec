@@ -1,13 +1,10 @@
-attributes:
-- default_value: 0
-  description: (Optional) By default, when any value in the 'shape' input is equal
-    to zero the corresponding dimension value is copied from the input tensor dynamically.
-    allowzero=1 indicates that if any value in the 'shape' input is set to zero, the
-    zero value is honored, similar to NumPy.
-  name: allowzero
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: Reshape
+since_version: 19
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Reshape the input tensor similar to numpy.reshape.
@@ -38,36 +35,39 @@ doc: '
   to -1 cannot be determined uniquely.
 
   '
-domain: ''
+attributes:
+- name: allowzero
+  description: (Optional) By default, when any value in the 'shape' input is equal
+    to zero the corresponding dimension value is copied from the input tensor dynamically.
+    allowzero=1 indicates that if any value in the 'shape' input is set to zero, the
+    zero value is honored, similar to NumPy.
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: An input tensor.
+- name: data
+  type_str: T
+  description: An input tensor.
   min_arity: 1
-  name: data
   tags:
   - differentiable
-  type_str: T
-- description: Specified shape for output.
+- name: shape
+  type_str: tensor(int64)
+  description: Specified shape for output.
   min_arity: 1
-  name: shape
   tags:
   - non-differentiable
-  type_str: tensor(int64)
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Reshape
 outputs:
-- description: Reshaped data.
+- name: reshaped
+  type_str: T
+  description: Reshaped data.
   min_arity: 1
-  name: reshaped
   tags:
   - differentiable
-  type_str: T
-since_version: 19
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -88,5 +88,5 @@ type_constraints:
   - tensor(float8e4m3fnuz)
   - tensor(float8e5m2)
   - tensor(float8e5m2fnuz)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Slice
+since_version: 10
+min_input: 3
+max_input: 5
+min_output: 1
+max_output: 1
 doc: "\nProduces a slice of the input tensor along multiple axes. Similar to numpy:\n\
   https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html\nSlices uses `starts`,\
   \ `ends`, `axes` and `steps` inputs to specify the start and end\ndimension and\
@@ -16,51 +21,46 @@ doc: "\nProduces a slice of the input tensor along multiple axes. Similar to num
   \ = [1, 2]\n  result = [\n      [5, 7],\n  ]\nExample 2:\n  data = [\n      [1,\
   \ 2, 3, 4],\n      [5, 6, 7, 8],\n  ]\n  starts = [0, 1]\n  ends = [-1, 1000]\n\
   \  result = [\n      [2, 3, 4],\n  ]\n"
-domain: ''
+attributes: []
 inputs:
-- description: Tensor of data to extract slices from.
-  min_arity: 1
-  name: data
-  tags: []
+- name: data
   type_str: T
-- description: 1-D tensor of starting indices of corresponding axis in `axes`
+  description: Tensor of data to extract slices from.
   min_arity: 1
-  name: starts
   tags: []
+- name: starts
   type_str: Tind
-- description: 1-D tensor of ending indices (exclusive) of corresponding axis in `axes`
+  description: 1-D tensor of starting indices of corresponding axis in `axes`
   min_arity: 1
-  name: ends
   tags: []
+- name: ends
   type_str: Tind
-- description: 1-D tensor of axes that `starts` and `ends` apply to.
+  description: 1-D tensor of ending indices (exclusive) of corresponding axis in `axes`
   min_arity: 1
-  name: axes
+  tags: []
+- name: axes
+  type_str: Tind
+  description: 1-D tensor of axes that `starts` and `ends` apply to.
+  min_arity: 1
   tags:
   - optional
+- name: steps
   type_str: Tind
-- description: '1-D tensor of slice step of corresponding axis in `axes`. Default
+  description: '1-D tensor of slice step of corresponding axis in `axes`. Default
     to 1. '
   min_arity: 1
-  name: steps
   tags:
   - optional
-  type_str: Tind
-max_input: 5
-max_output: 1
-min_input: 3
-min_output: 1
-name: Slice
 outputs:
-- description: Sliced data tensor.
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: T
-since_version: 10
-support_level: SupportType.COMMON
+  description: Sliced data tensor.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -76,10 +76,10 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
-- allowed_type_strs:
+- type_param_str: Tind
+  description: Constrain indices to integer types
+  allowed_type_strs:
   - tensor(int32)
   - tensor(int64)
-  description: Constrain indices to integer types
-  type_param_str: Tind
+support_level: COMMON
+deprecated: false

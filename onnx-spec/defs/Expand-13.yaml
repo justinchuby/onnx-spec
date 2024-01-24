@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Expand
+since_version: 13
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Broadcast the input tensor following the given shape and the broadcast rule.
@@ -22,37 +27,32 @@ doc: '
   or the shape.ndim < input.shape.ndim.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Input tensor
+- name: input
+  type_str: T
+  description: Input tensor
   min_arity: 1
-  name: input
   tags:
   - differentiable
-  type_str: T
-- description: A 1-D tensor indicates the shape you want to expand to, following the
+- name: shape
+  type_str: tensor(int64)
+  description: A 1-D tensor indicates the shape you want to expand to, following the
     broadcast rule
   min_arity: 1
-  name: shape
   tags:
   - non-differentiable
-  type_str: tensor(int64)
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Expand
 outputs:
-- description: Output tensor
+- name: output
+  type_str: T
+  description: Output tensor
   min_arity: 1
-  name: output
   tags:
   - differentiable
-  type_str: T
-since_version: 13
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensors.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -69,5 +69,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

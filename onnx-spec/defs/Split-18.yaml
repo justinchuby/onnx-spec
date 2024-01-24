@@ -1,17 +1,10 @@
-attributes:
-- default_value: 0
-  description: Which axis to split on. A negative value means counting dimensions
-    from the back. Accepted range is [-rank, rank-1] where r = rank(input).
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: null
-  description: Number of outputs to split parts of the tensor into. If the tensor
-    is not evenly splittable the last chunk will be smaller.
-  name: num_outputs
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: Split
+since_version: 18
+min_input: 1
+max_input: 2
+min_output: 1
+max_output: 2147483647
 doc: 'Split a tensor into a list of tensors, along the specified ''axis''.
 
   Either input ''split'' or the attribute ''num_outputs'' should be specified, but
@@ -27,39 +20,46 @@ doc: 'Split a tensor into a list of tensors, along the specified ''axis''.
   split.
 
   '
-domain: ''
+attributes:
+- name: axis
+  description: Which axis to split on. A negative value means counting dimensions
+    from the back. Accepted range is [-rank, rank-1] where r = rank(input).
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: num_outputs
+  description: Number of outputs to split parts of the tensor into. If the tensor
+    is not evenly splittable the last chunk will be smaller.
+  type: AttrType.INT
+  required: false
+  default_value: null
 inputs:
-- description: The tensor to split
+- name: input
+  type_str: T
+  description: The tensor to split
   min_arity: 1
-  name: input
   tags:
   - differentiable
-  type_str: T
-- description: Optional length of each output. Values should be >= 0.Sum of the values
+- name: split
+  type_str: tensor(int64)
+  description: Optional length of each output. Values should be >= 0.Sum of the values
     must be equal to the dim value at 'axis' specified.
   min_arity: 1
-  name: split
   tags:
   - optional
   - non-differentiable
-  type_str: tensor(int64)
-max_input: 2
-max_output: 2147483647
-min_input: 1
-min_output: 1
-name: Split
 outputs:
-- description: One or more outputs forming list of tensors after splitting
+- name: outputs
+  type_str: T
+  description: One or more outputs forming list of tensors after splitting
   min_arity: 1
-  name: outputs
   tags:
   - variadic
   - differentiable
-  type_str: T
-since_version: 18
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -76,5 +76,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

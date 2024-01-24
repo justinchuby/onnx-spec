@@ -1,15 +1,10 @@
-attributes:
-- default_value: 0
-  description: 'Which axis to split on. '
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: null
-  description: length of each output
-  name: split
-  required: false
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Split
+since_version: 2
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 2147483647
 doc: 'Split a tensor into a list of tensors, along the specified
 
   ''axis''. Lengths of the parts can be specified using argument ''split''.
@@ -17,29 +12,34 @@ doc: 'Split a tensor into a list of tensors, along the specified
   Otherwise, the tensor is split to equal sized parts.
 
   '
-domain: ''
+attributes:
+- name: axis
+  description: 'Which axis to split on. '
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: split
+  description: length of each output
+  type: AttrType.INTS
+  required: false
+  default_value: null
 inputs:
-- description: The tensor to split
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T
-max_input: 1
-max_output: 2147483647
-min_input: 1
-min_output: 1
-name: Split
-outputs:
-- description: One or more outputs forming list of tensors after splitting
+  description: The tensor to split
   min_arity: 1
-  name: outputs
+  tags: []
+outputs:
+- name: outputs
+  type_str: T
+  description: One or more outputs forming list of tensors after splitting
+  min_arity: 1
   tags:
   - variadic
-  type_str: T
-since_version: 2
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -55,5 +55,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

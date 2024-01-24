@@ -1,44 +1,49 @@
+domain: ''
+name: MeanVarianceNormalization
+since_version: 13
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: '
+
+  A MeanVarianceNormalization Function: Perform mean variance normalization
+
+  on the input tensor X using formula: `(X-EX)/sqrt(E(X-EX)^2)`
+
+  '
 attributes:
-- default_value:
-  - 0
-  - 2
-  - 3
+- name: axes
   description: A list of integers, along which to reduce. The default is to calculate
     along axes [0,2,3] for calculating mean and variance along each channel. Two variables
     with the same C-coordinate are associated with the same mean and variance.
-  name: axes
-  required: false
   type: AttrType.INTS
-deprecated: false
-doc: "\n      A MeanVarianceNormalization Function: Perform mean variance normalization\n\
-  \      on the input tensor X using formula: `(X-EX)/sqrt(E(X-EX)^2)`\n"
-domain: ''
+  required: false
+  default_value:
+  - 0
+  - 2
+  - 3
 inputs:
-- description: Input tensor
+- name: X
+  type_str: T
+  description: Input tensor
   min_arity: 1
-  name: X
   tags:
   - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: MeanVarianceNormalization
 outputs:
-- description: Output tensor
+- name: Y
+  type_str: T
+  description: Output tensor
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T
-since_version: 13
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all numeric tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
   - tensor(bfloat16)
-  description: Constrain input and output types to all numeric tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

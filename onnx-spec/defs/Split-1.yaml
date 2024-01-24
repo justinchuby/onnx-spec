@@ -1,15 +1,10 @@
-attributes:
-- default_value: null
-  description: Which axis to split on
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: null
-  description: length of each output
-  name: split
-  required: false
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Split
+since_version: 1
+min_input: 1
+max_input: 2
+min_output: 1
+max_output: 2147483647
 doc: 'Split a tensor into a list of tensors, along the specified
 
   ''axis''. The lengths of the split can be specified using argument ''axis'' or
@@ -19,37 +14,42 @@ doc: 'Split a tensor into a list of tensors, along the specified
   to equal sized parts.
 
   '
-domain: ''
+attributes:
+- name: axis
+  description: Which axis to split on
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: split
+  description: length of each output
+  type: AttrType.INTS
+  required: false
+  default_value: null
 inputs:
-- description: The tensor to split
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T
-- description: Optional list of output lengths (see also arg 'split')
+  description: The tensor to split
   min_arity: 1
-  name: split
+  tags: []
+- name: split
+  type_str: T
+  description: Optional list of output lengths (see also arg 'split')
+  min_arity: 1
   tags:
   - optional
-  type_str: T
-max_input: 2
-max_output: 2147483647
-min_input: 1
-min_output: 1
-name: Split
 outputs:
-- description: One or more outputs forming list of tensors after splitting
+- name: outputs...
+  type_str: T
+  description: One or more outputs forming list of tensors after splitting
   min_arity: 1
-  name: outputs...
   tags:
   - variadic
-  type_str: T
-since_version: 1
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

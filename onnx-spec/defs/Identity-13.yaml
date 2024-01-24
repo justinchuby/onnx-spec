@@ -1,30 +1,30 @@
-attributes: []
-deprecated: false
-doc: Identity operator
 domain: ''
-inputs:
-- description: Input tensor
-  min_arity: 1
-  name: input
-  tags:
-  - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
 name: Identity
-outputs:
-- description: Tensor to copy input into.
+since_version: 13
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: Identity operator
+attributes: []
+inputs:
+- name: input
+  type_str: T
+  description: Input tensor
   min_arity: 1
-  name: output
   tags:
   - differentiable
+outputs:
+- name: output
   type_str: T
-since_version: 13
-support_level: SupportType.COMMON
+  description: Tensor to copy input into.
+  min_arity: 1
+  tags:
+  - differentiable
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -41,5 +41,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

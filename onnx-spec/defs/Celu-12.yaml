@@ -1,11 +1,10 @@
-attributes:
-- default_value: 1.0
-  description: The Alpha value in Celu formula which control the shape of the unit.
-    The default value is 1.0.
-  name: alpha
-  required: false
-  type: AttrType.FLOAT
-deprecated: false
+domain: ''
+name: Celu
+since_version: 12
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Continuously Differentiable Exponential Linear Units:
@@ -22,30 +21,31 @@ doc: '
   ```
 
   '
-domain: ''
+attributes:
+- name: alpha
+  description: The Alpha value in Celu formula which control the shape of the unit.
+    The default value is 1.0.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 1.0
 inputs:
-- description: Input tensor
+- name: X
+  type_str: T
+  description: Input tensor
   min_arity: 1
-  name: X
   tags:
   - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Celu
 outputs:
-- description: Output tensor
+- name: Y
+  type_str: T
+  description: Output tensor
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T
-since_version: 12
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
-  - tensor(float)
+- type_param_str: T
   description: Constrain input and output types to float32 tensors.
-  type_param_str: T
+  allowed_type_strs:
+  - tensor(float)
+support_level: COMMON
+deprecated: false

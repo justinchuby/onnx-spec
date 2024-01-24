@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Squeeze
+since_version: 21
+min_input: 1
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Remove single-dimensional entries from the shape of a tensor.
@@ -12,39 +17,34 @@ doc: '
   raised.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Tensors with at least max(dims) dimensions.
+- name: data
+  type_str: T
+  description: Tensors with at least max(dims) dimensions.
   min_arity: 1
-  name: data
   tags:
   - differentiable
-  type_str: T
-- description: List of integers indicating the dimensions to squeeze. Negative value
+- name: axes
+  type_str: tensor(int64)
+  description: List of integers indicating the dimensions to squeeze. Negative value
     means counting dimensions from the back. Accepted range is [-r, r-1] where r =
     rank(data).
   min_arity: 1
-  name: axes
   tags:
   - optional
   - non-differentiable
-  type_str: tensor(int64)
-max_input: 2
-max_output: 1
-min_input: 1
-min_output: 1
-name: Squeeze
 outputs:
-- description: Reshaped tensor with same data as input.
+- name: squeezed
+  type_str: T
+  description: Reshaped tensor with same data as input.
   min_arity: 1
-  name: squeezed
   tags:
   - differentiable
-  type_str: T
-since_version: 21
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types up to IRv10.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -67,5 +67,5 @@ type_constraints:
   - tensor(float8e5m2fnuz)
   - tensor(uint4)
   - tensor(int4)
-  description: Constrain input and output types to all tensor types up to IRv10.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

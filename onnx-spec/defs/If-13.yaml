@@ -1,34 +1,36 @@
+domain: ''
+name: If
+since_version: 13
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 2147483647
+doc: If conditional
 attributes:
-- default_value: null
+- name: else_branch
   description: 'Graph to run if condition is false. Has N outputs: values you wish
     to be live-out to the enclosing scope. The number of outputs must match the number
     of outputs in the then_branch.'
-  name: else_branch
-  required: true
   type: AttrType.GRAPH
-- default_value: null
+  required: true
+  default_value: null
+- name: then_branch
   description: 'Graph to run if condition is true. Has N outputs: values you wish
     to be live-out to the enclosing scope. The number of outputs must match the number
     of outputs in the else_branch.'
-  name: then_branch
-  required: true
   type: AttrType.GRAPH
-deprecated: false
-doc: If conditional
-domain: ''
+  required: true
+  default_value: null
 inputs:
-- description: Condition for the if. The tensor must contain a single element.
-  min_arity: 1
-  name: cond
-  tags: []
+- name: cond
   type_str: B
-max_input: 1
-max_output: 2147483647
-min_input: 1
-min_output: 1
-name: If
+  description: Condition for the if. The tensor must contain a single element.
+  min_arity: 1
+  tags: []
 outputs:
-- description: Values that are live-out to the enclosing scope. The return values
+- name: outputs
+  type_str: V
+  description: Values that are live-out to the enclosing scope. The return values
     in the `then_branch` and `else_branch` must be of the same data type. The `then_branch`
     and `else_branch` may produce tensors with the same element type and different
     shapes. If corresponding outputs from the then-branch and the else-branch have
@@ -41,15 +43,13 @@ outputs:
     set, or (c) a shape of rank 1 with a unique `dim_param`. In contrast, the first
     output cannot have the shape [2] since [2] and [3] are not compatible.
   min_arity: 1
-  name: outputs
   tags:
   - variadic
   - heterogeneous
-  type_str: V
-since_version: 13
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: V
+  description: All Tensor and Sequence types
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -80,9 +80,9 @@ type_constraints:
   - seq(tensor(bool))
   - seq(tensor(complex64))
   - seq(tensor(complex128))
-  description: All Tensor and Sequence types
-  type_param_str: V
-- allowed_type_strs:
-  - tensor(bool)
+- type_param_str: B
   description: Only bool
-  type_param_str: B
+  allowed_type_strs:
+  - tensor(bool)
+support_level: COMMON
+deprecated: false

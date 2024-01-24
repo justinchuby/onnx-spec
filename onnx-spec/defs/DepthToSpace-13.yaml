@@ -1,16 +1,10 @@
-attributes:
-- default_value: null
-  description: Blocks of [blocksize, blocksize] are moved.
-  name: blocksize
-  required: true
-  type: AttrType.INT
-- default_value: DCR
-  description: DCR (default) for depth-column-row order re-arrangement. Use CRD for
-    column-row-depth order.
-  name: mode
-  required: false
-  type: AttrType.STRING
-deprecated: false
+domain: ''
+name: DepthToSpace
+since_version: 13
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: 'DepthToSpace rearranges (permutes) data from depth into blocks of spatial data.
 
   This is the reverse transformation of SpaceToDepth. More specifically, this op outputs
@@ -61,32 +55,38 @@ doc: 'DepthToSpace rearranges (permutes) data from depth into blocks of spatial 
   ```
 
   '
-domain: ''
+attributes:
+- name: blocksize
+  description: Blocks of [blocksize, blocksize] are moved.
+  type: AttrType.INT
+  required: true
+  default_value: null
+- name: mode
+  description: DCR (default) for depth-column-row order re-arrangement. Use CRD for
+    column-row-depth order.
+  type: AttrType.STRING
+  required: false
+  default_value: DCR
 inputs:
-- description: Input tensor of [N,C,H,W], where N is the batch axis, C is the channel
+- name: input
+  type_str: T
+  description: Input tensor of [N,C,H,W], where N is the batch axis, C is the channel
     or depth, H is the height and W is the width.
   min_arity: 1
-  name: input
   tags:
   - differentiable
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: DepthToSpace
 outputs:
-- description: Output tensor of [N, C/(blocksize * blocksize), H * blocksize, W *
+- name: output
+  type_str: T
+  description: Output tensor of [N, C/(blocksize * blocksize), H * blocksize, W *
     blocksize].
   min_arity: 1
-  name: output
   tags:
   - differentiable
-  type_str: T
-since_version: 13
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -103,5 +103,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

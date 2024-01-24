@@ -1,64 +1,82 @@
-attributes:
-- default_value: null
-  description: Value(s) to change to
-  name: imputed_value_floats
-  required: false
-  type: AttrType.FLOATS
-- default_value: null
-  description: Value(s) to change to.
-  name: imputed_value_int64s
-  required: false
-  type: AttrType.INTS
-- default_value: 0.0
-  description: A value that needs replacing.
-  name: replaced_value_float
-  required: false
-  type: AttrType.FLOAT
-- default_value: 0
-  description: A value that needs replacing.
-  name: replaced_value_int64
-  required: false
-  type: AttrType.INT
-deprecated: false
-doc: "\n    Replaces inputs that equal one value with another, leaving all other elements\
-  \ alone.\n\n    This operator is typically used to replace missing values in situations\
-  \ where they have a canonical\n    representation, such as -1, 0, NaN, or some extreme\
-  \ value.\n\n    One and only one of imputed_value_floats or imputed_value_int64s\
-  \ should be defined -- floats if the input tensor\n    holds floats, integers if\
-  \ the input tensor holds integers. The imputed values must all fit within the\n\
-  \    width of the tensor element type. One and only one of the replaced_value_float\
-  \ or replaced_value_int64 should be defined,\n    which one depends on whether floats\
-  \ or integers are being processed.\n\n    The imputed_value attribute length can\
-  \ be 1 element, or it can have one element per input feature.\nIn other words, if\
-  \ the input tensor has the shape [*,F], then the length of the attribute array may\
-  \ be 1 or F. If it is 1, then it is broadcast along the last dimension and applied\
-  \ to each feature.\n"
 domain: ai.onnx.ml
-inputs:
-- description: Data to be processed.
-  min_arity: 1
-  name: X
-  tags: []
-  type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
 name: Imputer
-outputs:
-- description: Imputed output data
-  min_arity: 1
-  name: Y
-  tags: []
-  type_str: T
 since_version: 1
-support_level: SupportType.COMMON
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: '
+
+  Replaces inputs that equal one value with another, leaving all other elements alone.
+
+
+  This operator is typically used to replace missing values in situations where they
+  have a canonical
+
+  representation, such as -1, 0, NaN, or some extreme value.
+
+
+  One and only one of imputed_value_floats or imputed_value_int64s should be defined
+  -- floats if the input tensor
+
+  holds floats, integers if the input tensor holds integers. The imputed values must
+  all fit within the
+
+  width of the tensor element type. One and only one of the replaced_value_float or
+  replaced_value_int64 should be defined,
+
+  which one depends on whether floats or integers are being processed.
+
+
+  The imputed_value attribute length can be 1 element, or it can have one element
+  per input feature.
+
+  In other words, if the input tensor has the shape [*,F], then the length of the
+  attribute array may be 1 or F. If it is 1, then it is broadcast along the last dimension
+  and applied to each feature.
+
+  '
+attributes:
+- name: imputed_value_floats
+  description: Value(s) to change to
+  type: AttrType.FLOATS
+  required: false
+  default_value: null
+- name: imputed_value_int64s
+  description: Value(s) to change to.
+  type: AttrType.INTS
+  required: false
+  default_value: null
+- name: replaced_value_float
+  description: A value that needs replacing.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 0.0
+- name: replaced_value_int64
+  description: A value that needs replacing.
+  type: AttrType.INT
+  required: false
+  default_value: 0
+inputs:
+- name: X
+  type_str: T
+  description: Data to be processed.
+  min_arity: 1
+  tags: []
+outputs:
+- name: Y
+  type_str: T
+  description: Imputed output data
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: The input type must be a tensor of a numeric type, either [N,C] or
+    [C]. The output type will be of the same tensor type and shape.
+  allowed_type_strs:
   - tensor(float)
   - tensor(double)
   - tensor(int64)
   - tensor(int32)
-  description: The input type must be a tensor of a numeric type, either [N,C] or
-    [C]. The output type will be of the same tensor type and shape.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

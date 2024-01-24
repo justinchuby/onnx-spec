@@ -1,18 +1,10 @@
-attributes:
-- default_value: 0
-  description: Which axis to scatter on. Negative value means counting dimensions
-    from the back. Accepted range is [-r, r-1] where r = rank(data).
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: none
-  description: 'Type of reduction to apply: none (default), add, mul. ''none'': no
-    reduction applied. ''add'':  reduction using the addition operation. ''mul'':
-    reduction using the multiplication operation.'
-  name: reduction
-  required: false
-  type: AttrType.STRING
-deprecated: false
+domain: ''
+name: ScatterElements
+since_version: 16
+min_input: 3
+max_input: 3
+min_output: 1
+max_output: 1
 doc: "\nScatterElements takes three inputs `data`, `updates`, and `indices` of the\
   \ same\nrank r >= 1 and an optional attribute axis that identifies an axis of `data`\n\
   (by default, the outer-most axis, that is axis 0). The output of the operation\n\
@@ -43,44 +35,52 @@ doc: "\nScatterElements takes three inputs `data`, `updates`, and `indices` of t
   \ 1.2]\n  ]\n```\nExample 2:\n```\n  data = [[1.0, 2.0, 3.0, 4.0, 5.0]]\n  indices\
   \ = [[1, 3]]\n  updates = [[1.1, 2.1]]\n  axis = 1\n  output = [[1.0, 1.1, 3.0,\
   \ 2.1, 5.0]]\n```\n"
-domain: ''
+attributes:
+- name: axis
+  description: Which axis to scatter on. Negative value means counting dimensions
+    from the back. Accepted range is [-r, r-1] where r = rank(data).
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: reduction
+  description: 'Type of reduction to apply: none (default), add, mul. ''none'': no
+    reduction applied. ''add'':  reduction using the addition operation. ''mul'':
+    reduction using the multiplication operation.'
+  type: AttrType.STRING
+  required: false
+  default_value: none
 inputs:
-- description: Tensor of rank r >= 1.
+- name: data
+  type_str: T
+  description: Tensor of rank r >= 1.
   min_arity: 1
-  name: data
   tags:
   - differentiable
-  type_str: T
-- description: Tensor of int32/int64 indices, of r >= 1 (same rank as input). All
+- name: indices
+  type_str: Tind
+  description: Tensor of int32/int64 indices, of r >= 1 (same rank as input). All
     index values are expected to be within bounds [-s, s-1] along axis of size s.
     It is an error if any of the index values are out of bounds.
   min_arity: 1
-  name: indices
   tags:
   - non-differentiable
-  type_str: Tind
-- description: Tensor of rank r >=1 (same rank and shape as indices)
+- name: updates
+  type_str: T
+  description: Tensor of rank r >=1 (same rank and shape as indices)
   min_arity: 1
-  name: updates
   tags:
   - differentiable
-  type_str: T
-max_input: 3
-max_output: 1
-min_input: 3
-min_output: 1
-name: ScatterElements
 outputs:
-- description: Tensor of rank r >= 1 (same rank as input).
+- name: output
+  type_str: T
+  description: Tensor of rank r >= 1 (same rank as input).
   min_arity: 1
-  name: output
   tags:
   - differentiable
-  type_str: T
-since_version: 16
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Input and output types can be of any tensor type.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -97,10 +97,10 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Input and output types can be of any tensor type.
-  type_param_str: T
-- allowed_type_strs:
+- type_param_str: Tind
+  description: Constrain indices to integer types
+  allowed_type_strs:
   - tensor(int32)
   - tensor(int64)
-  description: Constrain indices to integer types
-  type_param_str: Tind
+support_level: COMMON
+deprecated: false

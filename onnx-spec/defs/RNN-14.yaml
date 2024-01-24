@@ -1,58 +1,10 @@
-attributes:
-- default_value: null
-  description: Optional scaling values used by some activation functions. The values
-    are consumed in the order of activation functions, for example (f, g, h) in LSTM.
-    Default values are the same as of corresponding ONNX operators.For example with
-    LeakyRelu, the default alpha is 0.01.
-  name: activation_alpha
-  required: false
-  type: AttrType.FLOATS
-- default_value: null
-  description: Optional scaling values used by some activation functions. The values
-    are consumed in the order of activation functions, for example (f, g, h) in LSTM.
-    Default values are the same as of corresponding ONNX operators.
-  name: activation_beta
-  required: false
-  type: AttrType.FLOATS
-- default_value:
-  - Tanh
-  - Tanh
-  description: 'One (or two if bidirectional) activation function for input gate.
-    The activation function must be one of the activation functions specified above.
-    Optional: Default `Tanh` if not specified.'
-  name: activations
-  required: false
-  type: AttrType.STRINGS
-- default_value: null
-  description: Cell clip threshold. Clipping bounds the elements of a tensor in the
-    range of [-threshold, +threshold] and is applied to the input of activations.
-    No clip if not specified.
-  name: clip
-  required: false
-  type: AttrType.FLOAT
-- default_value: forward
-  description: Specify if the RNN is forward, reverse, or bidirectional. Must be one
-    of forward (default), reverse, or bidirectional.
-  name: direction
-  required: false
-  type: AttrType.STRING
-- default_value: null
-  description: Number of neurons in the hidden layer
-  name: hidden_size
-  required: false
-  type: AttrType.INT
-- default_value: 0
-  description: 'The shape format of inputs X, initial_h and outputs Y, Y_h. If 0,
-    the following shapes are expected: X.shape = [seq_length, batch_size, input_size],
-    Y.shape = [seq_length, num_directions, batch_size, hidden_size], initial_h.shape
-    = Y_h.shape = [num_directions, batch_size, hidden_size]. If 1, the following shapes
-    are expected: X.shape = [batch_size, seq_length, input_size], Y.shape = [batch_size,
-    seq_length, num_directions, hidden_size], initial_h.shape = Y_h.shape = [batch_size,
-    num_directions, hidden_size].'
-  name: layout
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: RNN
+since_version: 14
+min_input: 3
+max_input: 6
+min_output: 0
+max_output: 2
 doc: '
 
   Computes an one-layer simple RNN. This operator is usually supported
@@ -132,87 +84,135 @@ doc: '
   omitted.
 
   '
-domain: ''
+attributes:
+- name: activation_alpha
+  description: Optional scaling values used by some activation functions. The values
+    are consumed in the order of activation functions, for example (f, g, h) in LSTM.
+    Default values are the same as of corresponding ONNX operators.For example with
+    LeakyRelu, the default alpha is 0.01.
+  type: AttrType.FLOATS
+  required: false
+  default_value: null
+- name: activation_beta
+  description: Optional scaling values used by some activation functions. The values
+    are consumed in the order of activation functions, for example (f, g, h) in LSTM.
+    Default values are the same as of corresponding ONNX operators.
+  type: AttrType.FLOATS
+  required: false
+  default_value: null
+- name: activations
+  description: 'One (or two if bidirectional) activation function for input gate.
+    The activation function must be one of the activation functions specified above.
+    Optional: Default `Tanh` if not specified.'
+  type: AttrType.STRINGS
+  required: false
+  default_value:
+  - Tanh
+  - Tanh
+- name: clip
+  description: Cell clip threshold. Clipping bounds the elements of a tensor in the
+    range of [-threshold, +threshold] and is applied to the input of activations.
+    No clip if not specified.
+  type: AttrType.FLOAT
+  required: false
+  default_value: null
+- name: direction
+  description: Specify if the RNN is forward, reverse, or bidirectional. Must be one
+    of forward (default), reverse, or bidirectional.
+  type: AttrType.STRING
+  required: false
+  default_value: forward
+- name: hidden_size
+  description: Number of neurons in the hidden layer
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: layout
+  description: 'The shape format of inputs X, initial_h and outputs Y, Y_h. If 0,
+    the following shapes are expected: X.shape = [seq_length, batch_size, input_size],
+    Y.shape = [seq_length, num_directions, batch_size, hidden_size], initial_h.shape
+    = Y_h.shape = [num_directions, batch_size, hidden_size]. If 1, the following shapes
+    are expected: X.shape = [batch_size, seq_length, input_size], Y.shape = [batch_size,
+    seq_length, num_directions, hidden_size], initial_h.shape = Y_h.shape = [batch_size,
+    num_directions, hidden_size].'
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: The input sequences packed (and potentially padded) into one 3-D tensor
+- name: X
+  type_str: T
+  description: The input sequences packed (and potentially padded) into one 3-D tensor
     with the shape of `[seq_length, batch_size, input_size]`.
   min_arity: 1
-  name: X
   tags:
   - differentiable
+- name: W
   type_str: T
-- description: The weight tensor for input gate. Concatenation of `Wi` and `WBi` (if
+  description: The weight tensor for input gate. Concatenation of `Wi` and `WBi` (if
     bidirectional). The tensor has shape `[num_directions, hidden_size, input_size]`.
   min_arity: 1
-  name: W
   tags:
   - differentiable
+- name: R
   type_str: T
-- description: The recurrence weight tensor. Concatenation of `Ri` and `RBi` (if bidirectional).
+  description: The recurrence weight tensor. Concatenation of `Ri` and `RBi` (if bidirectional).
     The tensor has shape `[num_directions, hidden_size, hidden_size]`.
   min_arity: 1
-  name: R
   tags:
   - differentiable
+- name: B
   type_str: T
-- description: 'The bias tensor for input gate. Concatenation of `[Wbi, Rbi]` and
+  description: 'The bias tensor for input gate. Concatenation of `[Wbi, Rbi]` and
     `[WBbi, RBbi]` (if bidirectional). The tensor has shape `[num_directions, 2*hidden_size]`.
     Optional: If not specified - assumed to be 0.'
   min_arity: 1
-  name: B
   tags:
   - optional
   - differentiable
-  type_str: T
-- description: Optional tensor specifying lengths of the sequences in a batch. If
+- name: sequence_lens
+  type_str: T1
+  description: Optional tensor specifying lengths of the sequences in a batch. If
     not specified - assumed all sequences in the batch to have length `seq_length`.
     It has shape `[batch_size]`.
   min_arity: 1
-  name: sequence_lens
   tags:
   - optional
   - non-differentiable
-  type_str: T1
-- description: Optional initial value of the hidden. If not specified - assumed to
+- name: initial_h
+  type_str: T
+  description: Optional initial value of the hidden. If not specified - assumed to
     be 0. It has shape `[num_directions, batch_size, hidden_size]`.
   min_arity: 1
-  name: initial_h
   tags:
   - optional
   - non-differentiable
-  type_str: T
-max_input: 6
-max_output: 2
-min_input: 3
-min_output: 0
-name: RNN
 outputs:
-- description: 'A tensor that concats all the intermediate output values of the hidden.
+- name: Y
+  type_str: T
+  description: 'A tensor that concats all the intermediate output values of the hidden.
     It has shape `[seq_length, num_directions, batch_size, hidden_size]`. '
   min_arity: 1
-  name: Y
   tags:
   - optional
   - differentiable
+- name: Y_h
   type_str: T
-- description: The last output value of the hidden. It has shape `[num_directions,
+  description: The last output value of the hidden. It has shape `[num_directions,
     batch_size, hidden_size]`.
   min_arity: 1
-  name: Y_h
   tags:
   - optional
   - differentiable
-  type_str: T
-since_version: 14
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
-- allowed_type_strs:
-  - tensor(int32)
+- type_param_str: T1
   description: Constrain seq_lens to integer tensor.
-  type_param_str: T1
+  allowed_type_strs:
+  - tensor(int32)
+support_level: COMMON
+deprecated: false

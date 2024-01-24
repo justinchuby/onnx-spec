@@ -1,21 +1,10 @@
-attributes:
-- default_value: null
-  description: Axes that `starts` and `ends` apply to. It's optional. If not present,
-    will be treated as [0, 1, ..., len(`starts`) - 1].
-  name: axes
-  required: false
-  type: AttrType.INTS
-- default_value: null
-  description: Ending indices (exclusive) of corresponding axis in axes`
-  name: ends
-  required: true
-  type: AttrType.INTS
-- default_value: null
-  description: Starting indices of corresponding axis in `axes`
-  name: starts
-  required: true
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Slice
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: "\nProduces a slice of the input tensor along multiple axes. Similar to numpy:\n\
   https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html\nSlices uses `axes`,\
   \ `starts` and `ends` attributes to specify the start and end\ndimension for each\
@@ -30,28 +19,39 @@ doc: "\nProduces a slice of the input tensor along multiple axes. Similar to num
   \ 6, 7],\n  ]\nExample 2:\n  data = [\n      [1, 2, 3, 4],\n      [5, 6, 7, 8],\n\
   \  ]\n  starts = [0, 1]\n  ends = [-1, 1000]\n  result = [\n      [2, 3, 4],\n \
   \ ]\n"
-domain: ''
+attributes:
+- name: axes
+  description: Axes that `starts` and `ends` apply to. It's optional. If not present,
+    will be treated as [0, 1, ..., len(`starts`) - 1].
+  type: AttrType.INTS
+  required: false
+  default_value: null
+- name: ends
+  description: Ending indices (exclusive) of corresponding axis in axes`
+  type: AttrType.INTS
+  required: true
+  default_value: null
+- name: starts
+  description: Starting indices of corresponding axis in `axes`
+  type: AttrType.INTS
+  required: true
+  default_value: null
 inputs:
-- description: Tensor of data to extract slices from.
-  min_arity: 1
-  name: data
-  tags: []
+- name: data
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Slice
+  description: Tensor of data to extract slices from.
+  min_arity: 1
+  tags: []
 outputs:
-- description: Sliced data tensor.
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: Sliced data tensor.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -67,5 +67,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

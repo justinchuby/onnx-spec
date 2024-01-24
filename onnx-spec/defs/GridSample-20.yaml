@@ -1,35 +1,10 @@
-attributes:
-- default_value: 0
-  description: If align_corners=1, the extrema (-1 and 1) are considered as referring
-    to the center points of the input's corner pixels (voxels, etc.). If align_corners=0,
-    they are instead considered as referring to the corner points of the input's corner
-    pixels (voxels, etc.), making the sampling more resolution agnostic.
-  name: align_corners
-  required: false
-  type: AttrType.INT
-- default_value: linear
-  description: 'Three interpolation modes: linear (default), nearest and cubic. The
-    "linear" mode includes linear and N-linear interpolation modes depending on the
-    number of spatial dimensions of the input tensor (i.e. linear for 1 spatial dimension,
-    bilinear for 2 spatial dimensions, etc.). The "cubic" mode also includes N-cubic
-    interpolation modes following the same rules. The "nearest" mode rounds to the
-    nearest even index when the sampling point falls halfway between two indices.'
-  name: mode
-  required: false
-  type: AttrType.STRING
-- default_value: zeros
-  description: 'Support padding modes for outside grid values: `zeros`(default), `border`,
-    `reflection`. zeros: use 0 for out-of-bound grid locations, border: use border
-    values for out-of-bound grid locations, reflection: use values at locations reflected
-    by the border for out-of-bound grid locations. If index 0 represents the margin
-    pixel, the reflected value at index -1 will be the same as the value at index
-    1. For location far away from the border, it will keep being reflected until becoming
-    in bound. If pixel location x = -3.5 reflects by border -1 and becomes x'' = 1.5,
-    then reflects by border 1 and becomes x'''' = 0.5.'
-  name: padding_mode
-  required: false
-  type: AttrType.STRING
-deprecated: false
+domain: ''
+name: GridSample
+since_version: 20
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Given an input `X` and a flow-field `grid`, computes the output `Y` using `X` values
@@ -75,17 +50,49 @@ doc: '
   See also in [torch.nn.functional.grid_sample](https://pytorch.org/docs/stable/generated/torch.nn.functional.grid_sample.html).
 
   '
-domain: ''
+attributes:
+- name: align_corners
+  description: If align_corners=1, the extrema (-1 and 1) are considered as referring
+    to the center points of the input's corner pixels (voxels, etc.). If align_corners=0,
+    they are instead considered as referring to the corner points of the input's corner
+    pixels (voxels, etc.), making the sampling more resolution agnostic.
+  type: AttrType.INT
+  required: false
+  default_value: 0
+- name: mode
+  description: 'Three interpolation modes: linear (default), nearest and cubic. The
+    "linear" mode includes linear and N-linear interpolation modes depending on the
+    number of spatial dimensions of the input tensor (i.e. linear for 1 spatial dimension,
+    bilinear for 2 spatial dimensions, etc.). The "cubic" mode also includes N-cubic
+    interpolation modes following the same rules. The "nearest" mode rounds to the
+    nearest even index when the sampling point falls halfway between two indices.'
+  type: AttrType.STRING
+  required: false
+  default_value: linear
+- name: padding_mode
+  description: 'Support padding modes for outside grid values: `zeros`(default), `border`,
+    `reflection`. zeros: use 0 for out-of-bound grid locations, border: use border
+    values for out-of-bound grid locations, reflection: use values at locations reflected
+    by the border for out-of-bound grid locations. If index 0 represents the margin
+    pixel, the reflected value at index -1 will be the same as the value at index
+    1. For location far away from the border, it will keep being reflected until becoming
+    in bound. If pixel location x = -3.5 reflects by border -1 and becomes x'' = 1.5,
+    then reflects by border 1 and becomes x'''' = 0.5.'
+  type: AttrType.STRING
+  required: false
+  default_value: zeros
 inputs:
-- description: Input tensor of rank r+2 that has shape (N, C, D1, D2, ..., Dr), where
+- name: X
+  type_str: T1
+  description: Input tensor of rank r+2 that has shape (N, C, D1, D2, ..., Dr), where
     N is the batch size, C is the number of channels, D1, D2, ..., Dr are the spatial
     dimensions.
   min_arity: 1
-  name: X
   tags:
   - differentiable
-  type_str: T1
-- description: Input offset of shape (N, D1_out, D2_out, ..., Dr_out, r), where D1_out,
+- name: grid
+  type_str: T2
+  description: Input offset of shape (N, D1_out, D2_out, ..., Dr_out, r), where D1_out,
     D2_out, ..., Dr_out are the spatial dimensions of the grid and output, and r is
     the number of spatial dimensions. Grid specifies the sampling locations normalized
     by the input spatial dimensions. Therefore, it should have most values in the
@@ -94,28 +101,21 @@ inputs:
     convention, the coordinates in the length-r location vector are listed from the
     innermost tensor dimension to the outermost, the opposite of regular tensor indexing.
   min_arity: 1
-  name: grid
   tags:
   - non-differentiable
-  type_str: T2
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: GridSample
 outputs:
-- description: Output tensor of rank r+2 that has shape (N, C, D1_out, D2_out, ...,
+- name: Y
+  type_str: T1
+  description: Output tensor of rank r+2 that has shape (N, C, D1_out, D2_out, ...,
     Dr_out) of the sampled values. For integer input types, intermediate values are
     computed as floating point and cast to integer at the end.
   min_arity: 1
-  name: Y
   tags:
   - differentiable
-  type_str: T1
-since_version: 20
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain input `X` and output `Y` types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -131,11 +131,11 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input `X` and output `Y` types to all tensor types.
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: Constrain grid types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain grid types to float tensors.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

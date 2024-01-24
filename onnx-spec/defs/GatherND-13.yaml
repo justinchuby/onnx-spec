@@ -1,11 +1,10 @@
-attributes:
-- default_value: 0
-  description: The number of batch dimensions. The gather of indexing starts from
-    dimension of data[batch_dims:]
-  name: batch_dims
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: GatherND
+since_version: 13
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: "\nGiven `data` tensor of rank `r` >= 1, `indices` tensor of rank `q` >= 1, and\
   \ `batch_dims` integer `b`, this operator gathers\nslices of `data` into an output\
   \ tensor of rank `q + r - indices_shape[-1] - 1 - b`.\n\n`indices` is an q-dimensional\
@@ -51,38 +50,39 @@ doc: "\nGiven `data` tensor of rank `r` >= 1, `indices` tensor of rank `q` >= 1,
   \ 2]\n```\n\n**Example 5**\n\n```\nbatch_dims = 1\ndata    = [[[0,1],[2,3]],[[4,5],[6,7]]]\
   \ # data_shape    = [2, 2, 2]\nindices = [[1],[0]]                     # indices_shape\
   \ = [2, 1]\noutput  = [[2,3],[4,5]]                 # output_shape  = [2, 2]\n```\n"
-domain: ''
+attributes:
+- name: batch_dims
+  description: The number of batch dimensions. The gather of indexing starts from
+    dimension of data[batch_dims:]
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: Tensor of rank r >= 1.
+- name: data
+  type_str: T
+  description: Tensor of rank r >= 1.
   min_arity: 1
-  name: data
   tags:
   - differentiable
-  type_str: T
-- description: Tensor of rank q >= 1. All index values are expected to be within bounds
+- name: indices
+  type_str: tensor(int64)
+  description: Tensor of rank q >= 1. All index values are expected to be within bounds
     [-s, s-1] along axis of size s. It is an error if any of the index values are
     out of bounds.
   min_arity: 1
-  name: indices
   tags:
   - non-differentiable
-  type_str: tensor(int64)
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: GatherND
 outputs:
-- description: Tensor of rank q + r - indices_shape[-1] - 1.
+- name: output
+  type_str: T
+  description: Tensor of rank q + r - indices_shape[-1] - 1.
   min_arity: 1
-  name: output
   tags:
   - differentiable
-  type_str: T
-since_version: 13
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to any tensor type.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -99,5 +99,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to any tensor type.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

@@ -1,37 +1,37 @@
-attributes: []
-deprecated: false
+domain: ''
+name: StringConcat
+since_version: 20
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: StringConcat concatenates string tensors elementwise (with NumPy-style broadcasting
   support)
-domain: ''
+attributes: []
 inputs:
-- description: Tensor to prepend in concatenation
+- name: X
+  type_str: T
+  description: Tensor to prepend in concatenation
   min_arity: 1
-  name: X
   tags:
   - non-differentiable
+- name: Y
   type_str: T
-- description: Tensor to append in concatenation
+  description: Tensor to append in concatenation
   min_arity: 1
-  name: Y
   tags:
   - non-differentiable
-  type_str: T
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: StringConcat
 outputs:
-- description: Concatenated string tensor
+- name: Z
+  type_str: T
+  description: Concatenated string tensor
   min_arity: 1
-  name: Z
   tags:
   - non-differentiable
-  type_str: T
-since_version: 20
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
-  - tensor(string)
+- type_param_str: T
   description: Inputs and outputs must be UTF-8 strings
-  type_param_str: T
+  allowed_type_strs:
+  - tensor(string)
+support_level: COMMON
+deprecated: false

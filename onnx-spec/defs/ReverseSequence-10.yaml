@@ -1,17 +1,10 @@
-attributes:
-- default_value: 1
-  description: (Optional) Specify which axis is batch axis. Must be one of 1 (default),
-    or 0.
-  name: batch_axis
-  required: false
-  type: AttrType.INT
-- default_value: 0
-  description: (Optional) Specify which axis is time axis. Must be one of 0 (default),
-    or 1.
-  name: time_axis
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: ReverseSequence
+since_version: 10
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: "\nReverse batch of sequences having different lengths specified by `sequence_lens`.\n\
   \nFor each slice i iterating on batch axis, the operator reverses the first sequence_lens[i]\
   \ elements on time axis,\nand copies elements whose index's beyond sequence_lens[i]\
@@ -27,34 +20,41 @@ doc: "\nReverse batch of sequences having different lengths specified by `sequen
   \ = 1\n  batch_axis = 0\n\n  output = [[0.0,  1.0,  2.0,  3.0 ],\n            [5.0,\
   \  4.0,  6.0,  7.0 ],\n            [10.0, 9.0,  8.0,  11.0],\n            [15.0,\
   \ 14.0, 13.0, 12.0]]\n"
-domain: ''
+attributes:
+- name: batch_axis
+  description: (Optional) Specify which axis is batch axis. Must be one of 1 (default),
+    or 0.
+  type: AttrType.INT
+  required: false
+  default_value: 1
+- name: time_axis
+  description: (Optional) Specify which axis is time axis. Must be one of 0 (default),
+    or 1.
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: Tensor of rank r >= 2.
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T
-- description: Tensor specifying lengths of the sequences in a batch. It has shape
+  description: Tensor of rank r >= 2.
+  min_arity: 1
+  tags: []
+- name: sequence_lens
+  type_str: tensor(int64)
+  description: Tensor specifying lengths of the sequences in a batch. It has shape
     `[batch_size]`.
   min_arity: 1
-  name: sequence_lens
   tags: []
-  type_str: tensor(int64)
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: ReverseSequence
 outputs:
-- description: Tensor with same shape of input.
-  min_arity: 1
-  name: Y
-  tags: []
+- name: Y
   type_str: T
-since_version: 10
-support_level: SupportType.COMMON
+  description: Tensor with same shape of input.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Input and output types can be of any tensor type.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -70,5 +70,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Input and output types can be of any tensor type.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

@@ -1,133 +1,153 @@
+domain: ai.onnx.ml
+name: TreeEnsembleRegressor
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: '
+
+  Tree Ensemble regressor.  Returns the regressed values for each input in N.
+
+
+  All args with nodes_ are fields of a tuple of tree nodes, and
+
+  it is assumed they are the same length, and an index i will decode the
+
+  tuple across these inputs.  Each node id can appear only once
+
+  for each tree id.
+
+
+  All fields prefixed with target_ are tuples of votes at the leaves.
+
+
+  A leaf may have multiple votes, where each vote is weighted by
+
+  the associated target_weights index.
+
+
+  All trees must have their node ids start at 0 and increment by 1.
+
+
+  Mode enum is BRANCH_LEQ, BRANCH_LT, BRANCH_GTE, BRANCH_GT, BRANCH_EQ, BRANCH_NEQ,
+  LEAF
+
+  '
 attributes:
-- default_value: SUM
+- name: aggregate_function
   description: Defines how to aggregate leaf values within a target. <br>One of 'AVERAGE,'
     'SUM,' 'MIN,' 'MAX.'
-  name: aggregate_function
-  required: false
   type: AttrType.STRING
-- default_value: null
+  required: false
+  default_value: SUM
+- name: base_values
   description: Base values for classification, added to final class score; the size
     must be the same as the classes or can be left unassigned (assumed 0)
-  name: base_values
-  required: false
   type: AttrType.FLOATS
-- default_value: null
+  required: false
+  default_value: null
+- name: n_targets
   description: The total number of targets.
-  name: n_targets
-  required: false
   type: AttrType.INT
-- default_value: null
+  required: false
+  default_value: null
+- name: nodes_falsenodeids
   description: Child node if expression is false
-  name: nodes_falsenodeids
-  required: false
   type: AttrType.INTS
-- default_value: null
+  required: false
+  default_value: null
+- name: nodes_featureids
   description: Feature id for each node.
-  name: nodes_featureids
-  required: false
   type: AttrType.INTS
-- default_value: null
-  description: Popularity of each node, used for performance and may be omitted.
-  name: nodes_hitrates
   required: false
+  default_value: null
+- name: nodes_hitrates
+  description: Popularity of each node, used for performance and may be omitted.
   type: AttrType.FLOATS
-- default_value: null
+  required: false
+  default_value: null
+- name: nodes_missing_value_tracks_true
   description: 'For each node, define what to do in the presence of a NaN: use the
     ''true'' (if the attribute value is 1) or ''false'' (if the attribute value is
     0) branch based on the value in this array.<br>This attribute may be left undefined
     and the default value is false (0) for all nodes.'
-  name: nodes_missing_value_tracks_true
-  required: false
   type: AttrType.INTS
-- default_value: null
+  required: false
+  default_value: null
+- name: nodes_modes
   description: The node kind, that is, the comparison to make at the node. There is
     no comparison to make at a leaf node.<br>One of 'BRANCH_LEQ', 'BRANCH_LT', 'BRANCH_GTE',
     'BRANCH_GT', 'BRANCH_EQ', 'BRANCH_NEQ', 'LEAF'
-  name: nodes_modes
-  required: false
   type: AttrType.STRINGS
-- default_value: null
+  required: false
+  default_value: null
+- name: nodes_nodeids
   description: Node id for each node. Node ids must restart at zero for each tree
     and increase sequentially.
-  name: nodes_nodeids
-  required: false
   type: AttrType.INTS
-- default_value: null
+  required: false
+  default_value: null
+- name: nodes_treeids
   description: Tree id for each node.
-  name: nodes_treeids
-  required: false
   type: AttrType.INTS
-- default_value: null
+  required: false
+  default_value: null
+- name: nodes_truenodeids
   description: Child node if expression is true
-  name: nodes_truenodeids
-  required: false
   type: AttrType.INTS
-- default_value: null
-  description: Thresholds to do the splitting on for each node.
-  name: nodes_values
   required: false
+  default_value: null
+- name: nodes_values
+  description: Thresholds to do the splitting on for each node.
   type: AttrType.FLOATS
-- default_value: NONE
+  required: false
+  default_value: null
+- name: post_transform
   description: Indicates the transform to apply to the score. <br>One of 'NONE,' 'SOFTMAX,'
     'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
-  name: post_transform
-  required: false
   type: AttrType.STRING
-- default_value: null
+  required: false
+  default_value: NONE
+- name: target_ids
   description: The index of the target that each weight is for
-  name: target_ids
-  required: false
   type: AttrType.INTS
-- default_value: null
+  required: false
+  default_value: null
+- name: target_nodeids
   description: The node id of each weight
-  name: target_nodeids
-  required: false
   type: AttrType.INTS
-- default_value: null
+  required: false
+  default_value: null
+- name: target_treeids
   description: The id of the tree that each node is in.
-  name: target_treeids
-  required: false
   type: AttrType.INTS
-- default_value: null
-  description: The weight for each target
-  name: target_weights
   required: false
+  default_value: null
+- name: target_weights
+  description: The weight for each target
   type: AttrType.FLOATS
-deprecated: false
-doc: "\n    Tree Ensemble regressor.  Returns the regressed values for each input\
-  \ in N.\n\n    All args with nodes_ are fields of a tuple of tree nodes, and\n \
-  \   it is assumed they are the same length, and an index i will decode the\n   \
-  \ tuple across these inputs.  Each node id can appear only once\n    for each tree\
-  \ id.\n\n    All fields prefixed with target_ are tuples of votes at the leaves.\n\
-  \n    A leaf may have multiple votes, where each vote is weighted by\n    the associated\
-  \ target_weights index.\n\n    All trees must have their node ids start at 0 and\
-  \ increment by 1.\n\n    Mode enum is BRANCH_LEQ, BRANCH_LT, BRANCH_GTE, BRANCH_GT,\
-  \ BRANCH_EQ, BRANCH_NEQ, LEAF\n"
-domain: ai.onnx.ml
+  required: false
+  default_value: null
 inputs:
-- description: Input of shape [N,F]
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: TreeEnsembleRegressor
-outputs:
-- description: N classes
+  description: Input of shape [N,F]
   min_arity: 1
-  name: Y
   tags: []
+outputs:
+- name: Y
   type_str: tensor(float)
-since_version: 1
-support_level: SupportType.COMMON
+  description: N classes
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: The input type must be a tensor of a numeric type.
+  allowed_type_strs:
   - tensor(float)
   - tensor(double)
   - tensor(int64)
   - tensor(int32)
-  description: The input type must be a tensor of a numeric type.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

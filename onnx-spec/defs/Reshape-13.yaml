@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Reshape
+since_version: 13
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Reshape the input tensor similar to numpy.reshape.
@@ -18,36 +23,31 @@ doc: '
 
   The input tensor''s shape and the output tensor''s shape are required to have the
   same number of elements.'
-domain: ''
+attributes: []
 inputs:
-- description: An input tensor.
+- name: data
+  type_str: T
+  description: An input tensor.
   min_arity: 1
-  name: data
   tags:
   - differentiable
-  type_str: T
-- description: Specified shape for output.
+- name: shape
+  type_str: tensor(int64)
+  description: Specified shape for output.
   min_arity: 1
-  name: shape
   tags:
   - non-differentiable
-  type_str: tensor(int64)
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Reshape
 outputs:
-- description: Reshaped data.
+- name: reshaped
+  type_str: T
+  description: Reshaped data.
   min_arity: 1
-  name: reshaped
   tags:
   - differentiable
-  type_str: T
-since_version: 13
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -64,5 +64,5 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input and output types to all tensor types.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

@@ -1,32 +1,32 @@
-attributes: []
-deprecated: false
+domain: ''
+name: SequenceLength
+since_version: 11
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Produces a scalar(tensor of empty shape) containing the number of tensors in ''input_sequence''.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Input sequence.
-  min_arity: 1
-  name: input_sequence
-  tags: []
+- name: input_sequence
   type_str: S
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: SequenceLength
-outputs:
-- description: Length of input sequence. It must be a scalar(tensor of empty shape).
+  description: Input sequence.
   min_arity: 1
-  name: length
   tags: []
+outputs:
+- name: length
   type_str: I
-since_version: 11
-support_level: SupportType.COMMON
+  description: Length of input sequence. It must be a scalar(tensor of empty shape).
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: S
+  description: Constrain to any tensor type.
+  allowed_type_strs:
   - seq(tensor(uint8))
   - seq(tensor(uint16))
   - seq(tensor(uint32))
@@ -42,10 +42,10 @@ type_constraints:
   - seq(tensor(bool))
   - seq(tensor(complex64))
   - seq(tensor(complex128))
-  description: Constrain to any tensor type.
-  type_param_str: S
-- allowed_type_strs:
-  - tensor(int64)
+- type_param_str: I
   description: Constrain output to integral tensor. It must be a scalar(tensor of
     empty shape).
-  type_param_str: I
+  allowed_type_strs:
+  - tensor(int64)
+support_level: COMMON
+deprecated: false

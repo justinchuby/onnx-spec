@@ -1,18 +1,10 @@
-attributes:
-- default_value: null
-  description: Specifies a target value that is ignored and does not contribute to
-    the input gradient. It's an optional value.
-  name: ignore_index
-  required: false
-  type: AttrType.INT
-- default_value: mean
-  description: 'Type of reduction to apply to loss: none, sum, mean (default). ''none'':
-    the output is the loss for each sample. ''sum'': the output will be summed. ''mean'':
-    the sum of the output will be divided by the sum of applied weights.'
-  name: reduction
-  required: false
-  type: AttrType.STRING
-deprecated: false
+domain: ''
+name: NegativeLogLikelihoodLoss
+since_version: 13
+min_input: 2
+max_input: 3
+min_output: 1
+max_output: 1
 doc: "\nA NegativeLogLikelihoodLoss operator computes (weighted) negative log likelihood\
   \ loss.\nIts \"input\" tensor has the shape of (N, C, d1, d2, ..., dk) where k >=\
   \ 0.\nThe \"input\" tensor contains log-probabilities for input[n, :, d_1, d_2,...,\
@@ -50,54 +42,62 @@ doc: "\nA NegativeLogLikelihoodLoss operator computes (weighted) negative log li
   \    for d_1 in range(d1):\n        c = target[n][d_1]\n        loss[n][d_1] = -input[n][c][d_1]\
   \ * weight[c]\n        weight_total = weight_total + weight[c]\n\nloss = np.sum(loss)\
   \ / weight_total\n// print(loss)\n// -1.57\n```\n"
-domain: ''
+attributes:
+- name: ignore_index
+  description: Specifies a target value that is ignored and does not contribute to
+    the input gradient. It's an optional value.
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: reduction
+  description: 'Type of reduction to apply to loss: none, sum, mean (default). ''none'':
+    the output is the loss for each sample. ''sum'': the output will be summed. ''mean'':
+    the sum of the output will be divided by the sum of applied weights.'
+  type: AttrType.STRING
+  required: false
+  default_value: mean
 inputs:
-- description: Input tensor of shape (N, C) or (N, C, d1, d2, ..., dk).
+- name: input
+  type_str: T
+  description: Input tensor of shape (N, C) or (N, C, d1, d2, ..., dk).
   min_arity: 1
-  name: input
   tags:
   - differentiable
-  type_str: T
-- description: Target tensor of shape (N) or (N, d1, d2, ..., dk). Target element
+- name: target
+  type_str: Tind
+  description: Target tensor of shape (N) or (N, d1, d2, ..., dk). Target element
     value shall be in range of [0, C). If ignore_index is specified, it may have a
     value outside [0, C) and the target values should either be in the range [0, C)
     or have the value ignore_index.
   min_arity: 1
-  name: target
   tags:
   - non-differentiable
-  type_str: Tind
-- description: Optional rescaling weight tensor. If given, it has to be a tensor of
+- name: weight
+  type_str: T
+  description: Optional rescaling weight tensor. If given, it has to be a tensor of
     size C. Otherwise, it is treated as if having all ones.
   min_arity: 1
-  name: weight
   tags:
   - optional
   - non-differentiable
-  type_str: T
-max_input: 3
-max_output: 1
-min_input: 2
-min_output: 1
-name: NegativeLogLikelihoodLoss
 outputs:
-- description: The negative log likelihood loss
+- name: loss
+  type_str: T
+  description: The negative log likelihood loss
   min_arity: 1
-  name: loss
   tags:
   - differentiable
-  type_str: T
-since_version: 13
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input, weight, and output types to floating-point tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input, weight, and output types to floating-point tensors.
-  type_param_str: T
-- allowed_type_strs:
+- type_param_str: Tind
+  description: Constrain target to integer types
+  allowed_type_strs:
   - tensor(int32)
   - tensor(int64)
-  description: Constrain target to integer types
-  type_param_str: Tind
+support_level: COMMON
+deprecated: false

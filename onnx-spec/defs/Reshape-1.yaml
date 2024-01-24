@@ -1,15 +1,10 @@
-attributes:
-- default_value: null
-  description: legacy optimization attribute.
-  name: consumed_inputs
-  required: false
-  type: AttrType.INTS
-- default_value: null
-  description: New shape
-  name: shape
-  required: false
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Reshape
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Reshape the input tensor similar to numpy.reshape.
@@ -27,30 +22,35 @@ doc: '
 
   The input tensor''s shape and the output tensor''s shape are required to have the
   same number of elements.'
-domain: ''
+attributes:
+- name: consumed_inputs
+  description: legacy optimization attribute.
+  type: AttrType.INTS
+  required: false
+  default_value: null
+- name: shape
+  description: New shape
+  type: AttrType.INTS
+  required: false
+  default_value: null
 inputs:
-- description: An input tensor.
-  min_arity: 1
-  name: data
-  tags: []
+- name: data
   type_str: T
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: Reshape
+  description: An input tensor.
+  min_arity: 1
+  tags: []
 outputs:
-- description: Reshaped data.
-  min_arity: 1
-  name: reshaped
-  tags: []
+- name: reshaped
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: Reshaped data.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

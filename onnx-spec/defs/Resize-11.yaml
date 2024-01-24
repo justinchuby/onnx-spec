@@ -1,5 +1,17 @@
+domain: ''
+name: Resize
+since_version: 11
+min_input: 3
+max_input: 4
+min_output: 1
+max_output: 1
+doc: "\nResize the input tensor. In general, it calculates every value in the output\
+  \ tensor as a weighted average of neighborhood (a.k.a. sampling locations) in the\
+  \ input tensor.\nEach dimension value of the output tensor is:\n  output_dimension\
+  \ = floor(input_dimension * (roi_end - roi_start) * scale) if input \\\"sizes\\\"\
+  \ is not specified.\n"
 attributes:
-- default_value: half_pixel
+- name: coordinate_transformation_mode
   description: '
 
     This attribute describes how to transform the coordinate in the resized tensor
@@ -46,100 +58,88 @@ attributes:
     x_original = length_resized > 1 ? start_x * (length_original - 1) + x_resized
     * (end_x - start_x) * (length_original - 1) / (length_resized - 1) : 0.5 * (start_x
     + end_x) * (length_original - 1).'
-  name: coordinate_transformation_mode
-  required: false
   type: AttrType.STRING
-- default_value: -0.75
+  required: false
+  default_value: half_pixel
+- name: cubic_coeff_a
   description: The coefficient 'a' used in cubic interpolation. Two common choice
     are -0.5 (in some cases of TensorFlow) and -0.75 (in PyTorch). Check out Equation
     (4) in https://ieeexplore.ieee.org/document/1163711 for the details. This attribute
     is valid only if "mode" is "cubic".
-  name: cubic_coeff_a
-  required: false
   type: AttrType.FLOAT
-- default_value: 0
+  required: false
+  default_value: -0.75
+- name: exclude_outside
   description: If set to 1, the weight of sampling locations outside the tensor will
     be set to 0 and the weight will be renormalized so that their sum is 1.0. The
     default value is 0.
-  name: exclude_outside
-  required: false
   type: AttrType.INT
-- default_value: 0.0
+  required: false
+  default_value: 0
+- name: extrapolation_value
   description: When coordinate_transformation_mode is "tf_crop_and_resize" and x_original
     is outside the range [0, length_original - 1], this value is used as the corresponding
     output value. Default is 0.0f.
-  name: extrapolation_value
-  required: false
   type: AttrType.FLOAT
-- default_value: nearest
+  required: false
+  default_value: 0.0
+- name: mode
   description: 'Three interpolation modes: nearest (default), linear and cubic. The
     "linear" mode includes linear interpolation for 1D tensor and N-linear interpolation
     for N-D tensor (for example, bilinear interpolation for 2D tensor). The "cubic"
     mode includes cubic interpolation for 1D tensor and N-cubic interpolation for
     N-D tensor (for example, bicubic interpolation for 2D tensor).'
-  name: mode
-  required: false
   type: AttrType.STRING
-- default_value: round_prefer_floor
+  required: false
+  default_value: nearest
+- name: nearest_mode
   description: 'Four modes: round_prefer_floor (default, as known as round half down),
     round_prefer_ceil (as known as round half up), floor, ceil. Only used by nearest
     interpolation. It indicates how to get "nearest" pixel in input tensor from x_original,
     so this attribute is valid only if "mode" is "nearest".'
-  name: nearest_mode
-  required: false
   type: AttrType.STRING
-deprecated: false
-doc: "\nResize the input tensor. In general, it calculates every value in the output\
-  \ tensor as a weighted average of neighborhood (a.k.a. sampling locations) in the\
-  \ input tensor.\nEach dimension value of the output tensor is:\n  output_dimension\
-  \ = floor(input_dimension * (roi_end - roi_start) * scale) if input \\\"sizes\\\"\
-  \ is not specified.\n"
-domain: ''
+  required: false
+  default_value: round_prefer_floor
 inputs:
-- description: N-D tensor
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T1
-- description: 1-D tensor given as [start1, ..., startN, end1, ..., endN], where N
+  description: N-D tensor
+  min_arity: 1
+  tags: []
+- name: roi
+  type_str: T2
+  description: 1-D tensor given as [start1, ..., startN, end1, ..., endN], where N
     is the rank of X. The RoIs' coordinates are normalized in the coordinate system
     of the input image. It only takes effect when coordinate_transformation_mode is
     "tf_crop_and_resize"
   min_arity: 1
-  name: roi
   tags: []
-  type_str: T2
-- description: The scale array along each dimension. It takes value greater than 0.
+- name: scales
+  type_str: tensor(float)
+  description: The scale array along each dimension. It takes value greater than 0.
     If it's less than 1, it's sampling down, otherwise, it's upsampling. The number
     of elements of 'scales' should be the same as the rank of input 'X'. If 'size'
     is needed, the user must set 'scales' to an empty tensor.
   min_arity: 1
-  name: scales
   tags: []
-  type_str: tensor(float)
-- description: The size of the output tensor. The number of elements of 'sizes' should
+- name: sizes
+  type_str: tensor(int64)
+  description: The size of the output tensor. The number of elements of 'sizes' should
     be the same as the rank of input 'X'. May only be set if 'scales' is set to an
     empty tensor.
   min_arity: 1
-  name: sizes
   tags:
   - optional
-  type_str: tensor(int64)
-max_input: 4
-max_output: 1
-min_input: 3
-min_output: 1
-name: Resize
 outputs:
-- description: N-D tensor after resizing
-  min_arity: 1
-  name: Y
-  tags: []
+- name: Y
   type_str: T1
-since_version: 11
-support_level: SupportType.COMMON
+  description: N-D tensor after resizing
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain input 'X' and output 'Y' to all tensor types.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -155,11 +155,11 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain input 'X' and output 'Y' to all tensor types.
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: Constrain roi type to float or double.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain roi type to float or double.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

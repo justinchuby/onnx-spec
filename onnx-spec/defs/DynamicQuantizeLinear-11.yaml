@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: DynamicQuantizeLinear
+since_version: 11
+min_input: 1
+max_input: 1
+min_output: 3
+max_output: 3
 doc: '
 
   A Function to fuse calculation for Scale, Zero Point and FP32->8Bit conversion of
@@ -57,42 +62,37 @@ doc: '
   * rounding to nearest ties to even.
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: Input tensor
-  min_arity: 1
-  name: x
-  tags: []
+- name: x
   type_str: T1
-max_input: 1
-max_output: 3
-min_input: 1
-min_output: 3
-name: DynamicQuantizeLinear
+  description: Input tensor
+  min_arity: 1
+  tags: []
 outputs:
-- description: Quantized output tensor
-  min_arity: 1
-  name: y
-  tags: []
+- name: y
   type_str: T2
-- description: Output scale. It's a scalar, which means a per-tensor/layer quantization.
+  description: Quantized output tensor
   min_arity: 1
-  name: y_scale
   tags: []
+- name: y_scale
   type_str: tensor(float)
-- description: Output zero point. It's a scalar, which means a per-tensor/layer quantization.
+  description: Output scale. It's a scalar, which means a per-tensor/layer quantization.
   min_arity: 1
-  name: y_zero_point
   tags: []
+- name: y_zero_point
   type_str: T2
-since_version: 11
-support_level: SupportType.COMMON
+  description: Output zero point. It's a scalar, which means a per-tensor/layer quantization.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
-  - tensor(float)
+- type_param_str: T1
   description: Constrain 'x' to float tensor.
-  type_param_str: T1
-- allowed_type_strs:
-  - tensor(uint8)
+  allowed_type_strs:
+  - tensor(float)
+- type_param_str: T2
   description: Constrain 'y_zero_point' and 'y' to 8-bit unsigned integer tensor.
-  type_param_str: T2
+  allowed_type_strs:
+  - tensor(uint8)
+support_level: COMMON
+deprecated: false

@@ -1,11 +1,10 @@
-attributes:
-- default_value: null
-  description: (Optional) Seed to the random generator, if not specified we will auto
-    generate one.
-  name: seed
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: Dropout
+since_version: 12
+min_input: 1
+max_input: 3
+min_output: 1
+max_output: 2
 doc: '
 
   Dropout takes an input floating-point tensor, an optional input ratio (floating-point
@@ -41,66 +40,67 @@ doc: '
   omitted.
 
   '
-domain: ''
+attributes:
+- name: seed
+  description: (Optional) Seed to the random generator, if not specified we will auto
+    generate one.
+  type: AttrType.INT
+  required: false
+  default_value: null
 inputs:
-- description: The input data as Tensor.
-  min_arity: 1
-  name: data
-  tags: []
+- name: data
   type_str: T
-- description: The ratio of random dropout, with value in [0, 1). If this input was
+  description: The input data as Tensor.
+  min_arity: 1
+  tags: []
+- name: ratio
+  type_str: T1
+  description: The ratio of random dropout, with value in [0, 1). If this input was
     not set, or if it was set to 0, the output would be a simple copy of the input.
     If it's non-zero, output will be a random dropout of the scaled input, which is
     typically the case during training. It is an optional value, if not specified
     it will default to 0.5.
   min_arity: 1
-  name: ratio
   tags:
   - optional
-  type_str: T1
-- description: If set to true then it indicates dropout is being used for training.
+- name: training_mode
+  type_str: T2
+  description: If set to true then it indicates dropout is being used for training.
     It is an optional value hence unless specified explicitly, it is false. If it
     is false, ratio is ignored and the operation mimics inference mode where nothing
     will be dropped from the input data and if mask is requested as output it will
     contain all ones.
   min_arity: 1
-  name: training_mode
   tags:
   - optional
-  type_str: T2
-max_input: 3
-max_output: 2
-min_input: 1
-min_output: 1
-name: Dropout
 outputs:
-- description: The output.
-  min_arity: 1
-  name: output
-  tags: []
+- name: output
   type_str: T
-- description: The output mask.
+  description: The output.
   min_arity: 1
-  name: mask
+  tags: []
+- name: mask
+  type_str: T2
+  description: The output mask.
+  min_arity: 1
   tags:
   - optional
-  type_str: T2
-since_version: 12
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+- type_param_str: T
   description: Constrain input and output types to float tensors.
-  type_param_str: T
-- allowed_type_strs:
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
+- type_param_str: T1
   description: Constrain input 'ratio' types to float tensors.
-  type_param_str: T1
-- allowed_type_strs:
-  - tensor(bool)
+  allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+- type_param_str: T2
   description: Constrain output 'mask' types to boolean tensors.
-  type_param_str: T2
+  allowed_type_strs:
+  - tensor(bool)
+support_level: COMMON
+deprecated: false

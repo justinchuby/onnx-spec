@@ -1,27 +1,10 @@
-attributes:
-- default_value: null
-  description: (Optional) The data type for the elements of the output tensor, if
-    not specified, we will use the data type of the input tensor.
-  name: dtype
-  required: false
-  type: AttrType.INT
-- default_value: 0.0
-  description: The mean of the normal distribution.
-  name: mean
-  required: false
-  type: AttrType.FLOAT
-- default_value: 1.0
-  description: The standard deviation of the normal distribution.
-  name: scale
-  required: false
-  type: AttrType.FLOAT
-- default_value: null
-  description: (Optional) Seed to the random generator, if not specified we will auto
-    generate one.
-  name: seed
-  required: false
-  type: AttrType.FLOAT
-deprecated: false
+domain: ''
+name: RandomNormalLike
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
 doc: '
 
   Generate a tensor with random values drawn from a normal distribution.
@@ -40,28 +23,46 @@ doc: '
   TensorProto message, and be valid as an output type.
 
   '
-domain: ''
+attributes:
+- name: dtype
+  description: (Optional) The data type for the elements of the output tensor, if
+    not specified, we will use the data type of the input tensor.
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: mean
+  description: The mean of the normal distribution.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 0.0
+- name: scale
+  description: The standard deviation of the normal distribution.
+  type: AttrType.FLOAT
+  required: false
+  default_value: 1.0
+- name: seed
+  description: (Optional) Seed to the random generator, if not specified we will auto
+    generate one.
+  type: AttrType.FLOAT
+  required: false
+  default_value: null
 inputs:
-- description: Input tensor to copy shape and optionally type information from.
-  min_arity: 1
-  name: input
-  tags: []
+- name: input
   type_str: T1
-max_input: 1
-max_output: 1
-min_input: 1
-min_output: 1
-name: RandomNormalLike
-outputs:
-- description: Output tensor of random values drawn from normal distribution
+  description: Input tensor to copy shape and optionally type information from.
   min_arity: 1
-  name: output
   tags: []
+outputs:
+- name: output
   type_str: T2
-since_version: 1
-support_level: SupportType.COMMON
+  description: Output tensor of random values drawn from normal distribution
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: Constrain to any tensor type. If the dtype attribute is not provided
+    this must be a valid output type.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -77,12 +78,11 @@ type_constraints:
   - tensor(bool)
   - tensor(complex64)
   - tensor(complex128)
-  description: Constrain to any tensor type. If the dtype attribute is not provided
-    this must be a valid output type.
-  type_param_str: T1
-- allowed_type_strs:
+- type_param_str: T2
+  description: Constrain output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain output types to float tensors.
-  type_param_str: T2
+support_level: COMMON
+deprecated: false

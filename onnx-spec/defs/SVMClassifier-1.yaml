@@ -1,105 +1,109 @@
+domain: ai.onnx.ml
+name: SVMClassifier
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 2
+max_output: 2
+doc: '
+
+  Support Vector Machine classifier
+
+  '
 attributes:
-- default_value: null
+- name: classlabels_ints
   description: Class labels if using integer labels.<br>One and only one of the 'classlabels_*'
     attributes must be defined.
-  name: classlabels_ints
-  required: false
   type: AttrType.INTS
-- default_value: null
+  required: false
+  default_value: null
+- name: classlabels_strings
   description: Class labels if using string labels.<br>One and only one of the 'classlabels_*'
     attributes must be defined.
-  name: classlabels_strings
-  required: false
   type: AttrType.STRINGS
-- default_value: null
-  description: ''
-  name: coefficients
   required: false
+  default_value: null
+- name: coefficients
+  description: ''
   type: AttrType.FLOATS
-- default_value: null
+  required: false
+  default_value: null
+- name: kernel_params
   description: List of 3 elements containing gamma, coef0, and degree, in that order.
     Zero if unused for the kernel.
-  name: kernel_params
-  required: false
   type: AttrType.FLOATS
-- default_value: LINEAR
-  description: The kernel type, one of 'LINEAR,' 'POLY,' 'RBF,' 'SIGMOID'.
-  name: kernel_type
   required: false
+  default_value: null
+- name: kernel_type
+  description: The kernel type, one of 'LINEAR,' 'POLY,' 'RBF,' 'SIGMOID'.
   type: AttrType.STRING
-- default_value: NONE
+  required: false
+  default_value: LINEAR
+- name: post_transform
   description: Indicates the transform to apply to the score. <br>One of 'NONE,' 'SOFTMAX,'
     'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
-  name: post_transform
-  required: false
   type: AttrType.STRING
-- default_value: null
-  description: First set of probability coefficients.
-  name: prob_a
   required: false
+  default_value: NONE
+- name: prob_a
+  description: First set of probability coefficients.
   type: AttrType.FLOATS
-- default_value: null
+  required: false
+  default_value: null
+- name: prob_b
   description: Second set of probability coefficients. This array must be same size
     as prob_a.<br>If these are provided then output Z are probability estimates, otherwise
     they are raw scores.
-  name: prob_b
-  required: false
   type: AttrType.FLOATS
-- default_value: null
-  description: ''
-  name: rho
   required: false
+  default_value: null
+- name: rho
+  description: ''
   type: AttrType.FLOATS
-- default_value: null
-  description: ''
-  name: support_vectors
   required: false
+  default_value: null
+- name: support_vectors
+  description: ''
   type: AttrType.FLOATS
-- default_value: null
-  description: ''
-  name: vectors_per_class
   required: false
+  default_value: null
+- name: vectors_per_class
+  description: ''
   type: AttrType.INTS
-deprecated: false
-doc: "\n    Support Vector Machine classifier\n"
-domain: ai.onnx.ml
+  required: false
+  default_value: null
 inputs:
-- description: Data to be classified.
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T1
-max_input: 1
-max_output: 2
-min_input: 1
-min_output: 2
-name: SVMClassifier
-outputs:
-- description: Classification outputs (one class per example).
+  description: Data to be classified.
   min_arity: 1
-  name: Y
   tags: []
+outputs:
+- name: Y
   type_str: T2
-- description: Class scores (one per class per example), if prob_a and prob_b are
+  description: Classification outputs (one class per example).
+  min_arity: 1
+  tags: []
+- name: Z
+  type_str: tensor(float)
+  description: Class scores (one per class per example), if prob_a and prob_b are
     provided they are probabilities for each class, otherwise they are raw scores.
   min_arity: 1
-  name: Z
   tags: []
-  type_str: tensor(float)
-since_version: 1
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T1
+  description: The input must be a tensor of a numeric type, either [C] or [N,C].
+  allowed_type_strs:
   - tensor(float)
   - tensor(double)
   - tensor(int64)
   - tensor(int32)
-  description: The input must be a tensor of a numeric type, either [C] or [N,C].
-  type_param_str: T1
-- allowed_type_strs:
-  - tensor(string)
-  - tensor(int64)
+- type_param_str: T2
   description: The output type will be a tensor of strings or integers, depending
     on which of the classlabels_* attributes is used. Its size will match the bactch
     size of the input.
-  type_param_str: T2
+  allowed_type_strs:
+  - tensor(string)
+  - tensor(int64)
+support_level: COMMON
+deprecated: false

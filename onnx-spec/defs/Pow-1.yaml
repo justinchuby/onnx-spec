@@ -1,15 +1,10 @@
-attributes:
-- default_value: null
-  description: If set, defines the broadcast dimensions. See doc for details.
-  name: axis
-  required: false
-  type: AttrType.INT
-- default_value: 0
-  description: Pass 1 to enable broadcasting
-  name: broadcast
-  required: false
-  type: AttrType.INT
-deprecated: false
+domain: ''
+name: Pow
+since_version: 1
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: "\nPow takes input data (Tensor<T>) and exponent Tensor, and\nproduces one output\
   \ data (Tensor<T>) where the function `f(x) = x^exponent`,\nis applied to the data\
   \ tensor elementwise.\n\nIf necessary the right-hand-side argument will be broadcasted\
@@ -25,35 +20,40 @@ doc: "\nPow takes input data (Tensor<T>) and exponent Tensor, and\nproduces one 
   \ 5), shape(B) = (5,)\n  shape(A) = (2, 3, 4, 5), shape(B) = (4, 5)\n  shape(A)\
   \ = (2, 3, 4, 5), shape(B) = (3, 4), with axis=1\n  shape(A) = (2, 3, 4, 5), shape(B)\
   \ = (2), with axis=0\n\nAttribute `broadcast=1` needs to be passed to enable broadcasting.\n"
-domain: ''
+attributes:
+- name: axis
+  description: If set, defines the broadcast dimensions. See doc for details.
+  type: AttrType.INT
+  required: false
+  default_value: null
+- name: broadcast
+  description: Pass 1 to enable broadcasting
+  type: AttrType.INT
+  required: false
+  default_value: 0
 inputs:
-- description: Input tensor of any shape, base of the exponent.
-  min_arity: 1
-  name: X
-  tags: []
+- name: X
   type_str: T
-- description: Input tensor of any shape broadcastable to X shape, the exponent component.
+  description: Input tensor of any shape, base of the exponent.
   min_arity: 1
-  name: Y
   tags: []
+- name: Y
   type_str: T
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: Pow
+  description: Input tensor of any shape broadcastable to X shape, the exponent component.
+  min_arity: 1
+  tags: []
 outputs:
-- description: Output tensor (same size as X)
-  min_arity: 1
-  name: Z
-  tags: []
+- name: Z
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: Output tensor (same size as X)
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

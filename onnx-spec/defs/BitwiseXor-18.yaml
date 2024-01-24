@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: BitwiseXor
+since_version: 18
+min_input: 2
+max_input: 2
+min_output: 1
+max_output: 1
 doc: '
 
   Returns the tensor resulting from performing the bitwise `xor` operation
@@ -11,36 +16,31 @@ doc: '
   more details please check [the doc](Broadcasting.md).
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: First input operand for the bitwise operator.
+- name: A
+  type_str: T
+  description: First input operand for the bitwise operator.
   min_arity: 1
-  name: A
   tags:
   - non-differentiable
+- name: B
   type_str: T
-- description: Second input operand for the bitwise operator.
+  description: Second input operand for the bitwise operator.
   min_arity: 1
-  name: B
   tags:
   - non-differentiable
-  type_str: T
-max_input: 2
-max_output: 1
-min_input: 2
-min_output: 1
-name: BitwiseXor
 outputs:
-- description: Result tensor.
+- name: C
+  type_str: T
+  description: Result tensor.
   min_arity: 1
-  name: C
   tags:
   - non-differentiable
-  type_str: T
-since_version: 18
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input to integer tensors.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -49,5 +49,5 @@ type_constraints:
   - tensor(int16)
   - tensor(int32)
   - tensor(int64)
-  description: Constrain input to integer tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

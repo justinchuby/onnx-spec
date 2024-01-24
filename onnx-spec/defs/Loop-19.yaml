@@ -1,15 +1,10 @@
-attributes:
-- default_value: null
-  description: 'The graph run each iteration. It has 2+N inputs: (iteration_num, condition,
-    loop carried dependencies...). It has 1+N+K outputs: (condition, loop carried
-    dependencies..., scan_outputs...). Each scan_output is created by concatenating
-    the value of the specified output value at the end of each iteration of the loop.
-    It is an error if the dimensions or data type of these scan_outputs change across
-    loop iterations.'
-  name: body
-  required: true
-  type: AttrType.GRAPH
-deprecated: false
+domain: ''
+name: Loop
+since_version: 19
+min_input: 2
+max_input: 2147483647
+min_output: 1
+max_output: 2147483647
 doc: "\nGeneric Looping construct. This loop has multiple termination conditions:\n\
   \n1) Trip count. Iteration count specified at runtime. Set by\n   specifying the\
   \ input M. Optional. Set to empty string to omit.\n   Note that a static trip count\
@@ -82,47 +77,53 @@ doc: "\nGeneric Looping construct. This loop has multiple termination conditions
   \ operators (e.g. dropout, residual connections, linear layer).\n\nThe input/output\
   \ of subgraph (produced by loop node) matching is based on order instead of name.\
   \ The implementation will figure out the names based on this order.\n"
-domain: ''
+attributes:
+- name: body
+  description: 'The graph run each iteration. It has 2+N inputs: (iteration_num, condition,
+    loop carried dependencies...). It has 1+N+K outputs: (condition, loop carried
+    dependencies..., scan_outputs...). Each scan_output is created by concatenating
+    the value of the specified output value at the end of each iteration of the loop.
+    It is an error if the dimensions or data type of these scan_outputs change across
+    loop iterations.'
+  type: AttrType.GRAPH
+  required: true
+  default_value: null
 inputs:
-- description: A maximum trip-count for the loop specified at runtime. Optional. Pass
+- name: M
+  type_str: I
+  description: A maximum trip-count for the loop specified at runtime. Optional. Pass
     empty string to skip.
   min_arity: 1
-  name: M
   tags:
   - optional
-  type_str: I
-- description: A boolean termination condition. Optional. Pass empty string to skip.
-  min_arity: 1
-  name: cond
-  tags:
-  - optional
+- name: cond
   type_str: B
-- description: The initial values of any loop-carried dependencies (values that change
+  description: A boolean termination condition. Optional. Pass empty string to skip.
+  min_arity: 1
+  tags:
+  - optional
+- name: v_initial
+  type_str: V
+  description: The initial values of any loop-carried dependencies (values that change
     across loop iterations)
   min_arity: 0
-  name: v_initial
   tags:
   - variadic
   - heterogeneous
-  type_str: V
-max_input: 2147483647
-max_output: 2147483647
-min_input: 2
-min_output: 1
-name: Loop
 outputs:
-- description: Final N loop carried dependency values then K scan_outputs. Scan outputs
+- name: v_final_and_scan_outputs
+  type_str: V
+  description: Final N loop carried dependency values then K scan_outputs. Scan outputs
     must be Tensors.
   min_arity: 1
-  name: v_final_and_scan_outputs
   tags:
   - variadic
   - heterogeneous
-  type_str: V
-since_version: 19
-support_level: SupportType.COMMON
 type_constraints:
-- allowed_type_strs:
+- type_param_str: V
+  description: All Tensor, Sequence(Tensor), Optional(Tensor), and Optional(Sequence(Tensor))
+    types up to IRv9.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -199,14 +200,13 @@ type_constraints:
   - optional(tensor(float8e4m3fnuz))
   - optional(tensor(float8e5m2))
   - optional(tensor(float8e5m2fnuz))
-  description: All Tensor, Sequence(Tensor), Optional(Tensor), and Optional(Sequence(Tensor))
-    types up to IRv9.
-  type_param_str: V
-- allowed_type_strs:
-  - tensor(int64)
+- type_param_str: I
   description: tensor of int64, which should be a scalar.
-  type_param_str: I
-- allowed_type_strs:
-  - tensor(bool)
+  allowed_type_strs:
+  - tensor(int64)
+- type_param_str: B
   description: tensor of bool, which should be a scalar.
-  type_param_str: B
+  allowed_type_strs:
+  - tensor(bool)
+support_level: COMMON
+deprecated: false

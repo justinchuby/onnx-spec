@@ -1,5 +1,10 @@
-attributes: []
-deprecated: false
+domain: ''
+name: Max
+since_version: 12
+min_input: 1
+max_input: 2147483647
+min_output: 1
+max_output: 1
 doc: '
 
   Element-wise max of each of the input tensors (with Numpy-style broadcasting support).
@@ -10,29 +15,24 @@ doc: '
   more details please check [the doc](Broadcasting.md).
 
   '
-domain: ''
+attributes: []
 inputs:
-- description: List of tensors for max.
+- name: data_0
+  type_str: T
+  description: List of tensors for max.
   min_arity: 1
-  name: data_0
   tags:
   - variadic
-  type_str: T
-max_input: 2147483647
-max_output: 1
-min_input: 1
-min_output: 1
-name: Max
 outputs:
-- description: Output tensor.
-  min_arity: 1
-  name: max
-  tags: []
+- name: max
   type_str: T
-since_version: 12
-support_level: SupportType.COMMON
+  description: Output tensor.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to numeric tensors.
+  allowed_type_strs:
   - tensor(uint8)
   - tensor(uint16)
   - tensor(uint32)
@@ -44,5 +44,5 @@ type_constraints:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to numeric tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false

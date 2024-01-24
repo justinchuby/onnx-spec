@@ -1,10 +1,10 @@
-attributes:
-- default_value: null
-  description: legacy optimization attribute.
-  name: consumed_inputs
-  required: false
-  type: AttrType.INTS
-deprecated: false
+domain: ''
+name: Mean
+since_version: 1
+min_input: 1
+max_input: 2147483647
+min_output: 1
+max_output: 1
 doc: '
 
   Element-wise mean of each of the input tensors. All inputs and outputs must
@@ -12,31 +12,31 @@ doc: '
   have the same shape and data type.
 
   '
-domain: ''
+attributes:
+- name: consumed_inputs
+  description: legacy optimization attribute.
+  type: AttrType.INTS
+  required: false
+  default_value: null
 inputs:
-- description: List of tensors for Mean.
+- name: data_0
+  type_str: T
+  description: List of tensors for Mean.
   min_arity: 1
-  name: data_0
   tags:
   - variadic
-  type_str: T
-max_input: 2147483647
-max_output: 1
-min_input: 1
-min_output: 1
-name: Mean
 outputs:
-- description: Output tensor. Same dimension as inputs.
-  min_arity: 1
-  name: mean
-  tags: []
+- name: mean
   type_str: T
-since_version: 1
-support_level: SupportType.COMMON
+  description: Output tensor. Same dimension as inputs.
+  min_arity: 1
+  tags: []
 type_constraints:
-- allowed_type_strs:
+- type_param_str: T
+  description: Constrain input and output types to float tensors.
+  allowed_type_strs:
   - tensor(float16)
   - tensor(float)
   - tensor(double)
-  description: Constrain input and output types to float tensors.
-  type_param_str: T
+support_level: COMMON
+deprecated: false
