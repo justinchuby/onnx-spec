@@ -3,11 +3,14 @@
 import argparse
 import dataclasses
 import os
+import textwrap
 
 import onnx
 import yaml
+import beartype
 
 
+@beartype.beartype
 @dataclasses.dataclass
 class Attribute:
     name: str
@@ -17,6 +20,7 @@ class Attribute:
     default_value: str | int | float | list[str] | list[int] | list[float] | None = None
 
 
+@beartype.beartype
 @dataclasses.dataclass
 class FormalParameter:
     name: str
@@ -26,6 +30,7 @@ class FormalParameter:
     tags: list[str]
 
 
+@beartype.beartype
 @dataclasses.dataclass
 class TypeConstraintParam:
     type_param_str: str
@@ -33,7 +38,7 @@ class TypeConstraintParam:
     allowed_type_strs: list[str]
 
 
-# @beartype.beartype
+@beartype.beartype
 @dataclasses.dataclass
 class OpSchema:
     domain: str
@@ -52,8 +57,9 @@ class OpSchema:
     deprecated: bool = False
 
 
+@beartype.beartype
 def _generate_formal_parameter_tags(
-    formal_parameter: onnx.defs.OpSchema.FormalParameter
+    formal_parameter: onnx.defs.OpSchema.FormalParameter,
 ) -> list[str]:
     tags: list[str] = []
     if onnx.defs.OpSchema.FormalParameterOption.Optional == formal_parameter.option:
@@ -78,6 +84,7 @@ def _generate_formal_parameter_tags(
     return tags
 
 
+@beartype.beartype
 def _get_attribute_default_value(attr: onnx.defs.OpSchema.Attribute):
     value = onnx.helper.get_attribute_value(attr.default_value)
     # TODO(justinchuby): Handle when there is no default
@@ -105,10 +112,33 @@ def _get_attribute_default_value(attr: onnx.defs.OpSchema.Attribute):
     return value
 
 
+def _process_documentation(doc: str) -> str:
+    # Lifted from ONNX's docsgen:
+    # https://github.com/onnx/onnx/blob/3fd41d249bb8006935aa0031a332dd945e61b7e5/docs/docsgen/source/onnx_sphinx.py#L414
+    doc = textwrap.dedent(doc or "")
+    rep = {
+        "<dl>": "",
+        "</dl>": "",
+        "<dt>": "* ",
+        "<dd>": "  ",
+        "</dt>": "",
+        "</dd>": "",
+        "<tt>": "``",
+        "</tt>": "``",
+        "<br>": "\n",
+    }
+    for k, v in rep.items():
+        doc = doc.replace(k, v)
+    return doc
+
+
+@beartype.beartype
 def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
     return OpSchema(
-        support_level=str(schema.support_level),
-        doc=schema.doc.replace("\\n", "\n").replace("<br>", "\n") if schema.doc else "",
+        support_level="COMMON"
+        if schema.support_level == onnx.defs.OpSchema.SupportType.COMMON
+        else "EXPERIMENTAL",
+        doc=_process_documentation(schema.doc),
         since_version=schema.since_version,
         deprecated=schema.deprecated,
         domain=schema.domain,
@@ -160,7 +190,7 @@ def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
 
 def main():
     parser = argparse.ArgumentParser(description="Output ONNX spec in YAML format.")
-    parser.add_argument("--output", help="Output directory")
+    parser.add_argument("--output", help="Output directory", required=True)
     args = parser.parse_args()
 
     schemas = onnx.defs.get_all_schemas_with_history()
@@ -173,7 +203,9 @@ def main():
         ) as f:
             print(f"Writing {schema.name}-{schema.since_version}.yaml")
             d = dataclasses.asdict(dataclass_schema)
-            yaml.dump(d, f)
+            yaml.safe_dump(
+                d, f, sort_keys=False, allow_unicode=True, default_flow_style=False
+            )
 
 
 if __name__ == "__main__":

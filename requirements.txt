@@ -1,0 +1,3 @@
+onnx-weekly
+pyyaml
+beartype
