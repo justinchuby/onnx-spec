@@ -108,7 +108,7 @@ def _get_attribute_default_value(attr: onnx.defs.OpSchema.Attribute):
 def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
     return OpSchema(
         support_level=str(schema.support_level),
-        doc=schema.doc or "",
+        doc=schema.doc.replace("\\n", "\n").replace("<br>", "\n") if schema.doc else "",
         since_version=schema.since_version,
         deprecated=schema.deprecated,
         domain=schema.domain,
