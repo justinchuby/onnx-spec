@@ -186,7 +186,7 @@ def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
             TypeConstraintParam(
                 type_param_str=type_constraint.type_param_str,
                 description=type_constraint.description,
-                allowed_type_strs=sorted(type_constraint.allowed_type_strs),
+                allowed_type_strs=list(type_constraint.allowed_type_strs),
             )
             for type_constraint in schema.type_constraints
         ],
