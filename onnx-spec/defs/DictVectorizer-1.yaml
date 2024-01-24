@@ -1,0 +1,66 @@
+attributes:
+- default_value: null
+  description: An integer vocabulary array.<br>One and only one of the vocabularies
+    must be defined.
+  name: int64_vocabulary
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: A string vocabulary array.<br>One and only one of the vocabularies
+    must be defined.
+  name: string_vocabulary
+  required: false
+  type: AttrType.STRINGS
+deprecated: false
+doc: "\n    Uses an index mapping to convert a dictionary to an array.\n\n    Given\
+  \ a dictionary, each key is looked up in the vocabulary attribute corresponding\
+  \ to\n    the key type. The index into the vocabulary array at which the key is\
+  \ found is then\n    used to index the output 1-D tensor 'Y' and insert into it\
+  \ the value found in the dictionary 'X'.\n\n    The key type of the input map must\
+  \ correspond to the element type of the defined vocabulary attribute.\n    Therefore,\
+  \ the output array will be equal in length to the index mapping vector parameter.\n\
+  \    All keys in the input dictionary must be present in the index mapping vector.\n\
+  \    For each item in the input dictionary, insert its value in the output array.\n\
+  \    Any keys not present in the input dictionary, will be zero in the output array.\n\
+  \n    For example: if the ``string_vocabulary`` parameter is set to ``[\"a\", \"\
+  c\", \"b\", \"z\"]``,\n    then an input of ``{\"a\": 4, \"c\": 8}`` will produce\
+  \ an output of ``[4, 8, 0, 0]``.\n    "
+domain: ai.onnx.ml
+inputs:
+- description: A dictionary.
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T1
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: DictVectorizer
+outputs:
+- description: A 1-D tensor holding values from the input dictionary.
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T2
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - map(string, int64)
+  - map(int64, string)
+  - map(int64, float)
+  - map(int64, double)
+  - map(string, float)
+  - map(string, double)
+  description: The input must be a map from strings or integers to either strings
+    or a numeric type. The key and value types cannot be the same.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(int64)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  description: The output will be a tensor of the value type of the input map. It's
+    shape will be [1,C], where C is the length of the input dictionary.
+  type_param_str: T2

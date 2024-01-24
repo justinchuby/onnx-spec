@@ -1,0 +1,64 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Reshape the input tensor similar to numpy.reshape.
+
+  First input is the data tensor, second input is a shape tensor which specifies the
+  output shape. It outputs the reshaped tensor.
+
+  At most one dimension of the new shape can be -1. In this case, the value is
+
+  inferred from the size of the tensor and the remaining dimensions. A dimension
+
+  could also be 0, in which case the actual dimension value is unchanged (i.e. taken
+
+  from the input tensor). Shape (second input) could be an empty shape, which means
+  converting to a scalar.
+
+  The input tensor''s shape and the output tensor''s shape are required to have the
+  same number of elements.'
+domain: ''
+inputs:
+- description: An input tensor.
+  min_arity: 1
+  name: data
+  tags: []
+  type_str: T
+- description: Specified shape for output.
+  min_arity: 1
+  name: shape
+  tags: []
+  type_str: tensor(int64)
+max_input: 2
+max_output: 1
+min_input: 2
+min_output: 1
+name: Reshape
+outputs:
+- description: Reshaped data.
+  min_arity: 1
+  name: reshaped
+  tags: []
+  type_str: T
+since_version: 5
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Constrain input and output types to all tensor types.
+  type_param_str: T

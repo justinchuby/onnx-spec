@@ -1,0 +1,49 @@
+attributes:
+- default_value: 1.0
+  description: Coefficient of ELU default to 1.0.
+  name: alpha
+  required: false
+  type: AttrType.FLOAT
+- default_value: null
+  description: legacy optimization attribute.
+  name: consumed_inputs
+  required: false
+  type: AttrType.INTS
+deprecated: false
+doc: '
+
+  Elu takes one input data (Tensor<T>) and produces one output data
+
+  (Tensor<T>) where the function `f(x) = alpha * (exp(x) - 1.) for x <
+
+  0`, `f(x) = x for x >= 0`., is applied to the tensor elementwise.
+
+
+  '
+domain: ''
+inputs:
+- description: 1D input tensor
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Elu
+outputs:
+- description: 1D input tensor
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

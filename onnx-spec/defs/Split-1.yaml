@@ -1,0 +1,55 @@
+attributes:
+- default_value: null
+  description: Which axis to split on
+  name: axis
+  required: false
+  type: AttrType.INT
+- default_value: null
+  description: length of each output
+  name: split
+  required: false
+  type: AttrType.INTS
+deprecated: false
+doc: 'Split a tensor into a list of tensors, along the specified
+
+  ''axis''. The lengths of the split can be specified using argument ''axis'' or
+
+  optional second input blob to the operator. Otherwise, the tensor is split
+
+  to equal sized parts.
+
+  '
+domain: ''
+inputs:
+- description: The tensor to split
+  min_arity: 1
+  name: input
+  tags: []
+  type_str: T
+- description: Optional list of output lengths (see also arg 'split')
+  min_arity: 1
+  name: split
+  tags:
+  - optional
+  type_str: T
+max_input: 2
+max_output: 2147483647
+min_input: 1
+min_output: 1
+name: Split
+outputs:
+- description: One or more outputs forming list of tensors after splitting
+  min_arity: 1
+  name: outputs...
+  tags:
+  - variadic
+  type_str: T
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input types to float tensors.
+  type_param_str: T

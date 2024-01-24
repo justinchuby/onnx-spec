@@ -1,0 +1,79 @@
+attributes:
+- default_value: 0
+  description: Which axis to gather on. Negative value means counting dimensions from
+    the back. Accepted range is [-r, r-1] where r = rank(data).
+  name: axis
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: "\n\nGatherElements takes two inputs `data` and `indices` of the same rank r\
+  \ >= 1\nand an optional attribute `axis` that identifies an axis of `data`\n(by\
+  \ default, the outer-most axis, that is axis 0). It is an indexing operation\nthat\
+  \ produces its output by indexing into the input data tensor at index\npositions\
+  \ determined by elements of the `indices` tensor.\nIts output shape is the same\
+  \ as the shape of `indices` and consists of one value\n(gathered from the `data`)\
+  \ for each element in `indices`.\n\nFor instance, in the 3-D case (r = 3), the output\
+  \ produced is determined\nby the following equations:\n```\nout[i][j][k] = input[index[i][j][k]][j][k]\
+  \ if axis = 0,\nout[i][j][k] = input[i][index[i][j][k]][k] if axis = 1,\nout[i][j][k]\
+  \ = input[i][j][index[i][j][k]] if axis = 2,\n```\n\nThis operator is also the inverse\
+  \ of ScatterElements. It is similar to Torch's gather operation.\n\nExample 1:\n\
+  ```\ndata = [\n    [1, 2],\n    [3, 4],\n]\nindices = [\n    [0, 0],\n    [1, 0],\n\
+  ]\naxis = 1\noutput = [\n    [1, 1],\n    [4, 3],\n]\n```\nExample 2:\n```\ndata\
+  \ = [\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9],\n]\nindices = [\n    [1, 2,\
+  \ 0],\n    [2, 0, 0],\n]\naxis = 0\noutput = [\n    [4, 8, 3],\n    [7, 2, 3],\n\
+  ]\n```\n"
+domain: ''
+inputs:
+- description: Tensor of rank r >= 1.
+  min_arity: 1
+  name: data
+  tags:
+  - differentiable
+  type_str: T
+- description: Tensor of int32/int64 indices, with the same rank r as the input. All
+    index values are expected to be within bounds [-s, s-1] along axis of size s.
+    It is an error if any of the index values are out of bounds.
+  min_arity: 1
+  name: indices
+  tags:
+  - non-differentiable
+  type_str: Tind
+max_input: 2
+max_output: 1
+min_input: 2
+min_output: 1
+name: GatherElements
+outputs:
+- description: Tensor of the same shape as indices.
+  min_arity: 1
+  name: output
+  tags:
+  - differentiable
+  type_str: T
+since_version: 13
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(bfloat16)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Constrain input and output types to any tensor type.
+  type_param_str: T
+- allowed_type_strs:
+  - tensor(int32)
+  - tensor(int64)
+  description: Constrain indices to integer types
+  type_param_str: Tind

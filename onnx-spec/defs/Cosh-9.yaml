@@ -1,0 +1,36 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Calculates the hyperbolic cosine of the given input tensor element-wise.
+
+  '
+domain: ''
+inputs:
+- description: Input tensor
+  min_arity: 1
+  name: input
+  tags:
+  - differentiable
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Cosh
+outputs:
+- description: The hyperbolic cosine values of the input tensor computed element-wise
+  min_arity: 1
+  name: output
+  tags:
+  - differentiable
+  type_str: T
+since_version: 9
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

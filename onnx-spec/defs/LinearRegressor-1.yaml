@@ -1,0 +1,57 @@
+attributes:
+- default_value: null
+  description: Weights of the model(s).
+  name: coefficients
+  required: false
+  type: AttrType.FLOATS
+- default_value: null
+  description: Weights of the intercepts, if used.
+  name: intercepts
+  required: false
+  type: AttrType.FLOATS
+- default_value: NONE
+  description: Indicates the transform to apply to the regression output vector.<br>One
+    of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+  name: post_transform
+  required: false
+  type: AttrType.STRING
+- default_value: 1
+  description: The total number of regression targets, 1 if not defined.
+  name: targets
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: "\n    Generalized linear regression evaluation.\n\n    If targets is set to\
+  \ 1 (default) then univariate regression is performed.\n\n    If targets is set\
+  \ to M then M sets of coefficients must be passed in as a sequence\n    and M results\
+  \ will be output for each input n in N.\n\n    The coefficients array is of length\
+  \ n, and the coefficients for each target are contiguous.\n    Intercepts are optional\
+  \ but if provided must match the number of targets.\n"
+domain: ai.onnx.ml
+inputs:
+- description: Data to be regressed.
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: LinearRegressor
+outputs:
+- description: Regression outputs (one per target, per example).
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: tensor(float)
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(double)
+  - tensor(int64)
+  - tensor(int32)
+  description: The input must be a tensor of a numeric type.
+  type_param_str: T

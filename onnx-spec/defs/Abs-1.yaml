@@ -1,0 +1,43 @@
+attributes:
+- default_value: null
+  description: legacy optimization attribute.
+  name: consumed_inputs
+  required: false
+  type: AttrType.INTS
+deprecated: false
+doc: '
+
+  Absolute takes one input data (Tensor<T>) and produces one output data
+
+  (Tensor<T>) where the absolute is, y = abs(x), is applied to
+
+  the tensor elementwise.
+
+  '
+domain: ''
+inputs:
+- description: Input tensor
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Abs
+outputs:
+- description: Output tensor
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

@@ -1,0 +1,46 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Mish: A Self Regularized Non-Monotonic Neural Activation Function.
+
+
+  Perform the linear unit element-wise on the input tensor X using formula:
+
+
+  ```
+
+  mish(x) = x * tanh(softplus(x)) = x * tanh(ln(1 + e^{x}))
+
+  ```
+
+  '
+domain: ''
+inputs:
+- description: Input tensor
+  min_arity: 1
+  name: X
+  tags:
+  - differentiable
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Mish
+outputs:
+- description: Output tensor
+  min_arity: 1
+  name: Y
+  tags:
+  - differentiable
+  type_str: T
+since_version: 18
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input X and output types to float tensors.
+  type_param_str: T

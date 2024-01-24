@@ -1,0 +1,37 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Element-wise min of each of the input tensors. All inputs and outputs must
+
+  have the same shape and data type.
+
+  '
+domain: ''
+inputs:
+- description: List of tensors for Min
+  min_arity: 1
+  name: data_0
+  tags:
+  - variadic
+  type_str: T
+max_input: 2147483647
+max_output: 1
+min_input: 1
+min_output: 1
+name: Min
+outputs:
+- description: Output tensor. Same dimension as inputs.
+  min_arity: 1
+  name: min
+  tags: []
+  type_str: T
+since_version: 6
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

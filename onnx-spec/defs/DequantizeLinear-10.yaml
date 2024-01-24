@@ -1,0 +1,56 @@
+attributes: []
+deprecated: false
+doc: '
+
+  The linear dequantization operator. It consumes a quantized tensor, a scale, a zero
+  point to compute the full precision tensor.
+
+  The dequantization formula is y = (x - x_zero_point) * x_scale. ''x_scale'' and
+  ''x_zero_point'' are both scalars.
+
+  ''x_zero_point'' and ''x'' must have same type. ''x'' and ''y'' must have same shape.
+  In the case of dequantizing int32,
+
+  there''s no zero point (zero point is supposed to be 0).
+
+  '
+domain: ''
+inputs:
+- description: N-D quantized input tensor to be de-quantized.
+  min_arity: 1
+  name: x
+  tags: []
+  type_str: T
+- description: Scale for input 'x'. It's a scalar, which means a per-tensor/layer
+    quantization.
+  min_arity: 1
+  name: x_scale
+  tags: []
+  type_str: tensor(float)
+- description: Zero point for input 'x'. It's a scalar, which means a per-tensor/layer
+    quantization. It's optional. 0 is the default value when it's not specified.
+  min_arity: 1
+  name: x_zero_point
+  tags:
+  - optional
+  type_str: T
+max_input: 3
+max_output: 1
+min_input: 2
+min_output: 1
+name: DequantizeLinear
+outputs:
+- description: N-D full precision output tensor. It has same shape as input 'x'.
+  min_arity: 1
+  name: y
+  tags: []
+  type_str: tensor(float)
+since_version: 10
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(int8)
+  - tensor(uint8)
+  - tensor(int32)
+  description: Constrain 'x_zero_point' and 'x' to 8-bit/32-bit integer tensor.
+  type_param_str: T

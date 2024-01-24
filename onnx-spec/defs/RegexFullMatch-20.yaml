@@ -1,0 +1,44 @@
+attributes:
+- default_value: null
+  description: Regex pattern to match on. This must be valid RE2 syntax.
+  name: pattern
+  required: false
+  type: AttrType.STRING
+deprecated: false
+doc: RegexFullMatch performs a full regex match on each element of the input tensor.
+  If an element fully matches the regex pattern specified as an attribute, the corresponding
+  element in the output is True and it is False otherwise. [RE2](https://github.com/google/re2/wiki/Syntax)
+  regex syntax is used.
+domain: ''
+inputs:
+- description: Tensor with strings to match on.
+  min_arity: 1
+  name: X
+  tags:
+  - non-differentiable
+  type_str: T1
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: RegexFullMatch
+outputs:
+- description: Tensor of bools indicating if each input string fully matches the regex
+    pattern specified.
+  min_arity: 1
+  name: Y
+  tags:
+  - non-differentiable
+  type_str: T2
+since_version: 20
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(string)
+  description: Inputs must be UTF-8 strings
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(bool)
+  description: Outputs are bools and are True where there is a full regex match and
+    False otherwise.
+  type_param_str: T2

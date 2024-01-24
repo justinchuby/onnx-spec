@@ -1,0 +1,41 @@
+attributes:
+- default_value:
+  - 0
+  - 2
+  - 3
+  description: A list of integers, along which to reduce. The default is to calculate
+    along axes [0,2,3] for calculating mean and variance along each channel. Two variables
+    with the same C-coordinate are associated with the same mean and variance.
+  name: axes
+  required: false
+  type: AttrType.INTS
+deprecated: false
+doc: "\n      A MeanVarianceNormalization Function: Perform mean variance normalization\n\
+  \      on the input tensor X using formula: <br/> ``` (X-EX)/sqrt(E(X-EX)^2) ```\n"
+domain: ''
+inputs:
+- description: Input tensor
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: MeanVarianceNormalization
+outputs:
+- description: Output tensor
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T
+since_version: 9
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to all numeric tensors.
+  type_param_str: T

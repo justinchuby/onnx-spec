@@ -1,0 +1,34 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Returns the negation of the input tensor element-wise.
+
+  '
+domain: ''
+inputs:
+- description: Input tensor
+  min_arity: 1
+  name: X
+  tags:
+  - non-differentiable
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Not
+outputs:
+- description: Output tensor
+  min_arity: 1
+  name: Y
+  tags:
+  - non-differentiable
+  type_str: T
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(bool)
+  description: Constrain input/output to boolean tensors.
+  type_param_str: T

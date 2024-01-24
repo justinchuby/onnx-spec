@@ -1,0 +1,38 @@
+attributes:
+- default_value: 0.0
+  description: Values greater than this are mapped to 1, others to 0.
+  name: threshold
+  required: false
+  type: AttrType.FLOAT
+deprecated: false
+doc: "\n    Maps the values of the input tensor to either 0 or 1, element-wise, based\
+  \ on the outcome of a comparison against a threshold value.\n"
+domain: ai.onnx.ml
+inputs:
+- description: Data to be binarized
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Binarizer
+outputs:
+- description: Binarized output data
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(double)
+  - tensor(int64)
+  - tensor(int32)
+  description: The input must be a tensor of a numeric type. The output will be of
+    the same tensor type.
+  type_param_str: T

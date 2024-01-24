@@ -1,0 +1,39 @@
+attributes: []
+deprecated: false
+doc: "\n    Select elements of the input tensor based on the indices passed.\n\n \
+  \   The indices are applied to the last axes of the tensor.\n"
+domain: ai.onnx.ml
+inputs:
+- description: Data to be selected
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T
+- description: The indices, based on 0 as the first index of any dimension.
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: tensor(int64)
+max_input: 2
+max_output: 1
+min_input: 2
+min_output: 1
+name: ArrayFeatureExtractor
+outputs:
+- description: Selected output data as an array
+  min_arity: 1
+  name: Z
+  tags: []
+  type_str: T
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(double)
+  - tensor(int64)
+  - tensor(int32)
+  - tensor(string)
+  description: The input must be a tensor of a numeric type or string. The output
+    will be of the same tensor type.
+  type_param_str: T

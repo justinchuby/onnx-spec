@@ -1,0 +1,64 @@
+attributes:
+- default_value: null
+  description: legacy optimization attribute.
+  name: consumed_inputs
+  required: false
+  type: AttrType.INTS
+- default_value: 0
+  description: (int, default 0) if nonzero, run dropout in test mode where the output
+    is simply Y = X.
+  name: is_test
+  required: false
+  type: AttrType.INT
+- default_value: 0.5
+  description: (float, default 0.5) the ratio of random dropout
+  name: ratio
+  required: false
+  type: AttrType.FLOAT
+deprecated: false
+doc: '
+
+  Dropout takes one input data (Tensor<float>) and produces two Tensor outputs,
+
+  output (Tensor<float>) and mask (Tensor<bool>). Depending on whether it is in
+
+  test mode or not, the output Y will either be a random dropout, or a simple
+
+  copy of the input. Note that our implementation of Dropout does scaling in
+
+  the training phase, so during testing nothing needs to be done.
+
+  '
+domain: ''
+inputs:
+- description: The input data as Tensor.
+  min_arity: 1
+  name: data
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 2
+min_input: 1
+min_output: 1
+name: Dropout
+outputs:
+- description: The output.
+  min_arity: 1
+  name: output
+  tags: []
+  type_str: T
+- description: The output mask. If is_test is nonzero, this output is not filled.
+  min_arity: 1
+  name: mask
+  tags:
+  - optional
+  type_str: T
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

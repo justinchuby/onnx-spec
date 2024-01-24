@@ -1,0 +1,50 @@
+attributes: []
+deprecated: false
+doc: "\nGenerate a tensor containing a sequence of numbers that begin at `start` and\
+  \ extends by increments of `delta`\nup to `limit` (exclusive).\n\nThe number of\
+  \ elements in the output of range is computed as below:\n\n```\nnumber_of_elements\
+  \ = max( ceil( (limit - start) / delta ) , 0 )\n```\n\nThe pseudocode determining\
+  \ the contents of the output is shown below:\n\n```\nfor(int i=0; i<number_of_elements;\
+  \ ++i) {\n  output[i] =  start + (i * delta);\n}\n```\n\nExample 1\n\n```\nInputs:\
+  \ start = 3, limit = 9, delta = 3\nOutput: [3, 6]\n```\n\nExample 2\n\n```\nInputs:\
+  \ start = 10, limit = 4, delta = -2\nOutput: [10, 8, 6]\n```\n"
+domain: ''
+inputs:
+- description: Scalar. First entry for the range of output values.
+  min_arity: 1
+  name: start
+  tags: []
+  type_str: T
+- description: Scalar. Exclusive upper limit for the range of output values.
+  min_arity: 1
+  name: limit
+  tags: []
+  type_str: T
+- description: Scalar. Value to step by.
+  min_arity: 1
+  name: delta
+  tags: []
+  type_str: T
+max_input: 3
+max_output: 1
+min_input: 3
+min_output: 1
+name: Range
+outputs:
+- description: A 1-D tensor with same type as the inputs containing generated range
+    of values.
+  min_arity: 1
+  name: output
+  tags: []
+  type_str: T
+since_version: 11
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(double)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  description: Constrain input types to common numeric type tensors.
+  type_param_str: T

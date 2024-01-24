@@ -1,0 +1,61 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Returns the tensor resulted from performing the `greater_equal` logical operation
+
+  elementwise on the input tensors `A` and `B` (with Numpy-style broadcasting support).
+
+
+  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for
+  more details please check [the doc](Broadcasting.md).
+
+  '
+domain: ''
+inputs:
+- description: First input operand for the logical operator.
+  min_arity: 1
+  name: A
+  tags:
+  - non-differentiable
+  type_str: T
+- description: Second input operand for the logical operator.
+  min_arity: 1
+  name: B
+  tags:
+  - non-differentiable
+  type_str: T
+max_input: 2
+max_output: 1
+min_input: 2
+min_output: 1
+name: GreaterOrEqual
+outputs:
+- description: Result tensor.
+  min_arity: 1
+  name: C
+  tags:
+  - non-differentiable
+  type_str: T1
+since_version: 16
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(bfloat16)
+  description: Constrain input types to all numeric tensors.
+  type_param_str: T
+- allowed_type_strs:
+  - tensor(bool)
+  description: Constrain output to boolean tensor.
+  type_param_str: T1

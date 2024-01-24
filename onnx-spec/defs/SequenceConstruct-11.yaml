@@ -1,0 +1,67 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Construct a tensor sequence containing ''inputs'' tensors.
+
+  All tensors in ''inputs'' must have the same data type.
+
+  '
+domain: ''
+inputs:
+- description: Tensors.
+  min_arity: 1
+  name: inputs
+  tags:
+  - variadic
+  type_str: T
+max_input: 2147483647
+max_output: 1
+min_input: 1
+min_output: 1
+name: SequenceConstruct
+outputs:
+- description: Sequence enclosing the input tensors.
+  min_arity: 1
+  name: output_sequence
+  tags: []
+  type_str: S
+since_version: 11
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Constrain input types to any tensor type.
+  type_param_str: T
+- allowed_type_strs:
+  - seq(tensor(uint8))
+  - seq(tensor(uint16))
+  - seq(tensor(uint32))
+  - seq(tensor(uint64))
+  - seq(tensor(int8))
+  - seq(tensor(int16))
+  - seq(tensor(int32))
+  - seq(tensor(int64))
+  - seq(tensor(float16))
+  - seq(tensor(float))
+  - seq(tensor(double))
+  - seq(tensor(string))
+  - seq(tensor(bool))
+  - seq(tensor(complex64))
+  - seq(tensor(complex128))
+  description: Constrain output types to any tensor type.
+  type_param_str: S

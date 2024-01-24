@@ -1,0 +1,64 @@
+attributes: []
+deprecated: false
+doc: 'Constructs a tensor by tiling a given tensor.
+
+  This is the same as function `tile` in Numpy, but no broadcast.
+
+  For example A = [[1, 2], [3, 4]], B = [1, 2], tile(A, B) = [[1, 2, 1, 2], [3, 4,
+  3, 4]]
+
+  '
+domain: ''
+inputs:
+- description: Input tensor of any shape.
+  min_arity: 1
+  name: input
+  tags:
+  - differentiable
+  type_str: T
+- description: 1D int64 tensor of the same length as input's dimension number, includes
+    numbers of repeated copies along input's dimensions.
+  min_arity: 1
+  name: repeats
+  tags:
+  - non-differentiable
+  type_str: T1
+max_input: 2
+max_output: 1
+min_input: 2
+min_output: 1
+name: Tile
+outputs:
+- description: Output tensor of the same dimensions and type as tensor input. output_dim[i]
+    = input_dim[i] * repeats[i]
+  min_arity: 1
+  name: output
+  tags:
+  - differentiable
+  type_str: T
+since_version: 13
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(bfloat16)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Constrain input and output types to all tensor types.
+  type_param_str: T
+- allowed_type_strs:
+  - tensor(int64)
+  description: Constrain repeat's type to int64 tensors.
+  type_param_str: T1

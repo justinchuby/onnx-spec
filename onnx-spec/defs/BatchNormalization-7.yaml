@@ -1,0 +1,109 @@
+attributes:
+- default_value: 9.999999747378752e-06
+  description: The epsilon value to use to avoid division by zero.
+  name: epsilon
+  required: false
+  type: AttrType.FLOAT
+- default_value: 0.8999999761581421
+  description: Factor used in computing the running mean and variance.e.g., running_mean
+    = running_mean * momentum + mean * (1 - momentum).
+  name: momentum
+  required: false
+  type: AttrType.FLOAT
+- default_value: 1
+  description: If true, compute the mean and variance across per activation. If false,
+    compute the mean and variance across per feature over each mini-batch.
+  name: spatial
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: "\n    Carries out batch normalization as described in the paper\n    https://arxiv.org/abs/1502.03167.\
+  \ Depending on the mode it is being run,\n    there are multiple cases for the number\
+  \ of outputs, which we list below:\n\n    Output case #1: Y, mean, var, saved_mean,\
+  \ saved_var (training mode)\n    Output case #2: Y (test mode)\n        This operator\
+  \ has **optional** inputs/outputs. See [the doc](IR.md) for more details about the\
+  \ representation of optional arguments. An empty string may be used in the place\
+  \ of an actual argument's name to indicate a missing argument. Trailing optional\
+  \ arguments (those not followed by an argument that is present) may also be simply\
+  \ omitted.\n"
+domain: ''
+inputs:
+- description: Input data tensor from the previous operator; dimensions for image
+    case are (N x C x H x W), where N is the batch size, C is the number of channels,
+    and H and W are the height and the width of the data. For non image case, the
+    dimensions are in the form of (N x C x D1 x D2 ... Dn), where N is the batch size.
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T
+- description: If spatial is true, the dimension of scale is (C). If spatial is false,
+    the dimensions of scale are (C x D1 x ... x Dn)
+  min_arity: 1
+  name: scale
+  tags: []
+  type_str: T
+- description: If spatial is true, the dimension of bias is (C). If spatial is false,
+    the dimensions of bias are (C x D1 x ... x Dn)
+  min_arity: 1
+  name: B
+  tags: []
+  type_str: T
+- description: If spatial is true, the dimension of the running mean (training) or
+    the estimated mean (testing) is (C). If spatial is false, the dimensions of the
+    running mean (training) or the estimated mean (testing) are (C x D1 x ... x Dn).
+  min_arity: 1
+  name: mean
+  tags: []
+  type_str: T
+- description: If spatial is true, the dimension of the running variance(training)
+    or the estimated variance (testing) is (C). If spatial is false, the dimensions
+    of the running variance(training) or the estimated variance (testing) are (C x
+    D1 x ... x Dn).
+  min_arity: 1
+  name: var
+  tags: []
+  type_str: T
+max_input: 5
+max_output: 5
+min_input: 5
+min_output: 1
+name: BatchNormalization
+outputs:
+- description: The output tensor of the same shape as X
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T
+- description: The running mean after the BatchNormalization operator.
+  min_arity: 1
+  name: mean
+  tags:
+  - optional
+  type_str: T
+- description: The running variance after the BatchNormalization operator.
+  min_arity: 1
+  name: var
+  tags:
+  - optional
+  type_str: T
+- description: Saved mean used during training to speed up gradient computation.
+  min_arity: 1
+  name: saved_mean
+  tags:
+  - optional
+  type_str: T
+- description: Saved variance used during training to speed up gradient computation.
+  min_arity: 1
+  name: saved_var
+  tags:
+  - optional
+  type_str: T
+since_version: 7
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

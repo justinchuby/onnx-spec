@@ -1,0 +1,60 @@
+attributes:
+- default_value: null
+  description: List of integers indicating the dimensions to be inserted. Negative
+    value means counting dimensions from the back. Accepted range is [-r, r-1] where
+    r = rank(expanded).
+  name: axes
+  required: true
+  type: AttrType.INTS
+deprecated: false
+doc: "\nInsert single-dimensional entries to the shape of an input tensor (`data`).\n\
+  Takes one required argument `axes` - which contains a list of dimension indices\
+  \ and this operator will insert a dimension of value `1` into the corresponding\
+  \ index of the output tensor (`expanded`).\n\nFor example:\n  Given an input tensor\
+  \ (`data`) of shape [3, 4, 5], then\n  Unsqueeze(data, axes=[0, 4]) outputs a tensor\
+  \ (`expanded`) containing same data as `data` but with shape [1, 3, 4, 5, 1].\n\n\
+  The attribute `axes` should not contain any duplicate entries. It is an error if\
+  \ it contains duplicates.\nThe rank of the output tensor (`output_rank`) is the\
+  \ rank of the input tensor (`data`) plus the number of values in `axes`.\nEach value\
+  \ in `axes` should be within the (inclusive) range [-output_rank , output_rank -\
+  \ 1].\nThe order of values in `axes` does not matter and can come in any order.\n\
+  \n"
+domain: ''
+inputs:
+- description: Original tensor
+  min_arity: 1
+  name: data
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Unsqueeze
+outputs:
+- description: Reshaped tensor with same data as input.
+  min_arity: 1
+  name: expanded
+  tags: []
+  type_str: T
+since_version: 11
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Constrain input and output types to all tensor types.
+  type_param_str: T

@@ -1,0 +1,47 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Performs element-wise binary division (with Numpy-style broadcasting support).
+
+
+  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for
+  more details please check [the doc](Broadcasting.md).
+
+  '
+domain: ''
+inputs:
+- description: First operand.
+  min_arity: 1
+  name: A
+  tags: []
+  type_str: T
+- description: Second operand.
+  min_arity: 1
+  name: B
+  tags: []
+  type_str: T
+max_input: 2
+max_output: 1
+min_input: 2
+min_output: 1
+name: Div
+outputs:
+- description: Result, has same element type as two inputs
+  min_arity: 1
+  name: C
+  tags: []
+  type_str: T
+since_version: 7
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to high-precision numeric tensors.
+  type_param_str: T

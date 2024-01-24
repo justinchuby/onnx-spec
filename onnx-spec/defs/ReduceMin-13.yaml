@@ -1,0 +1,68 @@
+attributes:
+- default_value: null
+  description: A list of integers, along which to reduce. The default is to reduce
+    over all the dimensions of the input tensor. Accepted range is [-r, r-1] where
+    r = rank(data).
+  name: axes
+  required: false
+  type: AttrType.INTS
+- default_value: 1
+  description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
+  name: keepdims
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: '
+
+  Computes the min of the input tensor''s elements along the provided axes. The resulting
+
+  tensor has the same rank as the input if `keepdims` equals 1. If `keepdims` equals
+  0, then
+
+  the resulting tensor has the reduced dimension pruned. Input tensors of rank zero
+  are
+
+  valid. Reduction over an empty set of values yields plus infinity (if supported
+  by the datatype) or the maximum value of the data type otherwise.
+
+
+
+  The above behavior is similar to numpy, with the exception that numpy defaults `keepdims`
+
+  to `False` instead of `True`.'
+domain: ''
+inputs:
+- description: An input tensor.
+  min_arity: 1
+  name: data
+  tags:
+  - differentiable
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: ReduceMin
+outputs:
+- description: Reduced output tensor.
+  min_arity: 1
+  name: reduced
+  tags:
+  - differentiable
+  type_str: T
+since_version: 13
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(bfloat16)
+  - tensor(uint8)
+  - tensor(int8)
+  description: Constrain input and output types to numeric tensors.
+  type_param_str: T

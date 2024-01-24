@@ -1,0 +1,74 @@
+attributes:
+- default_value: null
+  description: Support vector coefficients.
+  name: coefficients
+  required: false
+  type: AttrType.FLOATS
+- default_value: null
+  description: List of 3 elements containing gamma, coef0, and degree, in that order.
+    Zero if unused for the kernel.
+  name: kernel_params
+  required: false
+  type: AttrType.FLOATS
+- default_value: LINEAR
+  description: The kernel type, one of 'LINEAR,' 'POLY,' 'RBF,' 'SIGMOID'.
+  name: kernel_type
+  required: false
+  type: AttrType.STRING
+- default_value: 0
+  description: The number of support vectors.
+  name: n_supports
+  required: false
+  type: AttrType.INT
+- default_value: 0
+  description: Flag indicating whether the regression is a one-class SVM or not.
+  name: one_class
+  required: false
+  type: AttrType.INT
+- default_value: NONE
+  description: Indicates the transform to apply to the score. <br>One of 'NONE,' 'SOFTMAX,'
+    'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT.'
+  name: post_transform
+  required: false
+  type: AttrType.STRING
+- default_value: null
+  description: ''
+  name: rho
+  required: false
+  type: AttrType.FLOATS
+- default_value: null
+  description: Chosen support vectors
+  name: support_vectors
+  required: false
+  type: AttrType.FLOATS
+deprecated: false
+doc: "\n    Support Vector Machine regression prediction and one-class SVM anomaly\
+  \ detection.\n"
+domain: ai.onnx.ml
+inputs:
+- description: Data to be regressed.
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: SVMRegressor
+outputs:
+- description: Regression outputs (one score per target per example).
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: tensor(float)
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(double)
+  - tensor(int64)
+  - tensor(int32)
+  description: The input type must be a tensor of a numeric type, either [C] or [N,C].
+  type_param_str: T

@@ -1,0 +1,43 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Element-wise sum of each of the input tensors (with Numpy-style broadcasting support).
+
+  All inputs and outputs must have the same data type.
+
+  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for
+  more details please check [the doc](Broadcasting.md).
+
+  '
+domain: ''
+inputs:
+- description: List of tensors for sum.
+  min_arity: 1
+  name: data_0
+  tags:
+  - variadic
+  - differentiable
+  type_str: T
+max_input: 2147483647
+max_output: 1
+min_input: 1
+min_output: 1
+name: Sum
+outputs:
+- description: Output tensor.
+  min_arity: 1
+  name: sum
+  tags:
+  - differentiable
+  type_str: T
+since_version: 13
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(bfloat16)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

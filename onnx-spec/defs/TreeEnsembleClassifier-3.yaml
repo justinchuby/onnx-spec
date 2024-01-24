@@ -1,0 +1,167 @@
+attributes:
+- default_value: null
+  description: Base values for classification, added to final class score; the size
+    must be the same as the classes or can be left unassigned (assumed 0)
+  name: base_values
+  required: false
+  type: AttrType.FLOATS
+- default_value: null
+  description: Base values for classification, added to final class score; the size
+    must be the same as the classes or can be left unassigned (assumed 0)
+  name: base_values_as_tensor
+  required: false
+  type: AttrType.TENSOR
+- default_value: null
+  description: The index of the class list that each weight is for.
+  name: class_ids
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: node id that this weight is for.
+  name: class_nodeids
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: The id of the tree that this node is in.
+  name: class_treeids
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: The weight for the class in class_id.
+  name: class_weights
+  required: false
+  type: AttrType.FLOATS
+- default_value: null
+  description: The weight for the class in class_id.
+  name: class_weights_as_tensor
+  required: false
+  type: AttrType.TENSOR
+- default_value: null
+  description: Class labels if using integer labels.<br>One and only one of the 'classlabels_*'
+    attributes must be defined.
+  name: classlabels_int64s
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: Class labels if using string labels.<br>One and only one of the 'classlabels_*'
+    attributes must be defined.
+  name: classlabels_strings
+  required: false
+  type: AttrType.STRINGS
+- default_value: null
+  description: Child node if expression is false.
+  name: nodes_falsenodeids
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: Feature id for each node.
+  name: nodes_featureids
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: Popularity of each node, used for performance and may be omitted.
+  name: nodes_hitrates
+  required: false
+  type: AttrType.FLOATS
+- default_value: null
+  description: Popularity of each node, used for performance and may be omitted.
+  name: nodes_hitrates_as_tensor
+  required: false
+  type: AttrType.TENSOR
+- default_value: null
+  description: 'For each node, define what to do in the presence of a missing value:
+    if a value is missing (NaN), use the ''true'' or ''false'' branch based on the
+    value in this array.<br>This attribute may be left undefined, and the default
+    value is false (0) for all nodes.'
+  name: nodes_missing_value_tracks_true
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: The node kind, that is, the comparison to make at the node. There is
+    no comparison to make at a leaf node.<br>One of 'BRANCH_LEQ', 'BRANCH_LT', 'BRANCH_GTE',
+    'BRANCH_GT', 'BRANCH_EQ', 'BRANCH_NEQ', 'LEAF'
+  name: nodes_modes
+  required: false
+  type: AttrType.STRINGS
+- default_value: null
+  description: Node id for each node. Ids may restart at zero for each tree, but it
+    not required to.
+  name: nodes_nodeids
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: Tree id for each node.
+  name: nodes_treeids
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: Child node if expression is true.
+  name: nodes_truenodeids
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: Thresholds to do the splitting on for each node.
+  name: nodes_values
+  required: false
+  type: AttrType.FLOATS
+- default_value: null
+  description: Thresholds to do the splitting on for each node.
+  name: nodes_values_as_tensor
+  required: false
+  type: AttrType.TENSOR
+- default_value: NONE
+  description: Indicates the transform to apply to the score. <br> One of 'NONE,'
+    'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT.'
+  name: post_transform
+  required: false
+  type: AttrType.STRING
+deprecated: false
+doc: "\n    Tree Ensemble classifier. Returns the top class for each of N inputs.\n\
+  \n    The attributes named 'nodes_X' form a sequence of tuples, associated by\n\
+  \    index into the sequences, which must all be of equal length. These tuples\n\
+  \    define the nodes.\n\n    Similarly, all fields prefixed with 'class_' are tuples\
+  \ of votes at the leaves.\n    A leaf may have multiple votes, where each vote is\
+  \ weighted by\n    the associated class_weights index.\n\n    One and only one of\
+  \ classlabels_strings or classlabels_int64s\n    will be defined. The class_ids\
+  \ are indices into this list.\n    All fields ending with <i>_as_tensor</i> can\
+  \ be used instead of the\n    same parameter without the suffix if the element type\
+  \ is double and not float.\n"
+domain: ai.onnx.ml
+inputs:
+- description: Input of shape [N,F]
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T1
+max_input: 1
+max_output: 2
+min_input: 1
+min_output: 2
+name: TreeEnsembleClassifier
+outputs:
+- description: N, Top class for each point
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T2
+- description: The class score for each class, for each point, a tensor of shape [N,E].
+  min_arity: 1
+  name: Z
+  tags: []
+  type_str: tensor(float)
+since_version: 3
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(double)
+  - tensor(int64)
+  - tensor(int32)
+  description: The input type must be a tensor of a numeric type.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(string)
+  - tensor(int64)
+  description: The output type will be a tensor of strings or integers, depending
+    on which of the classlabels_* attributes is used.
+  type_param_str: T2

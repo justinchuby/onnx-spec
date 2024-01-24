@@ -1,0 +1,83 @@
+attributes:
+- default_value: null
+  description: If provided, it specifies a subset of axes that 'shape' refer to. If
+    not provided, all axes are assumed [0, 1, ..., r-1], where r = rank(data). Negative
+    value means counting dimensions from the back. Accepted range is [-r, r-1], where
+    r = rank(data). Behavior is undefined if an axis is repeated.
+  name: axes
+  required: false
+  type: AttrType.INTS
+deprecated: false
+doc: '
+
+  Center crop or pad an input to given dimensions.
+
+
+  The crop/pad dimensions can be specified for a subset of the `axes`. Non-specified
+  dimensions will not be
+
+  cropped or padded.
+
+
+  If the input dimensions are bigger than the crop shape, a centered cropping window
+  is extracted from the input.
+
+  If the input dimensions are smaller than the crop shape, the input is padded on
+  each side equally,
+
+  so that the input is centered in the output.
+
+  '
+domain: ''
+inputs:
+- description: Input to extract the centered crop from.
+  min_arity: 1
+  name: input_data
+  tags:
+  - differentiable
+  type_str: T
+- description: 1-D tensor representing the cropping window dimensions.
+  min_arity: 1
+  name: shape
+  tags:
+  - non-differentiable
+  type_str: Tind
+max_input: 2
+max_output: 1
+min_input: 2
+min_output: 1
+name: CenterCropPad
+outputs:
+- description: Output data.
+  min_arity: 1
+  name: output_data
+  tags:
+  - differentiable
+  type_str: T
+since_version: 18
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(bfloat16)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Constrain input and output types to all tensor types.
+  type_param_str: T
+- allowed_type_strs:
+  - tensor(int32)
+  - tensor(int64)
+  description: Constrain indices to integer types
+  type_param_str: Tind

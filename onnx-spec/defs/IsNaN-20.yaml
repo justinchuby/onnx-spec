@@ -1,0 +1,41 @@
+attributes: []
+deprecated: false
+doc: Returns which elements of the input are NaN.
+domain: ''
+inputs:
+- description: input
+  min_arity: 1
+  name: X
+  tags:
+  - non-differentiable
+  type_str: T1
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: IsNaN
+outputs:
+- description: output
+  min_arity: 1
+  name: Y
+  tags:
+  - non-differentiable
+  type_str: T2
+since_version: 20
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(bfloat16)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(float8e4m3fn)
+  - tensor(float8e4m3fnuz)
+  - tensor(float8e5m2)
+  - tensor(float8e5m2fnuz)
+  description: Constrain input types to float tensors.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(bool)
+  description: Constrain output types to boolean tensors.
+  type_param_str: T2

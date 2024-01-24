@@ -1,0 +1,46 @@
+attributes: []
+deprecated: false
+doc: '
+
+
+  PRelu takes input data (Tensor<T>) and slope tensor as input, and produces one
+
+  output data (Tensor<T>) where the function `f(x) = slope * x for x < 0`,
+
+  `f(x) = x for x >= 0`., is applied to the data tensor elementwise.
+
+
+  '
+domain: ''
+inputs:
+- description: Input tensor
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T
+- description: Slope tensor. If `Slope` is of size 1, the value is sharedacross different
+    channels
+  min_arity: 1
+  name: slope
+  tags: []
+  type_str: T
+max_input: 2
+max_output: 1
+min_input: 2
+min_output: 1
+name: PRelu
+outputs:
+- description: Output tensor
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T
+since_version: 6
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

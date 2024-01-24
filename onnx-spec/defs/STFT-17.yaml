@@ -1,0 +1,78 @@
+attributes:
+- default_value: 1
+  description: If onesided is 1, only values for w in [0, 1, 2, ..., floor(n_fft/2)
+    + 1] are returned because the real-to-complex Fourier transform satisfies the
+    conjugate symmetry, i.e., X[m, w] = X[m,w]=X[m,n_fft-w]*. Note if the input or
+    window tensors are complex, then onesided output is not possible. Enabling onesided
+    with real inputs performs a Real-valued fast Fourier transform (RFFT).When invoked
+    with real or complex valued input, the default value is 1. Values can be 0 or
+    1.
+  name: onesided
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: Computes the Short-time Fourier Transform of the signal.
+domain: ''
+inputs:
+- description: 'Input tensor representing a real or complex valued signal. For real
+    input, the following shape is expected: [batch_size][signal_length][1]. For complex
+    input, the following shape is expected: [batch_size][signal_length][2], where
+    [batch_size][signal_length][0] represents the real component and [batch_size][signal_length][1]
+    represents the imaginary component of the signal.'
+  min_arity: 1
+  name: signal
+  tags:
+  - non-differentiable
+  type_str: T1
+- description: The number of samples to step between successive DFTs.
+  min_arity: 1
+  name: frame_step
+  tags:
+  - non-differentiable
+  type_str: T2
+- description: 'A tensor representing the window that will be slid over the signal.The
+    window must have rank 1 with shape: [window_shape]. It''s an optional value. '
+  min_arity: 1
+  name: window
+  tags:
+  - optional
+  - non-differentiable
+  type_str: T1
+- description: A scalar representing the size of the DFT. It's an optional value.
+  min_arity: 1
+  name: frame_length
+  tags:
+  - optional
+  - non-differentiable
+  type_str: T2
+max_input: 4
+max_output: 1
+min_input: 2
+min_output: 1
+name: STFT
+outputs:
+- description: 'The Short-time Fourier Transform of the signals.If onesided is 1,
+    the output has the shape: [batch_size][frames][dft_unique_bins][2], where dft_unique_bins
+    is frame_length // 2 + 1 (the unique components of the DFT) If onesided is 0,
+    the output has the shape: [batch_size][frames][frame_length][2], where frame_length
+    is the length of the DFT.'
+  min_arity: 1
+  name: output
+  tags:
+  - non-differentiable
+  type_str: T1
+since_version: 17
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(float16)
+  - tensor(double)
+  - tensor(bfloat16)
+  description: Constrain signal and output to float tensors.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(int32)
+  - tensor(int64)
+  description: Constrain scalar length types to int64_t.
+  type_param_str: T2

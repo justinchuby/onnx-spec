@@ -1,0 +1,83 @@
+attributes:
+- default_value: 1
+  description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
+  name: keepdims
+  required: false
+  type: AttrType.INT
+- default_value: 0
+  description: Defines behavior if 'axes' is empty. Default behavior with 'false'
+    is to reduce all axes. When axes is empty and this attribute is set to true, input
+    tensor will not be reduced,and the output tensor would be equivalent to input
+    tensor.
+  name: noop_with_empty_axes
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: '
+
+  Computes the max of the input tensor''s elements along the provided axes. The resulting
+
+  tensor has the same rank as the input if `keepdims` equals 1. If `keepdims` equals
+  0, then
+
+  the resulting tensor has the reduced dimension pruned. Input tensors of rank zero
+  are
+
+  valid. Reduction over an empty set of values yields minus infinity (if supported
+  by the datatype) or the minimum value of the data type otherwise.
+
+
+
+  If the input data type is Boolean, the comparison should consider `False < True`.
+
+
+  The above behavior is similar to numpy, with the exception that numpy defaults `keepdims`
+
+  to `False` instead of `True`.'
+domain: ''
+inputs:
+- description: An input tensor.
+  min_arity: 1
+  name: data
+  tags:
+  - differentiable
+  type_str: T
+- description: Optional input list of integers, along which to reduce. The default
+    is to reduce over all the dimensions of the input tensor if 'noop_with_empty_axes'
+    is false, else act as an Identity op when 'noop_with_empty_axes' is true. Accepted
+    range is [-r, r-1] where r = rank(data).
+  min_arity: 1
+  name: axes
+  tags:
+  - optional
+  - non-differentiable
+  type_str: tensor(int64)
+max_input: 2
+max_output: 1
+min_input: 1
+min_output: 1
+name: ReduceMax
+outputs:
+- description: Reduced output tensor.
+  min_arity: 1
+  name: reduced
+  tags:
+  - differentiable
+  type_str: T
+since_version: 20
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(bfloat16)
+  - tensor(uint8)
+  - tensor(int8)
+  - tensor(bool)
+  description: Constrain input and output types to numeric and Boolean tensors.
+  type_param_str: T

@@ -1,0 +1,70 @@
+attributes:
+- default_value: 1
+  description: (Optional) The axis of the quantization dimension of the input tensor.
+    Ignored for per-tensor quantization. Negative value means counting dimensions
+    from the back. Accepted range is [-r, r-1] where r = rank(input).
+  name: axis
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: '
+
+  The linear quantization operator. It consumes a high precision tensor, a scale,
+  and a zero point to compute the low precision / quantized tensor.
+
+  The scale factor and zero point must have same shape, and can be either a scalar
+  for per-tensor / per layer quantization, or a 1-D tensor for per-axis quantization.
+
+  The quantization formula is y = saturate ((x / y_scale) + y_zero_point).
+
+  For saturation, it saturates to [0, 255] if it''s uint8, or [-128, 127] if it''s
+  int8.
+
+  For (x / y_scale), it''s rounding to the nearest even. Refer to https://en.wikipedia.org/wiki/Rounding
+  for details. ''y_zero_point'' and ''y'' must have same type.
+
+  '
+domain: ''
+inputs:
+- description: N-D full precision Input tensor to be quantized.
+  min_arity: 1
+  name: x
+  tags: []
+  type_str: T1
+- description: Scale for doing quantization to get 'y'. It can be a scalar, which
+    means per-tensor/layer quantization, or a 1-D Tensor for per-axis quantization.
+  min_arity: 1
+  name: y_scale
+  tags: []
+  type_str: tensor(float)
+- description: Zero point for doing quantization to get 'y'. Shape must match y_scale.
+    Default is uint8 with zero point of 0 if it's not specified.
+  min_arity: 1
+  name: y_zero_point
+  tags:
+  - optional
+  type_str: T2
+max_input: 3
+max_output: 1
+min_input: 2
+min_output: 1
+name: QuantizeLinear
+outputs:
+- description: N-D quantized output tensor. It has same shape as input 'x'.
+  min_arity: 1
+  name: y
+  tags: []
+  type_str: T2
+since_version: 13
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(int32)
+  description: Constrain 'x' to float or int32 tensor.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(int8)
+  - tensor(uint8)
+  description: Constrain 'y_zero_point' and 'y' to 8-bit integer tensor.
+  type_param_str: T2

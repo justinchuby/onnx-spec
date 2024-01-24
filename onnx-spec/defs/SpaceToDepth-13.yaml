@@ -1,0 +1,58 @@
+attributes:
+- default_value: null
+  description: Blocks of [blocksize, blocksize] are moved.
+  name: blocksize
+  required: true
+  type: AttrType.INT
+deprecated: false
+doc: 'SpaceToDepth rearranges blocks of spatial data into depth. More specifically,
+
+  this op outputs a copy of the input tensor where values from the height and width
+  dimensions
+
+  are moved to the depth dimension.
+
+  '
+domain: ''
+inputs:
+- description: Input tensor of [N,C,H,W], where N is the batch axis, C is the channel
+    or depth, H is the height and W is the width.
+  min_arity: 1
+  name: input
+  tags:
+  - differentiable
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: SpaceToDepth
+outputs:
+- description: Output tensor of [N, C * blocksize * blocksize, H/blocksize, W/blocksize].
+  min_arity: 1
+  name: output
+  tags:
+  - differentiable
+  type_str: T
+since_version: 13
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(bfloat16)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Constrain input and output types to all tensor types.
+  type_param_str: T

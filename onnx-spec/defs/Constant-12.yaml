@@ -1,0 +1,85 @@
+attributes:
+- default_value: null
+  description: The value for the elements of the output tensor in sparse format.
+  name: sparse_value
+  required: false
+  type: AttrType.SPARSE_TENSOR
+- default_value: null
+  description: The value for the elements of the output tensor.
+  name: value
+  required: false
+  type: AttrType.TENSOR
+- default_value: null
+  description: The value for the sole element for the scalar, float32, output tensor.
+  name: value_float
+  required: false
+  type: AttrType.FLOAT
+- default_value: null
+  description: The values for the elements for the 1D, float32, output tensor.
+  name: value_floats
+  required: false
+  type: AttrType.FLOATS
+- default_value: null
+  description: The value for the sole element for the scalar, int64, output tensor.
+  name: value_int
+  required: false
+  type: AttrType.INT
+- default_value: null
+  description: The values for the elements for the 1D, int64, output tensor.
+  name: value_ints
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: The value for the sole element for the scalar, UTF-8 string, output
+    tensor.
+  name: value_string
+  required: false
+  type: AttrType.STRING
+- default_value: null
+  description: The values for the elements for the 1D, UTF-8 string, output tensor.
+  name: value_strings
+  required: false
+  type: AttrType.STRINGS
+deprecated: false
+doc: '
+
+  This operator produces a constant tensor. Exactly one of the provided attributes,
+  either value, sparse_value,
+
+  or value_* must be specified.
+
+  '
+domain: ''
+inputs: []
+max_input: 0
+max_output: 1
+min_input: 0
+min_output: 1
+name: Constant
+outputs:
+- description: Output tensor containing the same value of the provided tensor.
+  min_arity: 1
+  name: output
+  tags: []
+  type_str: T
+since_version: 12
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Constrain input and output types to all tensor types.
+  type_param_str: T

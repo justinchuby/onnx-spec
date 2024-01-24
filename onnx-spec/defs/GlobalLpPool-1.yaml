@@ -1,0 +1,42 @@
+attributes:
+- default_value: 2.0
+  description: p value of the Lp norm used to pool over the input data, default is
+    2.0.
+  name: p
+  required: false
+  type: AttrType.FLOAT
+deprecated: false
+doc: "\n GlobalLpPool consumes an input tensor X and applies lp pool pooling across\
+  \ the\n the values in the same channel. This is equivalent to LpPool with kernel\
+  \ size\n equal to the spatial dimension of input tensor."
+domain: ''
+inputs:
+- description: Input data tensor from the previous operator; dimensions for image
+    case are (N x C x H x W), where N is the batch size, C is the number of channels,
+    and H and W are the height and the width of the data. For non image case, the
+    dimension are in the form of (N x C x D1 x D2 ... Dn), where N is the batch size.
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: GlobalLpPool
+outputs:
+- description: Output data tensor from pooling across the input tensor. Dimensions
+    will be N x C x 1 x 1
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

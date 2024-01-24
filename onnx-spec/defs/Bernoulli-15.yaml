@@ -1,0 +1,75 @@
+attributes:
+- default_value: null
+  description: The data type for the elements of the output tensor. if not specified,
+    we will use the data type of the input tensor.
+  name: dtype
+  required: false
+  type: AttrType.INT
+- default_value: null
+  description: (Optional) Seed to the random generator, if not specified we will auto
+    generate one.
+  name: seed
+  required: false
+  type: AttrType.FLOAT
+deprecated: false
+doc: '
+
+  Draws binary random numbers (0 or 1) from a Bernoulli distribution. The input tensor
+  should be a tensor
+
+  containing probabilities p (a value in the range [0,1]) to be used for drawing the
+  binary random number,
+
+  where an output of 1 is produced with probability p and an output of 0 is produced
+  with probability (1-p).
+
+
+  This operator is non-deterministic and may not produce the same values in different
+
+  implementations (even if a seed is specified).
+
+  '
+domain: ''
+inputs:
+- description: All values in input have to be in the range:[0, 1].
+  min_arity: 1
+  name: input
+  tags: []
+  type_str: T1
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Bernoulli
+outputs:
+- description: The returned output tensor only has values 0 or 1, same shape as input
+    tensor.
+  min_arity: 1
+  name: output
+  tags: []
+  type_str: T2
+since_version: 15
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input types to float tensors.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(bfloat16)
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(bool)
+  description: Constrain output types to all numeric tensors and bool tensors.
+  type_param_str: T2

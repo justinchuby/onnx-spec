@@ -1,0 +1,82 @@
+attributes:
+- default_value: 1.0
+  description: Scalar multiplier for the product of input tensors A * B, the default
+    value is 1.0.
+  name: alpha
+  required: false
+  type: AttrType.FLOAT
+- default_value: 1.0
+  description: Scalar multiplier for input tensor C, the default value is 1.0.
+  name: beta
+  required: false
+  type: AttrType.FLOAT
+- default_value: 0
+  description: Whether C should be broadcasted
+  name: broadcast
+  required: false
+  type: AttrType.INT
+- default_value: 0
+  description: Whether A should be transposed
+  name: transA
+  required: false
+  type: AttrType.INT
+- default_value: 0
+  description: Whether B should be transposed
+  name: transB
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: 'General Matrix multiplication:
+
+  https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3
+
+  Compute Y = alpha * A * B + beta * C, where input tensor A has
+
+  dimension (M X K), input tensor B has dimension (K X N), input tensor C and
+
+  output tensor Y have dimension (M X N).
+
+  If attribute broadcast is non-zero, input tensor C will be broadcasted to match
+
+  the dimension requirement. A will be transposed before doing the computation
+
+  if attribute transA is non-zero, same for B and transB.
+
+  '
+domain: ''
+inputs:
+- description: Input tensor A
+  min_arity: 1
+  name: A
+  tags: []
+  type_str: T
+- description: Input tensor B
+  min_arity: 1
+  name: B
+  tags: []
+  type_str: T
+- description: Input tensor C, can be inplace.
+  min_arity: 1
+  name: C
+  tags: []
+  type_str: T
+max_input: 3
+max_output: 1
+min_input: 3
+min_output: 1
+name: Gemm
+outputs:
+- description: Output tensor.
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

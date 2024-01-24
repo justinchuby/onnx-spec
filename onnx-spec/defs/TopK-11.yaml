@@ -1,0 +1,86 @@
+attributes:
+- default_value: -1
+  description: Dimension on which to do the sort. Negative value means counting dimensions
+    from the back. Accepted range is [-r, r-1] where r = rank(input).
+  name: axis
+  required: false
+  type: AttrType.INT
+- default_value: 1
+  description: Whether to return the top-K largest or smallest elements.
+  name: largest
+  required: false
+  type: AttrType.INT
+- default_value: 1
+  description: Whether to return the elements in sorted order.
+  name: sorted
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: "\nRetrieve the top-K largest or smallest elements along a specified axis. Given\
+  \ an input tensor of\nshape [a_1, a_2, ..., a_n, r] and integer argument k, return\
+  \ two outputs:\n\n* Value tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1},\
+  \ ... a_n]\n  which contains the values of the top k elements along the specified\
+  \ axis\n* Index tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]\
+  \ which\n  contains the indices of the top k elements (original indices from the\
+  \ input\n  tensor).\n\n* If \"largest\" is 1 (the default value) then the k largest\
+  \ elements are returned.\n* If \"sorted\" is 1 (the default value) then the resulting\
+  \ k elements will be sorted.\n* If \"sorted\" is 0, order of returned 'Values' and\
+  \ 'Indices' are undefined.\n\nGiven two equivalent values, this operator uses the\
+  \ indices along the axis as\na tiebreaker. That is, the element with the lower index\
+  \ will appear first.\n"
+domain: ''
+inputs:
+- description: Tensor of shape [a_1, a_2, ..., a_n, r]
+  min_arity: 1
+  name: X
+  tags:
+  - differentiable
+  type_str: T
+- description: A 1-D tensor containing a single positive value corresponding to the
+    number of top elements to retrieve
+  min_arity: 1
+  name: K
+  tags:
+  - non-differentiable
+  type_str: tensor(int64)
+max_input: 2
+max_output: 2
+min_input: 2
+min_output: 2
+name: TopK
+outputs:
+- description: Tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]
+    containing top K values from the input tensor
+  min_arity: 1
+  name: Values
+  tags:
+  - differentiable
+  type_str: T
+- description: Tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]
+    containing the corresponding input tensor indices for the top K values.
+  min_arity: 1
+  name: Indices
+  tags:
+  - non-differentiable
+  type_str: I
+since_version: 11
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to numeric tensors.
+  type_param_str: T
+- allowed_type_strs:
+  - tensor(int64)
+  description: Constrain index tensor to int64
+  type_param_str: I

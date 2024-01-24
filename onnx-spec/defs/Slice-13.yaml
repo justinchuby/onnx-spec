@@ -1,0 +1,102 @@
+attributes: []
+deprecated: false
+doc: "\nProduces a slice of the input tensor along multiple axes. Similar to numpy:\n\
+  https://numpy.org/doc/stable/user/basics.indexing.html?highlight=slice#slicing-and-striding\n\
+  \nSlice uses the `starts`, `ends`, `axes` and `steps` inputs to select a sub-tensor\n\
+  of its input `data` tensor.\n\nAn effective `starts[i]`, `ends[i]`, and `steps[i]`\
+  \ must be computed for each `i`\nin `[0, ... r-1]` where `r = rank(input)` as follows:\n\
+  \nIf `axes` are omitted, they are set to `[0, ..., r-1]`.\nIf `steps` are omitted,\
+  \ they are set to `[1, ..., 1]` of length `len(starts)`\n\nThe effective values\
+  \ are initialized as `start[i] = 0`, `ends[i] = dims[i]` where\n`dims` are the dimensions\
+  \ of `input` and `steps[i] = 1`.\n\nAll negative elements of `axes` are made non-negative\
+  \ by adding `r` to them, where\n`r =rank(input)`.\n\nAll negative values in `starts[i]`\
+  \ and `ends[i]` have `dims[axes[i]]` added to them,\nwhere `dims` are the dimensions\
+  \ of `input`. Then `start[axes[i]]` is the adjusted\n`starts[i]` is clamped into\
+  \ the range `[0, dims[axes[i]]]` for positive stepping\nand `[0, dims[axes[i]]-1]`\
+  \ for negative stepping.\n\nThe clamping for the adjusted `ends[i]` depends on the\
+  \ sign of `steps[i]` and must\naccommodate copying 0 through `dims[axes[i]]` elements,\
+  \ so for positive stepping\n`ends[axes[i]]` is clamped to `[0, dims[axes[i]]]`,\
+  \ while for negative stepping it\nis clamped to `[-1, dims[axes[i]]-1]`.\n\nFinally,\
+  \ `steps[axes[i]] = steps[i]`.\n\nFor slicing to the end of a dimension with unknown\
+  \ size, it is recommended to pass\nin `INT_MAX` when slicing forward and 'INT_MIN'\
+  \ when slicing backward.\n\nExample 1:\n\n```\ndata = [\n    [1, 2, 3, 4],\n   \
+  \ [5, 6, 7, 8],\n]\naxes = [0, 1]\nstarts = [1, 0]\nends = [2, 3]\nsteps = [1, 2]\n\
+  result = [\n    [5, 7],\n]\n```\n\nExample 2:\n\n```\ndata = [\n    [1, 2, 3, 4],\n\
+  \    [5, 6, 7, 8],\n]\nstarts = [0, 1]\nends = [-1, 1000]\nresult = [\n    [2, 3,\
+  \ 4],\n]\n```\n"
+domain: ''
+inputs:
+- description: Tensor of data to extract slices from.
+  min_arity: 1
+  name: data
+  tags:
+  - differentiable
+  type_str: T
+- description: 1-D tensor of starting indices of corresponding axis in `axes`
+  min_arity: 1
+  name: starts
+  tags:
+  - non-differentiable
+  type_str: Tind
+- description: 1-D tensor of ending indices (exclusive) of corresponding axis in `axes`
+  min_arity: 1
+  name: ends
+  tags:
+  - non-differentiable
+  type_str: Tind
+- description: 1-D tensor of axes that `starts` and `ends` apply to. Negative value
+    means counting dimensions from the back. Accepted range is [-r, r-1] where r =
+    rank(data). Behavior is undefined if an axis is repeated.
+  min_arity: 1
+  name: axes
+  tags:
+  - optional
+  - non-differentiable
+  type_str: Tind
+- description: 1-D tensor of slice step of corresponding axis in `axes`. Negative
+    value means slicing backward. 'steps' cannot be 0. Defaults to 1s.
+  min_arity: 1
+  name: steps
+  tags:
+  - optional
+  - non-differentiable
+  type_str: Tind
+max_input: 5
+max_output: 1
+min_input: 3
+min_output: 1
+name: Slice
+outputs:
+- description: Sliced data tensor.
+  min_arity: 1
+  name: output
+  tags:
+  - differentiable
+  type_str: T
+since_version: 13
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(bfloat16)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Constrain input and output types to all tensor types.
+  type_param_str: T
+- allowed_type_strs:
+  - tensor(int32)
+  - tensor(int64)
+  description: Constrain indices to integer types
+  type_param_str: Tind

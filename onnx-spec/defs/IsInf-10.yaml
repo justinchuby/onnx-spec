@@ -1,0 +1,49 @@
+attributes:
+- default_value: 1
+  description: (Optional) Whether map negative infinity to true. Default to 1 so that
+    negative infinity induces true. Set this attribute to 0 if negative infinity should
+    be mapped to false.
+  name: detect_negative
+  required: false
+  type: AttrType.INT
+- default_value: 1
+  description: (Optional) Whether map positive infinity to true. Default to 1 so that
+    positive infinity induces true. Set this attribute to 0 if positive infinity should
+    be mapped to false.
+  name: detect_positive
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: Map infinity to true and other values to false.
+domain: ''
+inputs:
+- description: input
+  min_arity: 1
+  name: X
+  tags:
+  - non-differentiable
+  type_str: T1
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: IsInf
+outputs:
+- description: output
+  min_arity: 1
+  name: Y
+  tags:
+  - non-differentiable
+  type_str: T2
+since_version: 10
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input types to float tensors.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(bool)
+  description: Constrain output types to boolean tensors.
+  type_param_str: T2

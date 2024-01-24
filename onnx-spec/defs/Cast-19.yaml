@@ -1,0 +1,124 @@
+attributes:
+- default_value: 1
+  description: The parameter defines how the conversion behaves if an input value
+    is out of range of the destination type. It only applies for float 8 conversion
+    (float8e4m3fn, float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default.
+    All cases are fully described in two tables inserted in the operator description.
+  name: saturate
+  required: false
+  type: AttrType.INT
+- default_value: null
+  description: The data type to which the elements of the input tensor are cast. Strictly
+    must be one of the types from DataType enum in TensorProto
+  name: to
+  required: true
+  type: AttrType.INT
+deprecated: false
+doc: "\nThe operator casts the elements of a given input tensor to a data type\nspecified\
+  \ by the 'to' argument and returns an output tensor of the same size in\nthe converted\
+  \ type. The 'to' argument must be one of the data types specified\nin the 'DataType'\
+  \ enum field in the TensorProto message.\n\nCasting from string tensor in plain\
+  \ (e.g., \"3.14\" and \"1000\") and scientific numeric representations\n(e.g., \"\
+  1e-5\" and \"1E8\") to float types is supported. For example, converting string\
+  \ \"100.5\" to an integer may\nyield result 100. There are some string literals\
+  \ reserved for special floating-point values;\n\"+INF\" (and \"INF\"), \"-INF\"\
+  , and \"NaN\" are positive infinity, negative infinity, and not-a-number, respectively.\n\
+  Any string which can exactly match \"+INF\" in a case-insensitive way would be mapped\
+  \ to positive infinite. Similarly,\nthis case-insensitive rule is applied to \"\
+  INF\" and \"NaN\". When casting from numeric tensors\nto string tensors, plain floating-point\
+  \ representation (such as \"314.15926\") would be used.\nConverting non-numerical-literal\
+  \ string such as \"Hello World!\" is an undefined behavior. Cases\nof converting\
+  \ string representing floating-point arithmetic value, such as \"2.718\", to INT\
+  \ is an undefined behavior.\n\nConversion from a numerical type to any numerical\
+  \ type is always allowed.\nUser must be aware of precision loss and value change\
+  \ caused by range difference between two types.\nFor example, a 64-bit float 3.1415926459\
+  \ may be round to a 32-bit float 3.141592. Similarly, converting\nan integer 36\
+  \ to Boolean may produce 1 because we truncate bits which can't be stored in the\
+  \ targeted type.\n\nIn more detail, the conversion among numerical types should\
+  \ follow these rules\nif the destination type is not a float 8 type.\n\n* Casting\
+  \ from floating point to:\n  * floating point: +/- infinity if OOR (out of range).\n\
+  \  * fixed point: undefined if OOR.\n  * bool: +/- 0.0 to False; all else to True.\n\
+  * Casting from fixed point to:\n  * floating point: +/- infinity if OOR. (+ infinity\
+  \ in the case of uint)\n  * fixed point: when OOR, discard higher bits and reinterpret\
+  \ (with respect to two's complement representation for\n    signed types). For example,\
+  \ 200 (int16) -> -56 (int8).\n  * bool: zero to False; nonzero to True.\n* Casting\
+  \ from bool to:\n  * floating point: `{1.0, 0.0}`.\n  * fixed point: `{1, 0}`.\n\
+  \  * bool: no change.\n\nFloat 8 type were introduced to speed up the training of\n\
+  deep models. By default the conversion of a float *x* obeys\nto the following rules.\
+  \ `[x]` means the value rounded to\nthe target mantissa width.\n\n| x | E4M3FN |\
+  \ E4M3FNUZ | E5M2 | E5M2FNUZ |\n|------|----|----|----|----|\n| 0 | 0 | 0 | 0 |\
+  \ 0 |\n|-0 | -0 | 0 | -0 | 0 |\n| NaN | NaN | NaN | NaN | NaN |\n| +/- Inf | +/-\
+  \ FLT_MAX | NaN | FLT_MAX | NaN |\n| [x] > FLT_MAX | FLT_MAX | FLT_MAX | FLT_MAX\
+  \ | FLT_MAX |\n| [x] < -FLT_MAX | -FLT_MAX | -FLT_MAX | -FLT_MAX | -FLT_MAX |\n\
+  | else | RNE | RNE | RNE | RNE |\n\nThe behavior changes if the parameter 'saturate'\
+  \ is set to False.\nThe rules then become:\n\n| x | E4M3FN | E4M3FNUZ | E5M2 | E5M2FNUZ\
+  \ |\n|------|----|----|----|----|\n| 0 | 0 | 0 | 0 | 0 |\n|-0 | -0 | 0 | -0 | 0\
+  \ |\n| NaN | NaN | NaN | NaN | NaN |\n| +/- Inf | NaN | NaN | +/- Inf | NaN |\n\
+  | [x] > FLT_MAX | NaN | NaN | Inf | NaN |\n| [x] < -FLT_MAX | NaN | NaN | -Inf |\
+  \ NaN |\n| else | RNE | RNE | RNE | RNE |\n"
+domain: ''
+inputs:
+- description: Input tensor to be cast.
+  min_arity: 1
+  name: input
+  tags:
+  - differentiable
+  type_str: T1
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Cast
+outputs:
+- description: Output tensor with the same shape as input with type specified by the
+    'to' argument
+  min_arity: 1
+  name: output
+  tags:
+  - differentiable
+  type_str: T2
+since_version: 19
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(bool)
+  - tensor(string)
+  - tensor(bfloat16)
+  - tensor(float8e4m3fn)
+  - tensor(float8e4m3fnuz)
+  - tensor(float8e5m2)
+  - tensor(float8e5m2fnuz)
+  description: Constrain input types. Casting from complex is not supported.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(bool)
+  - tensor(string)
+  - tensor(bfloat16)
+  - tensor(float8e4m3fn)
+  - tensor(float8e4m3fnuz)
+  - tensor(float8e5m2)
+  - tensor(float8e5m2fnuz)
+  description: Constrain output types. Casting to complex is not supported.
+  type_param_str: T2

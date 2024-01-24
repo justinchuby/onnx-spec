@@ -1,0 +1,63 @@
+attributes:
+- default_value: 0.5
+  description: The ratio of random dropout
+  name: ratio
+  required: false
+  type: AttrType.FLOAT
+deprecated: false
+doc: '
+
+  Dropout takes one input floating tensor and produces two tensor outputs,
+
+  output (floating tensor) and mask (`Tensor<bool>`). Depending on whether it is
+
+  in test mode or not, the output Y will either be a random dropout, or a simple
+
+  copy of the input. Note that our implementation of Dropout does scaling in
+
+  the training phase, so during testing nothing needs to be done.
+
+  This operator has **optional** inputs/outputs. See [the doc](IR.md) for more details
+  about the representation of optional arguments. An empty string may be used in the
+  place of an actual argument''s name to indicate a missing argument. Trailing optional
+  arguments (those not followed by an argument that is present) may also be simply
+  omitted.
+
+  '
+domain: ''
+inputs:
+- description: The input data as Tensor.
+  min_arity: 1
+  name: data
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 2
+min_input: 1
+min_output: 1
+name: Dropout
+outputs:
+- description: The output.
+  min_arity: 1
+  name: output
+  tags: []
+  type_str: T
+- description: The output mask.
+  min_arity: 1
+  name: mask
+  tags:
+  - optional
+  type_str: T1
+since_version: 10
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T
+- allowed_type_strs:
+  - tensor(bool)
+  description: Constrain output mask types to boolean tensors.
+  type_param_str: T1

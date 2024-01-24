@@ -1,0 +1,45 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Calculate the sign of the given input tensor element-wise.
+
+  If input > 0, output 1. if input < 0, output -1. if input == 0, output 0.
+
+  '
+domain: ''
+inputs:
+- description: Input tensor
+  min_arity: 1
+  name: input
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Sign
+outputs:
+- description: The sign of the input tensor computed element-wise. It has the same
+    shape and type of the input.
+  min_arity: 1
+  name: output
+  tags: []
+  type_str: T
+since_version: 9
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to all numeric tensors.
+  type_param_str: T

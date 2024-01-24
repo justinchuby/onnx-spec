@@ -1,0 +1,50 @@
+attributes:
+- default_value: -1
+  description: '
+
+    Describes the dimension Hardmax will be performed on.
+
+    Negative value means counting dimensions
+
+    from the back. Accepted range is [-r, r-1] where r = rank(input).
+
+    '
+  name: axis
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: "\nThe operator computes the hardmax values for the given input:\n\n Hardmax(element\
+  \ in input, axis) = 1 if the element is the first maximum value along the specified\
+  \ axis, 0 otherwise\n\nThe \"axis\" attribute indicates the dimension along which\
+  \ Hardmax\nwill be performed. The output tensor has the same shape\nand contains\
+  \ the Hardmax values of the corresponding input.\n"
+domain: ''
+inputs:
+- description: The input tensor of rank >= axis.
+  min_arity: 1
+  name: input
+  tags:
+  - differentiable
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Hardmax
+outputs:
+- description: The output values with the same shape as the input tensor.
+  min_arity: 1
+  name: output
+  tags:
+  - differentiable
+  type_str: T
+since_version: 13
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(bfloat16)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T

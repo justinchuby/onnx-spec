@@ -1,0 +1,51 @@
+attributes: []
+deprecated: false
+doc: '
+
+  Takes a tensor as input and outputs an 1D int64 tensor containing the shape of the
+  input tensor.
+
+  '
+domain: ''
+inputs:
+- description: An input tensor.
+  min_arity: 1
+  name: data
+  tags: []
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Shape
+outputs:
+- description: Shape of the input tensor
+  min_arity: 1
+  name: shape
+  tags: []
+  type_str: T1
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Input tensor can be of arbitrary type.
+  type_param_str: T
+- allowed_type_strs:
+  - tensor(int64)
+  description: Constrain output to int64 tensor.
+  type_param_str: T1

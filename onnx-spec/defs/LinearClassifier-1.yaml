@@ -1,0 +1,75 @@
+attributes:
+- default_value: null
+  description: Class labels when using integer labels. One and only one 'classlabels'
+    attribute must be defined.
+  name: classlabels_ints
+  required: false
+  type: AttrType.INTS
+- default_value: null
+  description: Class labels when using string labels. One and only one 'classlabels'
+    attribute must be defined.
+  name: classlabels_strings
+  required: false
+  type: AttrType.STRINGS
+- default_value: null
+  description: A collection of weights of the model(s).
+  name: coefficients
+  required: true
+  type: AttrType.FLOATS
+- default_value: null
+  description: A collection of intercepts.
+  name: intercepts
+  required: false
+  type: AttrType.FLOATS
+- default_value: 0
+  description: Indicates whether to do OvR or multinomial (0=OvR is the default).
+  name: multi_class
+  required: false
+  type: AttrType.INT
+- default_value: NONE
+  description: Indicates the transform to apply to the scores vector.<br>One of 'NONE,'
+    'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+  name: post_transform
+  required: false
+  type: AttrType.STRING
+deprecated: false
+doc: "\n    Linear classifier\n"
+domain: ai.onnx.ml
+inputs:
+- description: Data to be classified.
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T1
+max_input: 1
+max_output: 2
+min_input: 1
+min_output: 2
+name: LinearClassifier
+outputs:
+- description: Classification outputs (one class per example).
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T2
+- description: Classification scores ([N,E] - one score for each class and example
+  min_arity: 1
+  name: Z
+  tags: []
+  type_str: tensor(float)
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(double)
+  - tensor(int64)
+  - tensor(int32)
+  description: The input must be a tensor of a numeric type, and of shape [N,C] or
+    [C]. In the latter case, it will be treated as [1,C]
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(string)
+  - tensor(int64)
+  description: The output will be a tensor of strings or integers.
+  type_param_str: T2

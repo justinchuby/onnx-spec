@@ -1,0 +1,88 @@
+attributes:
+- default_value: null
+  description: 'Graph to run if condition is false. Has N outputs: values you wish
+    to be live-out to the enclosing scope. The number of outputs must match the number
+    of outputs in the then_branch.'
+  name: else_branch
+  required: true
+  type: AttrType.GRAPH
+- default_value: null
+  description: 'Graph to run if condition is true. Has N outputs: values you wish
+    to be live-out to the enclosing scope. The number of outputs must match the number
+    of outputs in the else_branch.'
+  name: then_branch
+  required: true
+  type: AttrType.GRAPH
+deprecated: false
+doc: If conditional
+domain: ''
+inputs:
+- description: Condition for the if. The tensor must contain a single element.
+  min_arity: 1
+  name: cond
+  tags: []
+  type_str: B
+max_input: 1
+max_output: 2147483647
+min_input: 1
+min_output: 1
+name: If
+outputs:
+- description: Values that are live-out to the enclosing scope. The return values
+    in the `then_branch` and `else_branch` must be of the same data type. The `then_branch`
+    and `else_branch` may produce tensors with the same element type and different
+    shapes. If corresponding outputs from the then-branch and the else-branch have
+    static shapes S1 and S2, then the shape of the corresponding output variable of
+    the if-node (if present) must be compatible with both S1 and S2 as it represents
+    the union of both possible shapes.For example, if in a model file, the first output
+    of `then_branch` is typed float tensor with shape [2] and the first output of
+    `else_branch` is another float tensor with shape [3], If's first output should
+    have (a) no shape set, or (b) a shape of rank 1 with neither `dim_value` nor `dim_param`
+    set, or (c) a shape of rank 1 with a unique `dim_param`. In contrast, the first
+    output cannot have the shape [2] since [2] and [3] are not compatible.
+  min_arity: 1
+  name: outputs
+  tags:
+  - variadic
+  - heterogeneous
+  type_str: V
+since_version: 13
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  - seq(tensor(uint8))
+  - seq(tensor(uint16))
+  - seq(tensor(uint32))
+  - seq(tensor(uint64))
+  - seq(tensor(int8))
+  - seq(tensor(int16))
+  - seq(tensor(int32))
+  - seq(tensor(int64))
+  - seq(tensor(float16))
+  - seq(tensor(float))
+  - seq(tensor(double))
+  - seq(tensor(string))
+  - seq(tensor(bool))
+  - seq(tensor(complex64))
+  - seq(tensor(complex128))
+  description: All Tensor and Sequence types
+  type_param_str: V
+- allowed_type_strs:
+  - tensor(bool)
+  description: Only bool
+  type_param_str: B

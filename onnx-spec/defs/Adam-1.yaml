@@ -1,0 +1,128 @@
+attributes:
+- default_value: 0.8999999761581421
+  description: Coefficient of previously accumulated gradient in running average.
+    Default to 0.9.
+  name: alpha
+  required: false
+  type: AttrType.FLOAT
+- default_value: 0.9990000128746033
+  description: Coefficient of previously accumulated squared-gradient in running average.
+    Default to 0.999.
+  name: beta
+  required: false
+  type: AttrType.FLOAT
+- default_value: 9.999999974752427e-07
+  description: Small scalar to avoid dividing by zero.
+  name: epsilon
+  required: false
+  type: AttrType.FLOAT
+- default_value: 0.0
+  description: Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default
+    to 0, which means no regularization.
+  name: norm_coefficient
+  required: false
+  type: AttrType.FLOAT
+- default_value: 0.0
+  description: Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default
+    to 0, which means no regularization.
+  name: norm_coefficient_post
+  required: false
+  type: AttrType.FLOAT
+deprecated: false
+doc: "\n    Compute one iteration of Adam, a stochastic gradient based optimization\n\
+  \    algorithm. This operator can conduct the optimization of multiple tensor variables.\n\
+  \n    Let's define the behavior of this operator. First of all, Adam requires\n\
+  \    some parameters:\n\n     - The learning-rate \"R\".\n     - The update count\
+  \ \"T\". That is, the number of training iterations conducted.\n     - A L2-norm\
+  \ regularization coefficient \"norm_coefficient\".\n     - A small constant \"epsilon\"\
+  \ to avoid dividing-by-zero.\n     - Two coefficients, \"alpha\" and \"beta\".\n\
+  \n    At each Adam iteration, the optimized tensors are moved along a direction\n\
+  \    computed based on their exponentially-averaged historical gradient and\n  \
+  \  exponentially-averaged historical squared gradient. Assume that only a tensor\n\
+  \    \"X\" is being optimized. The rest of required information is\n\n     - the\
+  \ value of \"X\",\n     - \"X\"'s gradient (denoted by \"G\"),\n     - \"X\"'s exponentially-averaged\
+  \ historical gradient (denoted by \"V\"), and\n     - \"X\"'s exponentially-averaged\
+  \ historical squared gradient (denoted by \"H\").\n\n    Some of those parameters\
+  \ are passed into this operator as input tensors and others\n    are stored as this\
+  \ operator's attributes. Specifically, this operator's input tensor\n    list is\
+  \ [\"R\", \"T\", \"X\", \"G\", \"V\", \"H\"]. That is, \"R\" is the first input,\
+  \ \"T\" is\n    the second input, and so on. Other parameters are given as attributes\
+  \ because they\n    are constants. Moreover, the corresponding output tensors are\n\
+  \n     - the new value of \"X\" (called \"X_new\"),\n     - the new exponentially-averaged\
+  \ historical gradient (denoted by \"V_new\"), and\n     - the new exponentially-averaged\
+  \ historical squared gradient (denoted by \"H_new\").\n\n    Those outputs are computed\
+  \ following the pseudo code below.\n\n    Let \"+\", \"-\", \"*\", and \"/\" are\
+  \ all element-wise arithmetic operations with\n    numpy-style broadcasting support.\
+  \ The pseudo code to compute those outputs is:\n\n      // Add gradient of 0.5 *\
+  \ norm_coefficient * ||X||_2^2, where ||X||_2 is the 2-norm.\n      G_regularized\
+  \ = norm_coefficient * X + G\n\n      // Update exponentially-averaged historical\
+  \ gradient.\n      V_new = alpha * V + (1 - alpha) * G_regularized\n\n      // Update\
+  \ exponentially-averaged historical squared gradient.\n      H_new = beta * H +\
+  \ (1 - beta) * G_regularized * G_regularized\n\n      // Compute the element-wise\
+  \ square-root of H_new. V_new will be element-wisely\n      // divided by H_sqrt\
+  \ for a better update direction.\n      H_sqrt = Sqrt(H_new) + epsilon\n\n     \
+  \ // Compute learning-rate. Note that \"alpha**T\"/\"beta**T\" is alpha's/beta's\
+  \ T-th power.\n      R_adjusted = T > 0 ? R * Sqrt(1 - beta**T) / (1 - alpha**T)\
+  \ : R\n\n      // Compute new value of \"X\".\n      X_new = X - R_adjusted * V_new\
+  \ / H_sqrt\n\n      // Post-update regularization.\n      X_final = (1 - norm_coefficient_post)\
+  \ * X_new\n\n    If there are multiple inputs to be optimized, the pseudo code will\
+  \ be applied\n    independently to each of them.\n"
+domain: ai.onnx.preview.training
+inputs:
+- description: The initial learning rate.
+  min_arity: 1
+  name: R
+  tags: []
+  type_str: T1
+- description: The update count of "X". It should be a scalar.
+  min_arity: 1
+  name: T
+  tags: []
+  type_str: T2
+- description: The tensors to be optimized, followed by their respective gradients,
+    followed by their respective accumulated gradients (aka momentum), followed by
+    their respective accumulated squared gradients. For example, to optimize tensors
+    "X_1" and "X_2,", the input list would be ["X_1", "X_2", gradient of "X_1", gradient
+    of "X_2", accumulated gradient of "X_1", accumulated gradient of "X_2", accumulated
+    squared gradient of "X_1", accumulated squared gradient of "X_2"].
+  min_arity: 1
+  name: inputs
+  tags:
+  - variadic
+  - heterogeneous
+  type_str: T3
+max_input: 2147483647
+max_output: 2147483647
+min_input: 3
+min_output: 1
+name: Adam
+outputs:
+- description: New values of optimized tensors, followed by their respective new accumulated
+    gradients, followed by their respective new accumulated squared gradients. For
+    example, if two tensors "X_1" and "X_2" are optimized, the outputs list would
+    be [new value of "X_1", new value of "X_2", new accumulated gradient of "X_1",
+    new accumulated gradient of "X_2", new accumulated squared gradient of "X_1",
+    new accumulated squared gradient of "X_2"].
+  min_arity: 1
+  name: outputs
+  tags:
+  - variadic
+  - heterogeneous
+  type_str: T3
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input types to float scalars.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(int64)
+  description: Constrain input types to 64-bit integer scalars.
+  type_param_str: T2
+- allowed_type_strs:
+  - tensor(float)
+  - tensor(double)
+  description: Constrain input and output types to float tensors.
+  type_param_str: T3

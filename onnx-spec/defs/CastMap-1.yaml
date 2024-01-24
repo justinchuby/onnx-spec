@@ -1,0 +1,58 @@
+attributes:
+- default_value: TO_FLOAT
+  description: A string indicating the desired element type of the output tensor,
+    one of 'TO_FLOAT', 'TO_STRING', 'TO_INT64'.
+  name: cast_to
+  required: false
+  type: AttrType.STRING
+- default_value: DENSE
+  description: Indicates whether to only output as many values as are in the input
+    (dense), or position the input based on using the key of the map as the index
+    of the output (sparse).<br>One of 'DENSE', 'SPARSE'.
+  name: map_form
+  required: false
+  type: AttrType.STRING
+- default_value: 1
+  description: If the value of map_form is 'SPARSE,' this attribute indicates the
+    total length of the output tensor.
+  name: max_map
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: "\n    Converts a map to a tensor.\nThe map key must be an int64 and the values\
+  \ will be ordered\n    in ascending order based on this key.\nThe operator supports\
+  \ dense packing or sparse packing.\n    If using sparse packing, the key cannot\
+  \ exceed the max_map-1 value.\n"
+domain: ai.onnx.ml
+inputs:
+- description: The input map that is to be cast to a tensor
+  min_arity: 1
+  name: X
+  tags: []
+  type_str: T1
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: CastMap
+outputs:
+- description: A tensor representing the same data as the input map, ordered by their
+    keys
+  min_arity: 1
+  name: Y
+  tags: []
+  type_str: T2
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - map(int64, string)
+  - map(int64, float)
+  description: The input must be an integer map to either string or float.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(string)
+  - tensor(float)
+  - tensor(int64)
+  description: The output is a 1-D tensor of string, float, or integer.
+  type_param_str: T2

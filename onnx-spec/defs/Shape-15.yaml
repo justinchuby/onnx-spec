@@ -1,0 +1,139 @@
+attributes:
+- default_value: null
+  description: (Optional) Ending axis for slicing the shape. Negative value means
+    counting dimensions from the back. If omitted, sizes of all axes upto (including)
+    the last one will be included.
+  name: end
+  required: false
+  type: AttrType.INT
+- default_value: 0
+  description: (Optional) Starting axis for slicing the shape. Default value is 0.Negative
+    value means counting dimensions from the back.
+  name: start
+  required: false
+  type: AttrType.INT
+deprecated: false
+doc: '
+
+  Takes a tensor as input and outputs an 1D int64 tensor containing the shape of the
+  input tensor.
+
+  Optional attributes start and end can be used to compute a slice of the input tensor''s
+  shape.
+
+  If start axis is omitted, the slice starts from axis 0.
+
+  The end axis, if specified, is exclusive (and the returned value will not include
+  the size of that axis).
+
+  If the end axis is omitted, the axes upto the last one will be included.
+
+  Negative axes indicate counting back from the last axis.
+
+  Note that axes will be clamped to the range [0, r-1], where r is the
+
+  rank of the input tensor if they are out-of-range (after adding r in the case of
+
+  negative axis). Thus, specifying any end value > r is equivalent to specifying an
+  end
+
+  value of r, and specifying any start value < -r is equivalent to specifying a start
+
+  value of 0.
+
+
+  Examples:
+
+
+  ```
+
+  Input tensor with shape: [2, 3, 4]
+
+  No attributes specified.
+
+  Output: [2, 3, 4]
+
+  ```
+
+
+  ```
+
+  Input tensor with shape: [2, 3, 4]
+
+  start: -1
+
+  Output: [4]
+
+  ```
+
+
+  ```
+
+  Input tensor with shape: [2, 3, 4]
+
+  end: -1
+
+  Output: [2, 3]
+
+  ```
+
+
+  ```
+
+  Input tensor with shape: [2, 3, 4]
+
+  start: 1
+
+  end: 2
+
+  Output: [3]
+
+  ```
+
+  '
+domain: ''
+inputs:
+- description: An input tensor.
+  min_arity: 1
+  name: data
+  tags:
+  - non-differentiable
+  type_str: T
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: Shape
+outputs:
+- description: Shape of the input tensor
+  min_arity: 1
+  name: shape
+  tags:
+  - non-differentiable
+  type_str: T1
+since_version: 15
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(bfloat16)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Input tensor can be of arbitrary type.
+  type_param_str: T
+- allowed_type_strs:
+  - tensor(int64)
+  description: Constrain output to int64 tensor.
+  type_param_str: T1

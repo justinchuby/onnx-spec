@@ -1,0 +1,88 @@
+attributes:
+- default_value: null
+  description: (Optional) The data type for the elements of the output tensor, if
+    not specified, we will use the data type of the input tensor.
+  name: dtype
+  required: false
+  type: AttrType.INT
+- default_value: 1.0
+  description: Upper boundary of the output values.
+  name: high
+  required: false
+  type: AttrType.FLOAT
+- default_value: 0.0
+  description: Lower boundary of the output values.
+  name: low
+  required: false
+  type: AttrType.FLOAT
+- default_value: null
+  description: (Optional) Seed to the random generator, if not specified we will auto
+    generate one.
+  name: seed
+  required: false
+  type: AttrType.FLOAT
+deprecated: false
+doc: '
+
+  Generate a tensor with random values drawn from a uniform distribution.
+
+  The shape of the output tensor is copied from the shape of the input tensor,
+
+  and the parameters of the uniform distribution are specified by `low` and `high`.
+
+
+  The data type is specified by the ''dtype'' argument, or copied from the input tensor
+  if not provided.
+
+  The ''dtype'' argument must be one of the data types specified in the ''DataType''
+  enum field in the
+
+  TensorProto message and be valid as an output type.
+
+  '
+domain: ''
+inputs:
+- description: Input tensor to copy shape and optionally type information from.
+  min_arity: 1
+  name: input
+  tags: []
+  type_str: T1
+max_input: 1
+max_output: 1
+min_input: 1
+min_output: 1
+name: RandomUniformLike
+outputs:
+- description: Output tensor of random values drawn from uniform distribution
+  min_arity: 1
+  name: output
+  tags: []
+  type_str: T2
+since_version: 1
+support_level: SupportType.COMMON
+type_constraints:
+- allowed_type_strs:
+  - tensor(uint8)
+  - tensor(uint16)
+  - tensor(uint32)
+  - tensor(uint64)
+  - tensor(int8)
+  - tensor(int16)
+  - tensor(int32)
+  - tensor(int64)
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  - tensor(string)
+  - tensor(bool)
+  - tensor(complex64)
+  - tensor(complex128)
+  description: Constrain to any tensor type. If the dtype attribute is not provided
+    this must be a valid output type.
+  type_param_str: T1
+- allowed_type_strs:
+  - tensor(float16)
+  - tensor(float)
+  - tensor(double)
+  description: Constrain output types to float tensors.
+  type_param_str: T2
