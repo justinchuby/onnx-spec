@@ -6,7 +6,7 @@ import os
 import textwrap
 
 import onnx
-import yaml
+from ruamel.yaml import YAML
 import beartype
 
 
@@ -194,6 +194,8 @@ def main():
     args = parser.parse_args()
 
     schemas = onnx.defs.get_all_schemas_with_history()
+    yaml = YAML()
+    yaml.indent(mapping=2, sequence=4, offset=2)
     for schema in schemas:
         dataclass_schema = schema_to_dataclass(schema)
         with open(
@@ -203,9 +205,8 @@ def main():
         ) as f:
             print(f"Writing {schema.name}-{schema.since_version}.yaml")
             d = dataclasses.asdict(dataclass_schema)
-            yaml.safe_dump(
-                d, f, sort_keys=False, allow_unicode=True, default_flow_style=False
-            )
+
+            yaml.dump(d, f)
 
 
 if __name__ == "__main__":
