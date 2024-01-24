@@ -5,10 +5,10 @@ import dataclasses
 import os
 import textwrap
 
+import beartype
 import onnx
 from ruamel.yaml import YAML
 from ruamel.yaml.scalarstring import FoldedScalarString
-import beartype
 
 
 @beartype.beartype
