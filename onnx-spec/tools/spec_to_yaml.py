@@ -3,7 +3,6 @@
 import argparse
 import dataclasses
 import os
-from typing import Any
 
 import onnx
 import yaml
@@ -15,7 +14,7 @@ class Attribute:
     description: str
     type: str
     required: bool
-    default_value: Any
+    default_value: str | int | float | list[str] | list[int] | list[float] | None = None
 
 
 @dataclasses.dataclass
@@ -81,12 +80,30 @@ def _generate_formal_parameter_tags(
 
 def _get_attribute_default_value(attr: onnx.defs.OpSchema.Attribute):
     value = onnx.helper.get_attribute_value(attr.default_value)
+    # TODO(justinchuby): Handle when there is no default
+    if value is None:
+        return None
     if attr.type == onnx.AttributeProto.STRING:
         value = value.decode("utf-8")
     elif attr.type == onnx.AttributeProto.STRINGS:
         value = [v.decode("utf-8") for v in value]
+    elif attr.type == onnx.AttributeProto.GRAPH:
+        value = onnx.printer.to_text(value)
+    elif attr.type == onnx.AttributeProto.GRAPHS:
+        value = [onnx.printer.to_text(v) for v in value]
+    elif attr.type == onnx.AttributeProto.TENSOR:
+        try:
+            value = onnx.numpy_helper.to_array(value)
+        except Exception:
+            value = None
+    elif attr.type == onnx.AttributeProto.TENSORS:
+        try:
+            value = [onnx.numpy_helper.to_array(v) for v in value]
+        except Exception:
+            value = None
 
     return value
+
 
 def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
     return OpSchema(
@@ -106,7 +123,7 @@ def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
                 description=attr.description,
                 type=str(attr.type),
                 required=attr.required,
-                default_value=_get_attribute_default_value(attr) if attr.default_value.name else None,
+                default_value=_get_attribute_default_value(attr),
             )
             for attr in schema.attributes.values()
         ],
@@ -154,7 +171,9 @@ def main():
             "w",
             encoding="utf-8",
         ) as f:
-            yaml.dump(dataclasses.asdict(dataclass_schema), f)
+            print(f"Writing {schema.name}-{schema.since_version}.yaml")
+            d = dataclasses.asdict(dataclass_schema)
+            yaml.dump(d, f)
 
 
 if __name__ == "__main__":
