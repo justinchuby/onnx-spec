@@ -5,46 +5,46 @@ min_input: 1
 max_input: 2147483647
 min_output: 1
 max_output: 1
-doc: Concatenate a list of tensors into a single tensor. All input tensors must have
-  the same shape, except for the dimension size of the axis to concatenate on.
+doc: |-
+  Concatenate a list of tensors into a single tensor. All input tensors must have the same shape, except for the dimension size of the axis to concatenate on.
 attributes:
-- name: axis
-  description: Which axis to concat on. A negative value means counting dimensions
-    from the back. Accepted range is [-r, r-1] where r = rank(inputs)..
-  type: AttrType.INT
-  required: true
-  default_value: null
+  - name: axis
+    description: Which axis to concat on. A negative value means counting dimensions
+      from the back. Accepted range is [-r, r-1] where r = rank(inputs)..
+    type: INT
+    required: true
+    default_value:
 inputs:
-- name: inputs
-  type_str: T
-  description: List of tensors for concatenation
-  min_arity: 1
-  tags:
-  - variadic
+  - name: inputs
+    type_str: T
+    description: List of tensors for concatenation
+    min_arity: 1
+    tags:
+      - variadic
 outputs:
-- name: concat_result
-  type_str: T
-  description: Concatenated tensor
-  min_arity: 1
-  tags: []
+  - name: concat_result
+    type_str: T
+    description: Concatenated tensor
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain output types to any tensor type.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
+  - type_param_str: T
+    description: Constrain output types to any tensor type.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
 support_level: COMMON
 deprecated: false

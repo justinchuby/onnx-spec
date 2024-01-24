@@ -5,105 +5,102 @@ min_input: 1
 max_input: 1
 min_output: 2
 max_output: 2
-doc: '
-
+doc: |-
   Support Vector Machine classifier
-
-  '
 attributes:
-- name: classlabels_ints
-  description: Class labels if using integer labels.<br>One and only one of the 'classlabels_*'
-    attributes must be defined.
-  type: AttrType.INTS
-  required: false
-  default_value: null
-- name: classlabels_strings
-  description: Class labels if using string labels.<br>One and only one of the 'classlabels_*'
-    attributes must be defined.
-  type: AttrType.STRINGS
-  required: false
-  default_value: null
-- name: coefficients
-  description: ''
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
-- name: kernel_params
-  description: List of 3 elements containing gamma, coef0, and degree, in that order.
-    Zero if unused for the kernel.
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
-- name: kernel_type
-  description: The kernel type, one of 'LINEAR,' 'POLY,' 'RBF,' 'SIGMOID'.
-  type: AttrType.STRING
-  required: false
-  default_value: LINEAR
-- name: post_transform
-  description: Indicates the transform to apply to the score. <br>One of 'NONE,' 'SOFTMAX,'
-    'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
-  type: AttrType.STRING
-  required: false
-  default_value: NONE
-- name: prob_a
-  description: First set of probability coefficients.
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
-- name: prob_b
-  description: Second set of probability coefficients. This array must be same size
-    as prob_a.<br>If these are provided then output Z are probability estimates, otherwise
-    they are raw scores.
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
-- name: rho
-  description: ''
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
-- name: support_vectors
-  description: ''
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
-- name: vectors_per_class
-  description: ''
-  type: AttrType.INTS
-  required: false
-  default_value: null
+  - name: classlabels_ints
+    description: Class labels if using integer labels.<br>One and only one of the
+      'classlabels_*' attributes must be defined.
+    type: INTS
+    required: false
+    default_value:
+  - name: classlabels_strings
+    description: Class labels if using string labels.<br>One and only one of the 'classlabels_*'
+      attributes must be defined.
+    type: STRINGS
+    required: false
+    default_value:
+  - name: coefficients
+    description: ''
+    type: FLOATS
+    required: false
+    default_value:
+  - name: kernel_params
+    description: List of 3 elements containing gamma, coef0, and degree, in that order.
+      Zero if unused for the kernel.
+    type: FLOATS
+    required: false
+    default_value:
+  - name: kernel_type
+    description: The kernel type, one of 'LINEAR,' 'POLY,' 'RBF,' 'SIGMOID'.
+    type: STRING
+    required: false
+    default_value: LINEAR
+  - name: post_transform
+    description: Indicates the transform to apply to the score. <br>One of 'NONE,'
+      'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    type: STRING
+    required: false
+    default_value: NONE
+  - name: prob_a
+    description: First set of probability coefficients.
+    type: FLOATS
+    required: false
+    default_value:
+  - name: prob_b
+    description: Second set of probability coefficients. This array must be same size
+      as prob_a.<br>If these are provided then output Z are probability estimates,
+      otherwise they are raw scores.
+    type: FLOATS
+    required: false
+    default_value:
+  - name: rho
+    description: ''
+    type: FLOATS
+    required: false
+    default_value:
+  - name: support_vectors
+    description: ''
+    type: FLOATS
+    required: false
+    default_value:
+  - name: vectors_per_class
+    description: ''
+    type: INTS
+    required: false
+    default_value:
 inputs:
-- name: X
-  type_str: T1
-  description: Data to be classified.
-  min_arity: 1
-  tags: []
+  - name: X
+    type_str: T1
+    description: Data to be classified.
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: T2
-  description: Classification outputs (one class per example).
-  min_arity: 1
-  tags: []
-- name: Z
-  type_str: tensor(float)
-  description: Class scores (one per class per example), if prob_a and prob_b are
-    provided they are probabilities for each class, otherwise they are raw scores.
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: T2
+    description: Classification outputs (one class per example).
+    min_arity: 1
+    tags: []
+  - name: Z
+    type_str: tensor(float)
+    description: Class scores (one per class per example), if prob_a and prob_b are
+      provided they are probabilities for each class, otherwise they are raw scores.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T1
-  description: The input must be a tensor of a numeric type, either [C] or [N,C].
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
-  - tensor(int64)
-  - tensor(int32)
-- type_param_str: T2
-  description: The output type will be a tensor of strings or integers, depending
-    on which of the classlabels_* attributes is used. Its size will match the bactch
-    size of the input.
-  allowed_type_strs:
-  - tensor(string)
-  - tensor(int64)
+  - type_param_str: T1
+    description: The input must be a tensor of a numeric type, either [C] or [N,C].
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
+      - tensor(int64)
+      - tensor(int32)
+  - type_param_str: T2
+    description: The output type will be a tensor of strings or integers, depending
+      on which of the classlabels_* attributes is used. Its size will match the bactch
+      size of the input.
+    allowed_type_strs:
+      - tensor(string)
+      - tensor(int64)
 support_level: COMMON
 deprecated: false

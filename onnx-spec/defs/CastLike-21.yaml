@@ -5,92 +5,87 @@ min_input: 2
 max_input: 2
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   The operator casts the elements of a given input tensor (the first input) to
-
   the same data type as the elements of the second input tensor.
-
   See documentation of the Cast operator for further details.
-
-  '
 attributes:
-- name: saturate
-  description: The parameter defines how the conversion behaves if an input value
-    is out of range of the destination type. It only applies for float 8 conversion
-    (float8e4m3fn, float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default.
-    Please refer to operator Cast description for further details.
-  type: AttrType.INT
-  required: false
-  default_value: 1
+  - name: saturate
+    description: The parameter defines how the conversion behaves if an input value
+      is out of range of the destination type. It only applies for float 8 conversion
+      (float8e4m3fn, float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default.
+      Please refer to operator Cast description for further details.
+    type: INT
+    required: false
+    default_value: 1
 inputs:
-- name: input
-  type_str: T1
-  description: Input tensor to be cast.
-  min_arity: 1
-  tags:
-  - differentiable
-- name: target_type
-  type_str: T2
-  description: The (first) input tensor will be cast to produce a tensor of the same
-    type as this (second input) tensor.
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: input
+    type_str: T1
+    description: Input tensor to be cast.
+    min_arity: 1
+    tags:
+      - differentiable
+  - name: target_type
+    type_str: T2
+    description: The (first) input tensor will be cast to produce a tensor of the
+      same type as this (second input) tensor.
+    min_arity: 1
+    tags:
+      - non-differentiable
 outputs:
-- name: output
-  type_str: T2
-  description: Output tensor produced by casting the first input tensor to have the
-    same type as the second input tensor.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: output
+    type_str: T2
+    description: Output tensor produced by casting the first input tensor to have
+      the same type as the second input tensor.
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T1
-  description: Constrain input types. Casting from complex is not supported.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(bool)
-  - tensor(string)
-  - tensor(bfloat16)
-  - tensor(float8e4m3fn)
-  - tensor(float8e4m3fnuz)
-  - tensor(float8e5m2)
-  - tensor(float8e5m2fnuz)
-  - tensor(uint4)
-  - tensor(int4)
-- type_param_str: T2
-  description: Constrain output types. Casting to complex is not supported.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(bool)
-  - tensor(string)
-  - tensor(bfloat16)
-  - tensor(float8e4m3fn)
-  - tensor(float8e4m3fnuz)
-  - tensor(float8e5m2)
-  - tensor(float8e5m2fnuz)
-  - tensor(uint4)
-  - tensor(int4)
+  - type_param_str: T1
+    description: Constrain input types. Casting from complex is not supported.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(bool)
+      - tensor(string)
+      - tensor(bfloat16)
+      - tensor(float8e4m3fn)
+      - tensor(float8e4m3fnuz)
+      - tensor(float8e5m2)
+      - tensor(float8e5m2fnuz)
+      - tensor(uint4)
+      - tensor(int4)
+  - type_param_str: T2
+    description: Constrain output types. Casting to complex is not supported.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(bool)
+      - tensor(string)
+      - tensor(bfloat16)
+      - tensor(float8e4m3fn)
+      - tensor(float8e4m3fnuz)
+      - tensor(float8e5m2)
+      - tensor(float8e5m2fnuz)
+      - tensor(uint4)
+      - tensor(int4)
 support_level: COMMON
 deprecated: false

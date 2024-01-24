@@ -5,51 +5,47 @@ min_input: 1
 max_input: 2
 min_output: 1
 max_output: 2147483647
-doc: 'Split a tensor into a list of tensors, along the specified
-
-  ''axis''. The lengths of the split can be specified using argument ''axis'' or
-
+doc: |-
+  Split a tensor into a list of tensors, along the specified
+  'axis'. The lengths of the split can be specified using argument 'axis' or
   optional second input blob to the operator. Otherwise, the tensor is split
-
   to equal sized parts.
-
-  '
 attributes:
-- name: axis
-  description: Which axis to split on
-  type: AttrType.INT
-  required: false
-  default_value: null
-- name: split
-  description: length of each output
-  type: AttrType.INTS
-  required: false
-  default_value: null
+  - name: axis
+    description: Which axis to split on
+    type: INT
+    required: false
+    default_value:
+  - name: split
+    description: length of each output
+    type: INTS
+    required: false
+    default_value:
 inputs:
-- name: input
-  type_str: T
-  description: The tensor to split
-  min_arity: 1
-  tags: []
-- name: split
-  type_str: T
-  description: Optional list of output lengths (see also arg 'split')
-  min_arity: 1
-  tags:
-  - optional
+  - name: input
+    type_str: T
+    description: The tensor to split
+    min_arity: 1
+    tags: []
+  - name: split
+    type_str: T
+    description: Optional list of output lengths (see also arg 'split')
+    min_arity: 1
+    tags:
+      - optional
 outputs:
-- name: outputs...
-  type_str: T
-  description: One or more outputs forming list of tensors after splitting
-  min_arity: 1
-  tags:
-  - variadic
+  - name: outputs...
+    type_str: T
+    description: One or more outputs forming list of tensors after splitting
+    min_arity: 1
+    tags:
+      - variadic
 type_constraints:
-- type_param_str: T
-  description: Constrain input types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

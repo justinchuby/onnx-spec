@@ -5,54 +5,46 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Returns the indices of the elements that are non-zero
-
   (in row-major order - by dimension).
-
   NonZero behaves similar to numpy.nonzero:
-
   https://docs.scipy.org/doc/numpy/reference/generated/numpy.nonzero.html,
-
-  but for scalar input, NonZero produces output shape (0, N) instead of (1, N), which
-  is different from Numpy''s behavior.
-
-  '
+  but for scalar input, NonZero produces output shape (0, N) instead of (1, N), which is different from Numpy's behavior.
 attributes: []
 inputs:
-- name: X
-  type_str: T
-  description: input
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: X
+    type_str: T
+    description: input
+    min_arity: 1
+    tags:
+      - non-differentiable
 outputs:
-- name: Y
-  type_str: tensor(int64)
-  description: output
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: Y
+    type_str: tensor(int64)
+    description: output
+    min_arity: 1
+    tags:
+      - non-differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain to all tensor types.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(bfloat16)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
+  - type_param_str: T
+    description: Constrain to all tensor types.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(bfloat16)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
 support_level: COMMON
 deprecated: false

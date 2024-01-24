@@ -5,112 +5,138 @@ min_input: 3
 max_input: 2147483647
 min_output: 1
 max_output: 2147483647
-doc: "\nCompute one iteration of stochastic gradient update with momentum.\nThis operator\
-  \ can conduct the optimization of multiple tensor variables.\n\nLet's define the\
-  \ behavior of this operator. As you can imagine, SG with momentum requires\nseveral\
-  \ parameters:\n\n - The learning-rate \"R\".\n - The update count \"T\". That is,\
-  \ the number of conducted training iterations. It should\n   be zero in the first\
-  \ training iteration.\n - A L2-norm regularization coefficient \"norm_coefficient\"\
-  .\n - A decay coefficient of previous accumulated gradient (i.e., momentum) \"alpha\"\
-  .\n - The scaling coefficient of current gradient \"beta\".\n - An attribute to\
-  \ choose either standard momentum or Nesterov's momentum \"mode\" should\n   be\
-  \ used.\n\nFor the sake of simplicity, assume that there is only one tensor (called\
-  \ \"X\") to be optimized.\nOther necessary inputs are \"X\"'s gradient (called \"\
-  G\") and \"X\"'s momentum (called \"V\"). This\nMomentum operator maps all these\
-  \ inputs to the new value of \"X\" (called \"X_new\") and its new\nmomentum (called\
-  \ \"V_new\").\n\nThis operator supports two different momentum algorithms. Set the\
-  \ attribute \"mode\" to\n\"nesterov\" if Nesterov's momentum is desired. Otherwise,\
-  \ set the attribute \"model\" to\n\"standard\" to use standard momentum. Computation\
-  \ details are described subsequently.\n\nLet \"+\", \"-\", \"*\", and \"/\" are\
-  \ all element-wise operations with numpy-style broadcasting.\n\nPseudo code for\
-  \ SG with standard momentum:\n\n  // Add gradient of 0.5 * norm_coefficient * ||X||^2,\
-  \ where ||X|| is the sum of squared\n  // values of all elements in X.\n  G_regularized\
-  \ = norm_coefficient * X + G\n\n  // In the first training iteration, beta should\
-  \ always be 1.\n  beta_adjusted = T > 0 ? beta : 1\n\n  // Compute the current momentum\
-  \ based on previous momentum and the current gradient.\n  V_new = alpha * V + beta_adjusted\
-  \ * G_regularized\n\n  // Update X.\n  X_new = X - R * V_new\n\nPseudo code for\
-  \ SG with Nesterov's momentum:\n\n  // Add gradient of 0.5 * norm_coefficient *\
-  \ ||X||^2, where ||X|| is the sum of squared\n  // values of all elements in X.\n\
-  \  G_regularized = norm_coefficient * X + G;\n\n  // In the first training iteration,\
-  \ beta should always be 1.\n  beta_adjusted = T > 0 ? beta : 1\n\n  // Compute the\
-  \ current momentum based on previous momentum and the current gradient.\n  V_new\
-  \ = alpha * V + beta_adjusted * G_regularized;\n\n  // Compute final update direction\
-  \ and then update X.\n  X_new = X - R * (G_regularized + alpha * V_new)\n\nIf one\
-  \ assign this operators to optimize multiple inputs, for example, \"X_1\" and \"\
-  X_2\". The same\npseudo code would be extended to handle all tensors jointly. More\
-  \ specifically, we can view \"X\" as a\nconcatenation of \"X_1\" and \"X_2\" (of\
-  \ course, their gradient and accumulate gradient should\nbe concatenated too) and\
-  \ then our pseudo code becomes applicable.\n"
+doc: |-
+  Compute one iteration of stochastic gradient update with momentum.
+  This operator can conduct the optimization of multiple tensor variables.
+
+  Let's define the behavior of this operator. As you can imagine, SG with momentum requires
+  several parameters:
+
+   - The learning-rate "R".
+   - The update count "T". That is, the number of conducted training iterations. It should
+     be zero in the first training iteration.
+   - A L2-norm regularization coefficient "norm_coefficient".
+   - A decay coefficient of previous accumulated gradient (i.e., momentum) "alpha".
+   - The scaling coefficient of current gradient "beta".
+   - An attribute to choose either standard momentum or Nesterov's momentum "mode" should
+     be used.
+
+  For the sake of simplicity, assume that there is only one tensor (called "X") to be optimized.
+  Other necessary inputs are "X"'s gradient (called "G") and "X"'s momentum (called "V"). This
+  Momentum operator maps all these inputs to the new value of "X" (called "X_new") and its new
+  momentum (called "V_new").
+
+  This operator supports two different momentum algorithms. Set the attribute "mode" to
+  "nesterov" if Nesterov's momentum is desired. Otherwise, set the attribute "model" to
+  "standard" to use standard momentum. Computation details are described subsequently.
+
+  Let "+", "-", "*", and "/" are all element-wise operations with numpy-style broadcasting.
+
+  Pseudo code for SG with standard momentum:
+
+    // Add gradient of 0.5 * norm_coefficient * ||X||^2, where ||X|| is the sum of squared
+    // values of all elements in X.
+    G_regularized = norm_coefficient * X + G
+
+    // In the first training iteration, beta should always be 1.
+    beta_adjusted = T > 0 ? beta : 1
+
+    // Compute the current momentum based on previous momentum and the current gradient.
+    V_new = alpha * V + beta_adjusted * G_regularized
+
+    // Update X.
+    X_new = X - R * V_new
+
+  Pseudo code for SG with Nesterov's momentum:
+
+    // Add gradient of 0.5 * norm_coefficient * ||X||^2, where ||X|| is the sum of squared
+    // values of all elements in X.
+    G_regularized = norm_coefficient * X + G;
+
+    // In the first training iteration, beta should always be 1.
+    beta_adjusted = T > 0 ? beta : 1
+
+    // Compute the current momentum based on previous momentum and the current gradient.
+    V_new = alpha * V + beta_adjusted * G_regularized;
+
+    // Compute final update direction and then update X.
+    X_new = X - R * (G_regularized + alpha * V_new)
+
+  If one assign this operators to optimize multiple inputs, for example, "X_1" and "X_2". The same
+  pseudo code would be extended to handle all tensors jointly. More specifically, we can view "X" as a
+  concatenation of "X_1" and "X_2" (of course, their gradient and accumulate gradient should
+  be concatenated too) and then our pseudo code becomes applicable.
 attributes:
-- name: alpha
-  description: The decay factor of momentum. It should be a scalar.
-  type: AttrType.FLOAT
-  required: true
-  default_value: null
-- name: beta
-  description: The coefficient of gradient in computing new momentum. It should be
-    a scalar.
-  type: AttrType.FLOAT
-  required: true
-  default_value: null
-- name: mode
-  description: Its value should be either "nesterov" or "standard". The value "nesterov"
-    leads to the use of Nesterov's momentum while "standard" invokes stochastic gradient
-    method using standard momentum
-  type: AttrType.STRING
-  required: true
-  default_value: null
-- name: norm_coefficient
-  description: Coefficient of 0.5 * norm_coefficient * ||X||^2.
-  type: AttrType.FLOAT
-  required: true
-  default_value: null
+  - name: alpha
+    description: The decay factor of momentum. It should be a scalar.
+    type: FLOAT
+    required: true
+    default_value:
+  - name: beta
+    description: The coefficient of gradient in computing new momentum. It should
+      be a scalar.
+    type: FLOAT
+    required: true
+    default_value:
+  - name: mode
+    description: Its value should be either "nesterov" or "standard". The value "nesterov"
+      leads to the use of Nesterov's momentum while "standard" invokes stochastic
+      gradient method using standard momentum
+    type: STRING
+    required: true
+    default_value:
+  - name: norm_coefficient
+    description: Coefficient of 0.5 * norm_coefficient * ||X||^2.
+    type: FLOAT
+    required: true
+    default_value:
 inputs:
-- name: R
-  type_str: T1
-  description: The learning rate.
-  min_arity: 1
-  tags: []
-- name: T
-  type_str: T2
-  description: Update count of "X". It should be a scalar.
-  min_arity: 1
-  tags: []
-- name: inputs
-  type_str: T3
-  description: It sequentially contains the current values of optimized tensors, then
-    their gradient tensors, and finally their momentum tensors. For example, if two
-    tensors "X_1" and "X_2" are optimized, The expected input list would be ["X_1",
-    "X_2", gradient of "X_1", gradient of "X_2", momentum of "X_1", momentum of "X_2"].
-  min_arity: 1
-  tags:
-  - variadic
-  - heterogeneous
+  - name: R
+    type_str: T1
+    description: The learning rate.
+    min_arity: 1
+    tags: []
+  - name: T
+    type_str: T2
+    description: Update count of "X". It should be a scalar.
+    min_arity: 1
+    tags: []
+  - name: inputs
+    type_str: T3
+    description: It sequentially contains the current values of optimized tensors,
+      then their gradient tensors, and finally their momentum tensors. For example,
+      if two tensors "X_1" and "X_2" are optimized, The expected input list would
+      be ["X_1", "X_2", gradient of "X_1", gradient of "X_2", momentum of "X_1", momentum
+      of "X_2"].
+    min_arity: 1
+    tags:
+      - variadic
+      - heterogeneous
 outputs:
-- name: outputs
-  type_str: T3
-  description: It sequentially contains the new values of optimized tensors and then
-    the new values of their momentum tensors. For example, if two tensors "X_1" and
-    "X_2" are optimized, the output list would be [new value of "X_1," new value of
-    "X_2" new momentum of "X_1", new momentum of "X_2"].
-  min_arity: 1
-  tags:
-  - variadic
-  - heterogeneous
+  - name: outputs
+    type_str: T3
+    description: It sequentially contains the new values of optimized tensors and
+      then the new values of their momentum tensors. For example, if two tensors "X_1"
+      and "X_2" are optimized, the output list would be [new value of "X_1," new value
+      of "X_2" new momentum of "X_1", new momentum of "X_2"].
+    min_arity: 1
+    tags:
+      - variadic
+      - heterogeneous
 type_constraints:
-- type_param_str: T1
-  description: Constrain input types to float scalars.
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
-- type_param_str: T2
-  description: Constrain input types to 64-bit integer scalars.
-  allowed_type_strs:
-  - tensor(int64)
-- type_param_str: T3
-  description: Constrain input types to float tensors.
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T1
+    description: Constrain input types to float scalars.
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
+  - type_param_str: T2
+    description: Constrain input types to 64-bit integer scalars.
+    allowed_type_strs:
+      - tensor(int64)
+  - type_param_str: T3
+    description: Constrain input types to float tensors.
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

@@ -5,46 +5,42 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
-  Rescale input data, for example to standardize features by removing the mean and
-  scaling to unit variance.
-
-  '
+doc: |-
+  Rescale input data, for example to standardize features by removing the mean and scaling to unit variance.
 attributes:
-- name: offset
-  description: First, offset by this.<br>Can be length of features in an [N,F] tensor
-    or length 1, in which case it applies to all features, regardless of dimension
-    count.
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
-- name: scale
-  description: Second, multiply by this.<br>Can be length of features in an [N,F]
-    tensor or length 1, in which case it applies to all features, regardless of dimension
-    count.<br>Must be same length as 'offset'
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
+  - name: offset
+    description: First, offset by this.<br>Can be length of features in an [N,F] tensor
+      or length 1, in which case it applies to all features, regardless of dimension
+      count.
+    type: FLOATS
+    required: false
+    default_value:
+  - name: scale
+    description: Second, multiply by this.<br>Can be length of features in an [N,F]
+      tensor or length 1, in which case it applies to all features, regardless of
+      dimension count.<br>Must be same length as 'offset'
+    type: FLOATS
+    required: false
+    default_value:
 inputs:
-- name: X
-  type_str: T
-  description: Data to be scaled.
-  min_arity: 1
-  tags: []
+  - name: X
+    type_str: T
+    description: Data to be scaled.
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: tensor(float)
-  description: Scaled output data.
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: tensor(float)
+    description: Scaled output data.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: The input must be a tensor of a numeric type.
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
-  - tensor(int64)
-  - tensor(int32)
+  - type_param_str: T
+    description: The input must be a tensor of a numeric type.
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
+      - tensor(int64)
+      - tensor(int32)
 support_level: COMMON
 deprecated: false

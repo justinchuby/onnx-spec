@@ -5,62 +5,59 @@ min_input: 1
 max_input: 2
 min_output: 1
 max_output: 2147483647
-doc: 'Split a tensor into a list of tensors, along the specified
-
-  ''axis''. Lengths of the parts can be specified using input ''split''.
-
+doc: |-
+  Split a tensor into a list of tensors, along the specified
+  'axis'. Lengths of the parts can be specified using input 'split'.
   Otherwise, the tensor is split to equal sized parts.
-
-  '
 attributes:
-- name: axis
-  description: Which axis to split on. A negative value means counting dimensions
-    from the back. Accepted range is [-rank, rank-1] where r = rank(input).
-  type: AttrType.INT
-  required: false
-  default_value: 0
+  - name: axis
+    description: Which axis to split on. A negative value means counting dimensions
+      from the back. Accepted range is [-rank, rank-1] where r = rank(input).
+    type: INT
+    required: false
+    default_value: 0
 inputs:
-- name: input
-  type_str: T
-  description: The tensor to split
-  min_arity: 1
-  tags:
-  - differentiable
-- name: split
-  type_str: tensor(int64)
-  description: Optional length of each output. Values should be >= 0.Sum of the values
-    must be equal to the dim value at 'axis' specified.
-  min_arity: 1
-  tags:
-  - optional
-  - non-differentiable
+  - name: input
+    type_str: T
+    description: The tensor to split
+    min_arity: 1
+    tags:
+      - differentiable
+  - name: split
+    type_str: tensor(int64)
+    description: Optional length of each output. Values should be >= 0.Sum of the
+      values must be equal to the dim value at 'axis' specified.
+    min_arity: 1
+    tags:
+      - optional
+      - non-differentiable
 outputs:
-- name: outputs
-  type_str: T
-  description: One or more outputs forming list of tensors after splitting
-  min_arity: 1
-  tags:
-  - variadic
-  - differentiable
+  - name: outputs
+    type_str: T
+    description: One or more outputs forming list of tensors after splitting
+    min_arity: 1
+    tags:
+      - variadic
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to all tensor types.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(bfloat16)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
+  - type_param_str: T
+    description: Constrain input and output types to all tensor types.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(bfloat16)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
 support_level: COMMON
 deprecated: false

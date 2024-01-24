@@ -5,52 +5,43 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Reshape the input tensor similar to numpy.reshape.
-
   It takes a tensor as input and an argument `shape`. It outputs the reshaped tensor.
-
   At most one dimension of the new shape can be -1. In this case, the value is
-
   inferred from the size of the tensor and the remaining dimensions. A dimension
-
   could also be 0, in which case the actual dimension value is unchanged (i.e. taken
-
-  from the input tensor). Shape (second input) could be an empty shape, which means
-  converting to a scalar.
-
-  The input tensor''s shape and the output tensor''s shape are required to have the
-  same number of elements.'
+  from the input tensor). Shape (second input) could be an empty shape, which means converting to a scalar.
+  The input tensor's shape and the output tensor's shape are required to have the same number of elements.
 attributes:
-- name: consumed_inputs
-  description: legacy optimization attribute.
-  type: AttrType.INTS
-  required: false
-  default_value: null
-- name: shape
-  description: New shape
-  type: AttrType.INTS
-  required: false
-  default_value: null
+  - name: consumed_inputs
+    description: legacy optimization attribute.
+    type: INTS
+    required: false
+    default_value:
+  - name: shape
+    description: New shape
+    type: INTS
+    required: false
+    default_value:
 inputs:
-- name: data
-  type_str: T
-  description: An input tensor.
-  min_arity: 1
-  tags: []
+  - name: data
+    type_str: T
+    description: An input tensor.
+    min_arity: 1
+    tags: []
 outputs:
-- name: reshaped
-  type_str: T
-  description: Reshaped data.
-  min_arity: 1
-  tags: []
+  - name: reshaped
+    type_str: T
+    description: Reshaped data.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

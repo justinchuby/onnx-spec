@@ -5,40 +5,41 @@ min_input: 3
 max_input: 3
 min_output: 1
 max_output: 1
-doc: Repeat the elements of a tensor along an axis.
+doc: |-
+  Repeat the elements of a tensor along an axis.
 attributes: []
 inputs:
-- name: input
-  type_str: T
-  description: Input tensor of any shape.
-  min_arity: 1
-  tags: []
-- name: tiles
-  type_str: T
-  description: Number of repeated copies to make of the input tensor.
-  min_arity: 1
-  tags: []
-- name: axis
-  type_str: T
-  description: Axis along which to repeat.
-  min_arity: 1
-  tags: []
+  - name: input
+    type_str: T
+    description: Input tensor of any shape.
+    min_arity: 1
+    tags: []
+  - name: tiles
+    type_str: T
+    description: Number of repeated copies to make of the input tensor.
+    min_arity: 1
+    tags: []
+  - name: axis
+    type_str: T
+    description: Axis along which to repeat.
+    min_arity: 1
+    tags: []
 outputs:
-- name: output
-  type_str: T
-  description: Output tensor of same shape and type as input.
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: T
+    description: Output tensor of same shape and type as input.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-- type_param_str: T1
-  description: Constrain tiles and axis's type to int64 tensors.
-  allowed_type_strs:
-  - tensor(int64)
+  - type_param_str: T
+    description: Constrain input types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+  - type_param_str: T1
+    description: Constrain tiles and axis's type to int64 tensors.
+    allowed_type_strs:
+      - tensor(int64)
 support_level: COMMON
 deprecated: false

@@ -5,38 +5,48 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: "\n    Normalize the input.  There are three normalization modes, which have\
-  \ the corresponding formulas,\n    defined using element-wise infix operators '/'\
-  \ and '^' and tensor-wide functions 'max' and 'sum':\n\n\n\n    Max: Y = X / max(X)\n\
-  \n    L1:  Y = X / sum(X)\n\n    L2:  Y = sqrt(X^2 / sum(X^2)}\n\n    In all modes,\
-  \ if the divisor is zero, Y == X.\n\n\n    For batches, that is, [N,C] tensors,\
-  \ normalization is done along the C axis. In other words, each row\n    of the batch\
-  \ is normalized independently.\n"
+doc: |-
+  Normalize the input.  There are three normalization modes, which have the corresponding formulas,
+      defined using element-wise infix operators '/' and '^' and tensor-wide functions 'max' and 'sum':
+
+
+
+      Max: Y = X / max(X)
+
+      L1:  Y = X / sum(X)
+
+      L2:  Y = sqrt(X^2 / sum(X^2)}
+
+      In all modes, if the divisor is zero, Y == X.
+
+
+      For batches, that is, [N,C] tensors, normalization is done along the C axis. In other words, each row
+      of the batch is normalized independently.
 attributes:
-- name: norm
-  description: One of 'MAX,' 'L1,' 'L2'
-  type: AttrType.STRING
-  required: false
-  default_value: MAX
+  - name: norm
+    description: One of 'MAX,' 'L1,' 'L2'
+    type: STRING
+    required: false
+    default_value: MAX
 inputs:
-- name: X
-  type_str: T
-  description: Data to be encoded, a tensor of shape [N,C] or [C]
-  min_arity: 1
-  tags: []
+  - name: X
+    type_str: T
+    description: Data to be encoded, a tensor of shape [N,C] or [C]
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: tensor(float)
-  description: Encoded output data
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: tensor(float)
+    description: Encoded output data
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: The input must be a tensor of a numeric type.
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
-  - tensor(int64)
-  - tensor(int32)
+  - type_param_str: T
+    description: The input must be a tensor of a numeric type.
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
+      - tensor(int64)
+      - tensor(int32)
 support_level: COMMON
 deprecated: false

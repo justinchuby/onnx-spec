@@ -5,81 +5,71 @@ min_input: 3
 max_input: 3
 min_output: 1
 max_output: 1
-doc: 'General Matrix multiplication:
-
+doc: |-
+  General Matrix multiplication:
   https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3
 
+  A' = transpose(A) if transA else A
 
-  A'' = transpose(A) if transA else A
+  B' = transpose(B) if transB else B
 
-
-  B'' = transpose(B) if transB else B
-
-
-  Compute Y = alpha * A'' * B'' + beta * C, where input tensor A has shape (M, K)
-  or (K, M),
-
-  input tensor B has shape (K, N) or (N, K), input tensor C is broadcastable to shape
-  (M, N),
-
+  Compute Y = alpha * A' * B' + beta * C, where input tensor A has shape (M, K) or (K, M),
+  input tensor B has shape (K, N) or (N, K), input tensor C is broadcastable to shape (M, N),
   and output tensor Y has shape (M, N). A will be transposed before doing the
-
   computation if attribute transA is non-zero, same for B and transB.
-
-  This operator supports **unidirectional broadcasting** (tensor C should be unidirectional
-  broadcastable to tensor A * B); for more details please check [the doc](Broadcasting.md).'
+  This operator supports **unidirectional broadcasting** (tensor C should be unidirectional broadcastable to tensor A * B); for more details please check [the doc](Broadcasting.md).
 attributes:
-- name: alpha
-  description: Scalar multiplier for the product of input tensors A * B.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.0
-- name: beta
-  description: Scalar multiplier for input tensor C.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.0
-- name: transA
-  description: Whether A should be transposed
-  type: AttrType.INT
-  required: false
-  default_value: 0
-- name: transB
-  description: Whether B should be transposed
-  type: AttrType.INT
-  required: false
-  default_value: 0
+  - name: alpha
+    description: Scalar multiplier for the product of input tensors A * B.
+    type: FLOAT
+    required: false
+    default_value: 1.0
+  - name: beta
+    description: Scalar multiplier for input tensor C.
+    type: FLOAT
+    required: false
+    default_value: 1.0
+  - name: transA
+    description: Whether A should be transposed
+    type: INT
+    required: false
+    default_value: 0
+  - name: transB
+    description: Whether B should be transposed
+    type: INT
+    required: false
+    default_value: 0
 inputs:
-- name: A
-  type_str: T
-  description: Input tensor A. The shape of A should be (M, K) if transA is 0, or
-    (K, M) if transA is non-zero.
-  min_arity: 1
-  tags: []
-- name: B
-  type_str: T
-  description: Input tensor B. The shape of B should be (K, N) if transB is 0, or
-    (N, K) if transB is non-zero.
-  min_arity: 1
-  tags: []
-- name: C
-  type_str: T
-  description: Input tensor C. The shape of C should be unidirectional broadcastable
-    to (M, N).
-  min_arity: 1
-  tags: []
+  - name: A
+    type_str: T
+    description: Input tensor A. The shape of A should be (M, K) if transA is 0, or
+      (K, M) if transA is non-zero.
+    min_arity: 1
+    tags: []
+  - name: B
+    type_str: T
+    description: Input tensor B. The shape of B should be (K, N) if transB is 0, or
+      (N, K) if transB is non-zero.
+    min_arity: 1
+    tags: []
+  - name: C
+    type_str: T
+    description: Input tensor C. The shape of C should be unidirectional broadcastable
+      to (M, N).
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: T
-  description: Output tensor of shape (M, N).
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: T
+    description: Output tensor of shape (M, N).
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

@@ -5,63 +5,53 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
-  Computes the log sum of the input tensor''s elements along the provided axes. The
-  resulting
-
-  tensor has the same rank as the input if `keepdims` equals 1. If `keepdims` equals
-  0, then
-
-  the resulting tensor has the reduced dimension pruned. Input tensors of rank zero
-  are
-
-  valid. Reduction over an empty set of values yields minus infinity (if supported
-  by the datatype) or undefined otherwise.
-
+doc: |-
+  Computes the log sum of the input tensor's elements along the provided axes. The resulting
+  tensor has the same rank as the input if `keepdims` equals 1. If `keepdims` equals 0, then
+  the resulting tensor has the reduced dimension pruned. Input tensors of rank zero are
+  valid. Reduction over an empty set of values yields minus infinity (if supported by the datatype) or undefined otherwise.
 
 
   The above behavior is similar to numpy, with the exception that numpy defaults `keepdims`
-
-  to `False` instead of `True`.'
+  to `False` instead of `True`.
 attributes:
-- name: axes
-  description: A list of integers, along which to reduce. The default is to reduce
-    over all the dimensions of the input tensor. Accepted range is [-r, r-1] where
-    r = rank(data).
-  type: AttrType.INTS
-  required: false
-  default_value: null
-- name: keepdims
-  description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
-  type: AttrType.INT
-  required: false
-  default_value: 1
+  - name: axes
+    description: A list of integers, along which to reduce. The default is to reduce
+      over all the dimensions of the input tensor. Accepted range is [-r, r-1] where
+      r = rank(data).
+    type: INTS
+    required: false
+    default_value:
+  - name: keepdims
+    description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
+    type: INT
+    required: false
+    default_value: 1
 inputs:
-- name: data
-  type_str: T
-  description: An input tensor.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: data
+    type_str: T
+    description: An input tensor.
+    min_arity: 1
+    tags:
+      - differentiable
 outputs:
-- name: reduced
-  type_str: T
-  description: Reduced output tensor.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: reduced
+    type_str: T
+    description: Reduced output tensor.
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to numeric tensors.
-  allowed_type_strs:
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(bfloat16)
+  - type_param_str: T
+    description: Constrain input and output types to numeric tensors.
+    allowed_type_strs:
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(bfloat16)
 support_level: COMMON
 deprecated: false

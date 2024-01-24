@@ -5,32 +5,29 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Calculates the hyperbolic sine of the given input tensor element-wise.
-
-  '
 attributes: []
 inputs:
-- name: input
-  type_str: T
-  description: Input tensor
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: input
+    type_str: T
+    description: Input tensor
+    min_arity: 1
+    tags:
+      - differentiable
 outputs:
-- name: output
-  type_str: T
-  description: The hyperbolic sine values of the input tensor computed element-wise
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: output
+    type_str: T
+    description: The hyperbolic sine values of the input tensor computed element-wise
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

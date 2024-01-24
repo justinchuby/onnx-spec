@@ -5,48 +5,43 @@ min_input: 1
 max_input: 3
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Clip operator limits the given input within an interval. The interval is
-
-  specified by the inputs ''min'' and ''max''. They default to
-
+  specified by the inputs 'min' and 'max'. They default to
   numeric_limits::lowest() and numeric_limits::max(), respectively.
-
-  '
 attributes: []
 inputs:
-- name: input
-  type_str: T
-  description: Input tensor whose elements to be clipped
-  min_arity: 1
-  tags: []
-- name: min
-  type_str: T
-  description: Minimum value, under which element is replaced by min. It must be a
-    scalar(tensor of empty shape).
-  min_arity: 1
-  tags:
-  - optional
-- name: max
-  type_str: T
-  description: Maximum value, above which element is replaced by max. It must be a
-    scalar(tensor of empty shape).
-  min_arity: 1
-  tags:
-  - optional
+  - name: input
+    type_str: T
+    description: Input tensor whose elements to be clipped
+    min_arity: 1
+    tags: []
+  - name: min
+    type_str: T
+    description: Minimum value, under which element is replaced by min. It must be
+      a scalar(tensor of empty shape).
+    min_arity: 1
+    tags:
+      - optional
+  - name: max
+    type_str: T
+    description: Maximum value, above which element is replaced by max. It must be
+      a scalar(tensor of empty shape).
+    min_arity: 1
+    tags:
+      - optional
 outputs:
-- name: output
-  type_str: T
-  description: Output tensor with clipped input elements
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: T
+    description: Output tensor with clipped input elements
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

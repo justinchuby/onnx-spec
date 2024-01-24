@@ -5,98 +5,76 @@ min_input: 2
 max_input: 2
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Performs cumulative sum of the input elements along the given axis.
-
-  By default, it will do the sum inclusively meaning the first element is copied as
-  is.
-
-  Through an `exclusive` attribute, this behavior can change to exclude the first
-  element.
-
-  It can also perform summation in the opposite direction of the axis. For that, set
-  `reverse` attribute to 1.
-
+  By default, it will do the sum inclusively meaning the first element is copied as is.
+  Through an `exclusive` attribute, this behavior can change to exclude the first element.
+  It can also perform summation in the opposite direction of the axis. For that, set `reverse` attribute to 1.
 
   Example:
-
   ```
-
   input_x = [1, 2, 3]
-
   axis=0
-
   output = [1, 3, 6]
-
   exclusive=1
-
   output = [0, 1, 3]
-
   exclusive=0
-
   reverse=1
-
   output = [6, 5, 3]
-
   exclusive=1
-
   reverse=1
-
   output = [5, 3, 0]
-
   ```
-
-  '
 attributes:
-- name: exclusive
-  description: If set to 1 will return exclusive sum in which the top element is not
-    included. In other terms, if set to 1, the j-th output element would be the sum
-    of the first (j-1) elements. Otherwise, it would be the sum of the first j elements.
-  type: AttrType.INT
-  required: false
-  default_value: 0
-- name: reverse
-  description: If set to 1 will perform the sums in reverse direction.
-  type: AttrType.INT
-  required: false
-  default_value: 0
+  - name: exclusive
+    description: If set to 1 will return exclusive sum in which the top element is
+      not included. In other terms, if set to 1, the j-th output element would be
+      the sum of the first (j-1) elements. Otherwise, it would be the sum of the first
+      j elements.
+    type: INT
+    required: false
+    default_value: 0
+  - name: reverse
+    description: If set to 1 will perform the sums in reverse direction.
+    type: INT
+    required: false
+    default_value: 0
 inputs:
-- name: x
-  type_str: T
-  description: An input tensor that is to be processed.
-  min_arity: 1
-  tags:
-  - differentiable
-- name: axis
-  type_str: T2
-  description: A 0-D tensor. Must be in the range [-rank(x), rank(x)-1]. Negative
-    value means counting dimensions from the back.
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: x
+    type_str: T
+    description: An input tensor that is to be processed.
+    min_arity: 1
+    tags:
+      - differentiable
+  - name: axis
+    type_str: T2
+    description: A 0-D tensor. Must be in the range [-rank(x), rank(x)-1]. Negative
+      value means counting dimensions from the back.
+    min_arity: 1
+    tags:
+      - non-differentiable
 outputs:
-- name: y
-  type_str: T
-  description: Output tensor of the same type as 'x' with cumulative sums of the x's
-    elements
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: y
+    type_str: T
+    description: Output tensor of the same type as 'x' with cumulative sums of the
+      x's elements
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Input can be of any tensor type.
-  allowed_type_strs:
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float)
-  - tensor(double)
-- type_param_str: T2
-  description: axis tensor can be int32 or int64 only
-  allowed_type_strs:
-  - tensor(int32)
-  - tensor(int64)
+  - type_param_str: T
+    description: Input can be of any tensor type.
+    allowed_type_strs:
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float)
+      - tensor(double)
+  - type_param_str: T2
+    description: axis tensor can be int32 or int64 only
+    allowed_type_strs:
+      - tensor(int32)
+      - tensor(int64)
 support_level: COMMON
 deprecated: false

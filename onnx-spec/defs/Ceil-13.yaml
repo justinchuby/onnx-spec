@@ -5,38 +5,32 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Ceil takes one input data (Tensor<T>) and produces one output data
-
   (Tensor<T>) where the ceil is, y = ceil(x), is applied to
-
-  the tensor elementwise. If x is integral, +0, -0, NaN,  or infinite, x itself is
-  returned.
-
-  '
+  the tensor elementwise. If x is integral, +0, -0, NaN,  or infinite, x itself is returned.
 attributes: []
 inputs:
-- name: X
-  type_str: T
-  description: Input tensor
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: X
+    type_str: T
+    description: Input tensor
+    min_arity: 1
+    tags:
+      - non-differentiable
 outputs:
-- name: Y
-  type_str: T
-  description: Output tensor
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: Y
+    type_str: T
+    description: Output tensor
+    min_arity: 1
+    tags:
+      - non-differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(bfloat16)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(bfloat16)
 support_level: COMMON
 deprecated: false

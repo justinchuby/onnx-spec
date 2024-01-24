@@ -5,32 +5,33 @@ min_input: 1
 max_input: 2147483647
 min_output: 1
 max_output: 1
-doc: Concatenate a list of tensors into a single tensor
+doc: |-
+  Concatenate a list of tensors into a single tensor
 attributes:
-- name: axis
-  description: Which axis to concat on.  Default value is 1.
-  type: AttrType.INT
-  required: false
-  default_value: null
+  - name: axis
+    description: Which axis to concat on.  Default value is 1.
+    type: INT
+    required: false
+    default_value:
 inputs:
-- name: inputs
-  type_str: T
-  description: List of tensors for concatenation
-  min_arity: 1
-  tags:
-  - variadic
+  - name: inputs
+    type_str: T
+    description: List of tensors for concatenation
+    min_arity: 1
+    tags:
+      - variadic
 outputs:
-- name: concat_result
-  type_str: T
-  description: Concatenated tensor
-  min_arity: 1
-  tags: []
+  - name: concat_result
+    type_str: T
+    description: Concatenated tensor
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

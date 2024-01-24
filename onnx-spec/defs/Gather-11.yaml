@@ -5,69 +5,111 @@ min_input: 2
 max_input: 2
 min_output: 1
 max_output: 1
-doc: "\nGiven `data` tensor of rank r >= 1, and `indices` tensor of rank q, gather\n\
-  entries of the axis dimension of `data` (by default outer-most one as axis=0) indexed\
-  \ by `indices`, and concatenates\nthem in an output tensor of rank q + (r - 1).\n\
-  \naxis = 0 :\n\nLet\nk = indices[i_{0}, ..., i_{q-1}]\nThen\noutput[i_{0}, ...,\
-  \ i_{q-1}, j_{0}, ..., j_{r-2}] = input[k , j_{0}, ..., j_{r-2}]\n\n```\n  data\
-  \ = [\n      [1.0, 1.2],\n      [2.3, 3.4],\n      [4.5, 5.7],\n  ]\n  indices =\
-  \ [\n      [0, 1],\n      [1, 2],\n  ]\n  output = [\n      [\n          [1.0, 1.2],\n\
-  \          [2.3, 3.4],\n      ],\n      [\n          [2.3, 3.4],\n          [4.5,\
-  \ 5.7],\n      ],\n  ]\n```\naxis = 1 :\n\nLet\nk = indices[i_{0}, ..., i_{q-1}]\n\
-  Then\noutput[j_{0}, i_{0}, ..., i_{q-1}, j_{1}, ..., j_{r-2}] = input[j_{0}, k,\
-  \ j_{1}, ..., j_{r-2}]\n\n```\n  data = [\n      [1.0, 1.2, 1.9],\n      [2.3, 3.4,\
-  \ 3.9],\n      [4.5, 5.7, 5.9],\n  ]\n  indices = [\n      [0, 2],\n  ]\n  axis\
-  \ = 1,\n  output = [\n      [[1.0, 1.9]],\n      [[2.3, 3.9]],\n      [[4.5, 5.9]],\n\
-  \  ]\n```\n"
+doc: |-
+  Given `data` tensor of rank r >= 1, and `indices` tensor of rank q, gather
+  entries of the axis dimension of `data` (by default outer-most one as axis=0) indexed by `indices`, and concatenates
+  them in an output tensor of rank q + (r - 1).
+
+  axis = 0 :
+
+  Let
+  k = indices[i_{0}, ..., i_{q-1}]
+  Then
+  output[i_{0}, ..., i_{q-1}, j_{0}, ..., j_{r-2}] = input[k , j_{0}, ..., j_{r-2}]
+
+  ```
+    data = [
+        [1.0, 1.2],
+        [2.3, 3.4],
+        [4.5, 5.7],
+    ]
+    indices = [
+        [0, 1],
+        [1, 2],
+    ]
+    output = [
+        [
+            [1.0, 1.2],
+            [2.3, 3.4],
+        ],
+        [
+            [2.3, 3.4],
+            [4.5, 5.7],
+        ],
+    ]
+  ```
+  axis = 1 :
+
+  Let
+  k = indices[i_{0}, ..., i_{q-1}]
+  Then
+  output[j_{0}, i_{0}, ..., i_{q-1}, j_{1}, ..., j_{r-2}] = input[j_{0}, k, j_{1}, ..., j_{r-2}]
+
+  ```
+    data = [
+        [1.0, 1.2, 1.9],
+        [2.3, 3.4, 3.9],
+        [4.5, 5.7, 5.9],
+    ]
+    indices = [
+        [0, 2],
+    ]
+    axis = 1,
+    output = [
+        [[1.0, 1.9]],
+        [[2.3, 3.9]],
+        [[4.5, 5.9]],
+    ]
+  ```
 attributes:
-- name: axis
-  description: Which axis to gather on. Negative value means counting dimensions from
-    the back. Accepted range is [-r, r-1] where r = rank(data).
-  type: AttrType.INT
-  required: false
-  default_value: 0
+  - name: axis
+    description: Which axis to gather on. Negative value means counting dimensions
+      from the back. Accepted range is [-r, r-1] where r = rank(data).
+    type: INT
+    required: false
+    default_value: 0
 inputs:
-- name: data
-  type_str: T
-  description: Tensor of rank r >= 1.
-  min_arity: 1
-  tags: []
-- name: indices
-  type_str: Tind
-  description: Tensor of int32/int64 indices, of any rank q. All index values are
-    expected to be within bounds [-s, s-1] along axis of size s. It is an error if
-    any of the index values are out of bounds.
-  min_arity: 1
-  tags: []
+  - name: data
+    type_str: T
+    description: Tensor of rank r >= 1.
+    min_arity: 1
+    tags: []
+  - name: indices
+    type_str: Tind
+    description: Tensor of int32/int64 indices, of any rank q. All index values are
+      expected to be within bounds [-s, s-1] along axis of size s. It is an error
+      if any of the index values are out of bounds.
+    min_arity: 1
+    tags: []
 outputs:
-- name: output
-  type_str: T
-  description: Tensor of rank q + (r - 1).
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: T
+    description: Tensor of rank q + (r - 1).
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to any tensor type.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
-- type_param_str: Tind
-  description: Constrain indices to integer types
-  allowed_type_strs:
-  - tensor(int32)
-  - tensor(int64)
+  - type_param_str: T
+    description: Constrain input and output types to any tensor type.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
+  - type_param_str: Tind
+    description: Constrain indices to integer types
+    allowed_type_strs:
+      - tensor(int32)
+      - tensor(int64)
 support_level: COMMON
 deprecated: false

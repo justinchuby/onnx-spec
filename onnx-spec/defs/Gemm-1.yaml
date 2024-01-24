@@ -5,78 +5,70 @@ min_input: 3
 max_input: 3
 min_output: 1
 max_output: 1
-doc: 'General Matrix multiplication:
-
+doc: |-
+  General Matrix multiplication:
   https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3
-
   Compute Y = alpha * A * B + beta * C, where input tensor A has
-
   dimension (M X K), input tensor B has dimension (K X N), input tensor C and
-
   output tensor Y have dimension (M X N).
-
   If attribute broadcast is non-zero, input tensor C will be broadcasted to match
-
   the dimension requirement. A will be transposed before doing the computation
-
   if attribute transA is non-zero, same for B and transB.
-
-  '
 attributes:
-- name: alpha
-  description: Scalar multiplier for the product of input tensors A * B, the default
-    value is 1.0.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.0
-- name: beta
-  description: Scalar multiplier for input tensor C, the default value is 1.0.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.0
-- name: broadcast
-  description: Whether C should be broadcasted
-  type: AttrType.INT
-  required: false
-  default_value: 0
-- name: transA
-  description: Whether A should be transposed
-  type: AttrType.INT
-  required: false
-  default_value: 0
-- name: transB
-  description: Whether B should be transposed
-  type: AttrType.INT
-  required: false
-  default_value: 0
+  - name: alpha
+    description: Scalar multiplier for the product of input tensors A * B, the default
+      value is 1.0.
+    type: FLOAT
+    required: false
+    default_value: 1.0
+  - name: beta
+    description: Scalar multiplier for input tensor C, the default value is 1.0.
+    type: FLOAT
+    required: false
+    default_value: 1.0
+  - name: broadcast
+    description: Whether C should be broadcasted
+    type: INT
+    required: false
+    default_value: 0
+  - name: transA
+    description: Whether A should be transposed
+    type: INT
+    required: false
+    default_value: 0
+  - name: transB
+    description: Whether B should be transposed
+    type: INT
+    required: false
+    default_value: 0
 inputs:
-- name: A
-  type_str: T
-  description: Input tensor A
-  min_arity: 1
-  tags: []
-- name: B
-  type_str: T
-  description: Input tensor B
-  min_arity: 1
-  tags: []
-- name: C
-  type_str: T
-  description: Input tensor C, can be inplace.
-  min_arity: 1
-  tags: []
+  - name: A
+    type_str: T
+    description: Input tensor A
+    min_arity: 1
+    tags: []
+  - name: B
+    type_str: T
+    description: Input tensor B
+    min_arity: 1
+    tags: []
+  - name: C
+    type_str: T
+    description: Input tensor C, can be inplace.
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: T
-  description: Output tensor.
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: T
+    description: Output tensor.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

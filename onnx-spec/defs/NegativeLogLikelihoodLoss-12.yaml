@@ -5,96 +5,125 @@ min_input: 2
 max_input: 3
 min_output: 1
 max_output: 1
-doc: "\nA NegativeLogLikelihoodLoss operator computes (weighted) negative log likelihood\
-  \ loss.\nIts \"input\" tensor has the shape of (N, C, d1, d2, ..., dk) where k >=\
-  \ 0.\nThe \"input\" tensor contains log-probabilities for input[n, :, d_1, d_2,...,\
-  \ d_k] being in a class of [0, C).\nThe operator's \"target\" input tensor has the\
-  \ shape of (N, d1, d2, ..., dk). It encodes class labels (one of C classes)\nor\
-  \ it may contain a special value (indicated by an attribute ignore_index) for N\
-  \ x d1 x d2 x ... x dk samples.\nThe loss value for input[n, :, d_1, d_2,...d_k]\
-  \ being classified as class c = target[n][d_1][d_2]...[d_k] is computed as:\n  \
-  \  loss[n][d_1][d_2]...[d_k] = -input[n][c][d_1][d_2]...[d_k].\nWhen an optional\
-  \ \"weight\" is provided, the sample loss is calculated as:\n    loss[n][d_1][d_2]...[d_k]\
-  \ = -input[n][c][d_1][d_2]...[d_k] * weight[c].\nloss is zero for the case when\
-  \ target-value equals ignore_index.\n\n    loss[n][d_1][d_2]...[d_k] = 0, when target[n][d_1][d_2]...[d_k]\
-  \ = ignore_index\nIf \"reduction\" attribute is set to \"none\", the operator's\
-  \ output will be the above loss with shape (N, d1, d2, ..., dk).\nIf \"reduction\"\
-  \ attribute is set to \"mean\" (the default attribute value), the output loss is\
-  \ (weight) averaged:\n    mean(loss), if \"weight\" is not provided,\nor if weight\
-  \ is provided,\n    sum(loss) / sum(weight[target[n][d_1][d_2]...[d_k]]]), for all\
-  \ samples.\nIf \"reduction\" attribute is set to \"sum\", the output is a scalar:\n\
-  \    sum(loss).\nSee also https://pytorch.org/docs/stable/nn.html#torch.nn.NLLLoss.\n\
-  Example 1:\n    // negative log likelihood loss, \"none\" reduction\n    N, C, d1\
-  \ = 2, 3, 2\n    input = [[[1.0, 2.0], [2.0, 2.0], [3.0, 2.0]],\n             [[0.0,\
-  \ 1.0], [2.0, 2.0], [1.0, 2]]]\n    target = [[2, 1], [0, 2]]\n    loss = np.zeros((N,\
-  \ d1))\n    for n in range(N):\n        for d_1 in range(d1):\n            c = target[n][d_1]\n\
-  \            loss[n][d_1] = -input[n][c][d_1]\n    // print(loss)\n    // [[-3.\
-  \ -2.]\n    //  [-0. -2.]]\nExample 2:\n    // weighted negative log likelihood\
-  \ loss, sum reduction\n    N, C, d1 = 2, 3, 2\n    input = [[[1.0, 2.0], [2.0, 2.0],\
-  \ [3.0, 2.0]],\n            [[0.0, 1.0], [2.0, 2.0], [1.0, 2]]]\n    target = [[2,\
-  \ 1], [0, 2]]\n    weight = [0.2, 0.3, 0.1]\n    loss = np.zeros((N, d1))\n    for\
-  \ n in range(N):\n        for d_1 in range(d1):\n            c = target[n][d_1]\n\
-  \            loss[n][d_1] = -input[n][c][d_1] * weight[c]\n    loss = np.sum(loss)\n\
-  \    // print(loss)\n    // -1.1\nExample 3:\n    // weighted negative log likelihood\
-  \ loss, mean reduction\n    N, C, d1 = 2, 3, 2\n    input = [[[1.0, 2.0], [2.0,\
-  \ 2.0], [3.0, 2.0]],\n            [[0.0, 1.0], [2.0, 2.0], [1.0, 2]]]\n    target\
-  \ = [[2, 1], [0, 2]]\n    weight = [0.2, 0.3, 0.1]\n    loss = np.zeros((N, d1))\n\
-  \    weight_total = 0\n    for n in range(N):\n        for d_1 in range(d1):\n \
-  \           c = target[n][d_1]\n            loss[n][d_1] = -input[n][c][d_1] * weight[c]\n\
-  \            weight_total = weight_total + weight[c]\n    loss = np.sum(loss) /\
-  \ weight_total\n    // print(loss)\n    // -1.57\n"
+doc: |-
+  A NegativeLogLikelihoodLoss operator computes (weighted) negative log likelihood loss.
+  Its "input" tensor has the shape of (N, C, d1, d2, ..., dk) where k >= 0.
+  The "input" tensor contains log-probabilities for input[n, :, d_1, d_2,..., d_k] being in a class of [0, C).
+  The operator's "target" input tensor has the shape of (N, d1, d2, ..., dk). It encodes class labels (one of C classes)
+  or it may contain a special value (indicated by an attribute ignore_index) for N x d1 x d2 x ... x dk samples.
+  The loss value for input[n, :, d_1, d_2,...d_k] being classified as class c = target[n][d_1][d_2]...[d_k] is computed as:
+      loss[n][d_1][d_2]...[d_k] = -input[n][c][d_1][d_2]...[d_k].
+  When an optional "weight" is provided, the sample loss is calculated as:
+      loss[n][d_1][d_2]...[d_k] = -input[n][c][d_1][d_2]...[d_k] * weight[c].
+  loss is zero for the case when target-value equals ignore_index.
+
+      loss[n][d_1][d_2]...[d_k] = 0, when target[n][d_1][d_2]...[d_k] = ignore_index
+  If "reduction" attribute is set to "none", the operator's output will be the above loss with shape (N, d1, d2, ..., dk).
+  If "reduction" attribute is set to "mean" (the default attribute value), the output loss is (weight) averaged:
+      mean(loss), if "weight" is not provided,
+  or if weight is provided,
+      sum(loss) / sum(weight[target[n][d_1][d_2]...[d_k]]]), for all samples.
+  If "reduction" attribute is set to "sum", the output is a scalar:
+      sum(loss).
+  See also https://pytorch.org/docs/stable/nn.html#torch.nn.NLLLoss.
+  Example 1:
+      // negative log likelihood loss, "none" reduction
+      N, C, d1 = 2, 3, 2
+      input = [[[1.0, 2.0], [2.0, 2.0], [3.0, 2.0]],
+               [[0.0, 1.0], [2.0, 2.0], [1.0, 2]]]
+      target = [[2, 1], [0, 2]]
+      loss = np.zeros((N, d1))
+      for n in range(N):
+          for d_1 in range(d1):
+              c = target[n][d_1]
+              loss[n][d_1] = -input[n][c][d_1]
+      // print(loss)
+      // [[-3. -2.]
+      //  [-0. -2.]]
+  Example 2:
+      // weighted negative log likelihood loss, sum reduction
+      N, C, d1 = 2, 3, 2
+      input = [[[1.0, 2.0], [2.0, 2.0], [3.0, 2.0]],
+              [[0.0, 1.0], [2.0, 2.0], [1.0, 2]]]
+      target = [[2, 1], [0, 2]]
+      weight = [0.2, 0.3, 0.1]
+      loss = np.zeros((N, d1))
+      for n in range(N):
+          for d_1 in range(d1):
+              c = target[n][d_1]
+              loss[n][d_1] = -input[n][c][d_1] * weight[c]
+      loss = np.sum(loss)
+      // print(loss)
+      // -1.1
+  Example 3:
+      // weighted negative log likelihood loss, mean reduction
+      N, C, d1 = 2, 3, 2
+      input = [[[1.0, 2.0], [2.0, 2.0], [3.0, 2.0]],
+              [[0.0, 1.0], [2.0, 2.0], [1.0, 2]]]
+      target = [[2, 1], [0, 2]]
+      weight = [0.2, 0.3, 0.1]
+      loss = np.zeros((N, d1))
+      weight_total = 0
+      for n in range(N):
+          for d_1 in range(d1):
+              c = target[n][d_1]
+              loss[n][d_1] = -input[n][c][d_1] * weight[c]
+              weight_total = weight_total + weight[c]
+      loss = np.sum(loss) / weight_total
+      // print(loss)
+      // -1.57
 attributes:
-- name: ignore_index
-  description: Specifies a target value that is ignored and does not contribute to
-    the input gradient. It's an optional value.
-  type: AttrType.INT
-  required: false
-  default_value: null
-- name: reduction
-  description: 'Type of reduction to apply to loss: none, sum, mean (default). ''none'':
-    the output is the loss for each sample. ''sum'': the output will be summed. ''mean'':
-    the sum of the output will be divided by the sum of applied weights.'
-  type: AttrType.STRING
-  required: false
-  default_value: mean
+  - name: ignore_index
+    description: Specifies a target value that is ignored and does not contribute
+      to the input gradient. It's an optional value.
+    type: INT
+    required: false
+    default_value:
+  - name: reduction
+    description: "Type of reduction to apply to loss: none, sum, mean (default). 'none':
+      the output is the loss for each sample. 'sum': the output will be summed. 'mean':
+      the sum of the output will be divided by the sum of applied weights."
+    type: STRING
+    required: false
+    default_value: mean
 inputs:
-- name: input
-  type_str: T
-  description: Input tensor of shape (N, C) or (N, C, d1, d2, ..., dk).
-  min_arity: 1
-  tags: []
-- name: target
-  type_str: Tind
-  description: Target tensor of shape (N) or (N, d1, d2, ..., dk). Target element
-    value shall be in range of [0, C). If ignore_index is specified, it may have a
-    value outside [0, C) and the target values should either be in the range [0, C)
-    or have the value ignore_index.
-  min_arity: 1
-  tags: []
-- name: weight
-  type_str: T
-  description: Optional rescaling weight tensor. If given, it has to be a tensor of
-    size C. Otherwise, it is treated as if having all ones.
-  min_arity: 1
-  tags:
-  - optional
+  - name: input
+    type_str: T
+    description: Input tensor of shape (N, C) or (N, C, d1, d2, ..., dk).
+    min_arity: 1
+    tags: []
+  - name: target
+    type_str: Tind
+    description: Target tensor of shape (N) or (N, d1, d2, ..., dk). Target element
+      value shall be in range of [0, C). If ignore_index is specified, it may have
+      a value outside [0, C) and the target values should either be in the range [0,
+      C) or have the value ignore_index.
+    min_arity: 1
+    tags: []
+  - name: weight
+    type_str: T
+    description: Optional rescaling weight tensor. If given, it has to be a tensor
+      of size C. Otherwise, it is treated as if having all ones.
+    min_arity: 1
+    tags:
+      - optional
 outputs:
-- name: loss
-  type_str: T
-  description: The negative log likelihood loss
-  min_arity: 1
-  tags: []
+  - name: loss
+    type_str: T
+    description: The negative log likelihood loss
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input, weight, and output types to floating-point tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-- type_param_str: Tind
-  description: Constrain target to integer types
-  allowed_type_strs:
-  - tensor(int32)
-  - tensor(int64)
+  - type_param_str: T
+    description: Constrain input, weight, and output types to floating-point tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+  - type_param_str: Tind
+    description: Constrain target to integer types
+    allowed_type_strs:
+      - tensor(int32)
+      - tensor(int64)
 support_level: COMMON
 deprecated: false

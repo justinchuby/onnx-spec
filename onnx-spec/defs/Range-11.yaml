@@ -5,46 +5,69 @@ min_input: 3
 max_input: 3
 min_output: 1
 max_output: 1
-doc: "\nGenerate a tensor containing a sequence of numbers that begin at `start` and\
-  \ extends by increments of `delta`\nup to `limit` (exclusive).\n\nThe number of\
-  \ elements in the output of range is computed as below:\n\n```\nnumber_of_elements\
-  \ = max( ceil( (limit - start) / delta ) , 0 )\n```\n\nThe pseudocode determining\
-  \ the contents of the output is shown below:\n\n```\nfor(int i=0; i<number_of_elements;\
-  \ ++i) {\n  output[i] =  start + (i * delta);\n}\n```\n\nExample 1\n\n```\nInputs:\
-  \ start = 3, limit = 9, delta = 3\nOutput: [3, 6]\n```\n\nExample 2\n\n```\nInputs:\
-  \ start = 10, limit = 4, delta = -2\nOutput: [10, 8, 6]\n```\n"
+doc: |-
+  Generate a tensor containing a sequence of numbers that begin at `start` and extends by increments of `delta`
+  up to `limit` (exclusive).
+
+  The number of elements in the output of range is computed as below:
+
+  ```
+  number_of_elements = max( ceil( (limit - start) / delta ) , 0 )
+  ```
+
+  The pseudocode determining the contents of the output is shown below:
+
+  ```
+  for(int i=0; i<number_of_elements; ++i) {
+    output[i] =  start + (i * delta);
+  }
+  ```
+
+  Example 1
+
+  ```
+  Inputs: start = 3, limit = 9, delta = 3
+  Output: [3, 6]
+  ```
+
+  Example 2
+
+  ```
+  Inputs: start = 10, limit = 4, delta = -2
+  Output: [10, 8, 6]
+  ```
 attributes: []
 inputs:
-- name: start
-  type_str: T
-  description: Scalar. First entry for the range of output values.
-  min_arity: 1
-  tags: []
-- name: limit
-  type_str: T
-  description: Scalar. Exclusive upper limit for the range of output values.
-  min_arity: 1
-  tags: []
-- name: delta
-  type_str: T
-  description: Scalar. Value to step by.
-  min_arity: 1
-  tags: []
+  - name: start
+    type_str: T
+    description: Scalar. First entry for the range of output values.
+    min_arity: 1
+    tags: []
+  - name: limit
+    type_str: T
+    description: Scalar. Exclusive upper limit for the range of output values.
+    min_arity: 1
+    tags: []
+  - name: delta
+    type_str: T
+    description: Scalar. Value to step by.
+    min_arity: 1
+    tags: []
 outputs:
-- name: output
-  type_str: T
-  description: A 1-D tensor with same type as the inputs containing generated range
-    of values.
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: T
+    description: A 1-D tensor with same type as the inputs containing generated range
+      of values.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input types to common numeric type tensors.
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
+  - type_param_str: T
+    description: Constrain input types to common numeric type tensors.
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
 support_level: COMMON
 deprecated: false

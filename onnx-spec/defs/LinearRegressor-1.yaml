@@ -5,66 +5,57 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Generalized linear regression evaluation.
-
 
   If targets is set to 1 (default) then univariate regression is performed.
 
-
   If targets is set to M then M sets of coefficients must be passed in as a sequence
-
   and M results will be output for each input n in N.
 
-
-  The coefficients array is of length n, and the coefficients for each target are
-  contiguous.
-
+  The coefficients array is of length n, and the coefficients for each target are contiguous.
   Intercepts are optional but if provided must match the number of targets.
-
-  '
 attributes:
-- name: coefficients
-  description: Weights of the model(s).
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
-- name: intercepts
-  description: Weights of the intercepts, if used.
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
-- name: post_transform
-  description: Indicates the transform to apply to the regression output vector.<br>One
-    of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
-  type: AttrType.STRING
-  required: false
-  default_value: NONE
-- name: targets
-  description: The total number of regression targets, 1 if not defined.
-  type: AttrType.INT
-  required: false
-  default_value: 1
+  - name: coefficients
+    description: Weights of the model(s).
+    type: FLOATS
+    required: false
+    default_value:
+  - name: intercepts
+    description: Weights of the intercepts, if used.
+    type: FLOATS
+    required: false
+    default_value:
+  - name: post_transform
+    description: Indicates the transform to apply to the regression output vector.<br>One
+      of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    type: STRING
+    required: false
+    default_value: NONE
+  - name: targets
+    description: The total number of regression targets, 1 if not defined.
+    type: INT
+    required: false
+    default_value: 1
 inputs:
-- name: X
-  type_str: T
-  description: Data to be regressed.
-  min_arity: 1
-  tags: []
+  - name: X
+    type_str: T
+    description: Data to be regressed.
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: tensor(float)
-  description: Regression outputs (one per target, per example).
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: tensor(float)
+    description: Regression outputs (one per target, per example).
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: The input must be a tensor of a numeric type.
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
-  - tensor(int64)
-  - tensor(int32)
+  - type_param_str: T
+    description: The input must be a tensor of a numeric type.
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
+      - tensor(int64)
+      - tensor(int32)
 support_level: COMMON
 deprecated: false

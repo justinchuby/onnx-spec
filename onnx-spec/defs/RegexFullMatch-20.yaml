@@ -5,40 +5,38 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: RegexFullMatch performs a full regex match on each element of the input tensor.
-  If an element fully matches the regex pattern specified as an attribute, the corresponding
-  element in the output is True and it is False otherwise. [RE2](https://github.com/google/re2/wiki/Syntax)
-  regex syntax is used.
+doc: |-
+  RegexFullMatch performs a full regex match on each element of the input tensor. If an element fully matches the regex pattern specified as an attribute, the corresponding element in the output is True and it is False otherwise. [RE2](https://github.com/google/re2/wiki/Syntax) regex syntax is used.
 attributes:
-- name: pattern
-  description: Regex pattern to match on. This must be valid RE2 syntax.
-  type: AttrType.STRING
-  required: false
-  default_value: null
+  - name: pattern
+    description: Regex pattern to match on. This must be valid RE2 syntax.
+    type: STRING
+    required: false
+    default_value:
 inputs:
-- name: X
-  type_str: T1
-  description: Tensor with strings to match on.
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: X
+    type_str: T1
+    description: Tensor with strings to match on.
+    min_arity: 1
+    tags:
+      - non-differentiable
 outputs:
-- name: Y
-  type_str: T2
-  description: Tensor of bools indicating if each input string fully matches the regex
-    pattern specified.
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: Y
+    type_str: T2
+    description: Tensor of bools indicating if each input string fully matches the
+      regex pattern specified.
+    min_arity: 1
+    tags:
+      - non-differentiable
 type_constraints:
-- type_param_str: T1
-  description: Inputs must be UTF-8 strings
-  allowed_type_strs:
-  - tensor(string)
-- type_param_str: T2
-  description: Outputs are bools and are True where there is a full regex match and
-    False otherwise.
-  allowed_type_strs:
-  - tensor(bool)
+  - type_param_str: T1
+    description: Inputs must be UTF-8 strings
+    allowed_type_strs:
+      - tensor(string)
+  - type_param_str: T2
+    description: Outputs are bools and are True where there is a full regex match
+      and False otherwise.
+    allowed_type_strs:
+      - tensor(bool)
 support_level: COMMON
 deprecated: false

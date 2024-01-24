@@ -5,51 +5,45 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Selu takes one input data (Tensor<T>) and produces one output data
-
   (Tensor<T>) where the scaled exponential linear unit function,
-
   `y = gamma * (alpha * e^x - alpha) for x <= 0`, `y = gamma * x for x > 0`,
-
   is applied to the tensor elementwise.
-
-  '
 attributes:
-- name: alpha
-  description: Coefficient of SELU default to 1.6732.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.673200011253357
-- name: consumed_inputs
-  description: legacy optimization attribute.
-  type: AttrType.INTS
-  required: false
-  default_value: null
-- name: gamma
-  description: Coefficient of SELU default to 1.0507.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.0506999492645264
+  - name: alpha
+    description: Coefficient of SELU default to 1.6732.
+    type: FLOAT
+    required: false
+    default_value: 1.673200011253357
+  - name: consumed_inputs
+    description: legacy optimization attribute.
+    type: INTS
+    required: false
+    default_value:
+  - name: gamma
+    description: Coefficient of SELU default to 1.0507.
+    type: FLOAT
+    required: false
+    default_value: 1.0506999492645264
 inputs:
-- name: X
-  type_str: T
-  description: Input tensor
-  min_arity: 1
-  tags: []
+  - name: X
+    type_str: T
+    description: Input tensor
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: T
-  description: Output tensor
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: T
+    description: Output tensor
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

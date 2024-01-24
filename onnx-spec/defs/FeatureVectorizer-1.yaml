@@ -5,47 +5,39 @@ min_input: 1
 max_input: 2147483647
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Concatenates input tensors into one continuous output.
 
-
-  All input shapes are 2-D and are concatenated along the second dimension. 1-D tensors
-  are treated as [1,C].
-
+  All input shapes are 2-D and are concatenated along the second dimension. 1-D tensors are treated as [1,C].
   Inputs are copied to the output maintaining the order of the input arguments.
 
-
-  All inputs must be integers or floats, while the output will be all floating point
-  values.
-
-  '
+  All inputs must be integers or floats, while the output will be all floating point values.
 attributes:
-- name: inputdimensions
-  description: The size of each input in the input list
-  type: AttrType.INTS
-  required: false
-  default_value: null
+  - name: inputdimensions
+    description: The size of each input in the input list
+    type: INTS
+    required: false
+    default_value:
 inputs:
-- name: X
-  type_str: T1
-  description: An ordered collection of tensors, all with the same element type.
-  min_arity: 1
-  tags:
-  - variadic
+  - name: X
+    type_str: T1
+    description: An ordered collection of tensors, all with the same element type.
+    min_arity: 1
+    tags:
+      - variadic
 outputs:
-- name: Y
-  type_str: tensor(float)
-  description: The output array, elements ordered as the inputs.
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: tensor(float)
+    description: The output array, elements ordered as the inputs.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T1
-  description: The input type must be a tensor of a numeric type.
-  allowed_type_strs:
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T1
+    description: The input type must be a tensor of a numeric type.
+    allowed_type_strs:
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

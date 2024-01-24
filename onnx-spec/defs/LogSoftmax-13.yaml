@@ -5,45 +5,43 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: "\nThe operator computes the log of softmax values for the given input:\n\n LogSoftmax(input,\
-  \ axis) = Log(Softmax(input, axis=axis))\n\nThe \"axis\" attribute indicates the\
-  \ dimension along which LogSoftmax\nwill be performed. The output tensor has the\
-  \ same shape\nand contains the LogSoftmax values of the corresponding input.\n"
+doc: |-
+  The operator computes the log of softmax values for the given input:
+
+   LogSoftmax(input, axis) = Log(Softmax(input, axis=axis))
+
+  The "axis" attribute indicates the dimension along which LogSoftmax
+  will be performed. The output tensor has the same shape
+  and contains the LogSoftmax values of the corresponding input.
 attributes:
-- name: axis
-  description: '
-
-    Describes the dimension LogSoftmax will be performed on.
-
-    Negative value means counting dimensions
-
-    from the back. Accepted range is [-r, r-1] where r = rank(input).
-
-    '
-  type: AttrType.INT
-  required: false
-  default_value: -1
+  - name: axis
+    description: "\nDescribes the dimension LogSoftmax will be performed on.\nNegative
+      value means counting dimensions\nfrom the back. Accepted range is [-r, r-1]
+      where r = rank(input).\n"
+    type: INT
+    required: false
+    default_value: -1
 inputs:
-- name: input
-  type_str: T
-  description: The input tensor of rank >= axis.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: input
+    type_str: T
+    description: The input tensor of rank >= axis.
+    min_arity: 1
+    tags:
+      - differentiable
 outputs:
-- name: output
-  type_str: T
-  description: The output values with the same shape as the input tensor.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: output
+    type_str: T
+    description: The output values with the same shape as the input tensor.
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(bfloat16)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(bfloat16)
 support_level: COMMON
 deprecated: false

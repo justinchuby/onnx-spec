@@ -5,40 +5,35 @@ min_input: 2
 max_input: 2
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Pow takes input data (Tensor<T>) and exponent Tensor, and
-
   produces one output data (Tensor<T>) where the function `f(x) = x^exponent`,
-
   is applied to the data tensor elementwise.
-
-  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for
-  more details please check [the doc](Broadcasting.md).'
+  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for more details please check [the doc](Broadcasting.md).
 attributes: []
 inputs:
-- name: X
-  type_str: T
-  description: First operand, base of the exponent.
-  min_arity: 1
-  tags: []
-- name: Y
-  type_str: T
-  description: Second operand, power of the exponent.
-  min_arity: 1
-  tags: []
+  - name: X
+    type_str: T
+    description: First operand, base of the exponent.
+    min_arity: 1
+    tags: []
+  - name: Y
+    type_str: T
+    description: Second operand, power of the exponent.
+    min_arity: 1
+    tags: []
 outputs:
-- name: Z
-  type_str: T
-  description: Output tensor.
-  min_arity: 1
-  tags: []
+  - name: Z
+    type_str: T
+    description: Output tensor.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

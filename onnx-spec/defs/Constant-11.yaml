@@ -5,49 +5,45 @@ min_input: 0
 max_input: 0
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   A constant tensor. Exactly one of the two attributes, either value or sparse_value,
-
   must be specified.
-
-  '
 attributes:
-- name: sparse_value
-  description: The value for the elements of the output tensor in sparse format.
-  type: AttrType.SPARSE_TENSOR
-  required: false
-  default_value: null
-- name: value
-  description: The value for the elements of the output tensor.
-  type: AttrType.TENSOR
-  required: false
-  default_value: null
+  - name: sparse_value
+    description: The value for the elements of the output tensor in sparse format.
+    type: SPARSE_TENSOR
+    required: false
+    default_value:
+  - name: value
+    description: The value for the elements of the output tensor.
+    type: TENSOR
+    required: false
+    default_value:
 inputs: []
 outputs:
-- name: output
-  type_str: T
-  description: Output tensor containing the same value of the provided tensor.
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: T
+    description: Output tensor containing the same value of the provided tensor.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to all tensor types.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
+  - type_param_str: T
+    description: Constrain input and output types to all tensor types.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
 support_level: COMMON
 deprecated: false

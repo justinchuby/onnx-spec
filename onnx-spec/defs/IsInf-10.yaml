@@ -5,45 +5,46 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: Map infinity to true and other values to false.
+doc: |-
+  Map infinity to true and other values to false.
 attributes:
-- name: detect_negative
-  description: (Optional) Whether map negative infinity to true. Default to 1 so that
-    negative infinity induces true. Set this attribute to 0 if negative infinity should
-    be mapped to false.
-  type: AttrType.INT
-  required: false
-  default_value: 1
-- name: detect_positive
-  description: (Optional) Whether map positive infinity to true. Default to 1 so that
-    positive infinity induces true. Set this attribute to 0 if positive infinity should
-    be mapped to false.
-  type: AttrType.INT
-  required: false
-  default_value: 1
+  - name: detect_negative
+    description: (Optional) Whether map negative infinity to true. Default to 1 so
+      that negative infinity induces true. Set this attribute to 0 if negative infinity
+      should be mapped to false.
+    type: INT
+    required: false
+    default_value: 1
+  - name: detect_positive
+    description: (Optional) Whether map positive infinity to true. Default to 1 so
+      that positive infinity induces true. Set this attribute to 0 if positive infinity
+      should be mapped to false.
+    type: INT
+    required: false
+    default_value: 1
 inputs:
-- name: X
-  type_str: T1
-  description: input
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: X
+    type_str: T1
+    description: input
+    min_arity: 1
+    tags:
+      - non-differentiable
 outputs:
-- name: Y
-  type_str: T2
-  description: output
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: Y
+    type_str: T2
+    description: output
+    min_arity: 1
+    tags:
+      - non-differentiable
 type_constraints:
-- type_param_str: T1
-  description: Constrain input types to float tensors.
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
-- type_param_str: T2
-  description: Constrain output types to boolean tensors.
-  allowed_type_strs:
-  - tensor(bool)
+  - type_param_str: T1
+    description: Constrain input types to float tensors.
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
+  - type_param_str: T2
+    description: Constrain output types to boolean tensors.
+    allowed_type_strs:
+      - tensor(bool)
 support_level: COMMON
 deprecated: false

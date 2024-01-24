@@ -5,73 +5,68 @@ min_input: 2
 max_input: 4
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Matrix product that behaves like numpy.matmul: https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.matmul.html.
-
-  The production MUST never overflow. The accumulation may overflow if and only if
-  in 32 bits.
-
-  '
+  The production MUST never overflow. The accumulation may overflow if and only if in 32 bits.
 attributes: []
 inputs:
-- name: A
-  type_str: T1
-  description: N-dimensional matrix A
-  min_arity: 1
-  tags:
-  - non-differentiable
-- name: B
-  type_str: T2
-  description: N-dimensional matrix B
-  min_arity: 1
-  tags:
-  - non-differentiable
-- name: a_zero_point
-  type_str: T1
-  description: 'Zero point tensor for input ''A''. It''s optional and default value
-    is 0. It could be a scalar or N-D tensor. Scalar refers to per tensor quantization
-    whereas N-D refers to per row quantization. If the input is 2D of shape [M, K]
-    then zero point tensor may be an M element vector [zp_1, zp_2, ..., zp_M]. If
-    the input is N-D tensor with shape [D1, D2, M, K] then zero point tensor may have
-    shape [D1, D2, M, 1]. '
-  min_arity: 1
-  tags:
-  - optional
-  - non-differentiable
-- name: b_zero_point
-  type_str: T2
-  description: 'Zero point tensor for input ''B''. It''s optional and default value
-    is 0. It could be a scalar or a N-D tensor, Scalar refers to per tensor quantization
-    whereas N-D refers to per col quantization. If the input is 2D of shape [K, N]
-    then zero point tensor may be an N element vector [zp_1, zp_2, ..., zp_N]. If
-    the input is N-D tensor with shape [D1, D2, K, N] then zero point tensor may have
-    shape [D1, D2, 1, N]. '
-  min_arity: 1
-  tags:
-  - optional
-  - non-differentiable
+  - name: A
+    type_str: T1
+    description: N-dimensional matrix A
+    min_arity: 1
+    tags:
+      - non-differentiable
+  - name: B
+    type_str: T2
+    description: N-dimensional matrix B
+    min_arity: 1
+    tags:
+      - non-differentiable
+  - name: a_zero_point
+    type_str: T1
+    description: "Zero point tensor for input 'A'. It's optional and default value
+      is 0. It could be a scalar or N-D tensor. Scalar refers to per tensor quantization
+      whereas N-D refers to per row quantization. If the input is 2D of shape [M,
+      K] then zero point tensor may be an M element vector [zp_1, zp_2, ..., zp_M].
+      If the input is N-D tensor with shape [D1, D2, M, K] then zero point tensor
+      may have shape [D1, D2, M, 1]. "
+    min_arity: 1
+    tags:
+      - optional
+      - non-differentiable
+  - name: b_zero_point
+    type_str: T2
+    description: "Zero point tensor for input 'B'. It's optional and default value
+      is 0. It could be a scalar or a N-D tensor, Scalar refers to per tensor quantization
+      whereas N-D refers to per col quantization. If the input is 2D of shape [K,
+      N] then zero point tensor may be an N element vector [zp_1, zp_2, ..., zp_N].
+      If the input is N-D tensor with shape [D1, D2, K, N] then zero point tensor
+      may have shape [D1, D2, 1, N]. "
+    min_arity: 1
+    tags:
+      - optional
+      - non-differentiable
 outputs:
-- name: Y
-  type_str: T3
-  description: Matrix multiply results from A * B
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: Y
+    type_str: T3
+    description: Matrix multiply results from A * B
+    min_arity: 1
+    tags:
+      - non-differentiable
 type_constraints:
-- type_param_str: T1
-  description: Constrain input A data type to 8-bit integer tensor.
-  allowed_type_strs:
-  - tensor(int8)
-  - tensor(uint8)
-- type_param_str: T2
-  description: Constrain input B data type to 8-bit integer tensor.
-  allowed_type_strs:
-  - tensor(int8)
-  - tensor(uint8)
-- type_param_str: T3
-  description: Constrain output Y data type as 32-bit integer tensor.
-  allowed_type_strs:
-  - tensor(int32)
+  - type_param_str: T1
+    description: Constrain input A data type to 8-bit integer tensor.
+    allowed_type_strs:
+      - tensor(int8)
+      - tensor(uint8)
+  - type_param_str: T2
+    description: Constrain input B data type to 8-bit integer tensor.
+    allowed_type_strs:
+      - tensor(int8)
+      - tensor(uint8)
+  - type_param_str: T3
+    description: Constrain output Y data type as 32-bit integer tensor.
+    allowed_type_strs:
+      - tensor(int32)
 support_level: COMMON
 deprecated: false

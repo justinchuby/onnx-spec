@@ -5,42 +5,37 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   LeakyRelu takes input data (Tensor<T>) and an argument alpha, and produces one
-
   output data (Tensor<T>) where the function `f(x) = alpha * x for x < 0`,
-
   `f(x) = x for x >= 0`, is applied to the data tensor elementwise.
-
-  '
 attributes:
-- name: alpha
-  description: Coefficient of leakage.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 0.009999999776482582
+  - name: alpha
+    description: Coefficient of leakage.
+    type: FLOAT
+    required: false
+    default_value: 0.009999999776482582
 inputs:
-- name: X
-  type_str: T
-  description: Input tensor
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: X
+    type_str: T
+    description: Input tensor
+    min_arity: 1
+    tags:
+      - differentiable
 outputs:
-- name: Y
-  type_str: T
-  description: Output tensor
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: Y
+    type_str: T
+    description: Output tensor
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(bfloat16)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(bfloat16)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

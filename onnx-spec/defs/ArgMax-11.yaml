@@ -5,56 +5,50 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
-  Computes the indices of the max elements of the input tensor''s element along the
-
-  provided axis. The resulting tensor has the same rank as the input if keepdims equals
-  1.
-
+doc: |-
+  Computes the indices of the max elements of the input tensor's element along the
+  provided axis. The resulting tensor has the same rank as the input if keepdims equals 1.
   If keepdims equal 0, then the resulting tensor has the reduced dimension pruned.
-
   The input tensor must not be empty.
-
-  The type of the output tensor is integer.'
+  The type of the output tensor is integer.
 attributes:
-- name: axis
-  description: The axis in which to compute the arg indices. Accepted range is [-r,
-    r-1] where r = rank(data).
-  type: AttrType.INT
-  required: false
-  default_value: 0
-- name: keepdims
-  description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
-  type: AttrType.INT
-  required: false
-  default_value: 1
+  - name: axis
+    description: The axis in which to compute the arg indices. Accepted range is [-r,
+      r-1] where r = rank(data).
+    type: INT
+    required: false
+    default_value: 0
+  - name: keepdims
+    description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
+    type: INT
+    required: false
+    default_value: 1
 inputs:
-- name: data
-  type_str: T
-  description: An input tensor.
-  min_arity: 1
-  tags: []
+  - name: data
+    type_str: T
+    description: An input tensor.
+    min_arity: 1
+    tags: []
 outputs:
-- name: reduced
-  type_str: tensor(int64)
-  description: Reduced output tensor with integer data type.
-  min_arity: 1
-  tags: []
+  - name: reduced
+    type_str: tensor(int64)
+    description: Reduced output tensor with integer data type.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to all numeric tensors.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to all numeric tensors.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

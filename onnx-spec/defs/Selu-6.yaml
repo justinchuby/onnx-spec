@@ -5,50 +5,44 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Selu takes one input data (Tensor<T>) and produces one output data
-
   (Tensor<T>) where the scaled exponential linear unit function,
-
   `y = gamma * (alpha * e^x - alpha) for x <= 0`, `y = gamma * x for x > 0`,
-
   is applied to the tensor elementwise.
-
-  '
 attributes:
-- name: alpha
-  description: Coefficient of SELU default to 1.67326319217681884765625 (i.e., float32
-    approximation of 1.6732632423543772848170429916717).
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.6732631921768188
-- name: gamma
-  description: Coefficient of SELU default to 1.05070102214813232421875 (i.e., float32
-    approximation of 1.0507009873554804934193349852946).
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.0507010221481323
+  - name: alpha
+    description: Coefficient of SELU default to 1.67326319217681884765625 (i.e., float32
+      approximation of 1.6732632423543772848170429916717).
+    type: FLOAT
+    required: false
+    default_value: 1.6732631921768188
+  - name: gamma
+    description: Coefficient of SELU default to 1.05070102214813232421875 (i.e., float32
+      approximation of 1.0507009873554804934193349852946).
+    type: FLOAT
+    required: false
+    default_value: 1.0507010221481323
 inputs:
-- name: X
-  type_str: T
-  description: Input tensor
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: X
+    type_str: T
+    description: Input tensor
+    min_arity: 1
+    tags:
+      - differentiable
 outputs:
-- name: Y
-  type_str: T
-  description: Output tensor
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: Y
+    type_str: T
+    description: Output tensor
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

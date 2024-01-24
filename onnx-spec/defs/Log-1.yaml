@@ -5,35 +5,32 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Calculates the natural log of the given input tensor, element-wise.
-
-  '
 attributes:
-- name: consumed_inputs
-  description: legacy optimization attribute.
-  type: AttrType.INTS
-  required: false
-  default_value: null
+  - name: consumed_inputs
+    description: legacy optimization attribute.
+    type: INTS
+    required: false
+    default_value:
 inputs:
-- name: input
-  type_str: T
-  description: Input tensor
-  min_arity: 1
-  tags: []
+  - name: input
+    type_str: T
+    description: Input tensor
+    min_arity: 1
+    tags: []
 outputs:
-- name: output
-  type_str: T
-  description: The natural log of the input tensor computed element-wise
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: T
+    description: The natural log of the input tensor computed element-wise
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

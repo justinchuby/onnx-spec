@@ -5,46 +5,40 @@ min_input: 2
 max_input: 2
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Returns the tensor resulted from performing the `xor` logical operation
-
   elementwise on the input tensors `A` and `B` (with Numpy-style broadcasting support).
 
-
-  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for
-  more details please check [the doc](Broadcasting.md).
-
-  '
+  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for more details please check [the doc](Broadcasting.md).
 attributes: []
 inputs:
-- name: A
-  type_str: T
-  description: First input operand for the logical operator.
-  min_arity: 1
-  tags:
-  - non-differentiable
-- name: B
-  type_str: T
-  description: Second input operand for the logical operator.
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: A
+    type_str: T
+    description: First input operand for the logical operator.
+    min_arity: 1
+    tags:
+      - non-differentiable
+  - name: B
+    type_str: T
+    description: Second input operand for the logical operator.
+    min_arity: 1
+    tags:
+      - non-differentiable
 outputs:
-- name: C
-  type_str: T1
-  description: Result tensor.
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: C
+    type_str: T1
+    description: Result tensor.
+    min_arity: 1
+    tags:
+      - non-differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input to boolean tensor.
-  allowed_type_strs:
-  - tensor(bool)
-- type_param_str: T1
-  description: Constrain output to boolean tensor.
-  allowed_type_strs:
-  - tensor(bool)
+  - type_param_str: T
+    description: Constrain input to boolean tensor.
+    allowed_type_strs:
+      - tensor(bool)
+  - type_param_str: T1
+    description: Constrain output to boolean tensor.
+    allowed_type_strs:
+      - tensor(bool)
 support_level: COMMON
 deprecated: false

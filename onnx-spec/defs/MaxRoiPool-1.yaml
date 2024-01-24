@@ -5,55 +5,52 @@ min_input: 2
 max_input: 2
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   ROI max pool consumes an input tensor X and region of interests (RoIs) to
-
   apply max pooling across each RoI, to produce output 4-D tensor of shape
-
-  (num_rois, channels, pooled_shape[0], pooled_shape[1]).'
+  (num_rois, channels, pooled_shape[0], pooled_shape[1]).
 attributes:
-- name: pooled_shape
-  description: ROI pool output shape (height, width).
-  type: AttrType.INTS
-  required: true
-  default_value: null
-- name: spatial_scale
-  description: Multiplicative spatial scale factor to translate ROI coordinates from
-    their input scale to the scale used when pooling.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.0
+  - name: pooled_shape
+    description: ROI pool output shape (height, width).
+    type: INTS
+    required: true
+    default_value:
+  - name: spatial_scale
+    description: Multiplicative spatial scale factor to translate ROI coordinates
+      from their input scale to the scale used when pooling.
+    type: FLOAT
+    required: false
+    default_value: 1.0
 inputs:
-- name: X
-  type_str: T
-  description: Input data tensor from the previous operator; dimensions for image
-    case are (N x C x H x W), where N is the batch size, C is the number of channels,
-    and H and W are the height and the width of the data.
-  min_arity: 1
-  tags:
-  - differentiable
-- name: rois
-  type_str: T
-  description: RoIs (Regions of Interest) to pool over. Should be a 2-D tensor of
-    shape (num_rois, 5) given as [[batch_id, x1, y1, x2, y2], ...].
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: X
+    type_str: T
+    description: Input data tensor from the previous operator; dimensions for image
+      case are (N x C x H x W), where N is the batch size, C is the number of channels,
+      and H and W are the height and the width of the data.
+    min_arity: 1
+    tags:
+      - differentiable
+  - name: rois
+    type_str: T
+    description: RoIs (Regions of Interest) to pool over. Should be a 2-D tensor of
+      shape (num_rois, 5) given as [[batch_id, x1, y1, x2, y2], ...].
+    min_arity: 1
+    tags:
+      - non-differentiable
 outputs:
-- name: Y
-  type_str: T
-  description: RoI pooled output 4-D tensor of shape (num_rois, channels, pooled_shape[0],
-    pooled_shape[1]).
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: Y
+    type_str: T
+    description: RoI pooled output 4-D tensor of shape (num_rois, channels, pooled_shape[0],
+      pooled_shape[1]).
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

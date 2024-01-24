@@ -5,70 +5,64 @@ min_input: 2
 max_input: 2
 min_output: 1
 max_output: 1
-doc: '
-
-  Selects slices from an input tensor along a given axis where condition evaluates
-  to True for each axis index.
-
+doc: |-
+  Selects slices from an input tensor along a given axis where condition evaluates to True for each axis index.
   In case axis is not provided, input is flattened before elements are selected.
-
   Compress behaves like numpy.compress: https://docs.scipy.org/doc/numpy/reference/generated/numpy.compress.html
-
-  '
 attributes:
-- name: axis
-  description: (Optional) Axis along which to take slices. If not specified, input
-    is flattened before elements being selected. Negative value means counting dimensions
-    from the back. Accepted range is [-r, r-1] where r = rank(input).
-  type: AttrType.INT
-  required: false
-  default_value: null
+  - name: axis
+    description: (Optional) Axis along which to take slices. If not specified, input
+      is flattened before elements being selected. Negative value means counting dimensions
+      from the back. Accepted range is [-r, r-1] where r = rank(input).
+    type: INT
+    required: false
+    default_value:
 inputs:
-- name: input
-  type_str: T
-  description: Tensor of rank r >= 1.
-  min_arity: 1
-  tags:
-  - differentiable
-- name: condition
-  type_str: T1
-  description: Rank 1 tensor of booleans to indicate which slices or data elements
-    to be selected. Its length can be less than the input length along the axis or
-    the flattened input size if axis is not specified. In such cases data slices or
-    elements exceeding the condition length are discarded.
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: input
+    type_str: T
+    description: Tensor of rank r >= 1.
+    min_arity: 1
+    tags:
+      - differentiable
+  - name: condition
+    type_str: T1
+    description: Rank 1 tensor of booleans to indicate which slices or data elements
+      to be selected. Its length can be less than the input length along the axis
+      or the flattened input size if axis is not specified. In such cases data slices
+      or elements exceeding the condition length are discarded.
+    min_arity: 1
+    tags:
+      - non-differentiable
 outputs:
-- name: output
-  type_str: T
-  description: Tensor of rank r if axis is specified. Otherwise output is a Tensor
-    of rank 1.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: output
+    type_str: T
+    description: Tensor of rank r if axis is specified. Otherwise output is a Tensor
+      of rank 1.
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to all tensor types.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
-- type_param_str: T1
-  description: Constrain to boolean tensors.
-  allowed_type_strs:
-  - tensor(bool)
+  - type_param_str: T
+    description: Constrain input and output types to all tensor types.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
+  - type_param_str: T1
+    description: Constrain to boolean tensors.
+    allowed_type_strs:
+      - tensor(bool)
 support_level: COMMON
 deprecated: false

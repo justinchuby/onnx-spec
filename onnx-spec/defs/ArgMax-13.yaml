@@ -5,71 +5,61 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
-  Computes the indices of the max elements of the input tensor''s element along the
-
-  provided axis. The resulting tensor has the same rank as the input if keepdims equals
-  1.
-
+doc: |-
+  Computes the indices of the max elements of the input tensor's element along the
+  provided axis. The resulting tensor has the same rank as the input if keepdims equals 1.
   If keepdims equals 0, then the resulting tensor has the reduced dimension pruned.
-
-  If select_last_index is True (default False), the index of the last occurrence of
-  the max
-
-  is selected if the max appears more than once in the input. Otherwise the index
-  of the
-
+  If select_last_index is True (default False), the index of the last occurrence of the max
+  is selected if the max appears more than once in the input. Otherwise the index of the
   first occurrence is selected.
-
-  The type of the output tensor is integer.'
+  The type of the output tensor is integer.
 attributes:
-- name: axis
-  description: The axis in which to compute the arg indices. Accepted range is [-r,
-    r-1] where r = rank(data).
-  type: AttrType.INT
-  required: false
-  default_value: 0
-- name: keepdims
-  description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
-  type: AttrType.INT
-  required: false
-  default_value: 1
-- name: select_last_index
-  description: Whether to select the last index or the first index if the {name} appears
-    in multiple indices, default is False (first index).
-  type: AttrType.INT
-  required: false
-  default_value: 0
+  - name: axis
+    description: The axis in which to compute the arg indices. Accepted range is [-r,
+      r-1] where r = rank(data).
+    type: INT
+    required: false
+    default_value: 0
+  - name: keepdims
+    description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
+    type: INT
+    required: false
+    default_value: 1
+  - name: select_last_index
+    description: Whether to select the last index or the first index if the {name}
+      appears in multiple indices, default is False (first index).
+    type: INT
+    required: false
+    default_value: 0
 inputs:
-- name: data
-  type_str: T
-  description: An input tensor.
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: data
+    type_str: T
+    description: An input tensor.
+    min_arity: 1
+    tags:
+      - non-differentiable
 outputs:
-- name: reduced
-  type_str: tensor(int64)
-  description: Reduced output tensor with integer data type.
-  min_arity: 1
-  tags:
-  - non-differentiable
+  - name: reduced
+    type_str: tensor(int64)
+    description: Reduced output tensor with integer data type.
+    min_arity: 1
+    tags:
+      - non-differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to all numeric tensors.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(bfloat16)
+  - type_param_str: T
+    description: Constrain input and output types to all numeric tensors.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(bfloat16)
 support_level: COMMON
 deprecated: false

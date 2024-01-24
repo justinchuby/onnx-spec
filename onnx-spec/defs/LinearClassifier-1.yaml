@@ -5,75 +5,72 @@ min_input: 1
 max_input: 1
 min_output: 2
 max_output: 2
-doc: '
-
+doc: |-
   Linear classifier
-
-  '
 attributes:
-- name: classlabels_ints
-  description: Class labels when using integer labels. One and only one 'classlabels'
-    attribute must be defined.
-  type: AttrType.INTS
-  required: false
-  default_value: null
-- name: classlabels_strings
-  description: Class labels when using string labels. One and only one 'classlabels'
-    attribute must be defined.
-  type: AttrType.STRINGS
-  required: false
-  default_value: null
-- name: coefficients
-  description: A collection of weights of the model(s).
-  type: AttrType.FLOATS
-  required: true
-  default_value: null
-- name: intercepts
-  description: A collection of intercepts.
-  type: AttrType.FLOATS
-  required: false
-  default_value: null
-- name: multi_class
-  description: Indicates whether to do OvR or multinomial (0=OvR is the default).
-  type: AttrType.INT
-  required: false
-  default_value: 0
-- name: post_transform
-  description: Indicates the transform to apply to the scores vector.<br>One of 'NONE,'
-    'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
-  type: AttrType.STRING
-  required: false
-  default_value: NONE
+  - name: classlabels_ints
+    description: Class labels when using integer labels. One and only one 'classlabels'
+      attribute must be defined.
+    type: INTS
+    required: false
+    default_value:
+  - name: classlabels_strings
+    description: Class labels when using string labels. One and only one 'classlabels'
+      attribute must be defined.
+    type: STRINGS
+    required: false
+    default_value:
+  - name: coefficients
+    description: A collection of weights of the model(s).
+    type: FLOATS
+    required: true
+    default_value:
+  - name: intercepts
+    description: A collection of intercepts.
+    type: FLOATS
+    required: false
+    default_value:
+  - name: multi_class
+    description: Indicates whether to do OvR or multinomial (0=OvR is the default).
+    type: INT
+    required: false
+    default_value: 0
+  - name: post_transform
+    description: Indicates the transform to apply to the scores vector.<br>One of
+      'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    type: STRING
+    required: false
+    default_value: NONE
 inputs:
-- name: X
-  type_str: T1
-  description: Data to be classified.
-  min_arity: 1
-  tags: []
+  - name: X
+    type_str: T1
+    description: Data to be classified.
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: T2
-  description: Classification outputs (one class per example).
-  min_arity: 1
-  tags: []
-- name: Z
-  type_str: tensor(float)
-  description: Classification scores ([N,E] - one score for each class and example
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: T2
+    description: Classification outputs (one class per example).
+    min_arity: 1
+    tags: []
+  - name: Z
+    type_str: tensor(float)
+    description: Classification scores ([N,E] - one score for each class and example
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T1
-  description: The input must be a tensor of a numeric type, and of shape [N,C] or
-    [C]. In the latter case, it will be treated as [1,C]
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
-  - tensor(int64)
-  - tensor(int32)
-- type_param_str: T2
-  description: The output will be a tensor of strings or integers.
-  allowed_type_strs:
-  - tensor(string)
-  - tensor(int64)
+  - type_param_str: T1
+    description: The input must be a tensor of a numeric type, and of shape [N,C]
+      or [C]. In the latter case, it will be treated as [1,C]
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
+      - tensor(int64)
+      - tensor(int32)
+  - type_param_str: T2
+    description: The output will be a tensor of strings or integers.
+    allowed_type_strs:
+      - tensor(string)
+      - tensor(int64)
 support_level: COMMON
 deprecated: false

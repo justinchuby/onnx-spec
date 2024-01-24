@@ -5,60 +5,54 @@ min_input: 3
 max_input: 3
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Carries out instance normalization as described in the paper
-
   https://arxiv.org/abs/1607.08022.
 
-
   y = scale * (x - mean) / sqrt(variance + epsilon) + B,
-
   where mean and variance are computed per instance per channel.
-
-
-  '
 attributes:
-- name: epsilon
-  description: The epsilon value to use to avoid division by zero.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 9.999999747378752e-06
+  - name: epsilon
+    description: The epsilon value to use to avoid division by zero.
+    type: FLOAT
+    required: false
+    default_value: 9.999999747378752e-06
 inputs:
-- name: input
-  type_str: T
-  description: Input data tensor from the previous operator; dimensions for image
-    case are (N x C x H x W), where N is the batch size, C is the number of channels,
-    and H and W are the height and the width of the data. For non image case, the
-    dimensions are in the form of (N x C x D1 x D2 ... Dn), where N is the batch size.
-  min_arity: 1
-  tags:
-  - differentiable
-- name: scale
-  type_str: T
-  description: The input 1-dimensional scale tensor of size C.
-  min_arity: 1
-  tags:
-  - differentiable
-- name: B
-  type_str: T
-  description: The input 1-dimensional bias tensor of size C.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: input
+    type_str: T
+    description: Input data tensor from the previous operator; dimensions for image
+      case are (N x C x H x W), where N is the batch size, C is the number of channels,
+      and H and W are the height and the width of the data. For non image case, the
+      dimensions are in the form of (N x C x D1 x D2 ... Dn), where N is the batch
+      size.
+    min_arity: 1
+    tags:
+      - differentiable
+  - name: scale
+    type_str: T
+    description: The input 1-dimensional scale tensor of size C.
+    min_arity: 1
+    tags:
+      - differentiable
+  - name: B
+    type_str: T
+    description: The input 1-dimensional bias tensor of size C.
+    min_arity: 1
+    tags:
+      - differentiable
 outputs:
-- name: output
-  type_str: T
-  description: The output tensor of the same shape as input.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: output
+    type_str: T
+    description: The output tensor of the same shape as input.
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

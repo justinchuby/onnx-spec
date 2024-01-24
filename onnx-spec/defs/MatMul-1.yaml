@@ -5,35 +5,32 @@ min_input: 2
 max_input: 2
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Matrix product that behaves like numpy.matmul: https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.matmul.html
-
-  '
 attributes: []
 inputs:
-- name: A
-  type_str: T
-  description: N-dimensional matrix A
-  min_arity: 1
-  tags: []
-- name: B
-  type_str: T
-  description: N-dimensional matrix B
-  min_arity: 1
-  tags: []
+  - name: A
+    type_str: T
+    description: N-dimensional matrix A
+    min_arity: 1
+    tags: []
+  - name: B
+    type_str: T
+    description: N-dimensional matrix B
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: T
-  description: Matrix multiply results from A * B
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: T
+    description: Matrix multiply results from A * B
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

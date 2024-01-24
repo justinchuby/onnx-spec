@@ -5,63 +5,54 @@ min_input: 0
 max_input: 0
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Generate a tensor with random values drawn from a normal distribution. The shape
-
-  of the tensor is specified by the `shape` argument and the parameter of the normal
-  distribution
-
+  of the tensor is specified by the `shape` argument and the parameter of the normal distribution
   specified by `mean` and `scale`.
 
-
-  The data type is specified by the ''dtype'' argument. The ''dtype'' argument must
-
-  be one of the data types specified in the ''DataType'' enum field in the
-
+  The data type is specified by the 'dtype' argument. The 'dtype' argument must
+  be one of the data types specified in the 'DataType' enum field in the
   TensorProto message.
-
-  '
 attributes:
-- name: dtype
-  description: The data type for the elements of the output tensor. Default is TensorProto::FLOAT.
-  type: AttrType.INT
-  required: false
-  default_value: 1
-- name: mean
-  description: The mean of the normal distribution.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 0.0
-- name: scale
-  description: The standard deviation of the normal distribution.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.0
-- name: seed
-  description: (Optional) Seed to the random generator, if not specified we will auto
-    generate one.
-  type: AttrType.FLOAT
-  required: false
-  default_value: null
-- name: shape
-  description: The shape of the output tensor.
-  type: AttrType.INTS
-  required: true
-  default_value: null
+  - name: dtype
+    description: The data type for the elements of the output tensor. Default is TensorProto::FLOAT.
+    type: INT
+    required: false
+    default_value: 1
+  - name: mean
+    description: The mean of the normal distribution.
+    type: FLOAT
+    required: false
+    default_value: 0.0
+  - name: scale
+    description: The standard deviation of the normal distribution.
+    type: FLOAT
+    required: false
+    default_value: 1.0
+  - name: seed
+    description: (Optional) Seed to the random generator, if not specified we will
+      auto generate one.
+    type: FLOAT
+    required: false
+    default_value:
+  - name: shape
+    description: The shape of the output tensor.
+    type: INTS
+    required: true
+    default_value:
 inputs: []
 outputs:
-- name: output
-  type_str: T
-  description: Output tensor of random values drawn from normal distribution
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: T
+    description: Output tensor of random values drawn from normal distribution
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

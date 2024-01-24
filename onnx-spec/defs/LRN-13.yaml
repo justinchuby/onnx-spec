@@ -5,79 +5,65 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Local Response Normalization proposed in the [AlexNet paper](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf).
-
   It normalizes over local input regions.
-
-  The local region is defined across the channels. For an element `X[n, c, d1, ...,
-  dk]` in a tensor
-
+  The local region is defined across the channels. For an element `X[n, c, d1, ..., dk]` in a tensor
   of shape `(N x C x D1 x D2, ..., Dk)`, its region is
-
-  `{X[n, i, d1, ..., dk] | max(0, c - floor((size - 1) / 2)) <= i <= min(C - 1, c
-  + ceil((size - 1) / 2))}`.
-
+  `{X[n, i, d1, ..., dk] | max(0, c - floor((size - 1) / 2)) <= i <= min(C - 1, c + ceil((size - 1) / 2))}`.
 
   `square_sum[n, c, d1, ..., dk] = sum(X[n, i, d1, ..., dk] ^ 2)`,
+  where `max(0, c - floor((size - 1) / 2)) <= i <= min(C - 1, c + ceil((size - 1) / 2))`.
 
-  where `max(0, c - floor((size - 1) / 2)) <= i <= min(C - 1, c + ceil((size - 1)
-  / 2))`.
-
-
-  `Y[n, c, d1, ..., dk] = X[n, c, d1, ..., dk] / (bias + alpha / size * square_sum[n,
-  c, d1, ..., dk] ) ^ beta`
-
-  '
+  `Y[n, c, d1, ..., dk] = X[n, c, d1, ..., dk] / (bias + alpha / size * square_sum[n, c, d1, ..., dk] ) ^ beta`
 attributes:
-- name: alpha
-  description: Scaling parameter.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 9.999999747378752e-05
-- name: beta
-  description: The exponent.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 0.75
-- name: bias
-  description: ''
-  type: AttrType.FLOAT
-  required: false
-  default_value: 1.0
-- name: size
-  description: The number of channels to sum over
-  type: AttrType.INT
-  required: true
-  default_value: null
+  - name: alpha
+    description: Scaling parameter.
+    type: FLOAT
+    required: false
+    default_value: 9.999999747378752e-05
+  - name: beta
+    description: The exponent.
+    type: FLOAT
+    required: false
+    default_value: 0.75
+  - name: bias
+    description: ''
+    type: FLOAT
+    required: false
+    default_value: 1.0
+  - name: size
+    description: The number of channels to sum over
+    type: INT
+    required: true
+    default_value:
 inputs:
-- name: X
-  type_str: T
-  description: Input data tensor from the previous operator; dimensions for image
-    case are (N x C x H x W), where N is the batch size, C is the number of channels,
-    and H and W are the height and the width of the data. For non image case, the
-    dimensions are in the form of (N x C x D1 x D2 ... Dn), where N is the batch size.
-    Optionally, if dimension denotation is in effect, the operation expects the input
-    data tensor to arrive with the dimension denotation of [DATA_BATCH, DATA_CHANNEL,
-    DATA_FEATURE, DATA_FEATURE ...].
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: X
+    type_str: T
+    description: Input data tensor from the previous operator; dimensions for image
+      case are (N x C x H x W), where N is the batch size, C is the number of channels,
+      and H and W are the height and the width of the data. For non image case, the
+      dimensions are in the form of (N x C x D1 x D2 ... Dn), where N is the batch
+      size. Optionally, if dimension denotation is in effect, the operation expects
+      the input data tensor to arrive with the dimension denotation of [DATA_BATCH,
+      DATA_CHANNEL, DATA_FEATURE, DATA_FEATURE ...].
+    min_arity: 1
+    tags:
+      - differentiable
 outputs:
-- name: Y
-  type_str: T
-  description: Output tensor, which has the shape and type as input tensor
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: Y
+    type_str: T
+    description: Output tensor, which has the shape and type as input tensor
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output  types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(bfloat16)
+  - type_param_str: T
+    description: Constrain input and output  types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(bfloat16)
 support_level: COMMON
 deprecated: false

@@ -5,52 +5,54 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: "\nUpsample the input tensor.\nEach dimension value of the output tensor is:\n\
-  \  output_dimension = floor(input_dimension * scale).\n"
+doc: |-
+  Upsample the input tensor.
+  Each dimension value of the output tensor is:
+    output_dimension = floor(input_dimension * scale).
 attributes:
-- name: mode
-  description: 'Two interpolation modes: nearest (default), and linear (including
-    bilinear, trilinear, etc)'
-  type: AttrType.STRING
-  required: false
-  default_value: nearest
-- name: scales
-  description: The scale array along each dimension. It takes value greater than or
-    equal to 1. The number of elements of 'scales' should be the same as the rank
-    of input 'X'.
-  type: AttrType.FLOATS
-  required: true
-  default_value: null
+  - name: mode
+    description: 'Two interpolation modes: nearest (default), and linear (including
+      bilinear, trilinear, etc)'
+    type: STRING
+    required: false
+    default_value: nearest
+  - name: scales
+    description: The scale array along each dimension. It takes value greater than
+      or equal to 1. The number of elements of 'scales' should be the same as the
+      rank of input 'X'.
+    type: FLOATS
+    required: true
+    default_value:
 inputs:
-- name: X
-  type_str: T
-  description: N-D tensor
-  min_arity: 1
-  tags: []
+  - name: X
+    type_str: T
+    description: N-D tensor
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: T
-  description: N-D tensor after resizing
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: T
+    description: N-D tensor after resizing
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to all tensor types.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
+  - type_param_str: T
+    description: Constrain input and output types to all tensor types.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
 support_level: COMMON
 deprecated: false

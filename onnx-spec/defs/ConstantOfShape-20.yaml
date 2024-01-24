@@ -5,58 +5,55 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Generate a tensor with given value and shape.
-
-  '
 attributes:
-- name: value
-  description: (Optional) The value of the output elements.Should be a one-element
-    tensor. If not specified, it defaults to a tensor of value 0 and datatype float32
-  type: AttrType.TENSOR
-  required: false
-  default_value: null
+  - name: value
+    description: (Optional) The value of the output elements.Should be a one-element
+      tensor. If not specified, it defaults to a tensor of value 0 and datatype float32
+    type: TENSOR
+    required: false
+    default_value:
 inputs:
-- name: input
-  type_str: T1
-  description: 1D tensor. The shape of the expected output tensor. If empty tensor
-    is given, the output would be a scalar. All values must be >= 0.
-  min_arity: 1
-  tags: []
+  - name: input
+    type_str: T1
+    description: 1D tensor. The shape of the expected output tensor. If empty tensor
+      is given, the output would be a scalar. All values must be >= 0.
+    min_arity: 1
+    tags: []
 outputs:
-- name: output
-  type_str: T2
-  description: Output tensor of shape specified by 'input'.If attribute 'value' is
-    specified, the value and datatype of the output tensor is taken from 'value'.If
-    attribute 'value' is not specified, the value in the output defaults to 0, and
-    the datatype defaults to float32.
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: T2
+    description: Output tensor of shape specified by 'input'.If attribute 'value'
+      is specified, the value and datatype of the output tensor is taken from 'value'.If
+      attribute 'value' is not specified, the value in the output defaults to 0, and
+      the datatype defaults to float32.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T1
-  description: Constrain input types.
-  allowed_type_strs:
-  - tensor(int64)
-- type_param_str: T2
-  description: Constrain output types to be numerics.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(bool)
-  - tensor(bfloat16)
-  - tensor(float8e4m3fn)
-  - tensor(float8e4m3fnuz)
-  - tensor(float8e5m2)
-  - tensor(float8e5m2fnuz)
+  - type_param_str: T1
+    description: Constrain input types.
+    allowed_type_strs:
+      - tensor(int64)
+  - type_param_str: T2
+    description: Constrain output types to be numerics.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(bool)
+      - tensor(bfloat16)
+      - tensor(float8e4m3fn)
+      - tensor(float8e4m3fnuz)
+      - tensor(float8e5m2)
+      - tensor(float8e5m2fnuz)
 support_level: COMMON
 deprecated: false

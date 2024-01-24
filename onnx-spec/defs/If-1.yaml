@@ -5,60 +5,61 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 2147483647
-doc: If conditional
+doc: |-
+  If conditional
 attributes:
-- name: else_branch
-  description: 'Graph to run if condition is false. Has N outputs: values you wish
-    to be live-out to the enclosing scope. The number of outputs must match the number
-    of outputs in the then_branch.'
-  type: AttrType.GRAPH
-  required: true
-  default_value: null
-- name: then_branch
-  description: 'Graph to run if condition is true. Has N outputs: values you wish
-    to be live-out to the enclosing scope. The number of outputs must match the number
-    of outputs in the else_branch.'
-  type: AttrType.GRAPH
-  required: true
-  default_value: null
+  - name: else_branch
+    description: 'Graph to run if condition is false. Has N outputs: values you wish
+      to be live-out to the enclosing scope. The number of outputs must match the
+      number of outputs in the then_branch.'
+    type: GRAPH
+    required: true
+    default_value:
+  - name: then_branch
+    description: 'Graph to run if condition is true. Has N outputs: values you wish
+      to be live-out to the enclosing scope. The number of outputs must match the
+      number of outputs in the else_branch.'
+    type: GRAPH
+    required: true
+    default_value:
 inputs:
-- name: cond
-  type_str: B
-  description: Condition for the if. The tensor must contain a single element.
-  min_arity: 1
-  tags: []
+  - name: cond
+    type_str: B
+    description: Condition for the if. The tensor must contain a single element.
+    min_arity: 1
+    tags: []
 outputs:
-- name: outputs
-  type_str: V
-  description: Values that are live-out to the enclosing scope. The return values
-    in the `then_branch` and `else_branch` must be of the same shape and same data
-    type.
-  min_arity: 1
-  tags:
-  - variadic
-  - heterogeneous
+  - name: outputs
+    type_str: V
+    description: Values that are live-out to the enclosing scope. The return values
+      in the `then_branch` and `else_branch` must be of the same shape and same data
+      type.
+    min_arity: 1
+    tags:
+      - variadic
+      - heterogeneous
 type_constraints:
-- type_param_str: V
-  description: All Tensor types
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
-- type_param_str: B
-  description: Only bool
-  allowed_type_strs:
-  - tensor(bool)
+  - type_param_str: V
+    description: All Tensor types
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
+  - type_param_str: B
+    description: Only bool
+    allowed_type_strs:
+      - tensor(bool)
 support_level: COMMON
 deprecated: false

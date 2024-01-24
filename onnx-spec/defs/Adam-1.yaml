@@ -5,122 +5,149 @@ min_input: 3
 max_input: 2147483647
 min_output: 1
 max_output: 2147483647
-doc: "\nCompute one iteration of Adam, a stochastic gradient based optimization\n\
-  algorithm. This operator can conduct the optimization of multiple tensor variables.\n\
-  \nLet's define the behavior of this operator. First of all, Adam requires\nsome\
-  \ parameters:\n\n - The learning-rate \"R\".\n - The update count \"T\". That is,\
-  \ the number of training iterations conducted.\n - A L2-norm regularization coefficient\
-  \ \"norm_coefficient\".\n - A small constant \"epsilon\" to avoid dividing-by-zero.\n\
-  \ - Two coefficients, \"alpha\" and \"beta\".\n\nAt each Adam iteration, the optimized\
-  \ tensors are moved along a direction\ncomputed based on their exponentially-averaged\
-  \ historical gradient and\nexponentially-averaged historical squared gradient. Assume\
-  \ that only a tensor\n\"X\" is being optimized. The rest of required information\
-  \ is\n\n - the value of \"X\",\n - \"X\"'s gradient (denoted by \"G\"),\n - \"X\"\
-  's exponentially-averaged historical gradient (denoted by \"V\"), and\n - \"X\"\
-  's exponentially-averaged historical squared gradient (denoted by \"H\").\n\nSome\
-  \ of those parameters are passed into this operator as input tensors and others\n\
-  are stored as this operator's attributes. Specifically, this operator's input tensor\n\
-  list is [\"R\", \"T\", \"X\", \"G\", \"V\", \"H\"]. That is, \"R\" is the first\
-  \ input, \"T\" is\nthe second input, and so on. Other parameters are given as attributes\
-  \ because they\nare constants. Moreover, the corresponding output tensors are\n\n\
-  \ - the new value of \"X\" (called \"X_new\"),\n - the new exponentially-averaged\
-  \ historical gradient (denoted by \"V_new\"), and\n - the new exponentially-averaged\
-  \ historical squared gradient (denoted by \"H_new\").\n\nThose outputs are computed\
-  \ following the pseudo code below.\n\nLet \"+\", \"-\", \"*\", and \"/\" are all\
-  \ element-wise arithmetic operations with\nnumpy-style broadcasting support. The\
-  \ pseudo code to compute those outputs is:\n\n  // Add gradient of 0.5 * norm_coefficient\
-  \ * ||X||_2^2, where ||X||_2 is the 2-norm.\n  G_regularized = norm_coefficient\
-  \ * X + G\n\n  // Update exponentially-averaged historical gradient.\n  V_new =\
-  \ alpha * V + (1 - alpha) * G_regularized\n\n  // Update exponentially-averaged\
-  \ historical squared gradient.\n  H_new = beta * H + (1 - beta) * G_regularized\
-  \ * G_regularized\n\n  // Compute the element-wise square-root of H_new. V_new will\
-  \ be element-wisely\n  // divided by H_sqrt for a better update direction.\n  H_sqrt\
-  \ = Sqrt(H_new) + epsilon\n\n  // Compute learning-rate. Note that \"alpha**T\"\
-  /\"beta**T\" is alpha's/beta's T-th power.\n  R_adjusted = T > 0 ? R * Sqrt(1 -\
-  \ beta**T) / (1 - alpha**T) : R\n\n  // Compute new value of \"X\".\n  X_new = X\
-  \ - R_adjusted * V_new / H_sqrt\n\n  // Post-update regularization.\n  X_final =\
-  \ (1 - norm_coefficient_post) * X_new\n\nIf there are multiple inputs to be optimized,\
-  \ the pseudo code will be applied\nindependently to each of them.\n"
+doc: |-
+  Compute one iteration of Adam, a stochastic gradient based optimization
+  algorithm. This operator can conduct the optimization of multiple tensor variables.
+
+  Let's define the behavior of this operator. First of all, Adam requires
+  some parameters:
+
+   - The learning-rate "R".
+   - The update count "T". That is, the number of training iterations conducted.
+   - A L2-norm regularization coefficient "norm_coefficient".
+   - A small constant "epsilon" to avoid dividing-by-zero.
+   - Two coefficients, "alpha" and "beta".
+
+  At each Adam iteration, the optimized tensors are moved along a direction
+  computed based on their exponentially-averaged historical gradient and
+  exponentially-averaged historical squared gradient. Assume that only a tensor
+  "X" is being optimized. The rest of required information is
+
+   - the value of "X",
+   - "X"'s gradient (denoted by "G"),
+   - "X"'s exponentially-averaged historical gradient (denoted by "V"), and
+   - "X"'s exponentially-averaged historical squared gradient (denoted by "H").
+
+  Some of those parameters are passed into this operator as input tensors and others
+  are stored as this operator's attributes. Specifically, this operator's input tensor
+  list is ["R", "T", "X", "G", "V", "H"]. That is, "R" is the first input, "T" is
+  the second input, and so on. Other parameters are given as attributes because they
+  are constants. Moreover, the corresponding output tensors are
+
+   - the new value of "X" (called "X_new"),
+   - the new exponentially-averaged historical gradient (denoted by "V_new"), and
+   - the new exponentially-averaged historical squared gradient (denoted by "H_new").
+
+  Those outputs are computed following the pseudo code below.
+
+  Let "+", "-", "*", and "/" are all element-wise arithmetic operations with
+  numpy-style broadcasting support. The pseudo code to compute those outputs is:
+
+    // Add gradient of 0.5 * norm_coefficient * ||X||_2^2, where ||X||_2 is the 2-norm.
+    G_regularized = norm_coefficient * X + G
+
+    // Update exponentially-averaged historical gradient.
+    V_new = alpha * V + (1 - alpha) * G_regularized
+
+    // Update exponentially-averaged historical squared gradient.
+    H_new = beta * H + (1 - beta) * G_regularized * G_regularized
+
+    // Compute the element-wise square-root of H_new. V_new will be element-wisely
+    // divided by H_sqrt for a better update direction.
+    H_sqrt = Sqrt(H_new) + epsilon
+
+    // Compute learning-rate. Note that "alpha**T"/"beta**T" is alpha's/beta's T-th power.
+    R_adjusted = T > 0 ? R * Sqrt(1 - beta**T) / (1 - alpha**T) : R
+
+    // Compute new value of "X".
+    X_new = X - R_adjusted * V_new / H_sqrt
+
+    // Post-update regularization.
+    X_final = (1 - norm_coefficient_post) * X_new
+
+  If there are multiple inputs to be optimized, the pseudo code will be applied
+  independently to each of them.
 attributes:
-- name: alpha
-  description: Coefficient of previously accumulated gradient in running average.
-    Default to 0.9.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 0.8999999761581421
-- name: beta
-  description: Coefficient of previously accumulated squared-gradient in running average.
-    Default to 0.999.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 0.9990000128746033
-- name: epsilon
-  description: Small scalar to avoid dividing by zero.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 9.999999974752427e-07
-- name: norm_coefficient
-  description: Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default
-    to 0, which means no regularization.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 0.0
-- name: norm_coefficient_post
-  description: Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default
-    to 0, which means no regularization.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 0.0
+  - name: alpha
+    description: Coefficient of previously accumulated gradient in running average.
+      Default to 0.9.
+    type: FLOAT
+    required: false
+    default_value: 0.8999999761581421
+  - name: beta
+    description: Coefficient of previously accumulated squared-gradient in running
+      average. Default to 0.999.
+    type: FLOAT
+    required: false
+    default_value: 0.9990000128746033
+  - name: epsilon
+    description: Small scalar to avoid dividing by zero.
+    type: FLOAT
+    required: false
+    default_value: 9.999999974752427e-07
+  - name: norm_coefficient
+    description: Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2.
+      Default to 0, which means no regularization.
+    type: FLOAT
+    required: false
+    default_value: 0.0
+  - name: norm_coefficient_post
+    description: Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2.
+      Default to 0, which means no regularization.
+    type: FLOAT
+    required: false
+    default_value: 0.0
 inputs:
-- name: R
-  type_str: T1
-  description: The initial learning rate.
-  min_arity: 1
-  tags: []
-- name: T
-  type_str: T2
-  description: The update count of "X". It should be a scalar.
-  min_arity: 1
-  tags: []
-- name: inputs
-  type_str: T3
-  description: The tensors to be optimized, followed by their respective gradients,
-    followed by their respective accumulated gradients (aka momentum), followed by
-    their respective accumulated squared gradients. For example, to optimize tensors
-    "X_1" and "X_2,", the input list would be ["X_1", "X_2", gradient of "X_1", gradient
-    of "X_2", accumulated gradient of "X_1", accumulated gradient of "X_2", accumulated
-    squared gradient of "X_1", accumulated squared gradient of "X_2"].
-  min_arity: 1
-  tags:
-  - variadic
-  - heterogeneous
+  - name: R
+    type_str: T1
+    description: The initial learning rate.
+    min_arity: 1
+    tags: []
+  - name: T
+    type_str: T2
+    description: The update count of "X". It should be a scalar.
+    min_arity: 1
+    tags: []
+  - name: inputs
+    type_str: T3
+    description: The tensors to be optimized, followed by their respective gradients,
+      followed by their respective accumulated gradients (aka momentum), followed
+      by their respective accumulated squared gradients. For example, to optimize
+      tensors "X_1" and "X_2,", the input list would be ["X_1", "X_2", gradient of
+      "X_1", gradient of "X_2", accumulated gradient of "X_1", accumulated gradient
+      of "X_2", accumulated squared gradient of "X_1", accumulated squared gradient
+      of "X_2"].
+    min_arity: 1
+    tags:
+      - variadic
+      - heterogeneous
 outputs:
-- name: outputs
-  type_str: T3
-  description: New values of optimized tensors, followed by their respective new accumulated
-    gradients, followed by their respective new accumulated squared gradients. For
-    example, if two tensors "X_1" and "X_2" are optimized, the outputs list would
-    be [new value of "X_1", new value of "X_2", new accumulated gradient of "X_1",
-    new accumulated gradient of "X_2", new accumulated squared gradient of "X_1",
-    new accumulated squared gradient of "X_2"].
-  min_arity: 1
-  tags:
-  - variadic
-  - heterogeneous
+  - name: outputs
+    type_str: T3
+    description: New values of optimized tensors, followed by their respective new
+      accumulated gradients, followed by their respective new accumulated squared
+      gradients. For example, if two tensors "X_1" and "X_2" are optimized, the outputs
+      list would be [new value of "X_1", new value of "X_2", new accumulated gradient
+      of "X_1", new accumulated gradient of "X_2", new accumulated squared gradient
+      of "X_1", new accumulated squared gradient of "X_2"].
+    min_arity: 1
+    tags:
+      - variadic
+      - heterogeneous
 type_constraints:
-- type_param_str: T1
-  description: Constrain input types to float scalars.
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
-- type_param_str: T2
-  description: Constrain input types to 64-bit integer scalars.
-  allowed_type_strs:
-  - tensor(int64)
-- type_param_str: T3
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T1
+    description: Constrain input types to float scalars.
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
+  - type_param_str: T2
+    description: Constrain input types to 64-bit integer scalars.
+    allowed_type_strs:
+      - tensor(int64)
+  - type_param_str: T3
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

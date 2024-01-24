@@ -5,63 +5,59 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
-  Returns true if the optional-type input contains an element. If it is an empty optional-type,
-  this op returns false.
-
-  '
+doc: |-
+  Returns true if the optional-type input contains an element. If it is an empty optional-type, this op returns false.
 attributes: []
 inputs:
-- name: input
-  type_str: O
-  description: The optional input.
-  min_arity: 1
-  tags: []
+  - name: input
+    type_str: O
+    description: The optional input.
+    min_arity: 1
+    tags: []
 outputs:
-- name: output
-  type_str: B
-  description: A scalar boolean tensor. If true, it indicates that optional-type input
-    contains an element. Otherwise, it is empty.
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: B
+    description: A scalar boolean tensor. If true, it indicates that optional-type
+      input contains an element. Otherwise, it is empty.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: O
-  description: Constrain input type to optional tensor and optional sequence types.
-  allowed_type_strs:
-  - optional(seq(tensor(uint8)))
-  - optional(seq(tensor(uint16)))
-  - optional(seq(tensor(uint32)))
-  - optional(seq(tensor(uint64)))
-  - optional(seq(tensor(int8)))
-  - optional(seq(tensor(int16)))
-  - optional(seq(tensor(int32)))
-  - optional(seq(tensor(int64)))
-  - optional(seq(tensor(float16)))
-  - optional(seq(tensor(float)))
-  - optional(seq(tensor(double)))
-  - optional(seq(tensor(string)))
-  - optional(seq(tensor(bool)))
-  - optional(seq(tensor(complex64)))
-  - optional(seq(tensor(complex128)))
-  - optional(tensor(uint8))
-  - optional(tensor(uint16))
-  - optional(tensor(uint32))
-  - optional(tensor(uint64))
-  - optional(tensor(int8))
-  - optional(tensor(int16))
-  - optional(tensor(int32))
-  - optional(tensor(int64))
-  - optional(tensor(float16))
-  - optional(tensor(float))
-  - optional(tensor(double))
-  - optional(tensor(string))
-  - optional(tensor(bool))
-  - optional(tensor(complex64))
-  - optional(tensor(complex128))
-- type_param_str: B
-  description: Constrain output to a boolean tensor.
-  allowed_type_strs:
-  - tensor(bool)
+  - type_param_str: O
+    description: Constrain input type to optional tensor and optional sequence types.
+    allowed_type_strs:
+      - optional(seq(tensor(uint8)))
+      - optional(seq(tensor(uint16)))
+      - optional(seq(tensor(uint32)))
+      - optional(seq(tensor(uint64)))
+      - optional(seq(tensor(int8)))
+      - optional(seq(tensor(int16)))
+      - optional(seq(tensor(int32)))
+      - optional(seq(tensor(int64)))
+      - optional(seq(tensor(float16)))
+      - optional(seq(tensor(float)))
+      - optional(seq(tensor(double)))
+      - optional(seq(tensor(string)))
+      - optional(seq(tensor(bool)))
+      - optional(seq(tensor(complex64)))
+      - optional(seq(tensor(complex128)))
+      - optional(tensor(uint8))
+      - optional(tensor(uint16))
+      - optional(tensor(uint32))
+      - optional(tensor(uint64))
+      - optional(tensor(int8))
+      - optional(tensor(int16))
+      - optional(tensor(int32))
+      - optional(tensor(int64))
+      - optional(tensor(float16))
+      - optional(tensor(float))
+      - optional(tensor(double))
+      - optional(tensor(string))
+      - optional(tensor(bool))
+      - optional(tensor(complex64))
+      - optional(tensor(complex128))
+  - type_param_str: B
+    description: Constrain output to a boolean tensor.
+    allowed_type_strs:
+      - tensor(bool)
 support_level: COMMON
 deprecated: false

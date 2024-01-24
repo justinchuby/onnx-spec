@@ -5,45 +5,50 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: "\nThe operator computes the logsoftmax (log of softmax) values for each layer\
-  \ in the batch\n of the given input.\n\nThe input does not need to explicitly be\
-  \ a 2D vector; rather, it will be\ncoerced into one. For an arbitrary n-dimensional\
-  \ tensor\ninput \\in [a_0, a_1, ..., a_{k-1}, a_k, ..., a_{n-1}] and k is\nthe axis\
-  \ provided, then input will be coerced into a 2-dimensional tensor with\ndimensions\
-  \ [a_0 * ... * a_{k-1}, a_k * ... * a_{n-1}]. For the default\ncase where axis=1,\
-  \ this means the input tensor will be coerced into a 2D tensor\nof dimensions [a_0,\
-  \ a_1 * ... * a_{n-1}], where a_0 is often the batch size.\nIn this situation, we\
-  \ must have a_0 = N and a_1 * ... * a_{n-1} = D.\nEach of these dimensions must\
-  \ be matched correctly, or else the operator\nwill throw errors. The output tensor\
-  \ has the same shape\nand contains the logsoftmax values of the corresponding input.\n"
+doc: |-
+  The operator computes the logsoftmax (log of softmax) values for each layer in the batch
+   of the given input.
+
+  The input does not need to explicitly be a 2D vector; rather, it will be
+  coerced into one. For an arbitrary n-dimensional tensor
+  input \in [a_0, a_1, ..., a_{k-1}, a_k, ..., a_{n-1}] and k is
+  the axis provided, then input will be coerced into a 2-dimensional tensor with
+  dimensions [a_0 * ... * a_{k-1}, a_k * ... * a_{n-1}]. For the default
+  case where axis=1, this means the input tensor will be coerced into a 2D tensor
+  of dimensions [a_0, a_1 * ... * a_{n-1}], where a_0 is often the batch size.
+  In this situation, we must have a_0 = N and a_1 * ... * a_{n-1} = D.
+  Each of these dimensions must be matched correctly, or else the operator
+  will throw errors. The output tensor has the same shape
+  and contains the logsoftmax values of the corresponding input.
 attributes:
-- name: axis
-  description: Describes the axis of the inputs when coerced to 2D; defaults to one
-    because the 0th axis most likely describes the batch_size. Negative value means
-    counting dimensions from the back. Accepted range is [-r, r-1] where r = rank(input).
-  type: AttrType.INT
-  required: false
-  default_value: 1
+  - name: axis
+    description: Describes the axis of the inputs when coerced to 2D; defaults to
+      one because the 0th axis most likely describes the batch_size. Negative value
+      means counting dimensions from the back. Accepted range is [-r, r-1] where r
+      = rank(input).
+    type: INT
+    required: false
+    default_value: 1
 inputs:
-- name: input
-  type_str: T
-  description: The input tensor that's coerced into a 2D matrix of size (NxD) as described
-    above.
-  min_arity: 1
-  tags: []
+  - name: input
+    type_str: T
+    description: The input tensor that's coerced into a 2D matrix of size (NxD) as
+      described above.
+    min_arity: 1
+    tags: []
 outputs:
-- name: output
-  type_str: T
-  description: The output values with the same shape as input tensor (the original
-    size without coercion).
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: T
+    description: The output values with the same shape as input tensor (the original
+      size without coercion).
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

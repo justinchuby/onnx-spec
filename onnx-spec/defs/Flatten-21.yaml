@@ -5,66 +5,61 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Flattens the input tensor into a 2D matrix. If input tensor has shape
-
   (d_0, d_1, ... d_n) then the output will have shape
-
   (d_0 X d_1 ... d_(axis-1), d_axis X d_(axis+1) ... X dn).
-
-  '
 attributes:
-- name: axis
-  description: 'Indicate up to which input dimensions (exclusive) should be flattened
-    to the outer dimension of the output. The value for axis must be in the range
-    [-r, r], where r is the rank of the input tensor. Negative value means counting
-    dimensions from the back. When axis = 0, the shape of the output tensor is (1,
-    (d_0 X d_1 ... d_n), where the shape of the input tensor is (d_0, d_1, ... d_n). '
-  type: AttrType.INT
-  required: false
-  default_value: 1
+  - name: axis
+    description: 'Indicate up to which input dimensions (exclusive) should be flattened
+      to the outer dimension of the output. The value for axis must be in the range
+      [-r, r], where r is the rank of the input tensor. Negative value means counting
+      dimensions from the back. When axis = 0, the shape of the output tensor is (1,
+      (d_0 X d_1 ... d_n), where the shape of the input tensor is (d_0, d_1, ... d_n). '
+    type: INT
+    required: false
+    default_value: 1
 inputs:
-- name: input
-  type_str: T
-  description: A tensor of rank >= axis.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: input
+    type_str: T
+    description: A tensor of rank >= axis.
+    min_arity: 1
+    tags:
+      - differentiable
 outputs:
-- name: output
-  type_str: T
-  description: A 2D tensor with the contents of the input tensor, with input dimensions
-    up to axis flattened to the outer dimension of the output and remaining input
-    dimensions flattened into the inner dimension of the output.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: output
+    type_str: T
+    description: A 2D tensor with the contents of the input tensor, with input dimensions
+      up to axis flattened to the outer dimension of the output and remaining input
+      dimensions flattened into the inner dimension of the output.
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output to all tensor types up to IRv10.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(bfloat16)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
-  - tensor(float8e4m3fn)
-  - tensor(float8e4m3fnuz)
-  - tensor(float8e5m2)
-  - tensor(float8e5m2fnuz)
-  - tensor(uint4)
-  - tensor(int4)
+  - type_param_str: T
+    description: Constrain input and output to all tensor types up to IRv10.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(bfloat16)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
+      - tensor(float8e4m3fn)
+      - tensor(float8e4m3fnuz)
+      - tensor(float8e5m2)
+      - tensor(float8e5m2fnuz)
+      - tensor(uint4)
+      - tensor(int4)
 support_level: COMMON
 deprecated: false

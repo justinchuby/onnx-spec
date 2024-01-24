@@ -5,55 +5,48 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 2
-doc: '
-
+doc: |-
   Dropout takes one input data (Tensor<float>) and produces two Tensor outputs,
-
   output (Tensor<float>) and mask (Tensor<bool>). Depending on whether it is in
-
   test mode or not, the output Y will either be a random dropout, or a simple
-
   copy of the input. Note that our implementation of Dropout does scaling in
-
   the training phase, so during testing nothing needs to be done.
-
-  '
 attributes:
-- name: is_test
-  description: (int, default 0) if nonzero, run dropout in test mode where the output
-    is simply Y = X.
-  type: AttrType.INT
-  required: false
-  default_value: 0
-- name: ratio
-  description: (float, default 0.5) the ratio of random dropout
-  type: AttrType.FLOAT
-  required: false
-  default_value: 0.5
+  - name: is_test
+    description: (int, default 0) if nonzero, run dropout in test mode where the output
+      is simply Y = X.
+    type: INT
+    required: false
+    default_value: 0
+  - name: ratio
+    description: (float, default 0.5) the ratio of random dropout
+    type: FLOAT
+    required: false
+    default_value: 0.5
 inputs:
-- name: data
-  type_str: T
-  description: The input data as Tensor.
-  min_arity: 1
-  tags: []
+  - name: data
+    type_str: T
+    description: The input data as Tensor.
+    min_arity: 1
+    tags: []
 outputs:
-- name: output
-  type_str: T
-  description: The output.
-  min_arity: 1
-  tags: []
-- name: mask
-  type_str: T
-  description: The output mask. If is_test is nonzero, this output is not filled.
-  min_arity: 1
-  tags:
-  - optional
+  - name: output
+    type_str: T
+    description: The output.
+    min_arity: 1
+    tags: []
+  - name: mask
+    type_str: T
+    description: The output mask. If is_test is nonzero, this output is not filled.
+    min_arity: 1
+    tags:
+      - optional
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

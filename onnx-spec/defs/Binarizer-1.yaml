@@ -5,38 +5,34 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: '
-
-  Maps the values of the input tensor to either 0 or 1, element-wise, based on the
-  outcome of a comparison against a threshold value.
-
-  '
+doc: |-
+  Maps the values of the input tensor to either 0 or 1, element-wise, based on the outcome of a comparison against a threshold value.
 attributes:
-- name: threshold
-  description: Values greater than this are mapped to 1, others to 0.
-  type: AttrType.FLOAT
-  required: false
-  default_value: 0.0
+  - name: threshold
+    description: Values greater than this are mapped to 1, others to 0.
+    type: FLOAT
+    required: false
+    default_value: 0.0
 inputs:
-- name: X
-  type_str: T
-  description: Data to be binarized
-  min_arity: 1
-  tags: []
+  - name: X
+    type_str: T
+    description: Data to be binarized
+    min_arity: 1
+    tags: []
 outputs:
-- name: Y
-  type_str: T
-  description: Binarized output data
-  min_arity: 1
-  tags: []
+  - name: Y
+    type_str: T
+    description: Binarized output data
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: The input must be a tensor of a numeric type. The output will be of
-    the same tensor type.
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(double)
-  - tensor(int64)
-  - tensor(int32)
+  - type_param_str: T
+    description: The input must be a tensor of a numeric type. The output will be
+      of the same tensor type.
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(double)
+      - tensor(int64)
+      - tensor(int32)
 support_level: COMMON
 deprecated: false

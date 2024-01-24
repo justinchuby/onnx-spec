@@ -5,56 +5,49 @@ min_input: 2
 max_input: 2
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Returns the tensor resulted from performing the `or` logical operation
-
   elementwise on the input tensors `A` and `B`.
 
-
   If broadcasting is enabled, the right-hand-side argument will be broadcasted
-
   to match the shape of left-hand-side argument. See the doc of `Add` for a
-
   detailed description of the broadcasting rules.
-
-  '
 attributes:
-- name: axis
-  description: If set, defines the broadcast dimensions.
-  type: AttrType.INT
-  required: false
-  default_value: null
-- name: broadcast
-  description: Enable broadcasting
-  type: AttrType.INT
-  required: false
-  default_value: 0
+  - name: axis
+    description: If set, defines the broadcast dimensions.
+    type: INT
+    required: false
+    default_value:
+  - name: broadcast
+    description: Enable broadcasting
+    type: INT
+    required: false
+    default_value: 0
 inputs:
-- name: A
-  type_str: T
-  description: Left input tensor for the logical operator.
-  min_arity: 1
-  tags: []
-- name: B
-  type_str: T
-  description: Right input tensor for the logical operator.
-  min_arity: 1
-  tags: []
+  - name: A
+    type_str: T
+    description: Left input tensor for the logical operator.
+    min_arity: 1
+    tags: []
+  - name: B
+    type_str: T
+    description: Right input tensor for the logical operator.
+    min_arity: 1
+    tags: []
 outputs:
-- name: C
-  type_str: T1
-  description: Result tensor.
-  min_arity: 1
-  tags: []
+  - name: C
+    type_str: T1
+    description: Result tensor.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input to boolean tensor.
-  allowed_type_strs:
-  - tensor(bool)
-- type_param_str: T1
-  description: Constrain output to boolean tensor.
-  allowed_type_strs:
-  - tensor(bool)
+  - type_param_str: T
+    description: Constrain input to boolean tensor.
+    allowed_type_strs:
+      - tensor(bool)
+  - type_param_str: T1
+    description: Constrain output to boolean tensor.
+    allowed_type_strs:
+      - tensor(bool)
 support_level: COMMON
 deprecated: false

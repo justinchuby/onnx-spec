@@ -5,54 +5,50 @@ min_input: 1
 max_input: 1
 min_output: 1
 max_output: 1
-doc: 'SpaceToDepth rearranges blocks of spatial data into depth. More specifically,
-
-  this op outputs a copy of the input tensor where values from the height and width
-  dimensions
-
+doc: |-
+  SpaceToDepth rearranges blocks of spatial data into depth. More specifically,
+  this op outputs a copy of the input tensor where values from the height and width dimensions
   are moved to the depth dimension.
-
-  '
 attributes:
-- name: blocksize
-  description: Blocks of [blocksize, blocksize] are moved.
-  type: AttrType.INT
-  required: true
-  default_value: null
+  - name: blocksize
+    description: Blocks of [blocksize, blocksize] are moved.
+    type: INT
+    required: true
+    default_value:
 inputs:
-- name: input
-  type_str: T
-  description: Input tensor of [N,C,H,W], where N is the batch axis, C is the channel
-    or depth, H is the height and W is the width.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: input
+    type_str: T
+    description: Input tensor of [N,C,H,W], where N is the batch axis, C is the channel
+      or depth, H is the height and W is the width.
+    min_arity: 1
+    tags:
+      - differentiable
 outputs:
-- name: output
-  type_str: T
-  description: Output tensor of [N, C * blocksize * blocksize, H/blocksize, W/blocksize].
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: output
+    type_str: T
+    description: Output tensor of [N, C * blocksize * blocksize, H/blocksize, W/blocksize].
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to all tensor types.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(bfloat16)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
+  - type_param_str: T
+    description: Constrain input and output types to all tensor types.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(bfloat16)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
 support_level: COMMON
 deprecated: false

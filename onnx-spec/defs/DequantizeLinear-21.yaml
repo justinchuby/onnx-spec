@@ -5,81 +5,67 @@ min_input: 2
 max_input: 3
 min_output: 1
 max_output: 1
-doc: '
-
-  The linear dequantization operator. It consumes a quantized tensor, a scale, and
-  a zero point to compute the full precision tensor.
-
-  The dequantization formula is `y = (x - x_zero_point) * x_scale`. `x_scale` and
-  `x_zero_point` must have same shape, and can be either a scalar
-
+doc: |-
+  The linear dequantization operator. It consumes a quantized tensor, a scale, and a zero point to compute the full precision tensor.
+  The dequantization formula is `y = (x - x_zero_point) * x_scale`. `x_scale` and `x_zero_point` must have same shape, and can be either a scalar
   for per-tensor / per layer quantization, or a 1-D tensor for per-axis quantization.
-
-  `x_zero_point` and `x` must have same type. `x` and `y` must have same shape. In
-  the case of dequantizing int32,
-
-  there''s no zero point (zero point is supposed to be 0).
-
-  `zero-point` is usually not used in the case of float8e4m3fn, float8e4m3fnuz, float8e5m2,
-  float8e5m2fnuz quantization,
-
-  but the dequantization formula remains the same for consistency and ''x_scale''
-  still determines the output type.
-
-  '
+  `x_zero_point` and `x` must have same type. `x` and `y` must have same shape. In the case of dequantizing int32,
+  there's no zero point (zero point is supposed to be 0).
+  `zero-point` is usually not used in the case of float8e4m3fn, float8e4m3fnuz, float8e5m2, float8e5m2fnuz quantization,
+  but the dequantization formula remains the same for consistency and 'x_scale' still determines the output type.
 attributes:
-- name: axis
-  description: (Optional) The axis of the dequantizing dimension of the input tensor.
-    Ignored for per-tensor quantization. Negative value means counting dimensions
-    from the back. Accepted range is [-r, r-1] where r = rank(input).
-  type: AttrType.INT
-  required: false
-  default_value: 1
+  - name: axis
+    description: (Optional) The axis of the dequantizing dimension of the input tensor.
+      Ignored for per-tensor quantization. Negative value means counting dimensions
+      from the back. Accepted range is [-r, r-1] where r = rank(input).
+    type: INT
+    required: false
+    default_value: 1
 inputs:
-- name: x
-  type_str: T1
-  description: N-D quantized input tensor to be de-quantized.
-  min_arity: 1
-  tags: []
-- name: x_scale
-  type_str: T2
-  description: Scale for input 'x'. It can be a scalar, which means a per-tensor/layer
-    dequantization, or a 1-D tensor for per-axis dequantization.
-  min_arity: 1
-  tags: []
-- name: x_zero_point
-  type_str: T1
-  description: Zero point for input 'x'. Shape must match x_scale. It's optional.
-    Zero point is 0 when it's not specified.
-  min_arity: 1
-  tags:
-  - optional
+  - name: x
+    type_str: T1
+    description: N-D quantized input tensor to be de-quantized.
+    min_arity: 1
+    tags: []
+  - name: x_scale
+    type_str: T2
+    description: Scale for input 'x'. It can be a scalar, which means a per-tensor/layer
+      dequantization, or a 1-D tensor for per-axis dequantization.
+    min_arity: 1
+    tags: []
+  - name: x_zero_point
+    type_str: T1
+    description: Zero point for input 'x'. Shape must match x_scale. It's optional.
+      Zero point is 0 when it's not specified.
+    min_arity: 1
+    tags:
+      - optional
 outputs:
-- name: y
-  type_str: T2
-  description: N-D full precision output tensor. It has same shape as input 'x'.
-  min_arity: 1
-  tags: []
+  - name: y
+    type_str: T2
+    description: N-D full precision output tensor. It has same shape as input 'x'.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T1
-  description: The type of the inputs 'x_zero_point' and 'x'.
-  allowed_type_strs:
-  - tensor(int8)
-  - tensor(uint8)
-  - tensor(int16)
-  - tensor(uint16)
-  - tensor(int32)
-  - tensor(float8e4m3fn)
-  - tensor(float8e4m3fnuz)
-  - tensor(float8e5m2)
-  - tensor(float8e5m2fnuz)
-  - tensor(uint4)
-  - tensor(int4)
-- type_param_str: T2
-  description: '''x_scale'' determines the output type.'
-  allowed_type_strs:
-  - tensor(float)
-  - tensor(float16)
-  - tensor(bfloat16)
+  - type_param_str: T1
+    description: The type of the inputs 'x_zero_point' and 'x'.
+    allowed_type_strs:
+      - tensor(int8)
+      - tensor(uint8)
+      - tensor(int16)
+      - tensor(uint16)
+      - tensor(int32)
+      - tensor(float8e4m3fn)
+      - tensor(float8e4m3fnuz)
+      - tensor(float8e5m2)
+      - tensor(float8e5m2fnuz)
+      - tensor(uint4)
+      - tensor(int4)
+  - type_param_str: T2
+    description: "'x_scale' determines the output type."
+    allowed_type_strs:
+      - tensor(float)
+      - tensor(float16)
+      - tensor(bfloat16)
 support_level: COMMON
 deprecated: false

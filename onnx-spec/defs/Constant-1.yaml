@@ -5,26 +5,27 @@ min_input: 0
 max_input: 0
 min_output: 1
 max_output: 1
-doc: A constant tensor.
+doc: |-
+  A constant tensor.
 attributes:
-- name: value
-  description: The value for the elements of the output tensor.
-  type: AttrType.TENSOR
-  required: true
-  default_value: null
+  - name: value
+    description: The value for the elements of the output tensor.
+    type: TENSOR
+    required: true
+    default_value:
 inputs: []
 outputs:
-- name: output
-  type_str: T
-  description: Output tensor containing the same value of the provided tensor.
-  min_arity: 1
-  tags: []
+  - name: output
+    type_str: T
+    description: Output tensor containing the same value of the provided tensor.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

@@ -5,33 +5,29 @@ min_input: 1
 max_input: 2147483647
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Element-wise min of each of the input tensors. All inputs and outputs must
-
   have the same shape and data type.
-
-  '
 attributes: []
 inputs:
-- name: data_0
-  type_str: T
-  description: List of tensors for Min
-  min_arity: 1
-  tags:
-  - variadic
+  - name: data_0
+    type_str: T
+    description: List of tensors for Min
+    min_arity: 1
+    tags:
+      - variadic
 outputs:
-- name: min
-  type_str: T
-  description: Output tensor. Same dimension as inputs.
-  min_arity: 1
-  tags: []
+  - name: min
+    type_str: T
+    description: Output tensor. Same dimension as inputs.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
 support_level: COMMON
 deprecated: false

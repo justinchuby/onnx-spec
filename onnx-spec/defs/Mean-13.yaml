@@ -5,39 +5,33 @@ min_input: 1
 max_input: 2147483647
 min_output: 1
 max_output: 1
-doc: '
-
+doc: |-
   Element-wise mean of each of the input tensors (with Numpy-style broadcasting support).
-
   All inputs and outputs must have the same data type.
-
-  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for
-  more details please check [the doc](Broadcasting.md).
-
-  '
+  This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for more details please check [the doc](Broadcasting.md).
 attributes: []
 inputs:
-- name: data_0
-  type_str: T
-  description: List of tensors for mean.
-  min_arity: 1
-  tags:
-  - variadic
-  - differentiable
+  - name: data_0
+    type_str: T
+    description: List of tensors for mean.
+    min_arity: 1
+    tags:
+      - variadic
+      - differentiable
 outputs:
-- name: mean
-  type_str: T
-  description: Output tensor.
-  min_arity: 1
-  tags:
-  - differentiable
+  - name: mean
+    type_str: T
+    description: Output tensor.
+    min_arity: 1
+    tags:
+      - differentiable
 type_constraints:
-- type_param_str: T
-  description: Constrain input and output types to float tensors.
-  allowed_type_strs:
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(bfloat16)
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(bfloat16)
 support_level: COMMON
 deprecated: false

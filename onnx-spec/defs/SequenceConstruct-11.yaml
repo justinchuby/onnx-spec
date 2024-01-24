@@ -5,63 +5,59 @@ min_input: 1
 max_input: 2147483647
 min_output: 1
 max_output: 1
-doc: '
-
-  Construct a tensor sequence containing ''inputs'' tensors.
-
-  All tensors in ''inputs'' must have the same data type.
-
-  '
+doc: |-
+  Construct a tensor sequence containing 'inputs' tensors.
+  All tensors in 'inputs' must have the same data type.
 attributes: []
 inputs:
-- name: inputs
-  type_str: T
-  description: Tensors.
-  min_arity: 1
-  tags:
-  - variadic
+  - name: inputs
+    type_str: T
+    description: Tensors.
+    min_arity: 1
+    tags:
+      - variadic
 outputs:
-- name: output_sequence
-  type_str: S
-  description: Sequence enclosing the input tensors.
-  min_arity: 1
-  tags: []
+  - name: output_sequence
+    type_str: S
+    description: Sequence enclosing the input tensors.
+    min_arity: 1
+    tags: []
 type_constraints:
-- type_param_str: T
-  description: Constrain input types to any tensor type.
-  allowed_type_strs:
-  - tensor(uint8)
-  - tensor(uint16)
-  - tensor(uint32)
-  - tensor(uint64)
-  - tensor(int8)
-  - tensor(int16)
-  - tensor(int32)
-  - tensor(int64)
-  - tensor(float16)
-  - tensor(float)
-  - tensor(double)
-  - tensor(string)
-  - tensor(bool)
-  - tensor(complex64)
-  - tensor(complex128)
-- type_param_str: S
-  description: Constrain output types to any tensor type.
-  allowed_type_strs:
-  - seq(tensor(uint8))
-  - seq(tensor(uint16))
-  - seq(tensor(uint32))
-  - seq(tensor(uint64))
-  - seq(tensor(int8))
-  - seq(tensor(int16))
-  - seq(tensor(int32))
-  - seq(tensor(int64))
-  - seq(tensor(float16))
-  - seq(tensor(float))
-  - seq(tensor(double))
-  - seq(tensor(string))
-  - seq(tensor(bool))
-  - seq(tensor(complex64))
-  - seq(tensor(complex128))
+  - type_param_str: T
+    description: Constrain input types to any tensor type.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
+  - type_param_str: S
+    description: Constrain output types to any tensor type.
+    allowed_type_strs:
+      - seq(tensor(uint8))
+      - seq(tensor(uint16))
+      - seq(tensor(uint32))
+      - seq(tensor(uint64))
+      - seq(tensor(int8))
+      - seq(tensor(int16))
+      - seq(tensor(int32))
+      - seq(tensor(int64))
+      - seq(tensor(float16))
+      - seq(tensor(float))
+      - seq(tensor(double))
+      - seq(tensor(string))
+      - seq(tensor(bool))
+      - seq(tensor(complex64))
+      - seq(tensor(complex128))
 support_level: COMMON
 deprecated: false
