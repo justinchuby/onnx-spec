@@ -7,6 +7,7 @@ import textwrap
 
 import onnx
 from ruamel.yaml import YAML
+from ruamel.yaml.scalarstring import FoldedScalarString
 import beartype
 
 
@@ -112,9 +113,11 @@ def _get_attribute_default_value(attr: onnx.defs.OpSchema.Attribute):
     return value
 
 
-def _process_documentation(doc: str) -> str:
+def _process_documentation(doc: str | None) -> str | FoldedScalarString:
     # Lifted from ONNX's docsgen:
     # https://github.com/onnx/onnx/blob/3fd41d249bb8006935aa0031a332dd945e61b7e5/docs/docsgen/source/onnx_sphinx.py#L414
+    if not doc:
+        return ""
     doc = textwrap.dedent(doc or "")
     rep = {
         "<dl>": "",
@@ -123,13 +126,15 @@ def _process_documentation(doc: str) -> str:
         "<dd>": "  ",
         "</dt>": "",
         "</dd>": "",
-        "<tt>": "``",
-        "</tt>": "``",
+        "<tt>": "`",
+        "</tt>": "`",
         "<br>": "\n",
+        "\n```\n": "\n\n```\n\n",
     }
     for k, v in rep.items():
         doc = doc.replace(k, v)
-    return doc
+    doc = doc.strip()
+    return FoldedScalarString(doc)
 
 
 @beartype.beartype
@@ -151,7 +156,7 @@ def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
             Attribute(
                 name=attr.name,
                 description=attr.description,
-                type=str(attr.type),
+                type=str(attr.type).split(".")[-1],
                 required=attr.required,
                 default_value=_get_attribute_default_value(attr),
             )
@@ -181,7 +186,7 @@ def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
             TypeConstraintParam(
                 type_param_str=type_constraint.type_param_str,
                 description=type_constraint.description,
-                allowed_type_strs=list(type_constraint.allowed_type_strs),
+                allowed_type_strs=sorted(type_constraint.allowed_type_strs),
             )
             for type_constraint in schema.type_constraints
         ],
