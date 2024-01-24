@@ -8,6 +8,7 @@ Usage:
 import argparse
 import dataclasses
 import os
+import pathlib
 import textwrap
 
 import beartype
@@ -207,12 +208,12 @@ def main():
     yaml.indent(mapping=2, sequence=4, offset=2)
     for schema in schemas:
         dataclass_schema = schema_to_dataclass(schema)
-        with open(
-            os.path.join(args.output, f"{schema.name}-{schema.since_version}.yaml"),
-            "w",
-            encoding="utf-8",
-        ) as f:
-            print(f"Writing {schema.name}-{schema.since_version}.yaml")
+        domain = schema.domain or "ai.onnx"
+        outdir = pathlib.Path(args.output) / domain
+        outdir.mkdir(parents=True, exist_ok=True)
+        path = outdir / f"{schema.name}-{schema.since_version}.yaml"
+        with open(path, "w", encoding="utf-8") as f:
+            print(f"Writing {path}")
             d = dataclasses.asdict(dataclass_schema)
 
             yaml.dump(d, f)
