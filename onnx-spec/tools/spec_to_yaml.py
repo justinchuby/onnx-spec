@@ -1,4 +1,9 @@
-"""Output ONNX spec in YAML format."""
+"""Output ONNX spec in YAML format.
+
+Usage:
+
+    python onnx-spec/tools/spec_to_yaml.py --output onnx-spec/defs
+"""
 
 import argparse
 import dataclasses
@@ -8,7 +13,7 @@ import textwrap
 import beartype
 import onnx
 from ruamel.yaml import YAML
-from ruamel.yaml.scalarstring import FoldedScalarString
+from ruamel.yaml.scalarstring import LiteralScalarString
 
 
 @beartype.beartype
@@ -113,7 +118,7 @@ def _get_attribute_default_value(attr: onnx.defs.OpSchema.Attribute):
     return value
 
 
-def _process_documentation(doc: str | None) -> str | FoldedScalarString:
+def _process_documentation(doc: str | None) -> str | LiteralScalarString:
     # Lifted from ONNX's docsgen:
     # https://github.com/onnx/onnx/blob/3fd41d249bb8006935aa0031a332dd945e61b7e5/docs/docsgen/source/onnx_sphinx.py#L414
     if not doc:
@@ -129,12 +134,11 @@ def _process_documentation(doc: str | None) -> str | FoldedScalarString:
         "<tt>": "`",
         "</tt>": "`",
         "<br>": "\n",
-        "\n```\n": "\n\n```\n\n",
     }
     for k, v in rep.items():
         doc = doc.replace(k, v)
     doc = doc.strip()
-    return FoldedScalarString(doc)
+    return LiteralScalarString(doc)
 
 
 @beartype.beartype
