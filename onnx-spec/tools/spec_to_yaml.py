@@ -3,6 +3,7 @@
 import argparse
 import dataclasses
 import os
+from typing import Any
 
 import onnx
 import yaml
@@ -14,7 +15,7 @@ class Attribute:
     description: str
     type: str
     required: bool
-    default_value: str
+    default_value: Any
 
 
 @dataclasses.dataclass
@@ -28,7 +29,6 @@ class FormalParameter:
 
 @dataclasses.dataclass
 class TypeConstraintParam:
-    # TODO: Simplify this
     type_param_str: str
     description: str
     allowed_type_strs: list[str]
@@ -79,6 +79,15 @@ def _generate_formal_parameter_tags(
     return tags
 
 
+def _get_attribute_default_value(attr: onnx.defs.OpSchema.Attribute):
+    value = onnx.helper.get_attribute_value(attr.default_value)
+    if attr.type == onnx.AttributeProto.STRING:
+        value = value.decode("utf-8")
+    elif attr.type == onnx.AttributeProto.STRINGS:
+        value = [v.decode("utf-8") for v in value]
+
+    return value
+
 def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
     return OpSchema(
         support_level=str(schema.support_level),
@@ -97,7 +106,7 @@ def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
                 description=attr.description,
                 type=str(attr.type),
                 required=attr.required,
-                default_value=onnx.helper.get_attribute_value(attr.default_value),
+                default_value=_get_attribute_default_value(attr) if attr.default_value.name else None,
             )
             for attr in schema.attributes.values()
         ],
@@ -134,7 +143,7 @@ def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
 
 def main():
     parser = argparse.ArgumentParser(description="Output ONNX spec in YAML format.")
-    parser.add_argument("output", help="Output directory")
+    parser.add_argument("--output", help="Output directory")
     args = parser.parse_args()
 
     schemas = onnx.defs.get_all_schemas_with_history()
@@ -146,3 +155,7 @@ def main():
             encoding="utf-8",
         ) as f:
             yaml.dump(dataclasses.asdict(dataclass_schema), f)
+
+
+if __name__ == "__main__":
+    main()
