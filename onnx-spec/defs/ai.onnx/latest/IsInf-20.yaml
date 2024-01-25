@@ -9,16 +9,18 @@ doc: |-
   Map infinity to true and other values to false.
 attributes:
   - name: detect_negative
-    description: (Optional) Whether map negative infinity to true. Default to 1 so
-      that negative infinity induces true. Set this attribute to 0 if negative infinity
-      should be mapped to false.
+    description: >-
+      (Optional) Whether map negative infinity to true. Default to 1 so that negative
+      infinity induces true. Set this attribute to 0 if negative infinity should be
+      mapped to false.
     type: INT
     required: false
     default_value: 1
   - name: detect_positive
-    description: (Optional) Whether map positive infinity to true. Default to 1 so
-      that positive infinity induces true. Set this attribute to 0 if positive infinity
-      should be mapped to false.
+    description: >-
+      (Optional) Whether map positive infinity to true. Default to 1 so that positive
+      infinity induces true. Set this attribute to 0 if positive infinity should be
+      mapped to false.
     type: INT
     required: false
     default_value: 1

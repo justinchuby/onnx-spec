@@ -9,35 +9,38 @@ doc: |-
   Linear classifier
 attributes:
   - name: classlabels_ints
-    description: Class labels when using integer labels. One and only one 'classlabels'
-      attribute must be defined.
+    description: >-
+      Class labels when using integer labels. One and only one 'classlabels' attribute
+      must be defined.
     type: INTS
     required: false
-    default_value:
   - name: classlabels_strings
-    description: Class labels when using string labels. One and only one 'classlabels'
-      attribute must be defined.
+    description: >-
+      Class labels when using string labels. One and only one 'classlabels' attribute
+      must be defined.
     type: STRINGS
     required: false
-    default_value:
   - name: coefficients
-    description: A collection of weights of the model(s).
+    description: >-
+      A collection of weights of the model(s).
     type: FLOATS
     required: true
-    default_value:
   - name: intercepts
-    description: A collection of intercepts.
+    description: >-
+      A collection of intercepts.
     type: FLOATS
     required: false
-    default_value:
   - name: multi_class
-    description: Indicates whether to do OvR or multinomial (0=OvR is the default).
+    description: >-
+      Indicates whether to do OvR or multinomial (0=OvR is the default).
     type: INT
     required: false
     default_value: 0
   - name: post_transform
-    description: Indicates the transform to apply to the scores vector.<br>One of
-      'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    description: >-
+      Indicates the transform to apply to the scores vector.
+
+      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
     type: STRING
     required: false
     default_value: NONE

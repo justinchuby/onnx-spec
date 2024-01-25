@@ -15,15 +15,15 @@ doc: |-
   The input tensor's shape and the output tensor's shape are required to have the same number of elements.
 attributes:
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
   - name: shape
-    description: New shape
+    description: >-
+      New shape
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: data
     type_str: T

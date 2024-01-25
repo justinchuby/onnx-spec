@@ -26,10 +26,11 @@ doc: |-
   output[i, j, k, input[i, j, k]] = 1 for all i, j, k and 0 otherwise.
 attributes:
   - name: axis
-    description: '(Optional) Axis along which one-hot representation in added. Default:
-      axis=-1. axis=-1 means that the additional dimension will be inserted as the
-      innermost/last dimension in the output tensor. Negative value means counting
-      dimensions from the back. Accepted range is [-r-1, r] where r = rank(indices).'
+    description: >-
+      (Optional) Axis along which one-hot representation in added. Default: axis=-1.
+      axis=-1 means that the additional dimension will be inserted as the innermost/last
+      dimension in the output tensor. Negative value means counting dimensions from
+      the back. Accepted range is [-r-1, r] where r = rank(indices).
     type: INT
     required: false
     default_value: -1

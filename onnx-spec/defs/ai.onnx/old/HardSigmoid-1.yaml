@@ -11,20 +11,22 @@ doc: |-
   is applied to the tensor elementwise.
 attributes:
   - name: alpha
-    description: Value of alpha default to 0.2
+    description: >-
+      Value of alpha default to 0.2
     type: FLOAT
     required: false
     default_value: 0.20000000298023224
   - name: beta
-    description: Value of beta default to 0.5
+    description: >-
+      Value of beta default to 0.5
     type: FLOAT
     required: false
     default_value: 0.5
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T

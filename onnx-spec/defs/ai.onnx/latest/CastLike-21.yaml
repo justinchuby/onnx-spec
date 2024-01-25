@@ -11,10 +11,11 @@ doc: |-
   See documentation of the Cast operator for further details.
 attributes:
   - name: saturate
-    description: The parameter defines how the conversion behaves if an input value
-      is out of range of the destination type. It only applies for float 8 conversion
-      (float8e4m3fn, float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default.
-      Please refer to operator Cast description for further details.
+    description: >-
+      The parameter defines how the conversion behaves if an input value is out of
+      range of the destination type. It only applies for float 8 conversion (float8e4m3fn,
+      float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default. Please refer
+      to operator Cast description for further details.
     type: INT
     required: false
     default_value: 1

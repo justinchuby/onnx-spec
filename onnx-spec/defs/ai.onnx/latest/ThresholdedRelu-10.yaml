@@ -11,7 +11,8 @@ doc: |-
   is applied to the tensor elementwise.
 attributes:
   - name: alpha
-    description: Threshold value
+    description: >-
+      Threshold value
     type: FLOAT
     required: false
     default_value: 1.0
@@ -36,5 +37,19 @@ type_constraints:
       - tensor(float16)
       - tensor(float)
       - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  ThresholdedRelu <alpha>(X) => (Y)
+  {
+     Alpha = Constant <value_float: float = @alpha> ()
+     AlphaCast = CastLike (Alpha, X)
+     Zero = Constant <value: tensor = float {0}> ()
+     ZeroCast = CastLike (Zero, X)
+     AlphaLessThanX = Less (AlphaCast, X)
+     Y = Where (AlphaLessThanX, X, ZeroCast)
+  }
 support_level: COMMON
 deprecated: false

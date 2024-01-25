@@ -24,7 +24,8 @@ doc: |-
       of the batch is normalized independently.
 attributes:
   - name: norm
-    description: One of 'MAX,' 'L1,' 'L2'
+    description: >-
+      One of 'MAX,' 'L1,' 'L2'
     type: STRING
     required: false
     default_value: MAX

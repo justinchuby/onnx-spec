@@ -19,20 +19,23 @@ doc: |-
   to integers and the cats_int64s category list will be used for the lookups.
 attributes:
   - name: cats_int64s
-    description: List of categories, ints.<br>One and only one of the 'cats_*' attributes
-      must be defined.
+    description: >-
+      List of categories, ints.
+
+      One and only one of the 'cats_*' attributes must be defined.
     type: INTS
     required: false
-    default_value:
   - name: cats_strings
-    description: List of categories, strings.<br>One and only one of the 'cats_*'
-      attributes must be defined.
+    description: >-
+      List of categories, strings.
+
+      One and only one of the 'cats_*' attributes must be defined.
     type: STRINGS
     required: false
-    default_value:
   - name: zeros
-    description: If true and category is not present, will return all zeros; if false
-      and a category if not found, the operator will fail.
+    description: >-
+      If true and category is not present, will return all zeros; if false and a category
+      if not found, the operator will fail.
     type: INT
     required: false
     default_value: 1

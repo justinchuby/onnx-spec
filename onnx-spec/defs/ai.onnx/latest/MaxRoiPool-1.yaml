@@ -11,13 +11,14 @@ doc: |-
   (num_rois, channels, pooled_shape[0], pooled_shape[1]).
 attributes:
   - name: pooled_shape
-    description: ROI pool output shape (height, width).
+    description: >-
+      ROI pool output shape (height, width).
     type: INTS
     required: true
-    default_value:
   - name: spatial_scale
-    description: Multiplicative spatial scale factor to translate ROI coordinates
-      from their input scale to the scale used when pooling.
+    description: >-
+      Multiplicative spatial scale factor to translate ROI coordinates from their
+      input scale to the scale used when pooling.
     type: FLOAT
     required: false
     default_value: 1.0

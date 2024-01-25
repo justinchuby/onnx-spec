@@ -11,10 +11,10 @@ doc: |-
   `f(x) = x for x >= 0`., is applied to the data tensor elementwise.
 attributes:
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T

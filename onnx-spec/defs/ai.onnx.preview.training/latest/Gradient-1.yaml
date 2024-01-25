@@ -130,28 +130,26 @@ doc: |-
   auto-differentiation.
 attributes:
   - name: xs
-    description: Input tensor names of the differentiated sub-graph. It contains only
-      the necessary differentiated inputs of a (sub-)graph. Variables (usually called
-      intermediate variables) that can be generated from inputs cannot be included
-      in this attribute.
+    description: >-
+      Input tensor names of the differentiated sub-graph. It contains only the necessary
+      differentiated inputs of a (sub-)graph. Variables (usually called intermediate
+      variables) that can be generated from inputs cannot be included in this attribute.
     type: STRINGS
     required: true
-    default_value:
   - name: y
-    description: The targeted tensor. It can be viewed as the output of the differentiated
-      function. The attribute "xs" and attribute "zs" are the minimal independent
-      variable set that determines the value of "y".
+    description: >-
+      The targeted tensor. It can be viewed as the output of the differentiated function.
+      The attribute "xs" and attribute "zs" are the minimal independent variable set
+      that determines the value of "y".
     type: STRING
     required: true
-    default_value:
   - name: zs
-    description: Input tensor names of the differentiated sub-graph. It contains only
-      the necessary non-differentiated inputs of a (sub-)graph. Variables (usually
-      called intermediate variables) that can be generated from inputs cannot be included
-      in this attribute.
+    description: >-
+      Input tensor names of the differentiated sub-graph. It contains only the necessary
+      non-differentiated inputs of a (sub-)graph. Variables (usually called intermediate
+      variables) that can be generated from inputs cannot be included in this attribute.
     type: STRINGS
     required: false
-    default_value:
 inputs:
   - name: Inputs
     type_str: T1

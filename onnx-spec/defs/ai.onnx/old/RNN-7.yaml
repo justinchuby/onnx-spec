@@ -69,47 +69,49 @@ doc: |-
   This operator has **optional** inputs/outputs. See [the doc](IR.md) for more details about the representation of optional arguments. An empty string may be used in the place of an actual argument's name to indicate a missing argument. Trailing optional arguments (those not followed by an argument that is present) may also be simply omitted.
 attributes:
   - name: activation_alpha
-    description: Optional scaling values used by some activation functions. The values
-      are consumed in the order of activation functions, for example (f, g, h) in
-      LSTM. Default values are the same as of corresponding ONNX operators.For example
-      with LeakyRelu, the default alpha is 0.01.
+    description: >-
+      Optional scaling values used by some activation functions. The values are consumed
+      in the order of activation functions, for example (f, g, h) in LSTM. Default
+      values are the same as of corresponding ONNX operators.For example with LeakyRelu,
+      the default alpha is 0.01.
     type: FLOATS
     required: false
-    default_value:
   - name: activation_beta
-    description: Optional scaling values used by some activation functions. The values
-      are consumed in the order of activation functions, for example (f, g, h) in
-      LSTM. Default values are the same as of corresponding ONNX operators.
+    description: >-
+      Optional scaling values used by some activation functions. The values are consumed
+      in the order of activation functions, for example (f, g, h) in LSTM. Default
+      values are the same as of corresponding ONNX operators.
     type: FLOATS
     required: false
-    default_value:
   - name: activations
-    description: 'One (or two if bidirectional) activation function for input gate.
-      The activation function must be one of the activation functions specified above.
-      Optional: Default `Tanh` if not specified.'
+    description: >-
+      One (or two if bidirectional) activation function for input gate. The activation
+      function must be one of the activation functions specified above. Optional:
+      Default `Tanh` if not specified.
     type: STRINGS
     required: false
     default_value:
       - Tanh
       - Tanh
   - name: clip
-    description: Cell clip threshold. Clipping bounds the elements of a tensor in
-      the range of [-threshold, +threshold] and is applied to the input of activations.
-      No clip if not specified.
+    description: >-
+      Cell clip threshold. Clipping bounds the elements of a tensor in the range of
+      [-threshold, +threshold] and is applied to the input of activations. No clip
+      if not specified.
     type: FLOAT
     required: false
-    default_value:
   - name: direction
-    description: Specify if the RNN is forward, reverse, or bidirectional. Must be
-      one of forward (default), reverse, or bidirectional.
+    description: >-
+      Specify if the RNN is forward, reverse, or bidirectional. Must be one of forward
+      (default), reverse, or bidirectional.
     type: STRING
     required: false
     default_value: forward
   - name: hidden_size
-    description: Number of neurons in the hidden layer
+    description: >-
+      Number of neurons in the hidden layer
     type: INT
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T

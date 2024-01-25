@@ -18,29 +18,28 @@ doc: |-
     at PyTorch's implementation (https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/Col2Im.cpp#L10)
 attributes:
   - name: dilations
-    description: 1-dimensional tensor with dilation value along each spatial axis
-      of the image. If not present, the dilation defaults to 1 along each spatial
-      axis of the image.
+    description: >-
+      1-dimensional tensor with dilation value along each spatial axis of the image.
+      If not present, the dilation defaults to 1 along each spatial axis of the image.
     type: INTS
     required: false
-    default_value:
   - name: pads
-    description: 1-dimensional tensor with padding value for the beginning and ending
-      along each spatial axis, it can take any value greater than or equal to 0. The
-      value represent the number of pixels added to the beginning and end part of
-      the corresponding axis. `pads` format should be as follow [x1_begin, x2_begin...x1_end,
-      x2_end,...], where xi_begin is the number of pixels added at the beginning of
-      axis `i` and xi_end is the number of pixels added at the end of axis `i`. If
-      not present, the padding defaults to 0 along start and end of each spatial axis.
+    description: >-
+      1-dimensional tensor with padding value for the beginning and ending along each
+      spatial axis, it can take any value greater than or equal to 0. The value represent
+      the number of pixels added to the beginning and end part of the corresponding
+      axis. `pads` format should be as follow [x1_begin, x2_begin...x1_end, x2_end,...],
+      where xi_begin is the number of pixels added at the beginning of axis `i` and
+      xi_end is the number of pixels added at the end of axis `i`. If not present,
+      the padding defaults to 0 along start and end of each spatial axis.
     type: INTS
     required: false
-    default_value:
   - name: strides
-    description: 1-dimensional tensor with stride value along each spatial axis. If
-      not present, the stride defaults to 1 along each spatial axis.
+    description: >-
+      1-dimensional tensor with stride value along each spatial axis. If not present,
+      the stride defaults to 1 along each spatial axis.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: T

@@ -132,27 +132,27 @@ doc: |-
       }
 attributes:
   - name: body
-    description: 'The graph run each iteration. It has N+M inputs: (loop state variables...,
-      scan_input_elts...). It has N+K outputs: (loop state variables..., scan_output_elts...).
-      Each scan_output is created by concatenating the value of the specified scan_output_elt
-      value at the end of each iteration of the loop. It is an error if the dimensions
-      of these values change across loop iterations.'
+    description: >-
+      The graph run each iteration. It has N+M inputs: (loop state variables..., scan_input_elts...).
+      It has N+K outputs: (loop state variables..., scan_output_elts...). Each scan_output
+      is created by concatenating the value of the specified scan_output_elt value
+      at the end of each iteration of the loop. It is an error if the dimensions of
+      these values change across loop iterations.
     type: GRAPH
     required: true
-    default_value:
   - name: directions
-    description: 'An optional list of M flags. The i-th element of the list specifies
-      the direction to be scanned for the i-th scan_input tensor: 0 indicates forward
-      direction and 1 indicates reverse direction. If omitted, all scan_input tensors
-      will be scanned in the forward direction.'
+    description: >-
+      An optional list of M flags. The i-th element of the list specifies the direction
+      to be scanned for the i-th scan_input tensor: 0 indicates forward direction
+      and 1 indicates reverse direction. If omitted, all scan_input tensors will be
+      scanned in the forward direction.
     type: INTS
     required: false
-    default_value:
   - name: num_scan_inputs
-    description: 'An attribute specifying the number of scan_inputs M. '
+    description: >-
+      An attribute specifying the number of scan_inputs M.
     type: INT
     required: true
-    default_value:
 inputs:
   - name: sequence_lens
     type_str: I

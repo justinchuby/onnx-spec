@@ -20,22 +20,26 @@ doc: |-
   This operator supports **unidirectional broadcasting** (tensor C should be unidirectional broadcastable to tensor A * B); for more details please check [the doc](Broadcasting.md).
 attributes:
   - name: alpha
-    description: Scalar multiplier for the product of input tensors A * B.
+    description: >-
+      Scalar multiplier for the product of input tensors A * B.
     type: FLOAT
     required: false
     default_value: 1.0
   - name: beta
-    description: Scalar multiplier for input tensor C.
+    description: >-
+      Scalar multiplier for input tensor C.
     type: FLOAT
     required: false
     default_value: 1.0
   - name: transA
-    description: Whether A should be transposed
+    description: >-
+      Whether A should be transposed
     type: INT
     required: false
     default_value: 0
   - name: transB
-    description: Whether B should be transposed
+    description: >-
+      Whether B should be transposed
     type: INT
     required: false
     default_value: 0

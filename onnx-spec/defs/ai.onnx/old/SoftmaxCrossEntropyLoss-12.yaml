@@ -39,15 +39,16 @@ doc: |-
   where tensor W is of shape (N, D1, D2, ..., Dk) and W[n][d1][d2]...[dk] = weights[labels[i][d1][d2]...[dk]].
 attributes:
   - name: ignore_index
-    description: Specifies a target value that is ignored and does not contribute
-      to the input gradient. It's an optional value.
+    description: >-
+      Specifies a target value that is ignored and does not contribute to the input
+      gradient. It's an optional value.
     type: INT
     required: false
-    default_value:
   - name: reduction
-    description: "Type of reduction to apply to loss: none, sum, mean(default). 'none':
-      no reduction will be applied, 'sum': the output will be summed. 'mean': the
-      sum of the output will be divided by the number of elements in the output."
+    description: >-
+      Type of reduction to apply to loss: none, sum, mean(default). 'none': no reduction
+      will be applied, 'sum': the output will be summed. 'mean': the sum of the output
+      will be divided by the number of elements in the output.
     type: STRING
     required: false
     default_value: mean

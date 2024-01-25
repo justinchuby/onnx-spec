@@ -16,15 +16,16 @@ doc: |-
   to `False` instead of `True`.
 attributes:
   - name: keepdims
-    description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
+    description: >-
+      Keep the reduced dimension or not, default 1 means keep reduced dimension.
     type: INT
     required: false
     default_value: 1
   - name: noop_with_empty_axes
-    description: Defines behavior if 'axes' is empty. Default behavior with 'false'
-      is to reduce all axes. When axes is empty and this attribute is set to true,
-      input tensor will not be reduced,and the output tensor would be equivalent to
-      input tensor.
+    description: >-
+      Defines behavior if 'axes' is empty. Default behavior with 'false' is to reduce
+      all axes. When axes is empty and this attribute is set to true, input tensor
+      will not be reduced,and the output tensor would be equivalent to input tensor.
     type: INT
     required: false
     default_value: 0
@@ -64,5 +65,15 @@ type_constraints:
       - tensor(float)
       - tensor(double)
       - tensor(bfloat16)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  ReduceL1 <keepdims,noop_with_empty_axes>(data, axes) => (reduced)
+  {
+     data_abs = Abs (data)
+     reduced = ReduceSum <keepdims: int = @keepdims> (data_abs, axes)
+  }
 support_level: COMMON
 deprecated: false

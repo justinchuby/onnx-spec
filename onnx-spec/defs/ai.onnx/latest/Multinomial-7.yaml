@@ -10,22 +10,24 @@ doc: |-
   of each of the possible outcomes.
 attributes:
   - name: dtype
-    description: (Optional) The data type for the elements of the output tensor, if
-      not specified, we will use int32.
+    description: >-
+      (Optional) The data type for the elements of the output tensor, if not specified,
+      we will use int32.
     type: INT
     required: false
     default_value: 6
   - name: sample_size
-    description: Number of times to sample.
+    description: >-
+      Number of times to sample.
     type: INT
     required: false
     default_value: 1
   - name: seed
-    description: (Optional) Seed to the random generator, if not specified we will
-      auto generate one.
+    description: >-
+      (Optional) Seed to the random generator, if not specified we will auto generate
+      one.
     type: FLOAT
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: T1

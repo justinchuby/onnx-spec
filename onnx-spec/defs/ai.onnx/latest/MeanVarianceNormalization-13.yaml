@@ -10,9 +10,10 @@ doc: |-
   on the input tensor X using formula: `(X-EX)/sqrt(E(X-EX)^2)`
 attributes:
   - name: axes
-    description: A list of integers, along which to reduce. The default is to calculate
-      along axes [0,2,3] for calculating mean and variance along each channel. Two
-      variables with the same C-coordinate are associated with the same mean and variance.
+    description: >-
+      A list of integers, along which to reduce. The default is to calculate along
+      axes [0,2,3] for calculating mean and variance along each channel. Two variables
+      with the same C-coordinate are associated with the same mean and variance.
     type: INTS
     required: false
     default_value:
@@ -41,5 +42,25 @@ type_constraints:
       - tensor(float)
       - tensor(double)
       - tensor(bfloat16)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  MeanVarianceNormalization <axes>(X) => (Y)
+  {
+     Exponent = Constant <value: tensor = float {2}> ()
+     Epsilon = Constant <value: tensor = float {1e-09}> ()
+     axes = Constant <value_ints: ints = @axes> ()
+     X_RM = ReduceMean (X, axes)
+     EX_squared = Pow (X_RM, Exponent)
+     X_squared = Pow (X, Exponent)
+     E_Xsquared = ReduceMean (X_squared, axes)
+     Variance = Sub (E_Xsquared, EX_squared)
+     STD = Sqrt (Variance)
+     X_variance = Sub (X, X_RM)
+     Processed_STD = Add (STD, Epsilon)
+     Y = Div (X_variance, Processed_STD)
+  }
 support_level: COMMON
 deprecated: false

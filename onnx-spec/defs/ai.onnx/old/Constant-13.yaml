@@ -10,46 +10,45 @@ doc: |-
   or value_* must be specified.
 attributes:
   - name: sparse_value
-    description: The value for the elements of the output tensor in sparse format.
+    description: >-
+      The value for the elements of the output tensor in sparse format.
     type: SPARSE_TENSOR
     required: false
-    default_value:
   - name: value
-    description: The value for the elements of the output tensor.
+    description: >-
+      The value for the elements of the output tensor.
     type: TENSOR
     required: false
-    default_value:
   - name: value_float
-    description: The value for the sole element for the scalar, float32, output tensor.
+    description: >-
+      The value for the sole element for the scalar, float32, output tensor.
     type: FLOAT
     required: false
-    default_value:
   - name: value_floats
-    description: The values for the elements for the 1D, float32, output tensor.
+    description: >-
+      The values for the elements for the 1D, float32, output tensor.
     type: FLOATS
     required: false
-    default_value:
   - name: value_int
-    description: The value for the sole element for the scalar, int64, output tensor.
+    description: >-
+      The value for the sole element for the scalar, int64, output tensor.
     type: INT
     required: false
-    default_value:
   - name: value_ints
-    description: The values for the elements for the 1D, int64, output tensor.
+    description: >-
+      The values for the elements for the 1D, int64, output tensor.
     type: INTS
     required: false
-    default_value:
   - name: value_string
-    description: The value for the sole element for the scalar, UTF-8 string, output
-      tensor.
+    description: >-
+      The value for the sole element for the scalar, UTF-8 string, output tensor.
     type: STRING
     required: false
-    default_value:
   - name: value_strings
-    description: The values for the elements for the 1D, UTF-8 string, output tensor.
+    description: >-
+      The values for the elements for the 1D, UTF-8 string, output tensor.
     type: STRINGS
     required: false
-    default_value:
 inputs: []
 outputs:
   - name: output

@@ -50,8 +50,9 @@ doc: |-
   ```
 attributes:
   - name: axis
-    description: Which axis to gather on. Negative value means counting dimensions
-      from the back. Accepted range is [-r, r-1]
+    description: >-
+      Which axis to gather on. Negative value means counting dimensions from the back.
+      Accepted range is [-r, r-1]
     type: INT
     required: false
     default_value: 0

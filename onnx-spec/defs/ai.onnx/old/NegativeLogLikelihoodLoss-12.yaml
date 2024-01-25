@@ -74,15 +74,16 @@ doc: |-
       // -1.57
 attributes:
   - name: ignore_index
-    description: Specifies a target value that is ignored and does not contribute
-      to the input gradient. It's an optional value.
+    description: >-
+      Specifies a target value that is ignored and does not contribute to the input
+      gradient. It's an optional value.
     type: INT
     required: false
-    default_value:
   - name: reduction
-    description: "Type of reduction to apply to loss: none, sum, mean (default). 'none':
-      the output is the loss for each sample. 'sum': the output will be summed. 'mean':
-      the sum of the output will be divided by the sum of applied weights."
+    description: >-
+      Type of reduction to apply to loss: none, sum, mean (default). 'none': the output
+      is the loss for each sample. 'sum': the output will be summed. 'mean': the sum
+      of the output will be divided by the sum of applied weights.
     type: STRING
     required: false
     default_value: mean

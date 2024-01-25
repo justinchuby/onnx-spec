@@ -17,15 +17,16 @@ doc: |-
    a tiebreaker. That is, the element with the lower index will appear first.
 attributes:
   - name: axis
-    description: Dimension on which to do the sort.
+    description: >-
+      Dimension on which to do the sort.
     type: INT
     required: false
     default_value: -1
   - name: k
-    description: Number of top elements to retrieve
+    description: >-
+      Number of top elements to retrieve
     type: INT
     required: true
-    default_value:
 inputs:
   - name: X
     type_str: T

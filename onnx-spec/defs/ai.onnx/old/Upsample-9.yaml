@@ -11,8 +11,9 @@ doc: |-
     output_dimension = floor(input_dimension * scale).
 attributes:
   - name: mode
-    description: 'Two interpolation modes: nearest (default), and linear (including
-      bilinear, trilinear, etc)'
+    description: >-
+      Two interpolation modes: nearest (default), and linear (including bilinear,
+      trilinear, etc)
     type: STRING
     required: false
     default_value: nearest

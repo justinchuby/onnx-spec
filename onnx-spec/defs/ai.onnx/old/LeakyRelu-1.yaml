@@ -11,15 +11,16 @@ doc: |-
   `f(x) = x for x >= 0`, is applied to the data tensor elementwise.
 attributes:
   - name: alpha
-    description: Coefficient of leakage default to 0.01.
+    description: >-
+      Coefficient of leakage default to 0.01.
     type: FLOAT
     required: false
     default_value: 0.009999999776482582
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T

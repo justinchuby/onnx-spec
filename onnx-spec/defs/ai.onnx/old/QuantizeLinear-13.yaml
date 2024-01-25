@@ -13,9 +13,10 @@ doc: |-
   For (x / y_scale), it's rounding to the nearest even. Refer to https://en.wikipedia.org/wiki/Rounding for details. 'y_zero_point' and 'y' must have same type.
 attributes:
   - name: axis
-    description: (Optional) The axis of the quantization dimension of the input tensor.
-      Ignored for per-tensor quantization. Negative value means counting dimensions
-      from the back. Accepted range is [-r, r-1] where r = rank(input).
+    description: >-
+      (Optional) The axis of the quantization dimension of the input tensor. Ignored
+      for per-tensor quantization. Negative value means counting dimensions from the
+      back. Accepted range is [-r, r-1] where r = rank(input).
     type: INT
     required: false
     default_value: 1

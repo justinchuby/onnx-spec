@@ -20,11 +20,11 @@ doc: |-
   This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for more details please check [the doc](Broadcasting.md).
 attributes:
   - name: direction
-    description: Direction of moving bits. It can be either "RIGHT" (for right shift)
-      or "LEFT" (for left shift).
+    description: >-
+      Direction of moving bits. It can be either "RIGHT" (for right shift) or "LEFT"
+      (for left shift).
     type: STRING
     required: true
-    default_value:
 inputs:
   - name: X
     type_str: T

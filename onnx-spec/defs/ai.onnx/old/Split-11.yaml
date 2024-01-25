@@ -11,16 +11,17 @@ doc: |-
   Otherwise, the tensor is split to equal sized parts.
 attributes:
   - name: axis
-    description: Which axis to split on. A negative value means counting dimensions
-      from the back. Accepted range is [-rank, rank-1] where r = rank(input).
+    description: >-
+      Which axis to split on. A negative value means counting dimensions from the
+      back. Accepted range is [-rank, rank-1] where r = rank(input).
     type: INT
     required: false
     default_value: 0
   - name: split
-    description: length of each output. Values should be >= 0.
+    description: >-
+      length of each output. Values should be >= 0.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: T

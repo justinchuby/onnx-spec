@@ -128,50 +128,50 @@ doc: |-
       }
 attributes:
   - name: body
-    description: 'The graph run each iteration. It has N+M inputs: (loop state variables...,
-      scan_input_elts...). It has N+K outputs: (loop state variables..., scan_output_elts...).
-      Each scan_output is created by concatenating the value of the specified scan_output_elt
-      value at the end of each iteration of the loop. It is an error if the dimensions
-      of these values change across loop iterations.'
+    description: >-
+      The graph run each iteration. It has N+M inputs: (loop state variables..., scan_input_elts...).
+      It has N+K outputs: (loop state variables..., scan_output_elts...). Each scan_output
+      is created by concatenating the value of the specified scan_output_elt value
+      at the end of each iteration of the loop. It is an error if the dimensions of
+      these values change across loop iterations.
     type: GRAPH
     required: true
-    default_value:
   - name: num_scan_inputs
-    description: 'An attribute specifying the number of scan_inputs M. '
+    description: >-
+      An attribute specifying the number of scan_inputs M.
     type: INT
     required: true
-    default_value:
   - name: scan_input_axes
-    description: An optional list of M flags. The i-th element of the list specifies
-      the axis to be scanned (the sequence axis) for the i-th scan_input. If omitted,
-      0 will be used as the scan axis for every scan_input.
+    description: >-
+      An optional list of M flags. The i-th element of the list specifies the axis
+      to be scanned (the sequence axis) for the i-th scan_input. If omitted, 0 will
+      be used as the scan axis for every scan_input.
     type: INTS
     required: false
-    default_value:
   - name: scan_input_directions
-    description: 'An optional list of M flags. The i-th element of the list specifies
-      the direction to be scanned for the i-th scan_input tensor: 0 indicates forward
-      direction and 1 indicates reverse direction. If omitted, all scan_input tensors
-      will be scanned in the forward direction.'
+    description: >-
+      An optional list of M flags. The i-th element of the list specifies the direction
+      to be scanned for the i-th scan_input tensor: 0 indicates forward direction
+      and 1 indicates reverse direction. If omitted, all scan_input tensors will be
+      scanned in the forward direction.
     type: INTS
     required: false
-    default_value:
   - name: scan_output_axes
-    description: An optional list of K flags. The i-th element of the list specifies
-      the axis for the i-th scan_output. The scan outputs are accumulated along the
-      specified axis. If omitted, 0 will be used as the scan axis for every scan_output.
+    description: >-
+      An optional list of K flags. The i-th element of the list specifies the axis
+      for the i-th scan_output. The scan outputs are accumulated along the specified
+      axis. If omitted, 0 will be used as the scan axis for every scan_output.
     type: INTS
     required: false
-    default_value:
   - name: scan_output_directions
-    description: 'An optional list of K flags, one for each scan_output. The i-th
-      element of the list specifies whether the i-th scan_output should be constructed
-      by appending or prepending a new value in each iteration: 0 indicates appending
-      and 1 indicates prepending. If omitted, all scan_output tensors will be produced
-      by appending a value in each iteration.'
+    description: >-
+      An optional list of K flags, one for each scan_output. The i-th element of the
+      list specifies whether the i-th scan_output should be constructed by appending
+      or prepending a new value in each iteration: 0 indicates appending and 1 indicates
+      prepending. If omitted, all scan_output tensors will be produced by appending
+      a value in each iteration.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: initial_state_and_scan_inputs
     type_str: V

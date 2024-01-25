@@ -14,17 +14,17 @@ doc: |-
   implementations (even if a seed is specified).
 attributes:
   - name: dtype
-    description: The data type for the elements of the output tensor. if not specified,
-      we will use the data type of the input tensor.
+    description: >-
+      The data type for the elements of the output tensor. if not specified, we will
+      use the data type of the input tensor.
     type: INT
     required: false
-    default_value:
   - name: seed
-    description: (Optional) Seed to the random generator, if not specified we will
-      auto generate one.
+    description: >-
+      (Optional) Seed to the random generator, if not specified we will auto generate
+      one.
     type: FLOAT
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: T1

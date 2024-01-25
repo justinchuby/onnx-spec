@@ -9,66 +9,68 @@ doc: |-
   Support Vector Machine classifier
 attributes:
   - name: classlabels_ints
-    description: Class labels if using integer labels.<br>One and only one of the
-      'classlabels_*' attributes must be defined.
+    description: >-
+      Class labels if using integer labels.
+
+      One and only one of the 'classlabels_*' attributes must be defined.
     type: INTS
     required: false
-    default_value:
   - name: classlabels_strings
-    description: Class labels if using string labels.<br>One and only one of the 'classlabels_*'
-      attributes must be defined.
+    description: >-
+      Class labels if using string labels.
+
+      One and only one of the 'classlabels_*' attributes must be defined.
     type: STRINGS
     required: false
-    default_value:
   - name: coefficients
-    description: ''
+    description: >
     type: FLOATS
     required: false
-    default_value:
   - name: kernel_params
-    description: List of 3 elements containing gamma, coef0, and degree, in that order.
-      Zero if unused for the kernel.
+    description: >-
+      List of 3 elements containing gamma, coef0, and degree, in that order. Zero
+      if unused for the kernel.
     type: FLOATS
     required: false
-    default_value:
   - name: kernel_type
-    description: The kernel type, one of 'LINEAR,' 'POLY,' 'RBF,' 'SIGMOID'.
+    description: >-
+      The kernel type, one of 'LINEAR,' 'POLY,' 'RBF,' 'SIGMOID'.
     type: STRING
     required: false
     default_value: LINEAR
   - name: post_transform
-    description: Indicates the transform to apply to the score. <br>One of 'NONE,'
-      'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    description: >-
+      Indicates the transform to apply to the score. 
+
+      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
     type: STRING
     required: false
     default_value: NONE
   - name: prob_a
-    description: First set of probability coefficients.
+    description: >-
+      First set of probability coefficients.
     type: FLOATS
     required: false
-    default_value:
   - name: prob_b
-    description: Second set of probability coefficients. This array must be same size
-      as prob_a.<br>If these are provided then output Z are probability estimates,
-      otherwise they are raw scores.
+    description: >-
+      Second set of probability coefficients. This array must be same size as prob_a.
+
+      If these are provided then output Z are probability estimates, otherwise they
+      are raw scores.
     type: FLOATS
     required: false
-    default_value:
   - name: rho
-    description: ''
+    description: >
     type: FLOATS
     required: false
-    default_value:
   - name: support_vectors
-    description: ''
+    description: >
     type: FLOATS
     required: false
-    default_value:
   - name: vectors_per_class
-    description: ''
+    description: >
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T1

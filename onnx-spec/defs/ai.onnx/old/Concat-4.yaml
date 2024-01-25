@@ -9,10 +9,10 @@ doc: |-
   Concatenate a list of tensors into a single tensor
 attributes:
   - name: axis
-    description: Which axis to concat on
+    description: >-
+      Which axis to concat on
     type: INT
     required: true
-    default_value:
 inputs:
   - name: inputs
     type_str: T

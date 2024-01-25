@@ -13,10 +13,10 @@ doc: |-
     Unsqueeze(tensor, axes=[0, 4]) has shape [1, 3, 4, 5, 1]
 attributes:
   - name: axes
-    description: List of non-negative integers, indicate the dimensions to be inserted
+    description: >-
+      List of non-negative integers, indicate the dimensions to be inserted
     type: INTS
     required: true
-    default_value:
 inputs:
   - name: data
     type_str: T

@@ -14,8 +14,9 @@ doc: |-
   to the tensor elementwise.
 attributes:
   - name: approximate
-    description: 'Gelu approximation algorithm: `"tanh"`, `"none"`(default).`"none"`:
-      do not use approximation.`"tanh"`: use tanh approximation.'
+    description: >-
+      Gelu approximation algorithm: `"tanh"`, `"none"`(default).`"none"`: do not use
+      approximation.`"tanh"`: use tanh approximation.
     type: STRING
     required: false
     default_value: none

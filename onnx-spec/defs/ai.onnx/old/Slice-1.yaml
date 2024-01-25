@@ -39,21 +39,21 @@ doc: |-
     ]
 attributes:
   - name: axes
-    description: Axes that `starts` and `ends` apply to. It's optional. If not present,
-      will be treated as [0, 1, ..., len(`starts`) - 1].
+    description: >-
+      Axes that `starts` and `ends` apply to. It's optional. If not present, will
+      be treated as [0, 1, ..., len(`starts`) - 1].
     type: INTS
     required: false
-    default_value:
   - name: ends
-    description: Ending indices (exclusive) of corresponding axis in axes`
+    description: >-
+      Ending indices (exclusive) of corresponding axis in axes`
     type: INTS
     required: true
-    default_value:
   - name: starts
-    description: Starting indices of corresponding axis in `axes`
+    description: >-
+      Starting indices of corresponding axis in `axes`
     type: INTS
     required: true
-    default_value:
 inputs:
   - name: data
     type_str: T

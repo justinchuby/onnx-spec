@@ -25,18 +25,20 @@ doc: |-
   Reference: https://docs.scipy.org/doc/scipy/tutorial/fft.html
 attributes:
   - name: inverse
-    description: Whether to perform the inverse discrete Fourier Transform. Default
-      is 0, which corresponds to `false`.
+    description: >-
+      Whether to perform the inverse discrete Fourier Transform. Default is 0, which
+      corresponds to `false`.
     type: INT
     required: false
     default_value: 0
   - name: onesided
-    description: If `onesided` is `1` and input is real, only values for `k` in `[0,
-      1, 2, ..., floor(n_fft/2) + 1]` are returned because the real-to-complex Fourier
-      transform satisfies the conjugate symmetry, i.e., `X[m, k] = X[m, n_fft-k]*`,
-      where `m` denotes "all other dimensions" DFT was not applied on. If the input
-      tensor is complex, onesided output is not possible. Value can be `0` or `1`.
-      Default is `0`.
+    description: >-
+      If `onesided` is `1` and input is real, only values for `k` in `[0, 1, 2, ...,
+      floor(n_fft/2) + 1]` are returned because the real-to-complex Fourier transform
+      satisfies the conjugate symmetry, i.e., `X[m, k] = X[m, n_fft-k]*`, where `m`
+      denotes "all other dimensions" DFT was not applied on. If the input tensor is
+      complex, onesided output is not possible. Value can be `0` or `1`. Default is
+      `0`.
     type: INT
     required: false
     default_value: 0

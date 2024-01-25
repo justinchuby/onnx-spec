@@ -66,5 +66,29 @@ type_constraints:
     description: Constrain 'y_zero_point' and 'y' to 8-bit unsigned integer tensor.
     allowed_type_strs:
       - tensor(uint8)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 11]
+  >
+  DynamicQuantizeLinear (x) => (y, y_scale, y_zero_point)
+  {
+     Q_Min = Constant <value: tensor = float {0}> ()
+     Q_Max = Constant <value: tensor = float {255}> ()
+     X_Min = ReduceMin <keepdims: int = 0> (x)
+     X_Min_Adjusted = Min (X_Min, Q_Min)
+     X_Max = ReduceMax <keepdims: int = 0> (x)
+     X_Max_Adjusted = Max (X_Max, Q_Min)
+     X_Range = Sub (X_Max_Adjusted, X_Min_Adjusted)
+     Scale = Div (X_Range, Q_Max)
+     Min_Scaled = Div (X_Min_Adjusted, Scale)
+     Initial_ZeroPoint_FP = Sub (Q_Min, Min_Scaled)
+     Clipped_ZeroPoint_FP = Clip (Initial_ZeroPoint_FP, Q_Min, Q_Max)
+     Rounded_ZeroPoint_FP = Round (Clipped_ZeroPoint_FP)
+     Zeropoint = Cast <to: int = 2> (Rounded_ZeroPoint_FP)
+     y_scale = Identity (Scale)
+     y_zero_point = Identity (Zeropoint)
+     y = QuantizeLinear (x, Scale, Zeropoint)
+  }
 support_level: COMMON
 deprecated: false

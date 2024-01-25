@@ -31,5 +31,18 @@ type_constraints:
       - tensor(float16)
       - tensor(float)
       - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  Softplus (X) => (Y)
+  {
+     exp_x = Exp (X)
+     one = Constant <value: tensor = float {1}> ()
+     one_cast = CastLike (one, X)
+     exp_x_add_one = Add (exp_x, one_cast)
+     Y = Log (exp_x_add_one)
+  }
 support_level: COMMON
 deprecated: false

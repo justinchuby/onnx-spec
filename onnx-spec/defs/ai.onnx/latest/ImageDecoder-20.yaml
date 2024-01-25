@@ -31,7 +31,8 @@ doc: |-
   also referred as "smooth" or "fancy" upsampling.
 attributes:
   - name: pixel_format
-    description: Pixel format. Can be one of "RGB", "BGR", or "Grayscale".
+    description: >-
+      Pixel format. Can be one of "RGB", "BGR", or "Grayscale".
     type: STRING
     required: false
     default_value: RGB

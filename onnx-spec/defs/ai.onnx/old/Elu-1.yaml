@@ -11,15 +11,16 @@ doc: |-
   0`, `f(x) = x for x >= 0`., is applied to the tensor elementwise.
 attributes:
   - name: alpha
-    description: Coefficient of ELU default to 1.0.
+    description: >-
+      Coefficient of ELU default to 1.0.
     type: FLOAT
     required: false
     default_value: 1.0
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T

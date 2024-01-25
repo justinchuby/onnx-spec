@@ -14,7 +14,8 @@ doc: |-
   This operator has **optional** inputs/outputs. See [the doc](IR.md) for more details about the representation of optional arguments. An empty string may be used in the place of an actual argument's name to indicate a missing argument. Trailing optional arguments (those not followed by an argument that is present) may also be simply omitted.
 attributes:
   - name: ratio
-    description: The ratio of random dropout
+    description: >-
+      The ratio of random dropout
     type: FLOAT
     required: false
     default_value: 0.5

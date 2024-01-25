@@ -16,28 +16,33 @@ doc: |-
   if attribute transA is non-zero, same for B and transB.
 attributes:
   - name: alpha
-    description: Scalar multiplier for the product of input tensors A * B, the default
-      value is 1.0.
+    description: >-
+      Scalar multiplier for the product of input tensors A * B, the default value
+      is 1.0.
     type: FLOAT
     required: false
     default_value: 1.0
   - name: beta
-    description: Scalar multiplier for input tensor C, the default value is 1.0.
+    description: >-
+      Scalar multiplier for input tensor C, the default value is 1.0.
     type: FLOAT
     required: false
     default_value: 1.0
   - name: broadcast
-    description: Whether C should be broadcasted
+    description: >-
+      Whether C should be broadcasted
     type: INT
     required: false
     default_value: 0
   - name: transA
-    description: Whether A should be transposed
+    description: >-
+      Whether A should be transposed
     type: INT
     required: false
     default_value: 0
   - name: transB
-    description: Whether B should be transposed
+    description: >-
+      Whether B should be transposed
     type: INT
     required: false
     default_value: 0

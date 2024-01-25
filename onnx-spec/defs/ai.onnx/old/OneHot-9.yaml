@@ -20,9 +20,10 @@ doc: |-
   output tensor.
 attributes:
   - name: axis
-    description: '(Optional) Axis along which one-hot representation in added. Default:
-      axis=-1. axis=-1 means that the additional dimension will be inserted as the
-      innermost/last dimension in the output tensor.'
+    description: >-
+      (Optional) Axis along which one-hot representation in added. Default: axis=-1.
+      axis=-1 means that the additional dimension will be inserted as the innermost/last
+      dimension in the output tensor.
     type: INT
     required: false
     default_value: -1

@@ -33,10 +33,10 @@ doc: |-
   beginning of the output. The equation string may contain space (U+0020) character.
 attributes:
   - name: equation
-    description: Einsum expression string.
+    description: >-
+      Einsum expression string.
     type: STRING
     required: true
-    default_value:
 inputs:
   - name: Inputs
     type_str: T

@@ -74,9 +74,10 @@ doc: |-
   ```
 attributes:
   - name: reduction
-    description: "Type of reduction to apply: none (default), add, mul. 'none': no
-      reduction applied. 'add':  reduction using the addition operation. 'mul': reduction
-      using the multiplication operation."
+    description: >-
+      Type of reduction to apply: none (default), add, mul. 'none': no reduction applied.
+      'add':  reduction using the addition operation. 'mul': reduction using the multiplication
+      operation.
     type: STRING
     required: false
     default_value: none

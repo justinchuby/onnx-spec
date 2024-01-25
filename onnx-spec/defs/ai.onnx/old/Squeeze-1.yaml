@@ -12,10 +12,10 @@ doc: |-
   the shape. If an axis is selected with shape entry not equal to one, an error is raised.
 attributes:
   - name: axes
-    description: List of non-negative integers, indicate the dimensions to squeeze.
+    description: >-
+      List of non-negative integers, indicate the dimensions to squeeze.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: data
     type_str: T

@@ -14,10 +14,10 @@ doc: |-
   All inputs must be integers or floats, while the output will be all floating point values.
 attributes:
   - name: inputdimensions
-    description: The size of each input in the input list
+    description: >-
+      The size of each input in the input list
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T1

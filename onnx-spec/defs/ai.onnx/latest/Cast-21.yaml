@@ -72,19 +72,20 @@ doc: |-
   | else | RNE | RNE | RNE | RNE |
 attributes:
   - name: saturate
-    description: The parameter defines how the conversion behaves if an input value
-      is out of range of the destination type. It only applies for float 8 conversion
-      (float8e4m3fn, float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default.
-      All cases are fully described in two tables inserted in the operator description.
+    description: >-
+      The parameter defines how the conversion behaves if an input value is out of
+      range of the destination type. It only applies for float 8 conversion (float8e4m3fn,
+      float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default. All cases
+      are fully described in two tables inserted in the operator description.
     type: INT
     required: false
     default_value: 1
   - name: to
-    description: The data type to which the elements of the input tensor are cast.
-      Strictly must be one of the types from DataType enum in TensorProto
+    description: >-
+      The data type to which the elements of the input tensor are cast. Strictly must
+      be one of the types from DataType enum in TensorProto
     type: INT
     required: true
-    default_value:
 inputs:
   - name: input
     type_str: T1

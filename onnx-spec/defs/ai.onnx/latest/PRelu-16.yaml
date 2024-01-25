@@ -44,5 +44,18 @@ type_constraints:
       - tensor(uint64)
       - tensor(int32)
       - tensor(int64)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 16]
+  >
+  PRelu (X, slope) => (Y)
+  {
+     Zero = Constant <value: tensor = float {0}> ()
+     ZeroCast = CastLike (Zero, X)
+     XLessThanZero = Less (X, ZeroCast)
+     SlopeMulX = Mul (slope, X)
+     Y = Where (XLessThanZero, SlopeMulX, X)
+  }
 support_level: COMMON
 deprecated: false

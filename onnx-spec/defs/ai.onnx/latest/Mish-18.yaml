@@ -35,5 +35,16 @@ type_constraints:
       - tensor(float16)
       - tensor(float)
       - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  Mish (X) => (Y)
+  {
+     Softplus_X = Softplus (X)
+     TanHSoftplusX = Tanh (Softplus_X)
+     Y = Mul (X, TanHSoftplusX)
+  }
 support_level: COMMON
 deprecated: false

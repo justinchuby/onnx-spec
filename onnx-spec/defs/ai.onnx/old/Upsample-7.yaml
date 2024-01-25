@@ -11,18 +11,19 @@ doc: |-
     output_dimension = floor(input_dimension * scale).
 attributes:
   - name: mode
-    description: 'Two interpolation modes: nearest (default), and linear (including
-      bilinear, trilinear, etc)'
+    description: >-
+      Two interpolation modes: nearest (default), and linear (including bilinear,
+      trilinear, etc)
     type: STRING
     required: false
     default_value: nearest
   - name: scales
-    description: The scale array along each dimension. It takes value greater than
-      or equal to 1. The number of elements of 'scales' should be the same as the
-      rank of input 'X'.
+    description: >-
+      The scale array along each dimension. It takes value greater than or equal to
+      1. The number of elements of 'scales' should be the same as the rank of input
+      'X'.
     type: FLOATS
     required: true
-    default_value:
 inputs:
   - name: X
     type_str: T

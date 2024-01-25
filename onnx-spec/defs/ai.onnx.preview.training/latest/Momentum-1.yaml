@@ -68,28 +68,27 @@ doc: |-
   be concatenated too) and then our pseudo code becomes applicable.
 attributes:
   - name: alpha
-    description: The decay factor of momentum. It should be a scalar.
+    description: >-
+      The decay factor of momentum. It should be a scalar.
     type: FLOAT
     required: true
-    default_value:
   - name: beta
-    description: The coefficient of gradient in computing new momentum. It should
-      be a scalar.
+    description: >-
+      The coefficient of gradient in computing new momentum. It should be a scalar.
     type: FLOAT
     required: true
-    default_value:
   - name: mode
-    description: Its value should be either "nesterov" or "standard". The value "nesterov"
-      leads to the use of Nesterov's momentum while "standard" invokes stochastic
-      gradient method using standard momentum
+    description: >-
+      Its value should be either "nesterov" or "standard". The value "nesterov" leads
+      to the use of Nesterov's momentum while "standard" invokes stochastic gradient
+      method using standard momentum
     type: STRING
     required: true
-    default_value:
   - name: norm_coefficient
-    description: Coefficient of 0.5 * norm_coefficient * ||X||^2.
+    description: >-
+      Coefficient of 0.5 * norm_coefficient * ||X||^2.
     type: FLOAT
     required: true
-    default_value:
 inputs:
   - name: R
     type_str: T1

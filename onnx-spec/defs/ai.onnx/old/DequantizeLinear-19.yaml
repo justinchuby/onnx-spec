@@ -15,9 +15,10 @@ doc: |-
   but the dequantization formula remains the same for consistency and 'x_scale' still determines the output type.
 attributes:
   - name: axis
-    description: (Optional) The axis of the dequantizing dimension of the input tensor.
-      Ignored for per-tensor quantization. Negative value means counting dimensions
-      from the back. Accepted range is [-r, r-1] where r = rank(input).
+    description: >-
+      (Optional) The axis of the dequantizing dimension of the input tensor. Ignored
+      for per-tensor quantization. Negative value means counting dimensions from the
+      back. Accepted range is [-r, r-1] where r = rank(input).
     type: INT
     required: false
     default_value: 1

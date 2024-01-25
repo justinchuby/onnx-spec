@@ -9,19 +9,19 @@ doc: |-
   If conditional
 attributes:
   - name: else_branch
-    description: 'Graph to run if condition is false. Has N outputs: values you wish
-      to be live-out to the enclosing scope. The number of outputs must match the
-      number of outputs in the then_branch.'
+    description: >-
+      Graph to run if condition is false. Has N outputs: values you wish to be live-out
+      to the enclosing scope. The number of outputs must match the number of outputs
+      in the then_branch.
     type: GRAPH
     required: true
-    default_value:
   - name: then_branch
-    description: 'Graph to run if condition is true. Has N outputs: values you wish
-      to be live-out to the enclosing scope. The number of outputs must match the
-      number of outputs in the else_branch.'
+    description: >-
+      Graph to run if condition is true. Has N outputs: values you wish to be live-out
+      to the enclosing scope. The number of outputs must match the number of outputs
+      in the else_branch.
     type: GRAPH
     required: true
-    default_value:
 inputs:
   - name: cond
     type_str: B

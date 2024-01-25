@@ -19,35 +19,38 @@ doc: |-
   through bilinear interpolation.
 attributes:
   - name: mode
-    description: "The pooling method. Two modes are supported: 'avg' and 'max'. Default
-      is 'avg'."
+    description: >-
+      The pooling method. Two modes are supported: 'avg' and 'max'. Default is 'avg'.
     type: STRING
     required: false
     default_value: avg
   - name: output_height
-    description: default 1; Pooled output Y's height.
+    description: >-
+      default 1; Pooled output Y's height.
     type: INT
     required: false
     default_value: 1
   - name: output_width
-    description: default 1; Pooled output Y's width.
+    description: >-
+      default 1; Pooled output Y's width.
     type: INT
     required: false
     default_value: 1
   - name: sampling_ratio
-    description: Number of sampling points in the interpolation grid used to compute
-      the output value of each pooled output bin. If > 0, then exactly sampling_ratio
-      x sampling_ratio grid points are used. If == 0, then an adaptive number of grid
-      points are used (computed as ceil(roi_width / output_width), and likewise for
-      height). Default is 0.
+    description: >-
+      Number of sampling points in the interpolation grid used to compute the output
+      value of each pooled output bin. If > 0, then exactly sampling_ratio x sampling_ratio
+      grid points are used. If == 0, then an adaptive number of grid points are used
+      (computed as ceil(roi_width / output_width), and likewise for height). Default
+      is 0.
     type: INT
     required: false
     default_value: 0
   - name: spatial_scale
-    description: 'Multiplicative spatial scale factor to translate ROI coordinates
-      from their input spatial scale to the scale used when pooling, i.e., spatial
-      scale of the input feature map X relative to the input image. E.g.; default
-      is 1.0f. '
+    description: >-
+      Multiplicative spatial scale factor to translate ROI coordinates from their
+      input spatial scale to the scale used when pooling, i.e., spatial scale of the
+      input feature map X relative to the input image. E.g.; default is 1.0f.
     type: FLOAT
     required: false
     default_value: 1.0

@@ -97,8 +97,9 @@ doc: |-
     output  = [[2,3],[4,5]]             # output_shape = [2, 2]
 attributes:
   - name: batch_dims
-    description: The number of batch dimensions. The gather of indexing starts from
-      dimension of data[batch_dims:]
+    description: >-
+      The number of batch dimensions. The gather of indexing starts from dimension
+      of data[batch_dims:]
     type: INT
     required: false
     default_value: 0

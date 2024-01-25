@@ -31,5 +31,15 @@ type_constraints:
       - tensor(float16)
       - tensor(float)
       - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 14]
+  >
+  HardSwish (X) => (Y)
+  {
+     HS_X = HardSigmoid <alpha: float = 0.166667, beta: float = 0.5> (X)
+     Y = Mul (X, HS_X)
+  }
 support_level: COMMON
 deprecated: false

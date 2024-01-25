@@ -22,19 +22,23 @@ doc: |-
   and the index at which it is found is used as the converted value.
 attributes:
   - name: classes_strings
-    description: A list of labels.
+    description: >-
+      A list of labels.
     type: STRINGS
     required: false
-    default_value:
   - name: default_int64
-    description: An integer to use when an input string value is not found in the
-      map.<br>One and only one of the 'default_*' attributes must be defined.
+    description: >-
+      An integer to use when an input string value is not found in the map.
+
+      One and only one of the 'default_*' attributes must be defined.
     type: INT
     required: false
     default_value: -1
   - name: default_string
-    description: A string to use when an input integer value is not found in the map.<br>One
-      and only one of the 'default_*' attributes must be defined.
+    description: >-
+      A string to use when an input integer value is not found in the map.
+
+      One and only one of the 'default_*' attributes must be defined.
     type: STRING
     required: false
     default_value: _Unused

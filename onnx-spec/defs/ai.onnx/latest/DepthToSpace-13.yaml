@@ -31,13 +31,14 @@ doc: |-
   ```
 attributes:
   - name: blocksize
-    description: Blocks of [blocksize, blocksize] are moved.
+    description: >-
+      Blocks of [blocksize, blocksize] are moved.
     type: INT
     required: true
-    default_value:
   - name: mode
-    description: DCR (default) for depth-column-row order re-arrangement. Use CRD
-      for column-row-depth order.
+    description: >-
+      DCR (default) for depth-column-row order re-arrangement. Use CRD for column-row-depth
+      order.
     type: STRING
     required: false
     default_value: DCR

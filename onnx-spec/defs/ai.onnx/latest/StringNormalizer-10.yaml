@@ -17,29 +17,31 @@ doc: |-
   if input shape is [C] and shape [1, 1] if input shape is [1, C].
 attributes:
   - name: case_change_action
-    description: string enum that cases output to be lowercased/uppercases/unchanged.
-      Valid values are "LOWER", "UPPER", "NONE". Default is "NONE"
+    description: >-
+      string enum that cases output to be lowercased/uppercases/unchanged. Valid values
+      are "LOWER", "UPPER", "NONE". Default is "NONE"
     type: STRING
     required: false
     default_value: NONE
   - name: is_case_sensitive
-    description: Boolean. Whether the identification of stop words in X is case-sensitive.
-      Default is false
+    description: >-
+      Boolean. Whether the identification of stop words in X is case-sensitive. Default
+      is false
     type: INT
     required: false
     default_value: 0
   - name: locale
-    description: Environment dependent string that denotes the locale according to
-      which output strings needs to be upper/lowercased.Default en_US or platform
-      specific equivalent as decided by the implementation.
+    description: >-
+      Environment dependent string that denotes the locale according to which output
+      strings needs to be upper/lowercased.Default en_US or platform specific equivalent
+      as decided by the implementation.
     type: STRING
     required: false
-    default_value:
   - name: stopwords
-    description: List of stop words. If not set, no word would be removed from X.
+    description: >-
+      List of stop words. If not set, no word would be removed from X.
     type: STRINGS
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: tensor(string)

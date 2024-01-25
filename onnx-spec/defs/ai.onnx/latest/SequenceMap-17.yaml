@@ -22,11 +22,11 @@ doc: |-
   or in any order. Users cannot expect any specific ordering in which each subgraph is computed.
 attributes:
   - name: body
-    description: The graph to be run for each sample in the sequence(s). It should
-      have as many inputs and outputs as inputs and outputs to the SequenceMap function.
+    description: >-
+      The graph to be run for each sample in the sequence(s). It should have as many
+      inputs and outputs as inputs and outputs to the SequenceMap function.
     type: GRAPH
     required: true
-    default_value:
 inputs:
   - name: input_sequence
     type_str: S

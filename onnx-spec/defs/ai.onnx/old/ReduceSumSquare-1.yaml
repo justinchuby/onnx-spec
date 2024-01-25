@@ -15,13 +15,14 @@ doc: |-
   False instead of True.
 attributes:
   - name: axes
-    description: A list of integers, along which to reduce. The default is to reduce
-      over all the dimensions of the input tensor.
+    description: >-
+      A list of integers, along which to reduce. The default is to reduce over all
+      the dimensions of the input tensor.
     type: INTS
     required: false
-    default_value:
   - name: keepdims
-    description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
+    description: >-
+      Keep the reduced dimension or not, default 1 means keep reduced dimension.
     type: INT
     required: false
     default_value: 1

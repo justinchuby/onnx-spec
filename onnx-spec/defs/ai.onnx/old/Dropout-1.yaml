@@ -13,18 +13,20 @@ doc: |-
   the training phase, so during testing nothing needs to be done.
 attributes:
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
   - name: is_test
-    description: (int, default 0) if nonzero, run dropout in test mode where the output
-      is simply Y = X.
+    description: >-
+      (int, default 0) if nonzero, run dropout in test mode where the output is simply
+      Y = X.
     type: INT
     required: false
     default_value: 0
   - name: ratio
-    description: (float, default 0.5) the ratio of random dropout
+    description: >-
+      (float, default 0.5) the ratio of random dropout
     type: FLOAT
     required: false
     default_value: 0.5

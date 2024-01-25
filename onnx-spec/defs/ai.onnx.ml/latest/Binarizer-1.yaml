@@ -9,7 +9,8 @@ doc: |-
   Maps the values of the input tensor to either 0 or 1, element-wise, based on the outcome of a comparison against a threshold value.
 attributes:
   - name: threshold
-    description: Values greater than this are mapped to 1, others to 0.
+    description: >-
+      Values greater than this are mapped to 1, others to 0.
     type: FLOAT
     required: false
     default_value: 0.0

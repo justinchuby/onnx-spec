@@ -15,27 +15,29 @@ doc: |-
   TensorProto message, and be valid as an output type.
 attributes:
   - name: dtype
-    description: (Optional) The data type for the elements of the output tensor, if
-      not specified, we will use the data type of the input tensor.
+    description: >-
+      (Optional) The data type for the elements of the output tensor, if not specified,
+      we will use the data type of the input tensor.
     type: INT
     required: false
-    default_value:
   - name: mean
-    description: The mean of the normal distribution.
+    description: >-
+      The mean of the normal distribution.
     type: FLOAT
     required: false
     default_value: 0.0
   - name: scale
-    description: The standard deviation of the normal distribution.
+    description: >-
+      The standard deviation of the normal distribution.
     type: FLOAT
     required: false
     default_value: 1.0
   - name: seed
-    description: (Optional) Seed to the random generator, if not specified we will
-      auto generate one.
+    description: >-
+      (Optional) Seed to the random generator, if not specified we will auto generate
+      one.
     type: FLOAT
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: T1

@@ -27,11 +27,11 @@ doc: |-
   an integer 36 to Boolean may produce 1 because we truncate bits which can't be stored in the targeted type.
 attributes:
   - name: to
-    description: The data type to which the elements of the input tensor are cast.
-      Strictly must be one of the types from DataType enum in TensorProto
+    description: >-
+      The data type to which the elements of the input tensor are cast. Strictly must
+      be one of the types from DataType enum in TensorProto
     type: INT
     required: true
-    default_value:
 inputs:
   - name: input
     type_str: T1

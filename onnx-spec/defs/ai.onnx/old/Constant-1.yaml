@@ -9,10 +9,10 @@ doc: |-
   A constant tensor.
 attributes:
   - name: value
-    description: The value for the elements of the output tensor.
+    description: >-
+      The value for the elements of the output tensor.
     type: TENSOR
     required: true
-    default_value:
 inputs: []
 outputs:
   - name: output

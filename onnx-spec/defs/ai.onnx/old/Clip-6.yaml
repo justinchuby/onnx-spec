@@ -11,12 +11,14 @@ doc: |-
   numeric_limits::lowest() and numeric_limits::max() respectively.
 attributes:
   - name: max
-    description: Maximum value, above which element is replaced by max
+    description: >-
+      Maximum value, above which element is replaced by max
     type: FLOAT
     required: false
     default_value: 3.4028234663852886e+38
   - name: min
-    description: Minimum value, under which element is replaced by min
+    description: >-
+      Minimum value, under which element is replaced by min
     type: FLOAT
     required: false
     default_value: -3.4028234663852886e+38

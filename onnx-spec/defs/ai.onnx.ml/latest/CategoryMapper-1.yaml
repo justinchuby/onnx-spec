@@ -19,26 +19,30 @@ doc: |-
   If the int default value is set, it will convert strings to integers.
 attributes:
   - name: cats_int64s
-    description: The integers of the map. This sequence must be the same length as
-      the 'cats_strings' sequence.
+    description: >-
+      The integers of the map. This sequence must be the same length as the 'cats_strings'
+      sequence.
     type: INTS
     required: false
-    default_value:
   - name: cats_strings
-    description: The strings of the map. This sequence must be the same length as
-      the 'cats_int64s' sequence
+    description: >-
+      The strings of the map. This sequence must be the same length as the 'cats_int64s'
+      sequence
     type: STRINGS
     required: false
-    default_value:
   - name: default_int64
-    description: An integer to use when an input string value is not found in the
-      map.<br>One and only one of the 'default_*' attributes must be defined.
+    description: >-
+      An integer to use when an input string value is not found in the map.
+
+      One and only one of the 'default_*' attributes must be defined.
     type: INT
     required: false
     default_value: -1
   - name: default_string
-    description: A string to use when an input integer value is not found in the map.<br>One
-      and only one of the 'default_*' attributes must be defined.
+    description: >-
+      A string to use when an input integer value is not found in the map.
+
+      One and only one of the 'default_*' attributes must be defined.
     type: STRING
     required: false
     default_value: _Unused

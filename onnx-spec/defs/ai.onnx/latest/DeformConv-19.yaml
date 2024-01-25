@@ -10,44 +10,46 @@ doc: |-
   This operator specification supports the general N-D case. Note that most common use cases have 2D or 3D data.
 attributes:
   - name: dilations
-    description: Dilation value along each spatial axis of the kernel. Default is
-      1 along each axis.
+    description: >-
+      Dilation value along each spatial axis of the kernel. Default is 1 along each
+      axis.
     type: INTS
     required: false
-    default_value:
   - name: group
-    description: Number of groups the input and output channels, C and oC, are divided
-      into. C and oC must both be divisible by group. Default is 1.
+    description: >-
+      Number of groups the input and output channels, C and oC, are divided into.
+      C and oC must both be divisible by group. Default is 1.
     type: INT
     required: false
     default_value: 1
   - name: kernel_shape
-    description: Shape of the convolution kernel. If not present, it is inferred from
-      the shape of input W.
+    description: >-
+      Shape of the convolution kernel. If not present, it is inferred from the shape
+      of input W.
     type: INTS
     required: false
-    default_value:
   - name: offset_group
-    description: Number of groups of offset. C must be divisible by offset_group.
-      Default is 1.
+    description: >-
+      Number of groups of offset. C must be divisible by offset_group. Default is
+      1.
     type: INT
     required: false
     default_value: 1
   - name: pads
-    description: 'Padding for the beginning and end along each spatial axis. The values
-      represent the number of pixels added to the beginning and end of the corresponding
-      axis and can take any nonnegative value. The format should be as follows: [x1_begin,
+    description: >-
+      Padding for the beginning and end along each spatial axis. The values represent
+      the number of pixels added to the beginning and end of the corresponding axis
+      and can take any nonnegative value. The format should be as follows: [x1_begin,
       x2_begin, ..., x1_end, x2_end, ...], where xi_begin is the number of pixels
       added at the beginning of axis `i` and xi_end is the number of pixels added
-      at the end of axis `i`. Default is 0 along each axis.'
+      at the end of axis `i`. Default is 0 along each axis.
     type: INTS
     required: false
-    default_value:
   - name: strides
-    description: Stride along each spatial axis. Default is 1 along each axis.
+    description: >-
+      Stride along each spatial axis. Default is 1 along each axis.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T

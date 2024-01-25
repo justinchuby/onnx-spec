@@ -24,22 +24,23 @@ doc: |-
     ]
 attributes:
   - name: mode
-    description: 'Three modes: constant(default), reflect, edge'
+    description: >-
+      Three modes: constant(default), reflect, edge
     type: STRING
     required: false
     default_value: constant
   - name: paddings
-    description: List of integers indicate the padding element count at the beginning
-      and end of each axis, for 2D it is the number of pixel. `paddings` rank should
-      be double of the input's rank. `paddings` format should be as follow [x1_begin,
-      x2_begin...x1_end, x2_end,...], where xi_begin the number of pixels added at
-      the beginning of axis `i` and xi_end, the number of pixels added at the end
-      of axis `i`.
+    description: >-
+      List of integers indicate the padding element count at the beginning and end
+      of each axis, for 2D it is the number of pixel. `paddings` rank should be double
+      of the input's rank. `paddings` format should be as follow [x1_begin, x2_begin...x1_end,
+      x2_end,...], where xi_begin the number of pixels added at the beginning of axis
+      `i` and xi_end, the number of pixels added at the end of axis `i`.
     type: INTS
     required: true
-    default_value:
   - name: value
-    description: One float, indicates the value to be filled, default is 0
+    description: >-
+      One float, indicates the value to be filled, default is 0
     type: FLOAT
     required: false
     default_value: 0.0

@@ -9,11 +9,11 @@ doc: |-
   Construct an empty tensor sequence, with given data type.
 attributes:
   - name: dtype
-    description: (Optional) The data type of the tensors in the output sequence. The
-      default type is 'float'.
+    description: >-
+      (Optional) The data type of the tensors in the output sequence. The default
+      type is 'float'.
     type: INT
     required: false
-    default_value:
 inputs: []
 outputs:
   - name: output

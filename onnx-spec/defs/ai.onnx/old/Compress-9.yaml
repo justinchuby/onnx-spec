@@ -11,11 +11,11 @@ doc: |-
   Compress behaves like numpy.compress: https://docs.scipy.org/doc/numpy/reference/generated/numpy.compress.html
 attributes:
   - name: axis
-    description: (Optional) Axis along which to take slices. If not specified, input
-      is flattened before elements being selected.
+    description: >-
+      (Optional) Axis along which to take slices. If not specified, input is flattened
+      before elements being selected.
     type: INT
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: T

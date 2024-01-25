@@ -23,8 +23,9 @@ doc: |-
   will throw errors.
 attributes:
   - name: axis
-    description: Describes the axis of the inputs when coerced to 2D; defaults to
-      one because the 0th axis most likely describes the batch_size
+    description: >-
+      Describes the axis of the inputs when coerced to 2D; defaults to one because
+      the 0th axis most likely describes the batch_size
     type: INT
     required: false
     default_value: 1

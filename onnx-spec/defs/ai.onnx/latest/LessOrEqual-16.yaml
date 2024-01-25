@@ -51,5 +51,16 @@ type_constraints:
     description: Constrain output to boolean tensor.
     allowed_type_strs:
       - tensor(bool)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 16]
+  >
+  LessOrEqual (A, B) => (C)
+  {
+     O1 = Less (A, B)
+     O2 = Equal (A, B)
+     C = Or (O1, O2)
+  }
 support_level: COMMON
 deprecated: false

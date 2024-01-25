@@ -12,15 +12,15 @@ doc: |-
   to equal sized parts.
 attributes:
   - name: axis
-    description: Which axis to split on
+    description: >-
+      Which axis to split on
     type: INT
     required: false
-    default_value:
   - name: split
-    description: length of each output
+    description: >-
+      length of each output
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: T

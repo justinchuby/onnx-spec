@@ -46,15 +46,16 @@ doc: |-
   ```
 attributes:
   - name: end
-    description: (Optional) Ending axis for slicing the shape. Negative value means
-      counting dimensions from the back. If omitted, sizes of all axes upto (including)
-      the last one will be included.
+    description: >-
+      (Optional) Ending axis for slicing the shape. Negative value means counting
+      dimensions from the back. If omitted, sizes of all axes upto (including) the
+      last one will be included.
     type: INT
     required: false
-    default_value:
   - name: start
-    description: (Optional) Starting axis for slicing the shape. Default value is
-      0.Negative value means counting dimensions from the back.
+    description: >-
+      (Optional) Starting axis for slicing the shape. Default value is 0.Negative
+      value means counting dimensions from the back.
     type: INT
     required: false
     default_value: 0

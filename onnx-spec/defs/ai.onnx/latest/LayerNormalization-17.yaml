@@ -49,19 +49,21 @@ doc: |-
   for more details please check [the doc](Broadcasting.md).
 attributes:
   - name: axis
-    description: The first normalization dimension. If rank(X) is r, axis' allowed
-      range is [-r, r). Negative value means counting dimensions from the back.
+    description: >-
+      The first normalization dimension. If rank(X) is r, axis' allowed range is [-r,
+      r). Negative value means counting dimensions from the back.
     type: INT
     required: false
     default_value: -1
   - name: epsilon
-    description: The epsilon value to use to avoid division by zero.
+    description: >-
+      The epsilon value to use to avoid division by zero.
     type: FLOAT
     required: false
     default_value: 9.999999747378752e-06
   - name: stash_type
-    description: Type of Mean and InvStdDev. This also specifies stage one's computation
-      precision.
+    description: >-
+      Type of Mean and InvStdDev. This also specifies stage one's computation precision.
     type: INT
     required: false
     default_value: 1

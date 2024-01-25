@@ -11,7 +11,8 @@ doc: |-
   `f(x) = x for x >= 0`, is applied to the data tensor elementwise.
 attributes:
   - name: alpha
-    description: Coefficient of leakage.
+    description: >-
+      Coefficient of leakage.
     type: FLOAT
     required: false
     default_value: 0.009999999776482582
@@ -37,5 +38,20 @@ type_constraints:
       - tensor(float16)
       - tensor(float)
       - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 16]
+  >
+  LeakyRelu <alpha>(X) => (Y)
+  {
+     Alpha = Constant <value_float: float = @alpha> ()
+     AlphaCast = CastLike (Alpha, X)
+     Zero = Constant <value: tensor = float {0}> ()
+     ZeroCast = CastLike (Zero, X)
+     XLessThanZero = Less (X, ZeroCast)
+     AlphaMulX = Mul (AlphaCast, X)
+     Y = Where (XLessThanZero, AlphaMulX, X)
+  }
 support_level: COMMON
 deprecated: false

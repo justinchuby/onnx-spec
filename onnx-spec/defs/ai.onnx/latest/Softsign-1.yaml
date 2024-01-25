@@ -29,5 +29,18 @@ type_constraints:
       - tensor(float16)
       - tensor(float)
       - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  Softsign (input) => (output)
+  {
+     One = Constant <value: tensor = float {1}> ()
+     OneCast = CastLike (One, input)
+     AbsInput = Abs (input)
+     OneAddAbsInput = Add (OneCast, AbsInput)
+     output = Div (input, OneAddAbsInput)
+  }
 support_level: COMMON
 deprecated: false

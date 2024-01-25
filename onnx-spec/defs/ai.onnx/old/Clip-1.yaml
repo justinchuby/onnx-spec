@@ -11,20 +11,20 @@ doc: |-
   numeric_limits::lowest() and numeric_limits::max() respectively.
 attributes:
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
   - name: max
-    description: Maximum value, above which element is replaced by max
+    description: >-
+      Maximum value, above which element is replaced by max
     type: FLOAT
     required: false
-    default_value:
   - name: min
-    description: Minimum value, under which element is replaced by min
+    description: >-
+      Minimum value, under which element is replaced by min
     type: FLOAT
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: T

@@ -20,22 +20,24 @@ doc: |-
   In other words, if the input tensor has the shape [*,F], then the length of the attribute array may be 1 or F. If it is 1, then it is broadcast along the last dimension and applied to each feature.
 attributes:
   - name: imputed_value_floats
-    description: Value(s) to change to
+    description: >-
+      Value(s) to change to
     type: FLOATS
     required: false
-    default_value:
   - name: imputed_value_int64s
-    description: Value(s) to change to.
+    description: >-
+      Value(s) to change to.
     type: INTS
     required: false
-    default_value:
   - name: replaced_value_float
-    description: A value that needs replacing.
+    description: >-
+      A value that needs replacing.
     type: FLOAT
     required: false
     default_value: 0.0
   - name: replaced_value_int64
-    description: A value that needs replacing.
+    description: >-
+      A value that needs replacing.
     type: INT
     required: false
     default_value: 0

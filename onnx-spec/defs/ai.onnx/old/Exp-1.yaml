@@ -9,10 +9,10 @@ doc: |-
   Calculates the exponential of the given input tensor, element-wise.
 attributes:
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: T

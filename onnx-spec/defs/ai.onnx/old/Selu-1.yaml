@@ -12,17 +12,19 @@ doc: |-
   is applied to the tensor elementwise.
 attributes:
   - name: alpha
-    description: Coefficient of SELU default to 1.6732.
+    description: >-
+      Coefficient of SELU default to 1.6732.
     type: FLOAT
     required: false
     default_value: 1.673200011253357
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
   - name: gamma
-    description: Coefficient of SELU default to 1.0507.
+    description: >-
+      Coefficient of SELU default to 1.0507.
     type: FLOAT
     required: false
     default_value: 1.0506999492645264

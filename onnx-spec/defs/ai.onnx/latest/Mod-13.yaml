@@ -21,8 +21,9 @@ doc: |-
   This operator supports **multidirectional (i.e., Numpy-style) broadcasting**; for more details please check [the doc](Broadcasting.md).
 attributes:
   - name: fmod
-    description: Whether the operator should behave like fmod (default=0 meaning it
-      will do integer mods); Set this to 1 to force fmod treatment
+    description: >-
+      Whether the operator should behave like fmod (default=0 meaning it will do integer
+      mods); Set this to 1 to force fmod treatment
     type: INT
     required: false
     default_value: 0

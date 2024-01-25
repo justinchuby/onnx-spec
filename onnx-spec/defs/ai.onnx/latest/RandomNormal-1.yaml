@@ -15,31 +15,34 @@ doc: |-
   TensorProto message.
 attributes:
   - name: dtype
-    description: The data type for the elements of the output tensor. Default is TensorProto::FLOAT.
+    description: >-
+      The data type for the elements of the output tensor. Default is TensorProto::FLOAT.
     type: INT
     required: false
     default_value: 1
   - name: mean
-    description: The mean of the normal distribution.
+    description: >-
+      The mean of the normal distribution.
     type: FLOAT
     required: false
     default_value: 0.0
   - name: scale
-    description: The standard deviation of the normal distribution.
+    description: >-
+      The standard deviation of the normal distribution.
     type: FLOAT
     required: false
     default_value: 1.0
   - name: seed
-    description: (Optional) Seed to the random generator, if not specified we will
-      auto generate one.
+    description: >-
+      (Optional) Seed to the random generator, if not specified we will auto generate
+      one.
     type: FLOAT
     required: false
-    default_value:
   - name: shape
-    description: The shape of the output tensor.
+    description: >-
+      The shape of the output tensor.
     type: INTS
     required: true
-    default_value:
 inputs: []
 outputs:
   - name: output

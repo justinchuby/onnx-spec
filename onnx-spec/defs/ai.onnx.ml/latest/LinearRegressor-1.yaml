@@ -17,23 +17,26 @@ doc: |-
   Intercepts are optional but if provided must match the number of targets.
 attributes:
   - name: coefficients
-    description: Weights of the model(s).
+    description: >-
+      Weights of the model(s).
     type: FLOATS
     required: false
-    default_value:
   - name: intercepts
-    description: Weights of the intercepts, if used.
+    description: >-
+      Weights of the intercepts, if used.
     type: FLOATS
     required: false
-    default_value:
   - name: post_transform
-    description: Indicates the transform to apply to the regression output vector.<br>One
-      of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    description: >-
+      Indicates the transform to apply to the regression output vector.
+
+      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
     type: STRING
     required: false
     default_value: NONE
   - name: targets
-    description: The total number of regression targets, 1 if not defined.
+    description: >-
+      The total number of regression targets, 1 if not defined.
     type: INT
     required: false
     default_value: 1

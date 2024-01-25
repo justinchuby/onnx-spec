@@ -9,16 +9,18 @@ doc: |-
   Generates a Blackman window as described in the paper https://ieeexplore.ieee.org/document/1455106.
 attributes:
   - name: output_datatype
-    description: 'The data type of the output tensor. Strictly must be one of the
-      values from DataType enum in TensorProto whose values correspond to T2. The
-      default value is 1 = FLOAT. '
+    description: >-
+      The data type of the output tensor. Strictly must be one of the values from
+      DataType enum in TensorProto whose values correspond to T2. The default value
+      is 1 = FLOAT.
     type: INT
     required: false
     default_value: 1
   - name: periodic
-    description: "If 1, returns a window to be used as periodic function. If 0, return
-      a symmetric window. When 'periodic' is specified, hann computes a window of
-      length size + 1 and returns the first size points. The default value is 1. "
+    description: >-
+      If 1, returns a window to be used as periodic function. If 0, return a symmetric
+      window. When 'periodic' is specified, hann computes a window of length size
+      + 1 and returns the first size points. The default value is 1.
     type: INT
     required: false
     default_value: 1
@@ -57,5 +59,39 @@ type_constraints:
       - tensor(float)
       - tensor(double)
       - tensor(bfloat16)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 17]
+  >
+  BlackmanWindow <output_datatype,periodic>(size) => (output)
+  {
+     A0 = Constant <value: tensor = float {0.42}> ()
+     A1 = Constant <value: tensor = float {0.5}> ()
+     A2 = Constant <value: tensor = float {0.08}> ()
+     Zero = Constant <value: tensor = float {0}> ()
+     One = Constant <value: tensor = float {1}> ()
+     Two = Constant <value: tensor = float {2}> ()
+     Tau = Constant <value: tensor = float {6.28319}> ()
+     Periodic_Size_FP = Cast <to: int = 1> (size)
+     Symmetric_Size_FP = Sub (Periodic_Size_FP, One)
+     IsPeriodic = Constant <value_int: int = @periodic> ()
+     IsPeriodic_FP = Cast <to: int = 1> (IsPeriodic)
+     IsSymmetric_FP = Sub (One, IsPeriodic_FP)
+     Periodic_Component = Mul (Periodic_Size_FP, IsPeriodic_FP)
+     Symmetric_Component = Mul (Symmetric_Size_FP, IsSymmetric_FP)
+     Size_FP = Add (Periodic_Component, Symmetric_Component)
+     AngularIncrement = Div (Tau, Size_FP)
+     Range = Range (Zero, Periodic_Size_FP, One)
+     RangeAngular = Mul (Range, AngularIncrement)
+     TwoRangeAngular = Mul (RangeAngular, Two)
+     CosTwoRangeAngular = Cos (TwoRangeAngular)
+     A2_Component = Mul (A2, CosTwoRangeAngular)
+     CosRangeAngular = Cos (RangeAngular)
+     A1_Component = Mul (A1, CosRangeAngular)
+     Temp0 = Sub (A0, A1_Component)
+     Temp1 = Add (Temp0, A2_Component)
+     output = Cast <to: int = @output_datatype> (Temp1)
+  }
 support_level: COMMON
 deprecated: false

@@ -68,15 +68,17 @@ doc: |-
   ```
 attributes:
   - name: axis
-    description: Which axis to scatter on. Negative value means counting dimensions
-      from the back. Accepted range is [-r, r-1] where r = rank(data).
+    description: >-
+      Which axis to scatter on. Negative value means counting dimensions from the
+      back. Accepted range is [-r, r-1] where r = rank(data).
     type: INT
     required: false
     default_value: 0
   - name: reduction
-    description: "Type of reduction to apply: none (default), add, mul. 'none': no
-      reduction applied. 'add':  reduction using the addition operation. 'mul': reduction
-      using the multiplication operation."
+    description: >-
+      Type of reduction to apply: none (default), add, mul. 'none': no reduction applied.
+      'add':  reduction using the addition operation. 'mul': reduction using the multiplication
+      operation.
     type: STRING
     required: false
     default_value: none

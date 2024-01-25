@@ -16,13 +16,13 @@ doc: |-
   so that the input is centered in the output.
 attributes:
   - name: axes
-    description: If provided, it specifies a subset of axes that 'shape' refer to.
-      If not provided, all axes are assumed [0, 1, ..., r-1], where r = rank(data).
-      Negative value means counting dimensions from the back. Accepted range is [-r,
-      r-1], where r = rank(data). Behavior is undefined if an axis is repeated.
+    description: >-
+      If provided, it specifies a subset of axes that 'shape' refer to. If not provided,
+      all axes are assumed [0, 1, ..., r-1], where r = rank(data). Negative value
+      means counting dimensions from the back. Accepted range is [-r, r-1], where
+      r = rank(data). Behavior is undefined if an axis is repeated.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: input_data
     type_str: T

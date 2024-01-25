@@ -15,9 +15,12 @@ doc: |-
   and contains the Hardmax values of the corresponding input.
 attributes:
   - name: axis
-    description: "\nDescribes the dimension Hardmax will be performed on.\nNegative
-      value means counting dimensions\nfrom the back. Accepted range is [-r, r-1]
-      where r = rank(input).\n"
+    description: >-
+      Describes the dimension Hardmax will be performed on.
+
+      Negative value means counting dimensions
+
+      from the back. Accepted range is [-r, r-1] where r = rank(input).
     type: INT
     required: false
     default_value: -1

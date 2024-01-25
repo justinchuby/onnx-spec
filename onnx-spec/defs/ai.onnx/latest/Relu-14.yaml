@@ -36,5 +36,16 @@ type_constraints:
       - tensor(float16)
       - tensor(double)
       - tensor(bfloat16)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  Relu (X) => (Y)
+  {
+     Zero = Constant <value: tensor = float {0}> ()
+     ZeroCast = CastLike (Zero, X)
+     Y = Max (X, ZeroCast)
+  }
 support_level: COMMON
 deprecated: false

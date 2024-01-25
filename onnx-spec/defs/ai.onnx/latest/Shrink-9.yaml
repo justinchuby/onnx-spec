@@ -12,12 +12,14 @@ doc: |-
   If x > lambd, y = x - bias; Otherwise, y = 0.
 attributes:
   - name: bias
-    description: The bias value added to output. Default is 0.
+    description: >-
+      The bias value added to output. Default is 0.
     type: FLOAT
     required: false
     default_value: 0.0
   - name: lambd
-    description: The lambd value for the Shrink formulation. Default is 0.5.
+    description: >-
+      The lambd value for the Shrink formulation. Default is 0.5.
     type: FLOAT
     required: false
     default_value: 0.5
@@ -50,5 +52,26 @@ type_constraints:
       - tensor(float16)
       - tensor(float)
       - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  Shrink <bias,lambd>(input) => (output)
+  {
+     Lambd = Constant <value_float: float = @lambd> ()
+     LambdCast = CastLike (Lambd, input)
+     Bias = Constant <value_float: float = @bias> ()
+     BiasCast = CastLike (Bias, input)
+     Zero = Constant <value: tensor = float {0}> ()
+     ZeroCast = CastLike (Zero, input)
+     NegLmbda = Neg (LambdCast)
+     InputLessThanNegLambda = Less (input, NegLmbda)
+     InputAddBias = Add (input, BiasCast)
+     InputSubBias = Sub (input, BiasCast)
+     LambdaLessThanInput = Less (LambdCast, input)
+     InputSubBiasOrZero = Where (LambdaLessThanInput, InputSubBias, ZeroCast)
+     output = Where (InputLessThanNegLambda, InputAddBias, InputSubBiasOrZero)
+  }
 support_level: COMMON
 deprecated: false

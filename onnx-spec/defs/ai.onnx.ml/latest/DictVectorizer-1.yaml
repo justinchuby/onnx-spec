@@ -22,17 +22,19 @@ doc: |-
   then an input of ``{"a": 4, "c": 8}`` will produce an output of ``[4, 8, 0, 0]``.
 attributes:
   - name: int64_vocabulary
-    description: An integer vocabulary array.<br>One and only one of the vocabularies
-      must be defined.
+    description: >-
+      An integer vocabulary array.
+
+      One and only one of the vocabularies must be defined.
     type: INTS
     required: false
-    default_value:
   - name: string_vocabulary
-    description: A string vocabulary array.<br>One and only one of the vocabularies
-      must be defined.
+    description: >-
+      A string vocabulary array.
+
+      One and only one of the vocabularies must be defined.
     type: STRINGS
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T1

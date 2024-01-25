@@ -108,7 +108,8 @@ doc: |-
   ```
 attributes:
   - name: mode
-    description: 'Supported modes: `constant`(default), `reflect`, `edge`, `wrap`'
+    description: >-
+      Supported modes: `constant`(default), `reflect`, `edge`, `wrap`
     type: STRING
     required: false
     default_value: constant

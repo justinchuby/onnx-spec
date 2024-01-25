@@ -9,11 +9,11 @@ doc: |-
   Generate a tensor with given value and shape.
 attributes:
   - name: value
-    description: (Optional) The value of the output elements.Should be a one-element
-      tensor. If not specified, it defaults to a tensor of value 0 and datatype float32
+    description: >-
+      (Optional) The value of the output elements.Should be a one-element tensor.
+      If not specified, it defaults to a tensor of value 0 and datatype float32
     type: TENSOR
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: T1

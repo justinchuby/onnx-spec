@@ -83,10 +83,11 @@ doc: |-
   ```
 attributes:
   - name: reduction
-    description: "Type of reduction to apply: none (default), add, mul, max, min.
-      'none': no reduction applied. 'add':  reduction using the addition operation.
-      'mul':  reduction using the addition operation. 'max': reduction using the maximum
-      operation.'min': reduction using the minimum operation."
+    description: >-
+      Type of reduction to apply: none (default), add, mul, max, min. 'none': no reduction
+      applied. 'add':  reduction using the addition operation. 'mul':  reduction using
+      the addition operation. 'max': reduction using the maximum operation.'min':
+      reduction using the minimum operation.
     type: STRING
     required: false
     default_value: none

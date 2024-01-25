@@ -14,32 +14,35 @@ doc: |-
   TensorProto message.
 attributes:
   - name: dtype
-    description: The data type for the elements of the output tensor. If not specified,
-      default is TensorProto::FLOAT.
+    description: >-
+      The data type for the elements of the output tensor. If not specified, default
+      is TensorProto::FLOAT.
     type: INT
     required: false
     default_value: 1
   - name: high
-    description: Upper boundary of the output values.
+    description: >-
+      Upper boundary of the output values.
     type: FLOAT
     required: false
     default_value: 1.0
   - name: low
-    description: Lower boundary of the output values.
+    description: >-
+      Lower boundary of the output values.
     type: FLOAT
     required: false
     default_value: 0.0
   - name: seed
-    description: (Optional) Seed to the random generator, if not specified we will
-      auto generate one.
+    description: >-
+      (Optional) Seed to the random generator, if not specified we will auto generate
+      one.
     type: FLOAT
     required: false
-    default_value:
   - name: shape
-    description: The shape of the output tensor.
+    description: >-
+      The shape of the output tensor.
     type: INTS
     required: true
-    default_value:
 inputs: []
 outputs:
   - name: output

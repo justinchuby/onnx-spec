@@ -10,10 +10,10 @@ doc: |-
   or a non-empty value containing the input element.
 attributes:
   - name: type
-    description: Type of the element in the optional output
+    description: >-
+      Type of the element in the optional output
     type: TYPE_PROTO
     required: false
-    default_value:
 inputs:
   - name: input
     type_str: V

@@ -25,122 +25,130 @@ doc: |-
   Mode enum is BRANCH_LEQ, BRANCH_LT, BRANCH_GTE, BRANCH_GT, BRANCH_EQ, BRANCH_NEQ, LEAF
 attributes:
   - name: aggregate_function
-    description: Defines how to aggregate leaf values within a target. <br>One of
-      'AVERAGE,' 'SUM,' 'MIN,' 'MAX.'
+    description: >-
+      Defines how to aggregate leaf values within a target. 
+
+      One of 'AVERAGE,' 'SUM,' 'MIN,' 'MAX.'
     type: STRING
     required: false
     default_value: SUM
   - name: base_values
-    description: Base values for regression, added to final prediction after applying
-      aggregate_function; the size must be the same as the classes or can be left
-      unassigned (assumed 0)
+    description: >-
+      Base values for regression, added to final prediction after applying aggregate_function;
+      the size must be the same as the classes or can be left unassigned (assumed
+      0)
     type: FLOATS
     required: false
-    default_value:
   - name: base_values_as_tensor
-    description: Base values for regression, added to final prediction after applying
-      aggregate_function; the size must be the same as the classes or can be left
-      unassigned (assumed 0)
+    description: >-
+      Base values for regression, added to final prediction after applying aggregate_function;
+      the size must be the same as the classes or can be left unassigned (assumed
+      0)
     type: TENSOR
     required: false
-    default_value:
   - name: n_targets
-    description: The total number of targets.
+    description: >-
+      The total number of targets.
     type: INT
     required: false
-    default_value:
   - name: nodes_falsenodeids
-    description: Child node if expression is false
+    description: >-
+      Child node if expression is false
     type: INTS
     required: false
-    default_value:
   - name: nodes_featureids
-    description: Feature id for each node.
+    description: >-
+      Feature id for each node.
     type: INTS
     required: false
-    default_value:
   - name: nodes_hitrates
-    description: Popularity of each node, used for performance and may be omitted.
+    description: >-
+      Popularity of each node, used for performance and may be omitted.
     type: FLOATS
     required: false
-    default_value:
   - name: nodes_hitrates_as_tensor
-    description: Popularity of each node, used for performance and may be omitted.
+    description: >-
+      Popularity of each node, used for performance and may be omitted.
     type: TENSOR
     required: false
-    default_value:
   - name: nodes_missing_value_tracks_true
-    description: "For each node, define what to do in the presence of a NaN: use the
-      'true' (if the attribute value is 1) or 'false' (if the attribute value is 0)
-      branch based on the value in this array.<br>This attribute may be left undefined
-      and the default value is false (0) for all nodes."
+    description: >-
+      For each node, define what to do in the presence of a NaN: use the 'true' (if
+      the attribute value is 1) or 'false' (if the attribute value is 0) branch based
+      on the value in this array.
+
+      This attribute may be left undefined and the default value is false (0) for
+      all nodes.
     type: INTS
     required: false
-    default_value:
   - name: nodes_modes
-    description: The node kind, that is, the comparison to make at the node. There
-      is no comparison to make at a leaf node.<br>One of 'BRANCH_LEQ', 'BRANCH_LT',
-      'BRANCH_GTE', 'BRANCH_GT', 'BRANCH_EQ', 'BRANCH_NEQ', 'LEAF'
+    description: >-
+      The node kind, that is, the comparison to make at the node. There is no comparison
+      to make at a leaf node.
+
+      One of 'BRANCH_LEQ', 'BRANCH_LT', 'BRANCH_GTE', 'BRANCH_GT', 'BRANCH_EQ', 'BRANCH_NEQ',
+      'LEAF'
     type: STRINGS
     required: false
-    default_value:
   - name: nodes_nodeids
-    description: Node id for each node. Node ids must restart at zero for each tree
-      and increase sequentially.
+    description: >-
+      Node id for each node. Node ids must restart at zero for each tree and increase
+      sequentially.
     type: INTS
     required: false
-    default_value:
   - name: nodes_treeids
-    description: Tree id for each node.
+    description: >-
+      Tree id for each node.
     type: INTS
     required: false
-    default_value:
   - name: nodes_truenodeids
-    description: Child node if expression is true
+    description: >-
+      Child node if expression is true
     type: INTS
     required: false
-    default_value:
   - name: nodes_values
-    description: Thresholds to do the splitting on for each node.
+    description: >-
+      Thresholds to do the splitting on for each node.
     type: FLOATS
     required: false
-    default_value:
   - name: nodes_values_as_tensor
-    description: Thresholds to do the splitting on for each node.
+    description: >-
+      Thresholds to do the splitting on for each node.
     type: TENSOR
     required: false
-    default_value:
   - name: post_transform
-    description: Indicates the transform to apply to the score. <br>One of 'NONE,'
-      'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    description: >-
+      Indicates the transform to apply to the score. 
+
+      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
     type: STRING
     required: false
     default_value: NONE
   - name: target_ids
-    description: The index of the target that each weight is for
+    description: >-
+      The index of the target that each weight is for
     type: INTS
     required: false
-    default_value:
   - name: target_nodeids
-    description: The node id of each weight
+    description: >-
+      The node id of each weight
     type: INTS
     required: false
-    default_value:
   - name: target_treeids
-    description: The id of the tree that each node is in.
+    description: >-
+      The id of the tree that each node is in.
     type: INTS
     required: false
-    default_value:
   - name: target_weights
-    description: The weight for each target
+    description: >-
+      The weight for each target
     type: FLOATS
     required: false
-    default_value:
   - name: target_weights_as_tensor
-    description: The weight for each target
+    description: >-
+      The weight for each target
     type: TENSOR
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T

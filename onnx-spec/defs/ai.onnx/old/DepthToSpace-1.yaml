@@ -12,10 +12,10 @@ doc: |-
   and width dimensions.
 attributes:
   - name: blocksize
-    description: Blocks of [blocksize, blocksize] are moved.
+    description: >-
+      Blocks of [blocksize, blocksize] are moved.
     type: INT
     required: true
-    default_value:
 inputs:
   - name: input
     type_str: T

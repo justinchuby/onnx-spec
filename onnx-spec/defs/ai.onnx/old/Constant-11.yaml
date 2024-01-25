@@ -10,15 +10,15 @@ doc: |-
   must be specified.
 attributes:
   - name: sparse_value
-    description: The value for the elements of the output tensor in sparse format.
+    description: >-
+      The value for the elements of the output tensor in sparse format.
     type: SPARSE_TENSOR
     required: false
-    default_value:
   - name: value
-    description: The value for the elements of the output tensor.
+    description: >-
+      The value for the elements of the output tensor.
     type: TENSOR
     required: false
-    default_value:
 inputs: []
 outputs:
   - name: output

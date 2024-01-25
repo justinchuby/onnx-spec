@@ -23,18 +23,21 @@ doc: |-
   a tiebreaker. That is, the element with the lower index will appear first.
 attributes:
   - name: axis
-    description: Dimension on which to do the sort. Negative value means counting
-      dimensions from the back. Accepted range is [-r, r-1] where r = rank(input).
+    description: >-
+      Dimension on which to do the sort. Negative value means counting dimensions
+      from the back. Accepted range is [-r, r-1] where r = rank(input).
     type: INT
     required: false
     default_value: -1
   - name: largest
-    description: Whether to return the top-K largest or smallest elements.
+    description: >-
+      Whether to return the top-K largest or smallest elements.
     type: INT
     required: false
     default_value: 1
   - name: sorted
-    description: Whether to return the elements in sorted order.
+    description: >-
+      Whether to return the elements in sorted order.
     type: INT
     required: false
     default_value: 1

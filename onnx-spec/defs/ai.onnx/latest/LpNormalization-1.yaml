@@ -9,12 +9,14 @@ doc: |-
   Given a matrix, apply Lp-normalization along the provided axis.
 attributes:
   - name: axis
-    description: The axis on which to apply normalization, -1 mean last axis.
+    description: >-
+      The axis on which to apply normalization, -1 mean last axis.
     type: INT
     required: false
     default_value: -1
   - name: p
-    description: The order of the normalization, only 1 or 2 are supported.
+    description: >-
+      The order of the normalization, only 1 or 2 are supported.
     type: INT
     required: false
     default_value: 2

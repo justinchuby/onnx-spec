@@ -11,7 +11,8 @@ doc: |-
   0`, `f(x) = x for x >= 0`., is applied to the tensor elementwise.
 attributes:
   - name: alpha
-    description: Coefficient of ELU.
+    description: >-
+      Coefficient of ELU.
     type: FLOAT
     required: false
     default_value: 1.0
@@ -36,5 +37,24 @@ type_constraints:
       - tensor(float16)
       - tensor(float)
       - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  Elu <alpha>(X) => (Y)
+  {
+     Alpha = Constant <value_float: float = @alpha> ()
+     AlphaCast = CastLike (Alpha, X)
+     Zero = Constant <value: tensor = float {0}> ()
+     ZeroCast = CastLike (Zero, X)
+     One = Constant <value: tensor = float {1}> ()
+     OneCast = CastLike (One, X)
+     XLessThanZero = Less (X, ZeroCast)
+     ExpX = Exp (X)
+     ExpXSubOne = Sub (ExpX, OneCast)
+     AlphaMulExpXSubOne = Mul (AlphaCast, ExpXSubOne)
+     Y = Where (XLessThanZero, AlphaMulExpXSubOne, X)
+  }
 support_level: COMMON
 deprecated: false

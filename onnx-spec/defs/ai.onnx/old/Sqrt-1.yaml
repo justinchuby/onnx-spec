@@ -11,10 +11,10 @@ doc: |-
   the tensor elementwise. If x is negative, then it will return NaN.
 attributes:
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: X
     type_str: T

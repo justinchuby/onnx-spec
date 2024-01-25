@@ -28,20 +28,21 @@ doc: |-
   Attribute `broadcast=1` needs to be passed to enable broadcasting.
 attributes:
   - name: axis
-    description: If set, defines the broadcast dimensions. See doc for details.
+    description: >-
+      If set, defines the broadcast dimensions. See doc for details.
     type: INT
     required: false
-    default_value:
   - name: broadcast
-    description: Pass 1 to enable broadcasting
+    description: >-
+      Pass 1 to enable broadcasting
     type: INT
     required: false
     default_value: 0
   - name: consumed_inputs
-    description: legacy optimization attribute.
+    description: >-
+      legacy optimization attribute.
     type: INTS
     required: false
-    default_value:
 inputs:
   - name: A
     type_str: T

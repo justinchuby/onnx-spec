@@ -15,19 +15,22 @@ doc: |-
   The type of the output tensor is integer.
 attributes:
   - name: axis
-    description: The axis in which to compute the arg indices. Accepted range is [-r,
-      r-1] where r = rank(data).
+    description: >-
+      The axis in which to compute the arg indices. Accepted range is [-r, r-1] where
+      r = rank(data).
     type: INT
     required: false
     default_value: 0
   - name: keepdims
-    description: Keep the reduced dimension or not, default 1 means keep reduced dimension.
+    description: >-
+      Keep the reduced dimension or not, default 1 means keep reduced dimension.
     type: INT
     required: false
     default_value: 1
   - name: select_last_index
-    description: Whether to select the last index or the first index if the {name}
-      appears in multiple indices, default is False (first index).
+    description: >-
+      Whether to select the last index or the first index if the {name} appears in
+      multiple indices, default is False (first index).
     type: INT
     required: false
     default_value: 0

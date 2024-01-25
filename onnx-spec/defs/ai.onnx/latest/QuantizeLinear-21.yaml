@@ -18,17 +18,19 @@ doc: |-
   the type of the attribute 'y_zero_point' still determines the quantization type.
 attributes:
   - name: axis
-    description: (Optional) The axis of the quantization dimension of the input tensor.
-      Ignored for per-tensor quantization. Negative value means counting dimensions
-      from the back. Accepted range is [-r, r-1] where r = rank(input).
+    description: >-
+      (Optional) The axis of the quantization dimension of the input tensor. Ignored
+      for per-tensor quantization. Negative value means counting dimensions from the
+      back. Accepted range is [-r, r-1] where r = rank(input).
     type: INT
     required: false
     default_value: 1
   - name: saturate
-    description: The parameter defines how the conversion behaves if an input value
-      is out of range of the destination type. It only applies for float 8 quantization
-      (float8e4m3fn, float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default.
-      All cases are fully described in two tables inserted in the operator description.
+    description: >-
+      The parameter defines how the conversion behaves if an input value is out of
+      range of the destination type. It only applies for float 8 quantization (float8e4m3fn,
+      float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default. All cases
+      are fully described in two tables inserted in the operator description.
     type: INT
     required: false
     default_value: 1

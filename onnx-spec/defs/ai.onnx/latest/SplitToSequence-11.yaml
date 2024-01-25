@@ -20,14 +20,16 @@ doc: |-
   in 'split' must be equal to the dimension size of input tensor on 'axis'.
 attributes:
   - name: axis
-    description: Which axis to split on. A negative value means counting dimensions
-      from the back. Accepted range is [-rank, rank-1].
+    description: >-
+      Which axis to split on. A negative value means counting dimensions from the
+      back. Accepted range is [-rank, rank-1].
     type: INT
     required: false
     default_value: 0
   - name: keepdims
-    description: Keep the split dimension or not. Default 1, which means we keep split
-      dimension. If input 'split' is specified, this attribute is ignored.
+    description: >-
+      Keep the split dimension or not. Default 1, which means we keep split dimension.
+      If input 'split' is specified, this attribute is ignored.
     type: INT
     required: false
     default_value: 1

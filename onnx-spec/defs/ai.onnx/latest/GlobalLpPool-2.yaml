@@ -11,7 +11,8 @@ doc: |-
   equal to the spatial dimension of input tensor.
 attributes:
   - name: p
-    description: p value of the Lp norm used to pool over the input data.
+    description: >-
+      p value of the Lp norm used to pool over the input data.
     type: INT
     required: false
     default_value: 2

@@ -19,12 +19,11 @@ doc: |-
   The order of values in `axes` does not matter and can come in any order.
 attributes:
   - name: axes
-    description: List of integers indicating the dimensions to be inserted. Negative
-      value means counting dimensions from the back. Accepted range is [-r, r-1] where
-      r = rank(expanded).
+    description: >-
+      List of integers indicating the dimensions to be inserted. Negative value means
+      counting dimensions from the back. Accepted range is [-r, r-1] where r = rank(expanded).
     type: INTS
     required: true
-    default_value:
 inputs:
   - name: data
     type_str: T

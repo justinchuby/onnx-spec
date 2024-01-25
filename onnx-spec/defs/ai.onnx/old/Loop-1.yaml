@@ -121,15 +121,15 @@ doc: |-
   point-wise operators (e.g. dropout, residual connections, linear layer).
 attributes:
   - name: body
-    description: 'The graph run each iteration. It has 2+N inputs: (iteration_num,
-      condition, loop carried dependencies...). It has 1+N+K outputs: (condition,
-      loop carried dependencies..., scan_outputs...). Each scan_output is created
-      by concatenating the value of the specified output value at the end of each
-      iteration of the loop. It is an error if the dimensions or data type of these
-      scan_outputs change across loop iterations.'
+    description: >-
+      The graph run each iteration. It has 2+N inputs: (iteration_num, condition,
+      loop carried dependencies...). It has 1+N+K outputs: (condition, loop carried
+      dependencies..., scan_outputs...). Each scan_output is created by concatenating
+      the value of the specified output value at the end of each iteration of the
+      loop. It is an error if the dimensions or data type of these scan_outputs change
+      across loop iterations.
     type: GRAPH
     required: true
-    default_value:
 inputs:
   - name: M
     type_str: I

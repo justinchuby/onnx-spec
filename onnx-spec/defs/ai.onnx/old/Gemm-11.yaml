@@ -21,22 +21,26 @@ doc: |-
   This operator has **optional** inputs/outputs. See [the doc](IR.md) for more details about the representation of optional arguments. An empty string may be used in the place of an actual argument's name to indicate a missing argument. Trailing optional arguments (those not followed by an argument that is present) may also be simply omitted.
 attributes:
   - name: alpha
-    description: Scalar multiplier for the product of input tensors A * B.
+    description: >-
+      Scalar multiplier for the product of input tensors A * B.
     type: FLOAT
     required: false
     default_value: 1.0
   - name: beta
-    description: Scalar multiplier for input tensor C.
+    description: >-
+      Scalar multiplier for input tensor C.
     type: FLOAT
     required: false
     default_value: 1.0
   - name: transA
-    description: Whether A should be transposed
+    description: >-
+      Whether A should be transposed
     type: INT
     required: false
     default_value: 0
   - name: transB
-    description: Whether B should be transposed
+    description: >-
+      Whether B should be transposed
     type: INT
     required: false
     default_value: 0

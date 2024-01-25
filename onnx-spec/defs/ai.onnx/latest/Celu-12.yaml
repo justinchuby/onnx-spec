@@ -15,8 +15,9 @@ doc: |-
   ```
 attributes:
   - name: alpha
-    description: The Alpha value in Celu formula which control the shape of the unit.
-      The default value is 1.0.
+    description: >-
+      The Alpha value in Celu formula which control the shape of the unit. The default
+      value is 1.0.
     type: FLOAT
     required: false
     default_value: 1.0

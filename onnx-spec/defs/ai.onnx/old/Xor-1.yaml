@@ -14,12 +14,13 @@ doc: |-
   detailed description of the broadcasting rules.
 attributes:
   - name: axis
-    description: If set, defines the broadcast dimensions.
+    description: >-
+      If set, defines the broadcast dimensions.
     type: INT
     required: false
-    default_value:
   - name: broadcast
-    description: Enable broadcasting
+    description: >-
+      Enable broadcasting
     type: INT
     required: false
     default_value: 0
