@@ -7,7 +7,6 @@ Usage:
 
 import argparse
 import dataclasses
-import os
 import pathlib
 import textwrap
 
@@ -206,10 +205,23 @@ def main():
     schemas = onnx.defs.get_all_schemas_with_history()
     yaml = YAML()
     yaml.indent(mapping=2, sequence=4, offset=2)
+
+    latest_versions = {}
+    for schema in schemas:
+        if schema.name in latest_versions:
+            latest_versions[schema.name] = max(
+                latest_versions[schema.name], schema.since_version
+            )
+        else:
+            latest_versions[schema.name] = schema.since_version
     for schema in schemas:
         dataclass_schema = schema_to_dataclass(schema)
         domain = schema.domain or "ai.onnx"
         outdir = pathlib.Path(args.output) / domain
+        if latest_versions[schema.name] != schema.since_version:
+            outdir = outdir / "old"
+        else:
+            outdir = outdir / "latest"
         outdir.mkdir(parents=True, exist_ok=True)
         path = outdir / f"{schema.name}-{schema.since_version}.yaml"
         with open(path, "w", encoding="utf-8") as f:
