@@ -13,7 +13,7 @@ import textwrap
 import beartype
 import onnx
 from ruamel.yaml import YAML
-from ruamel.yaml.scalarstring import LiteralScalarString
+from ruamel.yaml.scalarstring import LiteralScalarString, FoldedScalarString
 
 
 @beartype.beartype
@@ -59,8 +59,76 @@ class OpSchema:
     inputs: list[FormalParameter]
     outputs: list[FormalParameter]
     type_constraints: list[TypeConstraintParam]
+    function: str | None = None
     support_level: str = "COMMON"
     deprecated: bool = False
+
+    def as_dict(self):
+        d = dataclasses.asdict(self)
+        for attribute in d["attributes"]:
+            if attribute["default_value"] is None:
+                del attribute["default_value"]
+        if not self.function:
+            del d["function"]
+        return d
+
+    @classmethod
+    def from_onnx_opschema(cls, schema: onnx.defs.OpSchema) -> "OpSchema":
+        return cls(
+            support_level="COMMON"
+            if schema.support_level == onnx.defs.OpSchema.SupportType.COMMON
+            else "EXPERIMENTAL",
+            doc=LiteralScalarString(_process_documentation(schema.doc)),
+            since_version=schema.since_version,
+            deprecated=schema.deprecated,
+            domain=schema.domain,
+            name=schema.name,
+            min_input=schema.min_input,
+            max_input=schema.max_input,
+            min_output=schema.min_output,
+            max_output=schema.max_output,
+            attributes=[
+                Attribute(
+                    name=attr.name,
+                    description=FoldedScalarString(_process_documentation(attr.description)),
+                    type=str(attr.type).split(".")[-1],
+                    required=attr.required,
+                    default_value=_get_attribute_default_value(attr),
+                )
+                for attr in schema.attributes.values()
+            ],
+            inputs=[
+                FormalParameter(
+                    name=input_.name,
+                    type_str=input_.type_str,
+                    description=input_.description,
+                    min_arity=input_.min_arity,
+                    tags=_generate_formal_parameter_tags(input_),
+                )
+                for input_ in schema.inputs
+            ],
+            outputs=[
+                FormalParameter(
+                    name=output.name,
+                    type_str=output.type_str,
+                    description=output.description,
+                    min_arity=output.min_arity,
+                    tags=_generate_formal_parameter_tags(output),
+                )
+                for output in schema.outputs
+            ],
+            type_constraints=[
+                TypeConstraintParam(
+                    type_param_str=type_constraint.type_param_str,
+                    description=type_constraint.description,
+                    allowed_type_strs=list(type_constraint.allowed_type_strs),
+                )
+                for type_constraint in schema.type_constraints
+            ],
+            function=LiteralScalarString(onnx.printer.to_text(schema.function_body))
+            if schema.has_function
+            else None,
+        )
 
 
 @beartype.beartype
@@ -118,7 +186,7 @@ def _get_attribute_default_value(attr: onnx.defs.OpSchema.Attribute):
     return value
 
 
-def _process_documentation(doc: str | None) -> str | LiteralScalarString:
+def _process_documentation(doc: str | None) -> str:
     # Lifted from ONNX's docsgen:
     # https://github.com/onnx/onnx/blob/3fd41d249bb8006935aa0031a332dd945e61b7e5/docs/docsgen/source/onnx_sphinx.py#L414
     if not doc:
@@ -138,63 +206,7 @@ def _process_documentation(doc: str | None) -> str | LiteralScalarString:
     for k, v in rep.items():
         doc = doc.replace(k, v)
     doc = doc.strip()
-    return LiteralScalarString(doc)
-
-
-@beartype.beartype
-def schema_to_dataclass(schema: onnx.defs.OpSchema) -> OpSchema:
-    return OpSchema(
-        support_level="COMMON"
-        if schema.support_level == onnx.defs.OpSchema.SupportType.COMMON
-        else "EXPERIMENTAL",
-        doc=_process_documentation(schema.doc),
-        since_version=schema.since_version,
-        deprecated=schema.deprecated,
-        domain=schema.domain,
-        name=schema.name,
-        min_input=schema.min_input,
-        max_input=schema.max_input,
-        min_output=schema.min_output,
-        max_output=schema.max_output,
-        attributes=[
-            Attribute(
-                name=attr.name,
-                description=attr.description,
-                type=str(attr.type).split(".")[-1],
-                required=attr.required,
-                default_value=_get_attribute_default_value(attr),
-            )
-            for attr in schema.attributes.values()
-        ],
-        inputs=[
-            FormalParameter(
-                name=input_.name,
-                type_str=input_.type_str,
-                description=input_.description,
-                min_arity=input_.min_arity,
-                tags=_generate_formal_parameter_tags(input_),
-            )
-            for input_ in schema.inputs
-        ],
-        outputs=[
-            FormalParameter(
-                name=output.name,
-                type_str=output.type_str,
-                description=output.description,
-                min_arity=output.min_arity,
-                tags=_generate_formal_parameter_tags(output),
-            )
-            for output in schema.outputs
-        ],
-        type_constraints=[
-            TypeConstraintParam(
-                type_param_str=type_constraint.type_param_str,
-                description=type_constraint.description,
-                allowed_type_strs=list(type_constraint.allowed_type_strs),
-            )
-            for type_constraint in schema.type_constraints
-        ],
-    )
+    return doc
 
 
 def main():
@@ -215,7 +227,7 @@ def main():
         else:
             latest_versions[schema.name] = schema.since_version
     for schema in schemas:
-        dataclass_schema = schema_to_dataclass(schema)
+        dataclass_schema = OpSchema.from_onnx_opschema(schema)
         domain = schema.domain or "ai.onnx"
         outdir = pathlib.Path(args.output) / domain
         if latest_versions[schema.name] != schema.since_version:
@@ -226,9 +238,7 @@ def main():
         path = outdir / f"{schema.name}-{schema.since_version}.yaml"
         with open(path, "w", encoding="utf-8") as f:
             print(f"Writing {path}")
-            d = dataclasses.asdict(dataclass_schema)
-
-            yaml.dump(d, f)
+            yaml.dump(dataclass_schema.as_dict(), f)
 
 
 if __name__ == "__main__":
