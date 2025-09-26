@@ -17,7 +17,8 @@ inputs:
 outputs:
   - name: length
     type_str: I
-    description: Length of input sequence. It must be a scalar(tensor of empty shape).
+    description: Length of input sequence. It must be a scalar(tensor of empty 
+      shape).
     min_arity: 1
     tags: []
 type_constraints:
@@ -40,8 +41,8 @@ type_constraints:
       - seq(tensor(complex64))
       - seq(tensor(complex128))
   - type_param_str: I
-    description: Constrain output to integral tensor. It must be a scalar(tensor of
-      empty shape).
+    description: Constrain output to integral tensor. It must be a scalar(tensor
+      of empty shape).
     allowed_type_strs:
       - tensor(int64)
 support_level: COMMON

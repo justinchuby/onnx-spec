@@ -25,9 +25,9 @@ inputs:
     tags: []
   - name: scales
     type_str: tensor(float)
-    description: The scale array along each dimension. It takes value greater than
-      or equal to 1. The number of elements of 'scales' should be the same as the
-      rank of input 'X'.
+    description: The scale array along each dimension. It takes value greater 
+      than or equal to 1. The number of elements of 'scales' should be the same 
+      as the rank of input 'X'.
     min_arity: 1
     tags: []
 outputs:

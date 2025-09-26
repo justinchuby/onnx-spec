@@ -15,6 +15,22 @@ attributes:
       One and only one of the 'classlabels_*' attributes must be defined.
     type: INTS
     required: false
+  - name: rho
+    description: >
+    type: FLOATS
+    required: false
+  - name: prob_b
+    description: >-
+      Second set of probability coefficients. This array must be same size as prob_a.
+
+      If these are provided then output Z are probability estimates, otherwise they
+      are raw scores.
+    type: FLOATS
+    required: false
+  - name: coefficients
+    description: >
+    type: FLOATS
+    required: false
   - name: classlabels_strings
     description: >-
       Class labels if using string labels.
@@ -22,10 +38,27 @@ attributes:
       One and only one of the 'classlabels_*' attributes must be defined.
     type: STRINGS
     required: false
-  - name: coefficients
+  - name: prob_a
+    description: >-
+      First set of probability coefficients.
+    type: FLOATS
+    required: false
+  - name: support_vectors
     description: >
     type: FLOATS
     required: false
+  - name: vectors_per_class
+    description: >
+    type: INTS
+    required: false
+  - name: post_transform
+    description: >-
+      Indicates the transform to apply to the score. 
+
+      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    type: STRING
+    required: false
+    default_value: NONE
   - name: kernel_params
     description: >-
       List of 3 elements containing gamma, coef0, and degree, in that order. Zero
@@ -38,39 +71,6 @@ attributes:
     type: STRING
     required: false
     default_value: LINEAR
-  - name: post_transform
-    description: >-
-      Indicates the transform to apply to the score. 
-
-      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
-    type: STRING
-    required: false
-    default_value: NONE
-  - name: prob_a
-    description: >-
-      First set of probability coefficients.
-    type: FLOATS
-    required: false
-  - name: prob_b
-    description: >-
-      Second set of probability coefficients. This array must be same size as prob_a.
-
-      If these are provided then output Z are probability estimates, otherwise they
-      are raw scores.
-    type: FLOATS
-    required: false
-  - name: rho
-    description: >
-    type: FLOATS
-    required: false
-  - name: support_vectors
-    description: >
-    type: FLOATS
-    required: false
-  - name: vectors_per_class
-    description: >
-    type: INTS
-    required: false
 inputs:
   - name: X
     type_str: T1
@@ -85,22 +85,24 @@ outputs:
     tags: []
   - name: Z
     type_str: tensor(float)
-    description: Class scores (one per class per example), if prob_a and prob_b are
-      provided they are probabilities for each class, otherwise they are raw scores.
+    description: Class scores (one per class per example), if prob_a and prob_b 
+      are provided they are probabilities for each class, otherwise they are raw
+      scores.
     min_arity: 1
     tags: []
 type_constraints:
   - type_param_str: T1
-    description: The input must be a tensor of a numeric type, either [C] or [N,C].
+    description: The input must be a tensor of a numeric type, either [C] or 
+      [N,C].
     allowed_type_strs:
       - tensor(float)
       - tensor(double)
       - tensor(int64)
       - tensor(int32)
   - type_param_str: T2
-    description: The output type will be a tensor of strings or integers, depending
-      on which of the classlabels_* attributes is used. Its size will match the bactch
-      size of the input.
+    description: The output type will be a tensor of strings or integers, 
+      depending on which of the classlabels_* attributes is used. Its size will 
+      match the batch size of the input.
     allowed_type_strs:
       - tensor(string)
       - tensor(int64)

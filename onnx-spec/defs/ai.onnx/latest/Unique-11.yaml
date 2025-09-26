@@ -128,9 +128,9 @@ inputs:
 outputs:
   - name: Y
     type_str: T
-    description: A tensor of the same type as 'X' containing all the unique values
-      or subtensors sliced along a provided 'axis' in 'X', either sorted or maintained
-      in the same order they occur in input 'X'
+    description: A tensor of the same type as 'X' containing all the unique 
+      values or subtensors sliced along a provided 'axis' in 'X', either sorted 
+      or maintained in the same order they occur in input 'X'
     min_arity: 1
     tags:
       - non-differentiable
@@ -156,8 +156,8 @@ outputs:
       - non-differentiable
   - name: counts
     type_str: tensor(int64)
-    description: A 1-D INT64 tensor containing the count of each element of 'Y' in
-      input 'X'
+    description: A 1-D INT64 tensor containing the count of each element of 'Y' 
+      in input 'X'
     min_arity: 1
     tags:
       - optional

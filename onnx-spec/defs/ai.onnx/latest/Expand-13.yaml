@@ -24,8 +24,8 @@ inputs:
       - differentiable
   - name: shape
     type_str: tensor(int64)
-    description: A 1-D tensor indicates the shape you want to expand to, following
-      the broadcast rule
+    description: A 1-D tensor indicates the shape you want to expand to, 
+      following the broadcast rule
     min_arity: 1
     tags:
       - non-differentiable

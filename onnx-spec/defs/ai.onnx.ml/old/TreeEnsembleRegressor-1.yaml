@@ -30,20 +30,33 @@ attributes:
     type: STRING
     required: false
     default_value: SUM
-  - name: base_values
+  - name: post_transform
     description: >-
-      Base values for classification, added to final class score; the size must be
-      the same as the classes or can be left unassigned (assumed 0)
-    type: FLOATS
+      Indicates the transform to apply to the score. 
+
+      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    type: STRING
     required: false
+    default_value: NONE
   - name: n_targets
     description: >-
       The total number of targets.
     type: INT
     required: false
-  - name: nodes_falsenodeids
+  - name: nodes_nodeids
     description: >-
-      Child node if expression is false
+      Node id for each node. Node ids must restart at zero for each tree and increase
+      sequentially.
+    type: INTS
+    required: false
+  - name: target_nodeids
+    description: >-
+      The node id of each weight
+    type: INTS
+    required: false
+  - name: nodes_treeids
+    description: >-
+      Tree id for each node.
     type: INTS
     required: false
   - name: nodes_featureids
@@ -51,9 +64,30 @@ attributes:
       Feature id for each node.
     type: INTS
     required: false
+  - name: nodes_values
+    description: >-
+      Thresholds to do the splitting on for each node.
+    type: FLOATS
+    required: false
+  - name: target_weights
+    description: >-
+      The weight for each target
+    type: FLOATS
+    required: false
+  - name: nodes_falsenodeids
+    description: >-
+      Child node if expression is false
+    type: INTS
+    required: false
   - name: nodes_hitrates
     description: >-
       Popularity of each node, used for performance and may be omitted.
+    type: FLOATS
+    required: false
+  - name: base_values
+    description: >-
+      Base values for classification, added to final class score; the size must be
+      the same as the classes or can be left unassigned (assumed 0)
     type: FLOATS
     required: false
   - name: nodes_missing_value_tracks_true
@@ -75,43 +109,9 @@ attributes:
       'LEAF'
     type: STRINGS
     required: false
-  - name: nodes_nodeids
-    description: >-
-      Node id for each node. Node ids must restart at zero for each tree and increase
-      sequentially.
-    type: INTS
-    required: false
-  - name: nodes_treeids
-    description: >-
-      Tree id for each node.
-    type: INTS
-    required: false
   - name: nodes_truenodeids
     description: >-
       Child node if expression is true
-    type: INTS
-    required: false
-  - name: nodes_values
-    description: >-
-      Thresholds to do the splitting on for each node.
-    type: FLOATS
-    required: false
-  - name: post_transform
-    description: >-
-      Indicates the transform to apply to the score. 
-
-      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
-    type: STRING
-    required: false
-    default_value: NONE
-  - name: target_ids
-    description: >-
-      The index of the target that each weight is for
-    type: INTS
-    required: false
-  - name: target_nodeids
-    description: >-
-      The node id of each weight
     type: INTS
     required: false
   - name: target_treeids
@@ -119,10 +119,10 @@ attributes:
       The id of the tree that each node is in.
     type: INTS
     required: false
-  - name: target_weights
+  - name: target_ids
     description: >-
-      The weight for each target
-    type: FLOATS
+      The index of the target that each weight is for
+    type: INTS
     required: false
 inputs:
   - name: X

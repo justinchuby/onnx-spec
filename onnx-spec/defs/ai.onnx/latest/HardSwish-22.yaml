@@ -1,0 +1,46 @@
+domain: ''
+name: HardSwish
+since_version: 22
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: |-
+  HardSwish takes one input data (Tensor<T>) and produces one output data (Tensor<T>) where
+  the HardSwish function, y = x * max(0, min(1, alpha * x + beta)) = x * HardSigmoid<alpha, beta>(x),
+  where alpha = 1/6 and beta = 0.5, is applied to the tensor elementwise.
+attributes: []
+inputs:
+  - name: X
+    type_str: T
+    description: Input tensor
+    min_arity: 1
+    tags:
+      - differentiable
+outputs:
+  - name: Y
+    type_str: T
+    description: Output tensor
+    min_arity: 1
+    tags:
+      - differentiable
+type_constraints:
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(bfloat16)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 22]
+  >
+  HardSwish (X) => (Y)
+  {
+     HS_X = HardSigmoid <alpha: float = 0.166667, beta: float = 0.5> (X)
+     Y = Mul (X, HS_X)
+  }
+support_level: COMMON
+deprecated: false

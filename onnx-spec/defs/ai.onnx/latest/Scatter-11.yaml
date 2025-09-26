@@ -76,9 +76,9 @@ inputs:
       - differentiable
   - name: indices
     type_str: Tind
-    description: Tensor of int32/int64 indices, of r >= 1 (same rank as input). All
-      index values are expected to be within bounds [-s, s-1] along axis of size s.
-      It is an error if any of the index values are out of bounds.
+    description: Tensor of int32/int64 indices, of r >= 1 (same rank as input). 
+      All index values are expected to be within bounds [-s, s-1] along axis of 
+      size s. It is an error if any of the index values are out of bounds.
     min_arity: 1
     tags:
       - non-differentiable

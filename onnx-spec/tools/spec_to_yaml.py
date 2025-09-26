@@ -10,13 +10,11 @@ import dataclasses
 import pathlib
 import textwrap
 
-import beartype
 import onnx
 from ruamel.yaml import YAML
 from ruamel.yaml.scalarstring import LiteralScalarString, FoldedScalarString
 
 
-@beartype.beartype
 @dataclasses.dataclass
 class Attribute:
     name: str
@@ -26,7 +24,6 @@ class Attribute:
     default_value: str | int | float | list[str] | list[int] | list[float] | None = None
 
 
-@beartype.beartype
 @dataclasses.dataclass
 class FormalParameter:
     name: str
@@ -36,7 +33,6 @@ class FormalParameter:
     tags: list[str]
 
 
-@beartype.beartype
 @dataclasses.dataclass
 class TypeConstraintParam:
     type_param_str: str
@@ -44,7 +40,6 @@ class TypeConstraintParam:
     allowed_type_strs: list[str]
 
 
-@beartype.beartype
 @dataclasses.dataclass
 class OpSchema:
     domain: str
@@ -90,7 +85,9 @@ class OpSchema:
             attributes=[
                 Attribute(
                     name=attr.name,
-                    description=FoldedScalarString(_process_documentation(attr.description)),
+                    description=FoldedScalarString(
+                        _process_documentation(attr.description)
+                    ),
                     type=str(attr.type).split(".")[-1],
                     required=attr.required,
                     default_value=_get_attribute_default_value(attr),
@@ -131,7 +128,6 @@ class OpSchema:
         )
 
 
-@beartype.beartype
 def _generate_formal_parameter_tags(
     formal_parameter: onnx.defs.OpSchema.FormalParameter,
 ) -> list[str]:
@@ -158,7 +154,6 @@ def _generate_formal_parameter_tags(
     return tags
 
 
-@beartype.beartype
 def _get_attribute_default_value(attr: onnx.defs.OpSchema.Attribute):
     value = onnx.helper.get_attribute_value(attr.default_value)
     # TODO(justinchuby): Handle when there is no default

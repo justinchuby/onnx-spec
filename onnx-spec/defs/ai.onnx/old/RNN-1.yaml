@@ -67,13 +67,12 @@ doc: |-
 
     - Ht = f(Xt*(Wi^T) + Ht-1*Ri + Wbi + Rbi)
 attributes:
-  - name: activation_alpha
+  - name: clip
     description: >-
-      Optional scaling values used by some activation functions. The values are consumed
-      in the order of activation functions, for example (f, g, h) in LSTM. Default
-      values are the same as of corresponding ONNX operators.For example with LeakyRelu,
-      the default alpha is 0.01.
-    type: FLOATS
+      Cell clip threshold. Clipping bounds the elements of a tensor in the range of
+      [-threshold, +threshold] and is applied to the input of activations. No clip
+      if not specified.
+    type: FLOAT
     required: false
   - name: activation_beta
     description: >-
@@ -82,6 +81,32 @@ attributes:
       values are the same as of corresponding ONNX operators.
     type: FLOATS
     required: false
+  - name: output_sequence
+    description: >-
+      The sequence output for the hidden is optional if 0. Default 0.
+    type: INT
+    required: false
+    default_value: 0
+  - name: activation_alpha
+    description: >-
+      Optional scaling values used by some activation functions. The values are consumed
+      in the order of activation functions, for example (f, g, h) in LSTM. Default
+      values are the same as of corresponding ONNX operators.For example with LeakyRelu,
+      the default alpha is 0.01.
+    type: FLOATS
+    required: false
+  - name: hidden_size
+    description: >-
+      Number of neurons in the hidden layer
+    type: INT
+    required: false
+  - name: direction
+    description: >-
+      Specify if the RNN is forward, reverse, or bidirectional. Must be one of forward
+      (default), reverse, or bidirectional.
+    type: STRING
+    required: false
+    default_value: forward
   - name: activations
     description: >-
       One (or two if bidirectional) activation function for input gate. The activation
@@ -92,48 +117,25 @@ attributes:
     default_value:
       - Tanh
       - Tanh
-  - name: clip
-    description: >-
-      Cell clip threshold. Clipping bounds the elements of a tensor in the range of
-      [-threshold, +threshold] and is applied to the input of activations. No clip
-      if not specified.
-    type: FLOAT
-    required: false
-  - name: direction
-    description: >-
-      Specify if the RNN is forward, reverse, or bidirectional. Must be one of forward
-      (default), reverse, or bidirectional.
-    type: STRING
-    required: false
-    default_value: forward
-  - name: hidden_size
-    description: >-
-      Number of neurons in the hidden layer
-    type: INT
-    required: false
-  - name: output_sequence
-    description: >-
-      The sequence output for the hidden is optional if 0. Default 0.
-    type: INT
-    required: false
-    default_value: 0
 inputs:
   - name: X
     type_str: T
-    description: The input sequences packed (and potentially padded) into one 3-D
-      tensor with the shape of `[seq_length, batch_size, input_size]`.
+    description: The input sequences packed (and potentially padded) into one 
+      3-D tensor with the shape of `[seq_length, batch_size, input_size]`.
     min_arity: 1
     tags: []
   - name: W
     type_str: T
-    description: The weight tensor for input gate. Concatenation of `Wi` and `WBi`
-      (if bidirectional). The tensor has shape `[num_directions, hidden_size, input_size]`.
+    description: The weight tensor for input gate. Concatenation of `Wi` and 
+      `WBi` (if bidirectional). The tensor has shape `[num_directions, 
+      hidden_size, input_size]`.
     min_arity: 1
     tags: []
   - name: R
     type_str: T
-    description: The recurrence weight tensor. Concatenation of `Ri` and `RBi` (if
-      bidirectional). The tensor has shape `[num_directions, hidden_size, hidden_size]`.
+    description: The recurrence weight tensor. Concatenation of `Ri` and `RBi` 
+      (if bidirectional). The tensor has shape `[num_directions, hidden_size, 
+      hidden_size]`.
     min_arity: 1
     tags: []
   - name: B
@@ -146,32 +148,32 @@ inputs:
       - optional
   - name: sequence_lens
     type_str: T1
-    description: Optional tensor specifying lengths of the sequences in a batch. If
-      not specified - assumed all sequences in the batch to have length `seq_length`.
-      It has shape `[batch_size]`.
+    description: Optional tensor specifying lengths of the sequences in a batch.
+      If not specified - assumed all sequences in the batch to have length 
+      `seq_length`. It has shape `[batch_size]`.
     min_arity: 1
     tags:
       - optional
   - name: initial_h
     type_str: T
-    description: Optional initial value of the hidden. If not specified - assumed
-      to be 0. It has shape `[num_directions, batch_size, hidden_size]`.
+    description: Optional initial value of the hidden. If not specified - 
+      assumed to be 0. It has shape `[num_directions, batch_size, hidden_size]`.
     min_arity: 1
     tags:
       - optional
 outputs:
   - name: Y
     type_str: T
-    description: A tensor that concats all the intermediate output values of the hidden.
-      It has shape `[seq_length, num_directions, batch_size, hidden_size]`. It is
-      optional if `output_sequence` is 0.
+    description: A tensor that concats all the intermediate output values of the
+      hidden. It has shape `[seq_length, num_directions, batch_size, 
+      hidden_size]`. It is optional if `output_sequence` is 0.
     min_arity: 1
     tags:
       - optional
   - name: Y_h
     type_str: T
-    description: The last output value of the hidden. It has shape `[num_directions,
-      batch_size, hidden_size]`.
+    description: The last output value of the hidden. It has shape 
+      `[num_directions, batch_size, hidden_size]`.
     min_arity: 1
     tags:
       - optional

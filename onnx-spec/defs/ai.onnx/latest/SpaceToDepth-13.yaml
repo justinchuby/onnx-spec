@@ -18,15 +18,16 @@ attributes:
 inputs:
   - name: input
     type_str: T
-    description: Input tensor of [N,C,H,W], where N is the batch axis, C is the channel
-      or depth, H is the height and W is the width.
+    description: Input tensor of [N,C,H,W], where N is the batch axis, C is the 
+      channel or depth, H is the height and W is the width.
     min_arity: 1
     tags:
       - differentiable
 outputs:
   - name: output
     type_str: T
-    description: Output tensor of [N, C * blocksize * blocksize, H/blocksize, W/blocksize].
+    description: Output tensor of [N, C * blocksize * blocksize, H/blocksize, 
+      W/blocksize].
     min_arity: 1
     tags:
       - differentiable

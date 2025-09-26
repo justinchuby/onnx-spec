@@ -35,8 +35,8 @@ inputs:
 outputs:
   - name: output
     type_str: T
-    description: Tensor of shape equal to the broadcasted shape of condition, X, and
-      Y.
+    description: Tensor of shape equal to the broadcasted shape of condition, X,
+      and Y.
     min_arity: 1
     tags:
       - differentiable

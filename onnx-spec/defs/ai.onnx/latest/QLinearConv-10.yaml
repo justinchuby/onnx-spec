@@ -14,24 +14,6 @@ doc: |-
   When bias is present it must be quantized using scale = input scale * weight scale and
   zero point as 0.
 attributes:
-  - name: auto_pad
-    description: >-
-      auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
-      value is NOTSET, which means explicit padding is used. SAME_UPPER or SAME_LOWER
-      mean pad the input so that `output_shape[i] = ceil(input_shape[i] / strides[i])`
-      for each axis `i`. The padding is split between the two sides equally or almost
-      equally (depending on whether it is even or odd). In case the padding is an
-      odd number, the extra padding is added at the end for SAME_UPPER and at the
-      beginning for SAME_LOWER.
-    type: STRING
-    required: false
-    default_value: NOTSET
-  - name: dilations
-    description: >-
-      dilation value along each spatial axis of the filter. If not present, the dilation
-      defaults to 1 along each spatial axis.
-    type: INTS
-    required: false
   - name: group
     description: >-
       number of groups input channels and output channels are divided into. default
@@ -39,12 +21,6 @@ attributes:
     type: INT
     required: false
     default_value: 1
-  - name: kernel_shape
-    description: >-
-      The shape of the convolution kernel. If not present, should be inferred from
-      input 'w'.
-    type: INTS
-    required: false
   - name: pads
     description: >-
       Padding for the beginning and ending along each spatial axis, it can take any
@@ -63,27 +39,52 @@ attributes:
       each spatial axis.
     type: INTS
     required: false
+  - name: dilations
+    description: >-
+      dilation value along each spatial axis of the filter. If not present, the dilation
+      defaults to 1 along each spatial axis.
+    type: INTS
+    required: false
+  - name: kernel_shape
+    description: >-
+      The shape of the convolution kernel. If not present, should be inferred from
+      input 'w'.
+    type: INTS
+    required: false
+  - name: auto_pad
+    description: >-
+      auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
+      value is NOTSET, which means explicit padding is used. SAME_UPPER or SAME_LOWER
+      mean pad the input so that `output_shape[i] = ceil(input_shape[i] / strides[i])`
+      for each axis `i`. The padding is split between the two sides equally or almost
+      equally (depending on whether it is even or odd). In case the padding is an
+      odd number, the extra padding is added at the end for SAME_UPPER and at the
+      beginning for SAME_LOWER.
+    type: STRING
+    required: false
+    default_value: NOTSET
 inputs:
   - name: x
     type_str: T1
-    description: Input data tensor from previous layer; has size (N x C x H x W),
-      where N is the batch size, C is the number of channels, and H and W are the
-      height and width. Note that this is for the 2D image. Otherwise the size is
-      (N x C x D1 x D2 ... x Dn). Optionally, if dimension denotation is in effect,
-      the operation expects input data tensor to arrive with the dimension denotation
-      of [DATA_BATCH, DATA_CHANNEL, DATA_FEATURE, DATA_FEATURE ...].
+    description: Input data tensor from previous layer; has size (N x C x H x 
+      W), where N is the batch size, C is the number of channels, and H and W 
+      are the height and width. Note that this is for the 2D image. Otherwise 
+      the size is (N x C x D1 x D2 ... x Dn). Optionally, if dimension 
+      denotation is in effect, the operation expects input data tensor to arrive
+      with the dimension denotation of [DATA_BATCH, DATA_CHANNEL, DATA_FEATURE, 
+      DATA_FEATURE ...].
     min_arity: 1
     tags: []
   - name: x_scale
     type_str: tensor(float)
-    description: Scale tensor for input 'x'. It's a scalar, which means a per-tensor/layer
-      quantization.
+    description: Scale tensor for input 'x'. It's a scalar, which means a 
+      per-tensor/layer quantization.
     min_arity: 1
     tags: []
   - name: x_zero_point
     type_str: T1
-    description: Zero point tensor for input 'x'. It's a scalar, which means a per-tensor/layer
-      quantization.
+    description: Zero point tensor for input 'x'. It's a scalar, which means a 
+      per-tensor/layer quantization.
     min_arity: 1
     tags: []
   - name: w
@@ -102,44 +103,45 @@ inputs:
     tags: []
   - name: w_scale
     type_str: tensor(float)
-    description: Scale tensor for input 'w'. It could be a scalar or a 1-D tensor,
-      which means a per-tensor/layer or per output channel quantization. If it's a
-      1-D tensor, its number of elements should be equal to the number of output channels
-      (M).
+    description: Scale tensor for input 'w'. It could be a scalar or a 1-D 
+      tensor, which means a per-tensor/layer or per output channel quantization.
+      If it's a 1-D tensor, its number of elements should be equal to the number
+      of output channels (M).
     min_arity: 1
     tags: []
   - name: w_zero_point
     type_str: T2
-    description: Zero point tensor for input 'w'. It could be a scalar or a 1-D tensor,
-      which means a per-tensor/layer or per output channel quantization. If it's a
-      1-D tensor, its number of elements should be equal to the number of output channels
-      (M).
+    description: Zero point tensor for input 'w'. It could be a scalar or a 1-D 
+      tensor, which means a per-tensor/layer or per output channel quantization.
+      If it's a 1-D tensor, its number of elements should be equal to the number
+      of output channels (M).
     min_arity: 1
     tags: []
   - name: y_scale
     type_str: tensor(float)
-    description: Scale tensor for output 'y'. It's a scalar, which means a per-tensor/layer
-      quantization.
+    description: Scale tensor for output 'y'. It's a scalar, which means a 
+      per-tensor/layer quantization.
     min_arity: 1
     tags: []
   - name: y_zero_point
     type_str: T3
-    description: Zero point tensor for output 'y'. It's a scalar, which means a per-tensor/layer
-      quantization.
+    description: Zero point tensor for output 'y'. It's a scalar, which means a 
+      per-tensor/layer quantization.
     min_arity: 1
     tags: []
   - name: B
     type_str: T4
-    description: Optional 1D bias to be added to the convolution, has size of M. Bias
-      must be quantized using scale = x_scale * w_scale and zero_point = 0
+    description: Optional 1D bias to be added to the convolution, has size of M.
+      Bias must be quantized using scale = x_scale * w_scale and zero_point = 0
     min_arity: 1
     tags:
       - optional
 outputs:
   - name: y
     type_str: T3
-    description: Output data tensor that contains the result of the convolution. The
-      output dimensions are functions of the kernel size, stride size, and pad lengths.
+    description: Output data tensor that contains the result of the convolution.
+      The output dimensions are functions of the kernel size, stride size, and 
+      pad lengths.
     min_arity: 1
     tags: []
 type_constraints:

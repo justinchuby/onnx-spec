@@ -23,7 +23,8 @@ outputs:
     tags: []
 type_constraints:
   - type_param_str: O
-    description: Constrain input type to optional tensor and optional sequence types.
+    description: Constrain input type to optional tensor and optional sequence 
+      types.
     allowed_type_strs:
       - optional(seq(tensor(uint8)))
       - optional(seq(tensor(uint16)))

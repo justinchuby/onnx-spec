@@ -61,8 +61,8 @@ inputs:
     tags: []
   - name: sequence_lens
     type_str: tensor(int64)
-    description: Tensor specifying lengths of the sequences in a batch. It has shape
-      `[batch_size]`.
+    description: Tensor specifying lengths of the sequences in a batch. It has 
+      shape `[batch_size]`.
     min_arity: 1
     tags: []
 outputs:

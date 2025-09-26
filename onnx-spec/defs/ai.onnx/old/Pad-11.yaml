@@ -105,8 +105,8 @@ inputs:
     tags: []
   - name: constant_value
     type_str: T
-    description: (Optional) A scalar value to be used if the mode chosen is `constant`
-      (by default it is 0).
+    description: (Optional) A scalar value to be used if the mode chosen is 
+      `constant` (by default it is 0).
     min_arity: 1
     tags:
       - optional

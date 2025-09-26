@@ -67,13 +67,6 @@ doc: |-
     output = [[1.0, 1.1, 3.0, 2.1, 5.0]]
   ```
 attributes:
-  - name: axis
-    description: >-
-      Which axis to scatter on. Negative value means counting dimensions from the
-      back. Accepted range is [-r, r-1] where r = rank(data).
-    type: INT
-    required: false
-    default_value: 0
   - name: reduction
     description: >-
       Type of reduction to apply: none (default), add, mul. 'none': no reduction applied.
@@ -82,6 +75,13 @@ attributes:
     type: STRING
     required: false
     default_value: none
+  - name: axis
+    description: >-
+      Which axis to scatter on. Negative value means counting dimensions from the
+      back. Accepted range is [-r, r-1] where r = rank(data).
+    type: INT
+    required: false
+    default_value: 0
 inputs:
   - name: data
     type_str: T
@@ -91,9 +91,9 @@ inputs:
       - differentiable
   - name: indices
     type_str: Tind
-    description: Tensor of int32/int64 indices, of r >= 1 (same rank as input). All
-      index values are expected to be within bounds [-s, s-1] along axis of size s.
-      It is an error if any of the index values are out of bounds.
+    description: Tensor of int32/int64 indices, of r >= 1 (same rank as input). 
+      All index values are expected to be within bounds [-s, s-1] along axis of 
+      size s. It is an error if any of the index values are out of bounds.
     min_arity: 1
     tags:
       - non-differentiable

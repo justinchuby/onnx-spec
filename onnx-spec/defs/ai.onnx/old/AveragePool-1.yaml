@@ -28,21 +28,6 @@ doc: |-
   ```
   The output of each pooling window is divided by the number of elements exclude pad.
 attributes:
-  - name: auto_pad
-    description: >-
-      auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
-      value is NOTSET, which means explicit padding is used. SAME_UPPER or SAME_LOWER
-      mean pad the input so that the output spatial size match the input.In case of
-      odd number add the extra padding at the end for SAME_UPPER and at the beginning
-      for SAME_LOWER. VALID mean no padding.
-    type: STRING
-    required: false
-    default_value: NOTSET
-  - name: kernel_shape
-    description: >-
-      The size of the kernel along each axis.
-    type: INTS
-    required: true
   - name: pads
     description: >-
       Padding for the beginning and ending along each spatial axis, it can take any
@@ -55,29 +40,45 @@ attributes:
       end of each spatial axis.
     type: INTS
     required: false
+  - name: auto_pad
+    description: >-
+      auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
+      value is NOTSET, which means explicit padding is used. SAME_UPPER or SAME_LOWER
+      mean pad the input so that the output spatial size match the input.In case of
+      odd number add the extra padding at the end for SAME_UPPER and at the beginning
+      for SAME_LOWER. VALID mean no padding.
+    type: STRING
+    required: false
+    default_value: NOTSET
   - name: strides
     description: >-
       Stride along each spatial axis.
     type: INTS
     required: false
+  - name: kernel_shape
+    description: >-
+      The size of the kernel along each axis.
+    type: INTS
+    required: true
 inputs:
   - name: X
     type_str: T
-    description: Input data tensor from the previous operator; dimensions for image
-      case are (N x C x H x W), where N is the batch size, C is the number of channels,
-      and H and W are the height and the width of the data. For non image case, the
-      dimensions are in the form of (N x C x D1 x D2 ... Dn), where N is the batch
-      size. Optionally, if dimension denotation is in effect, the operation expects
-      the input data tensor to arrive with the dimension denotation of [DATA_BATCH,
-      DATA_CHANNEL, DATA_FEATURE, DATA_FEATURE ...].
+    description: Input data tensor from the previous operator; dimensions for 
+      image case are (N x C x H x W), where N is the batch size, C is the number
+      of channels, and H and W are the height and the width of the data. For non
+      image case, the dimensions are in the form of (N x C x D1 x D2 ... Dn), 
+      where N is the batch size. Optionally, if dimension denotation is in 
+      effect, the operation expects the input data tensor to arrive with the 
+      dimension denotation of [DATA_BATCH, DATA_CHANNEL, DATA_FEATURE, 
+      DATA_FEATURE ...].
     min_arity: 1
     tags: []
 outputs:
   - name: Y
     type_str: T
-    description: Output data tensor from average or max pooling across the input tensor.
-      Dimensions will vary based on various kernel, stride, and pad sizes. Floor value
-      of the dimension is used
+    description: Output data tensor from average or max pooling across the input
+      tensor. Dimensions will vary based on various kernel, stride, and pad 
+      sizes. Floor value of the dimension is used
     min_arity: 1
     tags: []
 type_constraints:

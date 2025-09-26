@@ -30,9 +30,10 @@ inputs:
 outputs:
   - name: output
     type_str: T
-    description: A 2D tensor with the contents of the input tensor, with input dimensions
-      up to axis flattened to the outer dimension of the output and remaining input
-      dimensions flattened into the inner dimension of the output.
+    description: A 2D tensor with the contents of the input tensor, with input 
+      dimensions up to axis flattened to the outer dimension of the output and 
+      remaining input dimensions flattened into the inner dimension of the 
+      output.
     min_arity: 1
     tags:
       - differentiable

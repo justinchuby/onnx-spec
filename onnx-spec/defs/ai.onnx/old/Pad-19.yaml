@@ -135,18 +135,18 @@ inputs:
       - non-differentiable
   - name: constant_value
     type_str: T
-    description: (Optional) A scalar value to be used if the mode chosen is `constant`
-      (by default it is 0, empty string or False).
+    description: (Optional) A scalar value to be used if the mode chosen is 
+      `constant` (by default it is 0, empty string or False).
     min_arity: 1
     tags:
       - optional
       - non-differentiable
   - name: axes
     type_str: Tind
-    description: 1-D tensor of axes that `pads` apply to. Negative value means counting
-      dimensions from the back. Accepted range is [-r, r-1] where r = rank(data).
-      Behavior is undefined if an axis is repeated. If not provided, all axes are
-      assumed (`[0, 1, ..., input_rank-1]`).
+    description: 1-D tensor of axes that `pads` apply to. Negative value means 
+      counting dimensions from the back. Accepted range is [-r, r-1] where r = 
+      rank(data). Behavior is undefined if an axis is repeated. If not provided,
+      all axes are assumed (`[0, 1, ..., input_rank-1]`).
     min_arity: 1
     tags:
       - optional

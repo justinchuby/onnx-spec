@@ -46,12 +46,13 @@ doc: |-
   to flatten the input shape to (N x C * D1 * D2 * ... * Dn) before a BatchNormalization Op.
   This operator has **optional** inputs/outputs. See [the doc](IR.md) for more details about the representation of optional arguments. An empty string may be used in the place of an actual argument's name to indicate a missing argument. Trailing optional arguments (those not followed by an argument that is present) may also be simply omitted.
 attributes:
-  - name: epsilon
+  - name: training_mode
     description: >-
-      The epsilon value to use to avoid division by zero.
-    type: FLOAT
+      If set to true, it indicates BatchNormalization is being used for training,
+      and outputs 1 and 2 are to be computed.
+    type: INT
     required: false
-    default_value: 9.999999747378752e-06
+    default_value: 0
   - name: momentum
     description: >-
       Factor used in computing the running mean and variance.e.g., running_mean =
@@ -59,22 +60,21 @@ attributes:
     type: FLOAT
     required: false
     default_value: 0.8999999761581421
-  - name: training_mode
+  - name: epsilon
     description: >-
-      If set to true, it indicates BatchNormalization is being used for training,
-      and outputs 1, 2, 3, and 4 would be populated.
-    type: INT
+      The epsilon value to use to avoid division by zero.
+    type: FLOAT
     required: false
-    default_value: 0
+    default_value: 9.999999747378752e-06
 inputs:
   - name: X
     type_str: T
-    description: Input data tensor from the previous operator; dimensions are in the
-      form of (N x C x D1 x D2 ... Dn), where N is the batch size, C is the number
-      of channels. Statistics are computed for every channel of C over N and D1 to
-      Dn dimensions. For image data, input dimensions become (N x C x H x W). The
-      op also accepts single dimension input of size N in which case C is assumed
-      to be 1
+    description: Input data tensor from the previous operator; dimensions are in
+      the form of (N x C x D1 x D2 ... Dn), where N is the batch size, C is the 
+      number of channels. Statistics are computed for every channel of C over N 
+      and D1 to Dn dimensions. For image data, input dimensions become (N x C x 
+      H x W). The op also accepts single dimension input of size N in which case
+      C is assumed to be 1
     min_arity: 1
     tags:
       - differentiable
@@ -92,14 +92,15 @@ inputs:
       - differentiable
   - name: input_mean
     type_str: T2
-    description: running (training) or estimated (testing) mean tensor of shape (C).
+    description: running (training) or estimated (testing) mean tensor of shape 
+      (C).
     min_arity: 1
     tags:
       - differentiable
   - name: input_var
     type_str: T2
-    description: running (training) or estimated (testing) variance tensor of shape
-      (C).
+    description: running (training) or estimated (testing) variance tensor of 
+      shape (C).
     min_arity: 1
     tags:
       - differentiable
@@ -119,9 +120,9 @@ outputs:
       - non-differentiable
   - name: running_var
     type_str: T2
-    description: The running variance after the BatchNormalization operator. This
-      op uses the population size (N) for calculating variance, and not the sample
-      size N-1.
+    description: The running variance after the BatchNormalization operator. 
+      This op uses the population size (N) for calculating variance, and not the
+      sample size N-1.
     min_arity: 1
     tags:
       - optional

@@ -62,8 +62,8 @@ type_constraints:
       - seq(tensor(complex64))
       - seq(tensor(complex128))
   - type_param_str: O
-    description: Constrain output type to all optional tensor or optional sequence
-      types.
+    description: Constrain output type to all optional tensor or optional 
+      sequence types.
     allowed_type_strs:
       - optional(seq(tensor(uint8)))
       - optional(seq(tensor(uint16)))

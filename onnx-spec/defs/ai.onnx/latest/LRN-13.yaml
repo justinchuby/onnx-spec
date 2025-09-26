@@ -17,23 +17,23 @@ doc: |-
 
   `Y[n, c, d1, ..., dk] = X[n, c, d1, ..., dk] / (bias + alpha / size * square_sum[n, c, d1, ..., dk] ) ^ beta`
 attributes:
-  - name: alpha
-    description: >-
-      Scaling parameter.
+  - name: bias
+    description: >
     type: FLOAT
     required: false
-    default_value: 9.999999747378752e-05
+    default_value: 1.0
   - name: beta
     description: >-
       The exponent.
     type: FLOAT
     required: false
     default_value: 0.75
-  - name: bias
-    description: >
+  - name: alpha
+    description: >-
+      Scaling parameter.
     type: FLOAT
     required: false
-    default_value: 1.0
+    default_value: 9.999999747378752e-05
   - name: size
     description: >-
       The number of channels to sum over
@@ -42,13 +42,14 @@ attributes:
 inputs:
   - name: X
     type_str: T
-    description: Input data tensor from the previous operator; dimensions for image
-      case are (N x C x H x W), where N is the batch size, C is the number of channels,
-      and H and W are the height and the width of the data. For non image case, the
-      dimensions are in the form of (N x C x D1 x D2 ... Dn), where N is the batch
-      size. Optionally, if dimension denotation is in effect, the operation expects
-      the input data tensor to arrive with the dimension denotation of [DATA_BATCH,
-      DATA_CHANNEL, DATA_FEATURE, DATA_FEATURE ...].
+    description: Input data tensor from the previous operator; dimensions for 
+      image case are (N x C x H x W), where N is the batch size, C is the number
+      of channels, and H and W are the height and the width of the data. For non
+      image case, the dimensions are in the form of (N x C x D1 x D2 ... Dn), 
+      where N is the batch size. Optionally, if dimension denotation is in 
+      effect, the operation expects the input data tensor to arrive with the 
+      dimension denotation of [DATA_BATCH, DATA_CHANNEL, DATA_FEATURE, 
+      DATA_FEATURE ...].
     min_arity: 1
     tags:
       - differentiable

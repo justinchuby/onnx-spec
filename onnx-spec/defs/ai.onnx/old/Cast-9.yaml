@@ -41,8 +41,8 @@ inputs:
 outputs:
   - name: output
     type_str: T2
-    description: Output tensor with the same shape as input with type specified by
-      the 'to' argument
+    description: Output tensor with the same shape as input with type specified 
+      by the 'to' argument
     min_arity: 1
     tags: []
 type_constraints:

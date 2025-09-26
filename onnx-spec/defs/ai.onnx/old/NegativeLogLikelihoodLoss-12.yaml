@@ -95,16 +95,16 @@ inputs:
     tags: []
   - name: target
     type_str: Tind
-    description: Target tensor of shape (N) or (N, d1, d2, ..., dk). Target element
-      value shall be in range of [0, C). If ignore_index is specified, it may have
-      a value outside [0, C) and the target values should either be in the range [0,
-      C) or have the value ignore_index.
+    description: Target tensor of shape (N) or (N, d1, d2, ..., dk). Target 
+      element value shall be in range of [0, C). If ignore_index is specified, 
+      it may have a value outside [0, C) and the target values should either be 
+      in the range [0, C) or have the value ignore_index.
     min_arity: 1
     tags: []
   - name: weight
     type_str: T
-    description: Optional rescaling weight tensor. If given, it has to be a tensor
-      of size C. Otherwise, it is treated as if having all ones.
+    description: Optional rescaling weight tensor. If given, it has to be a 
+      tensor of size C. Otherwise, it is treated as if having all ones.
     min_arity: 1
     tags:
       - optional
@@ -116,7 +116,8 @@ outputs:
     tags: []
 type_constraints:
   - type_param_str: T
-    description: Constrain input, weight, and output types to floating-point tensors.
+    description: Constrain input, weight, and output types to floating-point 
+      tensors.
     allowed_type_strs:
       - tensor(float16)
       - tensor(float)

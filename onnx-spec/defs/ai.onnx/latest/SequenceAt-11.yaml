@@ -18,10 +18,11 @@ inputs:
     tags: []
   - name: position
     type_str: I
-    description: Position of the tensor in the sequence. Negative value means counting
-      positions from the back. Accepted range in `[-n, n - 1]`, where `n` is the number
-      of tensors in 'input_sequence'. It is an error if any of the index values are
-      out of bounds. It must be a scalar(tensor of empty shape).
+    description: Position of the tensor in the sequence. Negative value means 
+      counting positions from the back. Accepted range in `[-n, n - 1]`, where 
+      `n` is the number of tensors in 'input_sequence'. It is an error if any of
+      the index values are out of bounds. It must be a scalar(tensor of empty 
+      shape).
     min_arity: 1
     tags: []
 outputs:
@@ -68,8 +69,8 @@ type_constraints:
       - tensor(complex64)
       - tensor(complex128)
   - type_param_str: I
-    description: Constrain position to integral tensor. It must be a scalar(tensor
-      of empty shape).
+    description: Constrain position to integral tensor. It must be a 
+      scalar(tensor of empty shape).
     allowed_type_strs:
       - tensor(int32)
       - tensor(int64)

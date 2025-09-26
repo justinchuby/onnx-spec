@@ -7,7 +7,7 @@ min_output: 1
 max_output: 1
 doc: |-
   Produces a slice of the input tensor along multiple axes. Similar to numpy:
-  https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html
+  https://numpy.org/doc/stable/reference/routines.indexing.html
   Slices uses `axes`, `starts` and `ends` attributes to specify the start and end
   dimension for each axis in the list of axes, it uses this information to
   slice the input `data` tensor. If a negative value is passed for any of the
@@ -38,12 +38,6 @@ doc: |-
         [2, 3, 4],
     ]
 attributes:
-  - name: axes
-    description: >-
-      Axes that `starts` and `ends` apply to. It's optional. If not present, will
-      be treated as [0, 1, ..., len(`starts`) - 1].
-    type: INTS
-    required: false
   - name: ends
     description: >-
       Ending indices (exclusive) of corresponding axis in axes`
@@ -54,6 +48,12 @@ attributes:
       Starting indices of corresponding axis in `axes`
     type: INTS
     required: true
+  - name: axes
+    description: >-
+      Axes that `starts` and `ends` apply to. It's optional. If not present, will
+      be treated as [0, 1, ..., len(`starts`) - 1].
+    type: INTS
+    required: false
 inputs:
   - name: data
     type_str: T

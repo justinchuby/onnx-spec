@@ -8,14 +8,6 @@ max_output: 1
 doc: |-
   Rescale input data, for example to standardize features by removing the mean and scaling to unit variance.
 attributes:
-  - name: offset
-    description: >-
-      First, offset by this.
-
-      Can be length of features in an [N,F] tensor or length 1, in which case it applies
-      to all features, regardless of dimension count.
-    type: FLOATS
-    required: false
   - name: scale
     description: >-
       Second, multiply by this.
@@ -24,6 +16,14 @@ attributes:
       to all features, regardless of dimension count.
 
       Must be same length as 'offset'
+    type: FLOATS
+    required: false
+  - name: offset
+    description: >-
+      First, offset by this.
+
+      Can be length of features in an [N,F] tensor or length 1, in which case it applies
+      to all features, regardless of dimension count.
     type: FLOATS
     required: false
 inputs:

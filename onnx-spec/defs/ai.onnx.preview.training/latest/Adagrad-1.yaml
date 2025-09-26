@@ -57,6 +57,13 @@ doc: |-
   In that reference paper, this operator is a special case of the Figure 1's composite mirror
   descent update.
 attributes:
+  - name: norm_coefficient
+    description: >-
+      Regularization coefficient in 0.5 * norm_coefficient * ||X||_2^2. Default to
+      0, which means no regularization.
+    type: FLOAT
+    required: false
+    default_value: 0.0
   - name: decay_factor
     description: >-
       The decay factor of learning rate after one update.The effective learning rate
@@ -71,13 +78,6 @@ attributes:
     type: FLOAT
     required: false
     default_value: 9.999999974752427e-07
-  - name: norm_coefficient
-    description: >-
-      Regularization coefficient in 0.5 * norm_coefficient * ||X||_2^2. Default to
-      0, which means no regularization.
-    type: FLOAT
-    required: false
-    default_value: 0.0
 inputs:
   - name: R
     type_str: T1
@@ -91,11 +91,12 @@ inputs:
     tags: []
   - name: inputs
     type_str: T3
-    description: The current values of optimized tensors, followed by their respective
-      gradients, followed by their respective accumulated squared gradients.For example,
-      if two tensor "X_1" and "X_2" are optimized, The input list would be ["X_1",
-      "X_2", gradient of "X_1", gradient of "X_2", accumulated squared gradient of
-      "X_1", accumulated squared gradient of "X_2"].
+    description: The current values of optimized tensors, followed by their 
+      respective gradients, followed by their respective accumulated squared 
+      gradients.For example, if two tensor "X_1" and "X_2" are optimized, The 
+      input list would be ["X_1", "X_2", gradient of "X_1", gradient of "X_2", 
+      accumulated squared gradient of "X_1", accumulated squared gradient of 
+      "X_2"].
     min_arity: 1
     tags:
       - variadic
@@ -103,11 +104,11 @@ inputs:
 outputs:
   - name: outputs
     type_str: T3
-    description: Updated values of optimized tensors, followed by their updated values
-      of accumulated squared gradients. For example, if two tensor "X_1" and "X_2"
-      are optimized, the output list would be [new value of "X_1," new value of "X_2"
-      new accumulated squared gradient of "X_1", new accumulated squared gradient
-      of "X_2"].
+    description: Updated values of optimized tensors, followed by their updated 
+      values of accumulated squared gradients. For example, if two tensor "X_1" 
+      and "X_2" are optimized, the output list would be [new value of "X_1," new
+      value of "X_2" new accumulated squared gradient of "X_1", new accumulated 
+      squared gradient of "X_2"].
     min_arity: 1
     tags:
       - variadic

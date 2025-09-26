@@ -26,8 +26,8 @@ inputs:
       - differentiable
   - name: split
     type_str: tensor(int64)
-    description: Optional length of each output. Values should be >= 0.Sum of the
-      values must be equal to the dim value at 'axis' specified.
+    description: Optional length of each output. Values should be >= 0.Sum of 
+      the values must be equal to the dim value at 'axis' specified.
     min_arity: 1
     tags:
       - optional

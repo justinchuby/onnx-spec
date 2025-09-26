@@ -17,17 +17,17 @@ attributes:
 inputs:
   - name: input
     type_str: T1
-    description: 1D tensor. The shape of the expected output tensor. If empty tensor
-      is given, the output would be a scalar. All values must be >= 0.
+    description: 1D tensor. The shape of the expected output tensor. If empty 
+      tensor is given, the output would be a scalar. All values must be >= 0.
     min_arity: 1
     tags: []
 outputs:
   - name: output
     type_str: T2
-    description: Output tensor of shape specified by 'input'.If attribute 'value'
-      is specified, the value and datatype of the output tensor is taken from 'value'.If
-      attribute 'value' is not specified, the value in the output defaults to 0, and
-      the datatype defaults to float32.
+    description: Output tensor of shape specified by 'input'.If attribute 
+      'value' is specified, the value and datatype of the output tensor is taken
+      from 'value'.If attribute 'value' is not specified, the value in the 
+      output defaults to 0, and the datatype defaults to float32.
     min_arity: 1
     tags: []
 type_constraints:

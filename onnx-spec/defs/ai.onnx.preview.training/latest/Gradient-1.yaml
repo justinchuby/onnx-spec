@@ -129,13 +129,6 @@ doc: |-
   forward pass can be reused if the gradient is computed via reverse-mode
   auto-differentiation.
 attributes:
-  - name: xs
-    description: >-
-      Input tensor names of the differentiated sub-graph. It contains only the necessary
-      differentiated inputs of a (sub-)graph. Variables (usually called intermediate
-      variables) that can be generated from inputs cannot be included in this attribute.
-    type: STRINGS
-    required: true
   - name: y
     description: >-
       The targeted tensor. It can be viewed as the output of the differentiated function.
@@ -150,14 +143,21 @@ attributes:
       variables) that can be generated from inputs cannot be included in this attribute.
     type: STRINGS
     required: false
+  - name: xs
+    description: >-
+      Input tensor names of the differentiated sub-graph. It contains only the necessary
+      differentiated inputs of a (sub-)graph. Variables (usually called intermediate
+      variables) that can be generated from inputs cannot be included in this attribute.
+    type: STRINGS
+    required: true
 inputs:
   - name: Inputs
     type_str: T1
-    description: The values fed into graph identified by the attributes. The i-th
-      input is the value of the i-th tensor specified in the concatenated list of
-      the attribute "xs" and the attribute  "zs". For example, if xs=["A", "B"] and
-      zs=["C"], the first input is used as the value of symbol "A" and the 3rd input
-      is substituted for all the occurrences of "C".
+    description: The values fed into graph identified by the attributes. The 
+      i-th input is the value of the i-th tensor specified in the concatenated 
+      list of the attribute "xs" and the attribute  "zs". For example, if 
+      xs=["A", "B"] and zs=["C"], the first input is used as the value of symbol
+      "A" and the 3rd input is substituted for all the occurrences of "C".
     min_arity: 1
     tags:
       - variadic
@@ -165,9 +165,10 @@ inputs:
 outputs:
   - name: Outputs
     type_str: T2
-    description: The gradient of the tensor specified by the attribute "y" with respect
-      to each of tensors specified in the attribute "xs". The i-th output is the gradient
-      of "y" with respect to the i-th tensor specified in the attribute "xs".
+    description: The gradient of the tensor specified by the attribute "y" with 
+      respect to each of tensors specified in the attribute "xs". The i-th 
+      output is the gradient of "y" with respect to the i-th tensor specified in
+      the attribute "xs".
     min_arity: 1
     tags:
       - variadic

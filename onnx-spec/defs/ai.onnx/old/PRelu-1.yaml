@@ -23,8 +23,8 @@ inputs:
     tags: []
   - name: slope
     type_str: T
-    description: Slope tensor. If `Slope` is of size 1, the value is sharedacross
-      different channels
+    description: Slope tensor. If `Slope` is of size 1, the value is 
+      sharedacross different channels
     min_arity: 1
     tags: []
 outputs:

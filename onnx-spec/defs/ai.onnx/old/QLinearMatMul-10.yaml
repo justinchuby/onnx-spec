@@ -6,7 +6,7 @@ max_input: 8
 min_output: 1
 max_output: 1
 doc: |-
-  Matrix product that behaves like numpy.matmul: https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.matmul.html.
+  Matrix product that behaves like [numpy.matmul](https://numpy.org/doc/stable/reference/generated/numpy.matmul.html).
   It consumes two quantized input tensors, their scales and zero points, scale and zero point of output,
   and computes the quantized output. The quantization formula is y = saturate((x / y_scale) + y_zero_point).
   For (x / y_scale), it is rounding to nearest ties to even. Refer to https://en.wikipedia.org/wiki/Rounding for details.
@@ -76,18 +76,20 @@ outputs:
       - non-differentiable
 type_constraints:
   - type_param_str: T1
-    description: Constrain input a and its zero point data type to 8-bit integer tensor.
+    description: Constrain input a and its zero point data type to 8-bit integer
+      tensor.
     allowed_type_strs:
       - tensor(int8)
       - tensor(uint8)
   - type_param_str: T2
-    description: Constrain input b and its zero point data type to 8-bit integer tensor.
+    description: Constrain input b and its zero point data type to 8-bit integer
+      tensor.
     allowed_type_strs:
       - tensor(int8)
       - tensor(uint8)
   - type_param_str: T3
-    description: Constrain output y and its zero point data type to 8-bit integer
-      tensor.
+    description: Constrain output y and its zero point data type to 8-bit 
+      integer tensor.
     allowed_type_strs:
       - tensor(int8)
       - tensor(uint8)

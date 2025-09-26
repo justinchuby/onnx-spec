@@ -1,0 +1,83 @@
+domain: ''
+name: RandomNormalLike
+since_version: 22
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: |-
+  Generate a tensor with random values drawn from a normal distribution.
+  The shape of the output tensor is copied from the shape of the input tensor,
+  and the parameters of the normal distribution are specified by `mean` and `scale`.
+
+  The data type is specified by the 'dtype' argument, or copied from the input tensor if not provided.
+  The 'dtype' argument must be one of the data types specified in the 'DataType' enum field in the
+  TensorProto message, and be valid as an output type.
+attributes:
+  - name: dtype
+    description: >-
+      (Optional) The data type for the elements of the output tensor, if not specified,
+      we will use the data type of the input tensor.
+    type: INT
+    required: false
+  - name: seed
+    description: >-
+      (Optional) Seed to the random generator, if not specified we will auto generate
+      one.
+    type: FLOAT
+    required: false
+  - name: scale
+    description: >-
+      The standard deviation of the normal distribution.
+    type: FLOAT
+    required: false
+    default_value: 1.0
+  - name: mean
+    description: >-
+      The mean of the normal distribution.
+    type: FLOAT
+    required: false
+    default_value: 0.0
+inputs:
+  - name: input
+    type_str: T1
+    description: Input tensor to copy shape and optionally type information 
+      from.
+    min_arity: 1
+    tags: []
+outputs:
+  - name: output
+    type_str: T2
+    description: Output tensor of random values drawn from normal distribution
+    min_arity: 1
+    tags: []
+type_constraints:
+  - type_param_str: T1
+    description: Constrain to any tensor type. If the dtype attribute is not 
+      provided this must be a valid output type.
+    allowed_type_strs:
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(bfloat16)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(string)
+      - tensor(bool)
+      - tensor(complex64)
+      - tensor(complex128)
+  - type_param_str: T2
+    description: Constrain output types to float tensors.
+    allowed_type_strs:
+      - tensor(bfloat16)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+support_level: COMMON
+deprecated: false

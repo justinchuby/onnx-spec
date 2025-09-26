@@ -46,8 +46,8 @@ inputs:
     tags: []
   - name: B
     type_str: T
-    description: Second operand. With broadcasting can be of smaller size than A.
-      If broadcasting is disabled it should be of the same size.
+    description: Second operand. With broadcasting can be of smaller size than 
+      A. If broadcasting is disabled it should be of the same size.
     min_arity: 1
     tags: []
 outputs:
@@ -58,7 +58,8 @@ outputs:
     tags: []
 type_constraints:
   - type_param_str: T
-    description: Constrain input and output types to high-precision numeric tensors.
+    description: Constrain input and output types to high-precision numeric 
+      tensors.
     allowed_type_strs:
       - tensor(uint32)
       - tensor(uint64)

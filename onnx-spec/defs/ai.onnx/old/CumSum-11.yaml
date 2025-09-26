@@ -26,17 +26,17 @@ doc: |-
   output = [5, 3, 0]
   ```
 attributes:
+  - name: reverse
+    description: >-
+      If set to 1 will perform the sums in reverse direction.
+    type: INT
+    required: false
+    default_value: 0
   - name: exclusive
     description: >-
       If set to 1 will return exclusive sum in which the top element is not included.
       In other terms, if set to 1, the j-th output element would be the sum of the
       first (j-1) elements. Otherwise, it would be the sum of the first j elements.
-    type: INT
-    required: false
-    default_value: 0
-  - name: reverse
-    description: >-
-      If set to 1 will perform the sums in reverse direction.
     type: INT
     required: false
     default_value: 0
@@ -49,16 +49,16 @@ inputs:
       - differentiable
   - name: axis
     type_str: T2
-    description: A 0-D tensor. Must be in the range [-rank(x), rank(x)-1]. Negative
-      value means counting dimensions from the back.
+    description: A 0-D tensor. Must be in the range [-rank(x), rank(x)-1]. 
+      Negative value means counting dimensions from the back.
     min_arity: 1
     tags:
       - non-differentiable
 outputs:
   - name: y
     type_str: T
-    description: Output tensor of the same type as 'x' with cumulative sums of the
-      x's elements
+    description: Output tensor of the same type as 'x' with cumulative sums of 
+      the x's elements
     min_arity: 1
     tags:
       - differentiable

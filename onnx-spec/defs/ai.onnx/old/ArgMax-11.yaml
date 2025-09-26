@@ -12,6 +12,12 @@ doc: |-
   The input tensor must not be empty.
   The type of the output tensor is integer.
 attributes:
+  - name: keepdims
+    description: >-
+      Keep the reduced dimension or not, default 1 means keep reduced dimension.
+    type: INT
+    required: false
+    default_value: 1
   - name: axis
     description: >-
       The axis in which to compute the arg indices. Accepted range is [-r, r-1] where
@@ -19,12 +25,6 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: keepdims
-    description: >-
-      Keep the reduced dimension or not, default 1 means keep reduced dimension.
-    type: INT
-    required: false
-    default_value: 1
 inputs:
   - name: data
     type_str: T

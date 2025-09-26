@@ -7,7 +7,7 @@ min_output: 1
 max_output: 1
 doc: |-
   Produces a slice of the input tensor along multiple axes. Similar to numpy:
-  https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html
+  https://numpy.org/doc/stable/reference/routines.indexing.html
   Slices uses `starts`, `ends`, `axes` and `steps` inputs to specify the start and end
   dimension and step for each axis in the list of axes, it uses this information to
   slice the input `data` tensor. If a negative value is passed for any of the
@@ -56,22 +56,22 @@ inputs:
     tags: []
   - name: ends
     type_str: Tind
-    description: 1-D tensor of ending indices (exclusive) of corresponding axis in
-      `axes`
+    description: 1-D tensor of ending indices (exclusive) of corresponding axis 
+      in `axes`
     min_arity: 1
     tags: []
   - name: axes
     type_str: Tind
-    description: 1-D tensor of axes that `starts` and `ends` apply to. Negative value
-      means counting dimensions from the back. Accepted range is [-r, r-1] where r
-      = rank(data).
+    description: 1-D tensor of axes that `starts` and `ends` apply to. Negative 
+      value means counting dimensions from the back. Accepted range is [-r, r-1]
+      where r = rank(data).
     min_arity: 1
     tags:
       - optional
   - name: steps
     type_str: Tind
-    description: 1-D tensor of slice step of corresponding axis in `axes`. Negative
-      value means slicing backward. 'steps' cannot be 0. Defaults to 1.
+    description: 1-D tensor of slice step of corresponding axis in `axes`. 
+      Negative value means slicing backward. 'steps' cannot be 0. Defaults to 1.
     min_arity: 1
     tags:
       - optional

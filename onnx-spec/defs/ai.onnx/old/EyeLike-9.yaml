@@ -1,0 +1,77 @@
+domain: ''
+name: EyeLike
+since_version: 9
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: |-
+  Generate a 2D tensor (matrix) with ones on the diagonal and zeros everywhere else. Only 2D
+  tensors are supported, i.e. input T1 must be of rank 2. The shape of the output tensor is the
+  same as the input tensor. The data type can be specified by the 'dtype' argument. If
+  'dtype' is not specified, then the type of input tensor is used. By default, the main diagonal
+  is populated with ones, but attribute 'k' can be used to populate upper or lower diagonals.
+  The 'dtype' argument must be one of the data types specified in the 'DataType' enum field in the
+  TensorProto message and be valid as an output type.
+attributes:
+  - name: dtype
+    description: >-
+      (Optional) The data type for the elements of the output tensor. If not specified,the
+      data type of the input tensor T1 is used. If input tensor T1 is also notspecified,
+      then type defaults to 'float'.
+    type: INT
+    required: false
+  - name: k
+    description: >-
+      (Optional) Index of the diagonal to be populated with ones. Default is 0. If
+      T2 is the output, this op sets T2[i, i+k] = 1. k = 0 populates the main diagonal,
+      k > 0 populates an upper diagonal,  and k < 0 populates a lower diagonal.
+    type: INT
+    required: false
+    default_value: 0
+inputs:
+  - name: input
+    type_str: T1
+    description: 2D input tensor to copy shape, and optionally, type information
+      from.
+    min_arity: 1
+    tags: []
+outputs:
+  - name: output
+    type_str: T2
+    description: Output tensor, same shape as input tensor T1.
+    min_arity: 1
+    tags: []
+type_constraints:
+  - type_param_str: T1
+    description: Constrain input types. Strings and complex are not supported.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(bool)
+  - type_param_str: T2
+    description: Constrain output types. Strings and complex are not supported.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+      - tensor(int8)
+      - tensor(int16)
+      - tensor(int32)
+      - tensor(int64)
+      - tensor(uint8)
+      - tensor(uint16)
+      - tensor(uint32)
+      - tensor(uint64)
+      - tensor(bool)
+support_level: COMMON
+deprecated: false

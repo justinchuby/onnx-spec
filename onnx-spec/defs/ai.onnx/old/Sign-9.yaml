@@ -18,8 +18,8 @@ inputs:
 outputs:
   - name: output
     type_str: T
-    description: The sign of the input tensor computed element-wise. It has the same
-      shape and type of the input.
+    description: The sign of the input tensor computed element-wise. It has the 
+      same shape and type of the input.
     min_arity: 1
     tags: []
 type_constraints:

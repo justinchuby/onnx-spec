@@ -84,24 +84,25 @@ inputs:
       - non-differentiable
   - name: ends
     type_str: Tind
-    description: 1-D tensor of ending indices (exclusive) of corresponding axis in
-      `axes`
+    description: 1-D tensor of ending indices (exclusive) of corresponding axis 
+      in `axes`
     min_arity: 1
     tags:
       - non-differentiable
   - name: axes
     type_str: Tind
-    description: 1-D tensor of axes that `starts` and `ends` apply to. Negative value
-      means counting dimensions from the back. Accepted range is [-r, r-1] where r
-      = rank(data). Behavior is undefined if an axis is repeated.
+    description: 1-D tensor of axes that `starts` and `ends` apply to. Negative 
+      value means counting dimensions from the back. Accepted range is [-r, r-1]
+      where r = rank(data). Behavior is undefined if an axis is repeated.
     min_arity: 1
     tags:
       - optional
       - non-differentiable
   - name: steps
     type_str: Tind
-    description: 1-D tensor of slice step of corresponding axis in `axes`. Negative
-      value means slicing backward. 'steps' cannot be 0. Defaults to 1s.
+    description: 1-D tensor of slice step of corresponding axis in `axes`. 
+      Negative value means slicing backward. 'steps' cannot be 0. Defaults to 
+      1s.
     min_arity: 1
     tags:
       - optional

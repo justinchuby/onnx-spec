@@ -1,0 +1,56 @@
+domain: ''
+name: ThresholdedRelu
+since_version: 22
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: |-
+  ThresholdedRelu takes one input data (Tensor<T>) and produces one output data
+  (Tensor<T>) where the rectified linear function, y = x for x > alpha, y = 0 otherwise,
+  is applied to the tensor elementwise.
+attributes:
+  - name: alpha
+    description: >-
+      Threshold value
+    type: FLOAT
+    required: false
+    default_value: 1.0
+inputs:
+  - name: X
+    type_str: T
+    description: Input tensor
+    min_arity: 1
+    tags:
+      - differentiable
+outputs:
+  - name: Y
+    type_str: T
+    description: Output tensor
+    min_arity: 1
+    tags:
+      - differentiable
+type_constraints:
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(bfloat16)
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  ThresholdedRelu <alpha>(X) => (Y)
+  {
+     Alpha = Constant <value_float: float = @alpha> ()
+     AlphaCast = CastLike (Alpha, X)
+     Zero = Constant <value: tensor = float {0}> ()
+     ZeroCast = CastLike (Zero, X)
+     AlphaLessThanX = Less (AlphaCast, X)
+     Y = Where (AlphaLessThanX, X, ZeroCast)
+  }
+support_level: COMMON
+deprecated: false

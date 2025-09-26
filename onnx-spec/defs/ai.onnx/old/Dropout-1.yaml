@@ -12,11 +12,6 @@ doc: |-
   copy of the input. Note that our implementation of Dropout does scaling in
   the training phase, so during testing nothing needs to be done.
 attributes:
-  - name: consumed_inputs
-    description: >-
-      legacy optimization attribute.
-    type: INTS
-    required: false
   - name: is_test
     description: >-
       (int, default 0) if nonzero, run dropout in test mode where the output is simply
@@ -24,6 +19,11 @@ attributes:
     type: INT
     required: false
     default_value: 0
+  - name: consumed_inputs
+    description: >-
+      legacy optimization attribute.
+    type: INTS
+    required: false
   - name: ratio
     description: >-
       (float, default 0.5) the ratio of random dropout
@@ -44,7 +44,8 @@ outputs:
     tags: []
   - name: mask
     type_str: T
-    description: The output mask. If is_test is nonzero, this output is not filled.
+    description: The output mask. If is_test is nonzero, this output is not 
+      filled.
     min_arity: 1
     tags:
       - optional

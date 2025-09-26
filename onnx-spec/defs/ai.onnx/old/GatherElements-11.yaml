@@ -77,9 +77,10 @@ inputs:
     tags: []
   - name: indices
     type_str: Tind
-    description: Tensor of int32/int64 indices, with the same rank r as the input.
-      All index values are expected to be within bounds [-s, s-1] along axis of size
-      s. It is an error if any of the index values are out of bounds.
+    description: Tensor of int32/int64 indices, with the same rank r as the 
+      input. All index values are expected to be within bounds [-s, s-1] along 
+      axis of size s. It is an error if any of the index values are out of 
+      bounds.
     min_arity: 1
     tags: []
 outputs:

@@ -1,0 +1,47 @@
+domain: ''
+name: Softsign
+since_version: 1
+min_input: 1
+max_input: 1
+min_output: 1
+max_output: 1
+doc: |-
+  Calculates the softsign (x/(1+|x|)) of the given input tensor element-wise.
+attributes: []
+inputs:
+  - name: input
+    type_str: T
+    description: Input tensor
+    min_arity: 1
+    tags:
+      - differentiable
+outputs:
+  - name: output
+    type_str: T
+    description: The softsign (x/(1+|x|)) values of the input tensor computed 
+      element-wise
+    min_arity: 1
+    tags:
+      - differentiable
+type_constraints:
+  - type_param_str: T
+    description: Constrain input and output types to float tensors.
+    allowed_type_strs:
+      - tensor(float16)
+      - tensor(float)
+      - tensor(double)
+function: |-
+  <
+    domain: "",
+    opset_import: ["" : 18]
+  >
+  Softsign (input) => (output)
+  {
+     One = Constant <value: tensor = float {1}> ()
+     OneCast = CastLike (One, input)
+     AbsInput = Abs (input)
+     OneAddAbsInput = Add (OneCast, AbsInput)
+     output = Div (input, OneAddAbsInput)
+  }
+support_level: COMMON
+deprecated: false

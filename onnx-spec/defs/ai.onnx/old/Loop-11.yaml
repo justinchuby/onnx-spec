@@ -20,7 +20,7 @@ doc: |-
   This table summarizes the operating modes of this operator with equivalent
   C-style code:
 
-      Operator inputs defined as (max_trip_count, condition_var).
+  Operator inputs defined as (max_trip_count, condition_var).
 
       input ("", ""):
           for (int i=0; ; ++i) {
@@ -153,21 +153,22 @@ attributes:
 inputs:
   - name: M
     type_str: I
-    description: A maximum trip-count for the loop specified at runtime. Optional.
-      Pass empty string to skip.
+    description: A maximum trip-count for the loop specified at runtime. 
+      Optional. Pass empty string to skip.
     min_arity: 1
     tags:
       - optional
   - name: cond
     type_str: B
-    description: A boolean termination condition. Optional. Pass empty string to skip.
+    description: A boolean termination condition. Optional. Pass empty string to
+      skip.
     min_arity: 1
     tags:
       - optional
   - name: v_initial
     type_str: V
-    description: The initial values of any loop-carried dependencies (values that
-      change across loop iterations)
+    description: The initial values of any loop-carried dependencies (values 
+      that change across loop iterations)
     min_arity: 0
     tags:
       - variadic

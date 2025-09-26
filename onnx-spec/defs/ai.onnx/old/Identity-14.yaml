@@ -24,7 +24,8 @@ outputs:
       - differentiable
 type_constraints:
   - type_param_str: V
-    description: Constrain input and output types to all tensor and sequence types.
+    description: Constrain input and output types to all tensor and sequence 
+      types.
     allowed_type_strs:
       - tensor(uint8)
       - tensor(uint16)

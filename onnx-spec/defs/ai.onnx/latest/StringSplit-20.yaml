@@ -12,12 +12,6 @@ doc: |-
 
   The second output tensor represents the number of substrings generated. `maxsplit` can be used to limit the number of splits performed - after the `maxsplit`th split if the string is not fully split, the trailing suffix of input string after the final split point is also added. For elements where fewer splits are possible than specified in `maxsplit`, it has no effect.
 attributes:
-  - name: delimiter
-    description: >-
-      Delimiter to split on. If left unset or set to the empty string (""), the input
-      is split on consecutive whitespace.
-    type: STRING
-    required: false
   - name: maxsplit
     description: >-
       Maximum number of splits (from left to right). If left unset (or if the number
@@ -26,6 +20,12 @@ attributes:
       specified is `maxsplit+1` since the remaining suffix after the `maxsplit`th
       split is included in the output.
     type: INT
+    required: false
+  - name: delimiter
+    description: >-
+      Delimiter to split on. If left unset or set to the empty string (""), the input
+      is split on consecutive whitespace.
+    type: STRING
     required: false
 inputs:
   - name: X
@@ -37,9 +37,10 @@ inputs:
 outputs:
   - name: Y
     type_str: T2
-    description: Tensor of substrings representing the outcome of splitting the strings
-      in the input on the delimiter. Note that to ensure the same number of elements
-      are present in the final rank, this tensor will pad any necessary empty strings.
+    description: Tensor of substrings representing the outcome of splitting the 
+      strings in the input on the delimiter. Note that to ensure the same number
+      of elements are present in the final rank, this tensor will pad any 
+      necessary empty strings.
     min_arity: 1
     tags:
       - non-differentiable

@@ -7,10 +7,10 @@ min_output: 2
 max_output: 2
 doc: |-
   Retrieve the top-K elements along a specified axis. Given an input tensor of
-  shape [a_1, a_2, ..., a_n, r] and integer argument k, return two outputs:
-    -Value tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]
+  shape [a_0, a_1, ..., a_{n-1}] and integer argument k, return two outputs:
+    -Value tensor of shape [a_0, a_1, ..., a_{axis-1}, k, a_{axis+1}, ... a_{n-1}]
       which contains the values of the top k elements along the specified axis
-    -Index tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n] which
+    -Index tensor of shape [a_0, a_1, ..., a_{axis-1}, k, a_{axis+1}, ... a_{n-1}] which
      contains the indices of the top k elements (original indices from the input
      tensor).
   Given two equivalent values, this operator uses the indices along the axis  as
@@ -30,20 +30,21 @@ attributes:
 inputs:
   - name: X
     type_str: T
-    description: Tensor of shape [a_1, a_2, ..., a_n, r]
+    description: Tensor of shape [a_0, a_1, ..., a_{n-1}]
     min_arity: 1
     tags: []
 outputs:
   - name: Values
     type_str: T
-    description: Tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]
-      containing top K values from the input tensor
+    description: Tensor of shape [a_0, a_1, ..., a_{axis-1}, k, a_{axis+1}, ... 
+      a_{n-1}] containing top K values from the input tensor
     min_arity: 1
     tags: []
   - name: Indices
     type_str: I
-    description: Tensor of shape [a_1, a_2, ..., a_{axis-1}, k, a_{axis+1}, ... a_n]
-      containing the corresponding input tensor indices for the top K values.
+    description: Tensor of shape [a_0, a_1, ..., a_{axis-1}, k, a_{axis+1}, ... 
+      a_{n-1}] containing the corresponding input tensor indices for the top K 
+      values.
     min_arity: 1
     tags: []
 type_constraints:

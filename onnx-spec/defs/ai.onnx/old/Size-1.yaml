@@ -40,7 +40,8 @@ type_constraints:
       - tensor(complex64)
       - tensor(complex128)
   - type_param_str: T1
-    description: Constrain output to int64 tensor, which should be a scalar though.
+    description: Constrain output to int64 tensor, which should be a scalar 
+      though.
     allowed_type_strs:
       - tensor(int64)
 support_level: COMMON

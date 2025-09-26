@@ -19,6 +19,12 @@ doc: |-
     If (auto_pads != SAME_UPPER): pads[start_i] = total_padding[i]/2; pads[end_i] = total_padding[i] - (total_padding[i]/2)
     Else: pads[start_i] = total_padding[i] - (total_padding[i]/2); pads[end_i] = (total_padding[i]/2).
 attributes:
+  - name: group
+    description: >-
+      number of groups input channels and output channels are divided into.
+    type: INT
+    required: false
+    default_value: 1
   - name: auto_pad
     description: >-
       auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
@@ -29,34 +35,9 @@ attributes:
     type: STRING
     required: false
     default_value: NOTSET
-  - name: dilations
+  - name: strides
     description: >-
-      dilation value along each spatial axis of the filter.
-    type: INTS
-    required: false
-  - name: group
-    description: >-
-      number of groups input channels and output channels are divided into.
-    type: INT
-    required: false
-    default_value: 1
-  - name: kernel_shape
-    description: >-
-      The shape of the convolution kernel. If not present, should be inferred from
-      input W.
-    type: INTS
-    required: false
-  - name: output_padding
-    description: >-
-      The zero-padding added to one side of the output. This is also called adjs/adjustment
-      in some frameworks.
-    type: INTS
-    required: false
-  - name: output_shape
-    description: >-
-      The shape of the output can be explicitly set which will cause pads values to
-      be auto generated. If output_shape is specified pads values are ignored. See
-      doc for details for equations to generate pads
+      Stride along each spatial axis.
     type: INTS
     required: false
   - name: pads
@@ -71,29 +52,48 @@ attributes:
       end of each spatial axis.
     type: INTS
     required: false
-  - name: strides
+  - name: output_padding
     description: >-
-      Stride along each spatial axis.
+      The zero-padding added to one side of the output. This is also called adjs/adjustment
+      in some frameworks.
+    type: INTS
+    required: false
+  - name: dilations
+    description: >-
+      dilation value along each spatial axis of the filter.
+    type: INTS
+    required: false
+  - name: output_shape
+    description: >-
+      The shape of the output can be explicitly set which will cause pads values to
+      be auto generated. If output_shape is specified pads values are ignored. See
+      doc for details for equations to generate pads
+    type: INTS
+    required: false
+  - name: kernel_shape
+    description: >-
+      The shape of the convolution kernel. If not present, should be inferred from
+      input W.
     type: INTS
     required: false
 inputs:
   - name: X
     type_str: T
-    description: Input data tensor from previous layer; has size (N x C x H x W),
-      where N is the batch size, C is the number of channels, and H and W are the
-      height and width. Note that this is for the 2D image. Otherwise the size is
-      (N x C x D1 x D2 ... x Dn)
+    description: Input data tensor from previous layer; has size (N x C x H x 
+      W), where N is the batch size, C is the number of channels, and H and W 
+      are the height and width. Note that this is for the 2D image. Otherwise 
+      the size is (N x C x D1 x D2 ... x Dn)
     min_arity: 1
     tags: []
   - name: W
     type_str: T
-    description: The weight tensor that will be used in the convolutions; has size
-      (C x M/group x kH x kW), where C is the number of channels, and kH and kW are
-      the height and width of the kernel, and M is the number of feature maps. For
-      more than 2 dimensions, the weight shape will be (C x M/group x k1 x k2 x ...
-      x kn), where (k1 x k2 x ... x kn) is the dimension of the kernel. The number
-      of channels in the output should be equal to W.shape[1] * group (assuming zero
-      based indices of the shape array)
+    description: The weight tensor that will be used in the convolutions; has 
+      size (C x M/group x kH x kW), where C is the number of channels, and kH 
+      and kW are the height and width of the kernel, and M is the number of 
+      feature maps. For more than 2 dimensions, the weight shape will be (C x 
+      M/group x k1 x k2 x ... x kn), where (k1 x k2 x ... x kn) is the dimension
+      of the kernel. The number of channels in the output should be equal to 
+      W.shape[1] * group (assuming zero based indices of the shape array)
     min_arity: 1
     tags: []
   - name: B
@@ -105,10 +105,11 @@ inputs:
 outputs:
   - name: Y
     type_str: T
-    description: Output data tensor that contains the result of the convolution. The
-      output dimensions are functions of the kernel size, stride size, pad lengths
-      and group count. The number of channels in the output should be equal to W.shape[1]
-      * group (assuming zero based indices of the shape array)
+    description: Output data tensor that contains the result of the convolution.
+      The output dimensions are functions of the kernel size, stride size, pad 
+      lengths and group count. The number of channels in the output should be 
+      equal to W.shape[1] * group (assuming zero based indices of the shape 
+      array)
     min_arity: 1
     tags: []
 type_constraints:

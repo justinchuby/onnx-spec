@@ -32,7 +32,8 @@ outputs:
       - differentiable
 type_constraints:
   - type_param_str: T
-    description: Constrain input and output types to high-precision numeric tensors.
+    description: Constrain input and output types to high-precision numeric 
+      tensors.
     allowed_type_strs:
       - tensor(uint32)
       - tensor(uint64)

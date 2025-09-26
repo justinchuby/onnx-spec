@@ -9,6 +9,8 @@ doc: |-
   Clip operator limits the given input within an interval. The interval is
   specified by the inputs 'min' and 'max'. They default to
   numeric_limits::lowest() and numeric_limits::max(), respectively.
+  When 'min' is greater than 'max', the clip operator sets all the 'input' values to
+  the value of 'max'. Thus, this is equivalent to 'Min(max, Max(input, min))'.
 attributes: []
 inputs:
   - name: input
@@ -19,16 +21,16 @@ inputs:
       - differentiable
   - name: min
     type_str: T
-    description: Minimum value, under which element is replaced by min. It must be
-      a scalar(tensor of empty shape).
+    description: Minimum value, under which element is replaced by min. It must 
+      be a scalar(tensor of empty shape).
     min_arity: 1
     tags:
       - optional
       - non-differentiable
   - name: max
     type_str: T
-    description: Maximum value, above which element is replaced by max. It must be
-      a scalar(tensor of empty shape).
+    description: Maximum value, above which element is replaced by max. It must 
+      be a scalar(tensor of empty shape).
     min_arity: 1
     tags:
       - optional

@@ -41,7 +41,8 @@ outputs:
     tags: []
 type_constraints:
   - type_param_str: T
-    description: The output will be a sequence of string or integer maps to float.
+    description: The output will be a sequence of string or integer maps to 
+      float.
     allowed_type_strs:
       - seq(map(string, float))
       - seq(map(int64, float))

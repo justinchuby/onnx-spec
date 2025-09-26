@@ -68,33 +68,12 @@ doc: |-
   If there are multiple inputs to be optimized, the pseudo code will be applied
   independently to each of them.
 attributes:
-  - name: alpha
-    description: >-
-      Coefficient of previously accumulated gradient in running average. Default to
-      0.9.
-    type: FLOAT
-    required: false
-    default_value: 0.8999999761581421
-  - name: beta
-    description: >-
-      Coefficient of previously accumulated squared-gradient in running average. Default
-      to 0.999.
-    type: FLOAT
-    required: false
-    default_value: 0.9990000128746033
   - name: epsilon
     description: >-
       Small scalar to avoid dividing by zero.
     type: FLOAT
     required: false
     default_value: 9.999999974752427e-07
-  - name: norm_coefficient
-    description: >-
-      Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default to
-      0, which means no regularization.
-    type: FLOAT
-    required: false
-    default_value: 0.0
   - name: norm_coefficient_post
     description: >-
       Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default to
@@ -102,6 +81,27 @@ attributes:
     type: FLOAT
     required: false
     default_value: 0.0
+  - name: norm_coefficient
+    description: >-
+      Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default to
+      0, which means no regularization.
+    type: FLOAT
+    required: false
+    default_value: 0.0
+  - name: beta
+    description: >-
+      Coefficient of previously accumulated squared-gradient in running average. Default
+      to 0.999.
+    type: FLOAT
+    required: false
+    default_value: 0.9990000128746033
+  - name: alpha
+    description: >-
+      Coefficient of previously accumulated gradient in running average. Default to
+      0.9.
+    type: FLOAT
+    required: false
+    default_value: 0.8999999761581421
 inputs:
   - name: R
     type_str: T1
@@ -115,13 +115,13 @@ inputs:
     tags: []
   - name: inputs
     type_str: T3
-    description: The tensors to be optimized, followed by their respective gradients,
-      followed by their respective accumulated gradients (aka momentum), followed
-      by their respective accumulated squared gradients. For example, to optimize
-      tensors "X_1" and "X_2,", the input list would be ["X_1", "X_2", gradient of
-      "X_1", gradient of "X_2", accumulated gradient of "X_1", accumulated gradient
-      of "X_2", accumulated squared gradient of "X_1", accumulated squared gradient
-      of "X_2"].
+    description: The tensors to be optimized, followed by their respective 
+      gradients, followed by their respective accumulated gradients (aka 
+      momentum), followed by their respective accumulated squared gradients. For
+      example, to optimize tensors "X_1" and "X_2,", the input list would be 
+      ["X_1", "X_2", gradient of "X_1", gradient of "X_2", accumulated gradient 
+      of "X_1", accumulated gradient of "X_2", accumulated squared gradient of 
+      "X_1", accumulated squared gradient of "X_2"].
     min_arity: 1
     tags:
       - variadic
@@ -129,12 +129,13 @@ inputs:
 outputs:
   - name: outputs
     type_str: T3
-    description: New values of optimized tensors, followed by their respective new
-      accumulated gradients, followed by their respective new accumulated squared
-      gradients. For example, if two tensors "X_1" and "X_2" are optimized, the outputs
-      list would be [new value of "X_1", new value of "X_2", new accumulated gradient
-      of "X_1", new accumulated gradient of "X_2", new accumulated squared gradient
-      of "X_1", new accumulated squared gradient of "X_2"].
+    description: New values of optimized tensors, followed by their respective 
+      new accumulated gradients, followed by their respective new accumulated 
+      squared gradients. For example, if two tensors "X_1" and "X_2" are 
+      optimized, the outputs list would be [new value of "X_1", new value of 
+      "X_2", new accumulated gradient of "X_1", new accumulated gradient of 
+      "X_2", new accumulated squared gradient of "X_1", new accumulated squared 
+      gradient of "X_2"].
     min_arity: 1
     tags:
       - variadic

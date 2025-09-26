@@ -17,13 +17,14 @@ inputs:
 outputs:
   - name: output
     type_str: B
-    description: A scalar boolean tensor. If true, it indicates that optional-type
-      input contains an element. Otherwise, it is empty.
+    description: A scalar boolean tensor. If true, it indicates that 
+      optional-type input contains an element. Otherwise, it is empty.
     min_arity: 1
     tags: []
 type_constraints:
   - type_param_str: O
-    description: Constrain input type to optional tensor and optional sequence types.
+    description: Constrain input type to optional tensor and optional sequence 
+      types.
     allowed_type_strs:
       - optional(seq(tensor(uint8)))
       - optional(seq(tensor(uint16)))

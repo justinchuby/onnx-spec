@@ -26,18 +26,19 @@ inputs:
       - differentiable
   - name: condition
     type_str: T1
-    description: Rank 1 tensor of booleans to indicate which slices or data elements
-      to be selected. Its length can be less than the input length along the axis
-      or the flattened input size if axis is not specified. In such cases data slices
-      or elements exceeding the condition length are discarded.
+    description: Rank 1 tensor of booleans to indicate which slices or data 
+      elements to be selected. Its length can be less than the input length 
+      along the axis or the flattened input size if axis is not specified. In 
+      such cases data slices or elements exceeding the condition length are 
+      discarded.
     min_arity: 1
     tags:
       - non-differentiable
 outputs:
   - name: output
     type_str: T
-    description: Tensor of rank r if axis is specified. Otherwise output is a Tensor
-      of rank 1.
+    description: Tensor of rank r if axis is specified. Otherwise output is a 
+      Tensor of rank 1.
     min_arity: 1
     tags:
       - differentiable

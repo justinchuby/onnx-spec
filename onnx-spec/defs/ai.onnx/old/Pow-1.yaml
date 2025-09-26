@@ -48,8 +48,8 @@ inputs:
     tags: []
   - name: Y
     type_str: T
-    description: Input tensor of any shape broadcastable to X shape, the exponent
-      component.
+    description: Input tensor of any shape broadcastable to X shape, the 
+      exponent component.
     min_arity: 1
     tags: []
 outputs:

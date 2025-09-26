@@ -14,10 +14,10 @@ doc: |-
   first occurrence is selected.
   The type of the output tensor is integer.
 attributes:
-  - name: axis
+  - name: select_last_index
     description: >-
-      The axis in which to compute the arg indices. Accepted range is [-r, r-1] where
-      r = rank(data).
+      Whether to select the last index or the first index if the {name} appears in
+      multiple indices, default is False (first index).
     type: INT
     required: false
     default_value: 0
@@ -27,10 +27,10 @@ attributes:
     type: INT
     required: false
     default_value: 1
-  - name: select_last_index
+  - name: axis
     description: >-
-      Whether to select the last index or the first index if the {name} appears in
-      multiple indices, default is False (first index).
+      The axis in which to compute the arg indices. Accepted range is [-r, r-1] where
+      r = rank(data).
     type: INT
     required: false
     default_value: 0

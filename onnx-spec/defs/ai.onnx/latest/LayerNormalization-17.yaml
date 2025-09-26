@@ -48,6 +48,18 @@ doc: |-
   (tensors `Scale` and `B` should be unidirectional broadcastable to tensor `X`);
   for more details please check [the doc](Broadcasting.md).
 attributes:
+  - name: stash_type
+    description: >-
+      Type of Mean and InvStdDev. This also specifies stage one's computation precision.
+    type: INT
+    required: false
+    default_value: 1
+  - name: epsilon
+    description: >-
+      The epsilon value to use to avoid division by zero.
+    type: FLOAT
+    required: false
+    default_value: 9.999999747378752e-06
   - name: axis
     description: >-
       The first normalization dimension. If rank(X) is r, axis' allowed range is [-r,
@@ -55,18 +67,6 @@ attributes:
     type: INT
     required: false
     default_value: -1
-  - name: epsilon
-    description: >-
-      The epsilon value to use to avoid division by zero.
-    type: FLOAT
-    required: false
-    default_value: 9.999999747378752e-06
-  - name: stash_type
-    description: >-
-      Type of Mean and InvStdDev. This also specifies stage one's computation precision.
-    type: INT
-    required: false
-    default_value: 1
 inputs:
   - name: X
     type_str: T
@@ -92,14 +92,15 @@ outputs:
     tags: []
   - name: Mean
     type_str: U
-    description: Saved mean used during training to speed up gradient computation
+    description: Saved mean used during training to speed up gradient 
+      computation
     min_arity: 1
     tags:
       - optional
   - name: InvStdDev
     type_str: U
-    description: Saved inverse standard deviation used during training to speed up
-      gradient computation.
+    description: Saved inverse standard deviation used during training to speed 
+      up gradient computation.
     min_arity: 1
     tags:
       - optional

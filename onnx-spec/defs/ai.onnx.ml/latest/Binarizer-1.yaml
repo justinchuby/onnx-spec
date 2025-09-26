@@ -28,8 +28,8 @@ outputs:
     tags: []
 type_constraints:
   - type_param_str: T
-    description: The input must be a tensor of a numeric type. The output will be
-      of the same tensor type.
+    description: The input must be a tensor of a numeric type. The output will 
+      be of the same tensor type.
     allowed_type_strs:
       - tensor(float)
       - tensor(double)

@@ -8,19 +8,19 @@ max_output: 1
 doc: |-
   Generates a Hann window as described in the paper https://ieeexplore.ieee.org/document/1455106.
 attributes:
-  - name: output_datatype
-    description: >-
-      The data type of the output tensor. Strictly must be one of the values from
-      DataType enum in TensorProto whose values correspond to T2. The default value
-      is 1 = FLOAT.
-    type: INT
-    required: false
-    default_value: 1
   - name: periodic
     description: >-
       If 1, returns a window to be used as periodic function. If 0, return a symmetric
       window. When 'periodic' is specified, hann computes a window of length size
       + 1 and returns the first size points. The default value is 1.
+    type: INT
+    required: false
+    default_value: 1
+  - name: output_datatype
+    description: >-
+      The data type of the output tensor. Strictly must be one of the values from
+      DataType enum in TensorProto whose values correspond to T2. The default value
+      is 1 = FLOAT.
     type: INT
     required: false
     default_value: 1
@@ -64,7 +64,7 @@ function: |-
     domain: "",
     opset_import: ["" : 17]
   >
-  HannWindow <output_datatype,periodic>(size) => (output)
+  HannWindow <periodic,output_datatype>(size) => (output)
   {
      A0 = Constant <value: tensor = float {0.5}> ()
      A1 = Constant <value: tensor = float {0.5}> ()

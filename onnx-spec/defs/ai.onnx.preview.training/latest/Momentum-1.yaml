@@ -67,9 +67,9 @@ doc: |-
   concatenation of "X_1" and "X_2" (of course, their gradient and accumulate gradient should
   be concatenated too) and then our pseudo code becomes applicable.
 attributes:
-  - name: alpha
+  - name: norm_coefficient
     description: >-
-      The decay factor of momentum. It should be a scalar.
+      Coefficient of 0.5 * norm_coefficient * ||X||^2.
     type: FLOAT
     required: true
   - name: beta
@@ -84,9 +84,9 @@ attributes:
       method using standard momentum
     type: STRING
     required: true
-  - name: norm_coefficient
+  - name: alpha
     description: >-
-      Coefficient of 0.5 * norm_coefficient * ||X||^2.
+      The decay factor of momentum. It should be a scalar.
     type: FLOAT
     required: true
 inputs:
@@ -102,11 +102,11 @@ inputs:
     tags: []
   - name: inputs
     type_str: T3
-    description: It sequentially contains the current values of optimized tensors,
-      then their gradient tensors, and finally their momentum tensors. For example,
-      if two tensors "X_1" and "X_2" are optimized, The expected input list would
-      be ["X_1", "X_2", gradient of "X_1", gradient of "X_2", momentum of "X_1", momentum
-      of "X_2"].
+    description: It sequentially contains the current values of optimized 
+      tensors, then their gradient tensors, and finally their momentum tensors. 
+      For example, if two tensors "X_1" and "X_2" are optimized, The expected 
+      input list would be ["X_1", "X_2", gradient of "X_1", gradient of "X_2", 
+      momentum of "X_1", momentum of "X_2"].
     min_arity: 1
     tags:
       - variadic
@@ -114,10 +114,11 @@ inputs:
 outputs:
   - name: outputs
     type_str: T3
-    description: It sequentially contains the new values of optimized tensors and
-      then the new values of their momentum tensors. For example, if two tensors "X_1"
-      and "X_2" are optimized, the output list would be [new value of "X_1," new value
-      of "X_2" new momentum of "X_1", new momentum of "X_2"].
+    description: It sequentially contains the new values of optimized tensors 
+      and then the new values of their momentum tensors. For example, if two 
+      tensors "X_1" and "X_2" are optimized, the output list would be [new value
+      of "X_1," new value of "X_2" new momentum of "X_1", new momentum of 
+      "X_2"].
     min_arity: 1
     tags:
       - variadic

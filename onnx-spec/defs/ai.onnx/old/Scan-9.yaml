@@ -127,33 +127,11 @@ doc: |-
         return %Ht, %Accumulate
       }
 attributes:
-  - name: body
-    description: >-
-      The graph run each iteration. It has N+M inputs: (loop state variables..., scan_input_elts...).
-      It has N+K outputs: (loop state variables..., scan_output_elts...). Each scan_output
-      is created by concatenating the value of the specified scan_output_elt value
-      at the end of each iteration of the loop. It is an error if the dimensions of
-      these values change across loop iterations.
-    type: GRAPH
-    required: true
-  - name: num_scan_inputs
-    description: >-
-      An attribute specifying the number of scan_inputs M.
-    type: INT
-    required: true
   - name: scan_input_axes
     description: >-
       An optional list of M flags. The i-th element of the list specifies the axis
       to be scanned (the sequence axis) for the i-th scan_input. If omitted, 0 will
       be used as the scan axis for every scan_input.
-    type: INTS
-    required: false
-  - name: scan_input_directions
-    description: >-
-      An optional list of M flags. The i-th element of the list specifies the direction
-      to be scanned for the i-th scan_input tensor: 0 indicates forward direction
-      and 1 indicates reverse direction. If omitted, all scan_input tensors will be
-      scanned in the forward direction.
     type: INTS
     required: false
   - name: scan_output_axes
@@ -172,10 +150,33 @@ attributes:
       a value in each iteration.
     type: INTS
     required: false
+  - name: scan_input_directions
+    description: >-
+      An optional list of M flags. The i-th element of the list specifies the direction
+      to be scanned for the i-th scan_input tensor: 0 indicates forward direction
+      and 1 indicates reverse direction. If omitted, all scan_input tensors will be
+      scanned in the forward direction.
+    type: INTS
+    required: false
+  - name: num_scan_inputs
+    description: >-
+      An attribute specifying the number of scan_inputs M.
+    type: INT
+    required: true
+  - name: body
+    description: >-
+      The graph run each iteration. It has N+M inputs: (loop state variables..., scan_input_elts...).
+      It has N+K outputs: (loop state variables..., scan_output_elts...). Each scan_output
+      is created by concatenating the value of the specified scan_output_elt value
+      at the end of each iteration of the loop. It is an error if the dimensions of
+      these values change across loop iterations.
+    type: GRAPH
+    required: true
 inputs:
   - name: initial_state_and_scan_inputs
     type_str: V
-    description: Initial values of the loop's N state variables followed by M scan_inputs
+    description: Initial values of the loop's N state variables followed by M 
+      scan_inputs
     min_arity: 1
     tags:
       - variadic
@@ -183,7 +184,8 @@ inputs:
 outputs:
   - name: final_state_and_scan_outputs
     type_str: V
-    description: Final values of the loop's N state variables followed by K scan_outputs
+    description: Final values of the loop's N state variables followed by K 
+      scan_outputs
     min_arity: 1
     tags:
       - variadic

@@ -87,13 +87,12 @@ doc: |-
 
     - Ht = ot (.) h(Ct)
 attributes:
-  - name: activation_alpha
+  - name: clip
     description: >-
-      Optional scaling values used by some activation functions. The values are consumed
-      in the order of activation functions, for example (f, g, h) in LSTM. Default
-      values are the same as of corresponding ONNX operators.For example with LeakyRelu,
-      the default alpha is 0.01.
-    type: FLOATS
+      Cell clip threshold. Clipping bounds the elements of a tensor in the range of
+      [-threshold, +threshold] and is applied to the input of activations. No clip
+      if not specified.
+    type: FLOAT
     required: false
   - name: activation_beta
     description: >-
@@ -102,19 +101,24 @@ attributes:
       values are the same as of corresponding ONNX operators.
     type: FLOATS
     required: false
-  - name: activations
+  - name: output_sequence
     description: >-
-      A list of 3 (or 6 if bidirectional) activation functions for input, output,
-      forget, cell, and hidden. The activation functions must be one of the activation
-      functions specified above. Optional: See the equations for default if not specified.
-    type: STRINGS
+      The sequence output for the hidden is optional if 0. Default 0.
+    type: INT
     required: false
-  - name: clip
+    default_value: 0
+  - name: activation_alpha
     description: >-
-      Cell clip threshold. Clipping bounds the elements of a tensor in the range of
-      [-threshold, +threshold] and is applied to the input of activations. No clip
-      if not specified.
-    type: FLOAT
+      Optional scaling values used by some activation functions. The values are consumed
+      in the order of activation functions, for example (f, g, h) in LSTM. Default
+      values are the same as of corresponding ONNX operators.For example with LeakyRelu,
+      the default alpha is 0.01.
+    type: FLOATS
+    required: false
+  - name: hidden_size
+    description: >-
+      Number of neurons in the hidden layer
+    type: INT
     required: false
   - name: direction
     description: >-
@@ -123,42 +127,38 @@ attributes:
     type: STRING
     required: false
     default_value: forward
-  - name: hidden_size
-    description: >-
-      Number of neurons in the hidden layer
-    type: INT
-    required: false
   - name: input_forget
     description: >-
       Couple the input and forget gates if 1, default 0.
     type: INT
     required: false
     default_value: 0
-  - name: output_sequence
+  - name: activations
     description: >-
-      The sequence output for the hidden is optional if 0. Default 0.
-    type: INT
+      A list of 3 (or 6 if bidirectional) activation functions for input, output,
+      forget, cell, and hidden. The activation functions must be one of the activation
+      functions specified above. Optional: See the equations for default if not specified.
+    type: STRINGS
     required: false
-    default_value: 0
 inputs:
   - name: X
     type_str: T
-    description: The input sequences packed (and potentially padded) into one 3-D
-      tensor with the shape of `[seq_length, batch_size, input_size]`.
+    description: The input sequences packed (and potentially padded) into one 
+      3-D tensor with the shape of `[seq_length, batch_size, input_size]`.
     min_arity: 1
     tags: []
   - name: W
     type_str: T
-    description: The weight tensor for the gates. Concatenation of `W[iofc]` and `WB[iofc]`
-      (if bidirectional) along dimension 0. The tensor has shape `[num_directions,
-      4*hidden_size, input_size]`.
+    description: The weight tensor for the gates. Concatenation of `W[iofc]` and
+      `WB[iofc]` (if bidirectional) along dimension 0. The tensor has shape 
+      `[num_directions, 4*hidden_size, input_size]`.
     min_arity: 1
     tags: []
   - name: R
     type_str: T
-    description: The recurrence weight tensor. Concatenation of `R[iofc]` and `RB[iofc]`
-      (if bidirectional) along dimension 0. This tensor has shape `[num_directions,
-      4*hidden_size, hidden_size]`.
+    description: The recurrence weight tensor. Concatenation of `R[iofc]` and 
+      `RB[iofc]` (if bidirectional) along dimension 0. This tensor has shape 
+      `[num_directions, 4*hidden_size, hidden_size]`.
     min_arity: 1
     tags: []
   - name: B
@@ -172,23 +172,23 @@ inputs:
       - optional
   - name: sequence_lens
     type_str: T1
-    description: Optional tensor specifying lengths of the sequences in a batch. If
-      not specified - assumed all sequences in the batch to have length `seq_length`.
-      It has shape `[batch_size]`.
+    description: Optional tensor specifying lengths of the sequences in a batch.
+      If not specified - assumed all sequences in the batch to have length 
+      `seq_length`. It has shape `[batch_size]`.
     min_arity: 1
     tags:
       - optional
   - name: initial_h
     type_str: T
-    description: Optional initial value of the hidden. If not specified - assumed
-      to be 0. It has shape `[num_directions, batch_size, hidden_size]`.
+    description: Optional initial value of the hidden. If not specified - 
+      assumed to be 0. It has shape `[num_directions, batch_size, hidden_size]`.
     min_arity: 1
     tags:
       - optional
   - name: initial_c
     type_str: T
-    description: Optional initial value of the cell. If not specified - assumed to
-      be 0. It has shape `[num_directions, batch_size, hidden_size]`.
+    description: Optional initial value of the cell. If not specified - assumed 
+      to be 0. It has shape `[num_directions, batch_size, hidden_size]`.
     min_arity: 1
     tags:
       - optional
@@ -203,23 +203,23 @@ inputs:
 outputs:
   - name: Y
     type_str: T
-    description: A tensor that concats all the intermediate output values of the hidden.
-      It has shape `[seq_length, num_directions, batch_size, hidden_size]`. It is
-      optional if `output_sequence` is 0.
+    description: A tensor that concats all the intermediate output values of the
+      hidden. It has shape `[seq_length, num_directions, batch_size, 
+      hidden_size]`. It is optional if `output_sequence` is 0.
     min_arity: 1
     tags:
       - optional
   - name: Y_h
     type_str: T
-    description: The last output value of the hidden. It has shape `[num_directions,
-      batch_size, hidden_size]`.
+    description: The last output value of the hidden. It has shape 
+      `[num_directions, batch_size, hidden_size]`.
     min_arity: 1
     tags:
       - optional
   - name: Y_c
     type_str: T
-    description: The last output value of the cell. It has shape `[num_directions,
-      batch_size, hidden_size]`.
+    description: The last output value of the cell. It has shape 
+      `[num_directions, batch_size, hidden_size]`.
     min_arity: 1
     tags:
       - optional

@@ -17,7 +17,8 @@ inputs:
 outputs:
   - name: output
     type_str: T
-    description: The hyperbolic tangent values of the input tensor computed element-wise
+    description: The hyperbolic tangent values of the input tensor computed 
+      element-wise
     min_arity: 1
     tags: []
 type_constraints:

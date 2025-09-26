@@ -45,23 +45,23 @@ attributes:
 inputs:
   - name: theta
     type_str: T1
-    description: input batch of affine matrices with shape (N, 2, 3) for 2D or (N,
-      3, 4) for 3D
+    description: input batch of affine matrices with shape (N, 2, 3) for 2D or 
+      (N, 3, 4) for 3D
     min_arity: 1
     tags:
       - non-differentiable
   - name: size
     type_str: T2
-    description: the target output image size (N, C, H, W) for 2D or (N, C, D, H,
-      W) for 3D
+    description: the target output image size (N, C, H, W) for 2D or (N, C, D, 
+      H, W) for 3D
     min_arity: 1
     tags:
       - non-differentiable
 outputs:
   - name: grid
     type_str: T1
-    description: output tensor of shape (N, H, W, 2) of 2D sample coordinates or (N,
-      D, H, W, 3) of 3D sample coordinates.
+    description: output tensor of shape (N, H, W, 2) of 2D sample coordinates or
+      (N, D, H, W, 3) of 3D sample coordinates.
     min_arity: 1
     tags:
       - differentiable

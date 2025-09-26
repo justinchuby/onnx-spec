@@ -19,26 +19,29 @@ inputs:
     tags: []
   - name: x_scale
     type_str: tensor(float)
-    description: Scale for input 'x'. It's a scalar, which means a per-tensor/layer
-      quantization.
+    description: Scale for input 'x'. It's a scalar, which means a 
+      per-tensor/layer quantization.
     min_arity: 1
     tags: []
   - name: x_zero_point
     type_str: T
-    description: Zero point for input 'x'. It's a scalar, which means a per-tensor/layer
-      quantization. It's optional. 0 is the default value when it's not specified.
+    description: Zero point for input 'x'. It's a scalar, which means a 
+      per-tensor/layer quantization. It's optional. 0 is the default value when 
+      it's not specified.
     min_arity: 1
     tags:
       - optional
 outputs:
   - name: y
     type_str: tensor(float)
-    description: N-D full precision output tensor. It has same shape as input 'x'.
+    description: N-D full precision output tensor. It has same shape as input 
+      'x'.
     min_arity: 1
     tags: []
 type_constraints:
   - type_param_str: T
-    description: Constrain 'x_zero_point' and 'x' to 8-bit/32-bit integer tensor.
+    description: Constrain 'x_zero_point' and 'x' to 8-bit/32-bit integer 
+      tensor.
     allowed_type_strs:
       - tensor(int8)
       - tensor(uint8)

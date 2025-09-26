@@ -18,15 +18,15 @@ inputs:
     tags: []
   - name: min
     type_str: T
-    description: Minimum value, under which element is replaced by min. It must be
-      a scalar(tensor of empty shape).
+    description: Minimum value, under which element is replaced by min. It must 
+      be a scalar(tensor of empty shape).
     min_arity: 1
     tags:
       - optional
   - name: max
     type_str: T
-    description: Maximum value, above which element is replaced by max. It must be
-      a scalar(tensor of empty shape).
+    description: Maximum value, above which element is replaced by max. It must 
+      be a scalar(tensor of empty shape).
     min_arity: 1
     tags:
       - optional

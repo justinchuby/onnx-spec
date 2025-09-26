@@ -39,7 +39,8 @@ outputs:
     tags: []
   - name: mask
     type_str: T
-    description: The output mask. If is_test is nonzero, this output is not filled.
+    description: The output mask. If is_test is nonzero, this output is not 
+      filled.
     min_arity: 1
     tags:
       - optional

@@ -23,8 +23,8 @@ inputs:
 outputs:
   - name: Y
     type_str: T2
-    description: Tensor of bools indicating if each input string fully matches the
-      regex pattern specified.
+    description: Tensor of bools indicating if each input string fully matches 
+      the regex pattern specified.
     min_arity: 1
     tags:
       - non-differentiable
@@ -34,8 +34,8 @@ type_constraints:
     allowed_type_strs:
       - tensor(string)
   - type_param_str: T2
-    description: Outputs are bools and are True where there is a full regex match
-      and False otherwise.
+    description: Outputs are bools and are True where there is a full regex 
+      match and False otherwise.
     allowed_type_strs:
       - tensor(bool)
 support_level: COMMON

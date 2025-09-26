@@ -47,7 +47,8 @@ inputs:
       - non-differentiable
   - name: frame_length
     type_str: T2
-    description: A scalar representing the size of the DFT. It's an optional value.
+    description: A scalar representing the size of the DFT. It's an optional 
+      value.
     min_arity: 1
     tags:
       - optional

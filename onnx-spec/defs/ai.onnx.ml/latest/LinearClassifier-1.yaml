@@ -8,6 +8,14 @@ max_output: 2
 doc: |-
   Linear classifier
 attributes:
+  - name: post_transform
+    description: >-
+      Indicates the transform to apply to the scores vector.
+
+      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    type: STRING
+    required: false
+    default_value: NONE
   - name: classlabels_ints
     description: >-
       Class labels when using integer labels. One and only one 'classlabels' attribute
@@ -20,30 +28,22 @@ attributes:
       must be defined.
     type: STRINGS
     required: false
-  - name: coefficients
-    description: >-
-      A collection of weights of the model(s).
-    type: FLOATS
-    required: true
-  - name: intercepts
-    description: >-
-      A collection of intercepts.
-    type: FLOATS
-    required: false
   - name: multi_class
     description: >-
       Indicates whether to do OvR or multinomial (0=OvR is the default).
     type: INT
     required: false
     default_value: 0
-  - name: post_transform
+  - name: intercepts
     description: >-
-      Indicates the transform to apply to the scores vector.
-
-      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
-    type: STRING
+      A collection of intercepts.
+    type: FLOATS
     required: false
-    default_value: NONE
+  - name: coefficients
+    description: >-
+      A collection of weights of the model(s).
+    type: FLOATS
+    required: true
 inputs:
   - name: X
     type_str: T1
@@ -58,13 +58,14 @@ outputs:
     tags: []
   - name: Z
     type_str: tensor(float)
-    description: Classification scores ([N,E] - one score for each class and example
+    description: Classification scores ([N,E] - one score for each class and 
+      example
     min_arity: 1
     tags: []
 type_constraints:
   - type_param_str: T1
-    description: The input must be a tensor of a numeric type, and of shape [N,C]
-      or [C]. In the latter case, it will be treated as [1,C]
+    description: The input must be a tensor of a numeric type, and of shape 
+      [N,C] or [C]. In the latter case, it will be treated as [1,C]
     allowed_type_strs:
       - tensor(float)
       - tensor(double)

@@ -18,15 +18,15 @@ inputs:
     tags: []
   - name: y_scale
     type_str: tensor(float)
-    description: Scale for doing quantization to get 'y'. It's a scalar, which means
-      a per-tensor/layer quantization.
+    description: Scale for doing quantization to get 'y'. It's a scalar, which 
+      means a per-tensor/layer quantization.
     min_arity: 1
     tags: []
   - name: y_zero_point
     type_str: T2
-    description: Zero point for doing quantization to get 'y'. It's a scalar, which
-      means a per-tensor/layer quantization. Default value is uint8 typed 0 if it's
-      not specified.
+    description: Zero point for doing quantization to get 'y'. It's a scalar, 
+      which means a per-tensor/layer quantization. Default value is uint8 typed 
+      0 if it's not specified.
     min_arity: 1
     tags:
       - optional

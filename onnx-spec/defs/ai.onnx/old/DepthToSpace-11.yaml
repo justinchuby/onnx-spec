@@ -33,11 +33,6 @@ doc: |-
 
   y = np.reshape(tmp, [b, c // (blocksize ** 2), h * blocksize, w * blocksize])
 attributes:
-  - name: blocksize
-    description: >-
-      Blocks of [blocksize, blocksize] are moved.
-    type: INT
-    required: true
   - name: mode
     description: >-
       DCR (default) for depth-column-row order re-arrangement. Use CRD for column-row-depth
@@ -45,18 +40,23 @@ attributes:
     type: STRING
     required: false
     default_value: DCR
+  - name: blocksize
+    description: >-
+      Blocks of [blocksize, blocksize] are moved.
+    type: INT
+    required: true
 inputs:
   - name: input
     type_str: T
-    description: Input tensor of [N,C,H,W], where N is the batch axis, C is the channel
-      or depth, H is the height and W is the width.
+    description: Input tensor of [N,C,H,W], where N is the batch axis, C is the 
+      channel or depth, H is the height and W is the width.
     min_arity: 1
     tags: []
 outputs:
   - name: output
     type_str: T
-    description: Output tensor of [N, C/(blocksize * blocksize), H * blocksize, W
-      * blocksize].
+    description: Output tensor of [N, C/(blocksize * blocksize), H * blocksize, 
+      W * blocksize].
     min_arity: 1
     tags: []
 type_constraints:

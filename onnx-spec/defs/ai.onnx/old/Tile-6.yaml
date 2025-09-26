@@ -18,15 +18,15 @@ inputs:
     tags: []
   - name: repeats
     type_str: T1
-    description: 1D int64 tensor of the same length as input's dimension number, includes
-      numbers of repeated copies along input's dimensions.
+    description: 1D int64 tensor of the same length as input's dimension number,
+      includes numbers of repeated copies along input's dimensions.
     min_arity: 1
     tags: []
 outputs:
   - name: output
     type_str: T
-    description: Output tensor of the same dimensions and type as tensor input. output_dim[i]
-      = input_dim[i] * repeats[i]
+    description: Output tensor of the same dimensions and type as tensor input. 
+      output_dim[i] = input_dim[i] * repeats[i]
     min_arity: 1
     tags: []
 type_constraints:

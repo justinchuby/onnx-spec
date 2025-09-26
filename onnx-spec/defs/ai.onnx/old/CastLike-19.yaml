@@ -28,16 +28,16 @@ inputs:
       - differentiable
   - name: target_type
     type_str: T2
-    description: The (first) input tensor will be cast to produce a tensor of the
-      same type as this (second input) tensor.
+    description: The (first) input tensor will be cast to produce a tensor of 
+      the same type as this (second input) tensor.
     min_arity: 1
     tags:
       - non-differentiable
 outputs:
   - name: output
     type_str: T2
-    description: Output tensor produced by casting the first input tensor to have
-      the same type as the second input tensor.
+    description: Output tensor produced by casting the first input tensor to 
+      have the same type as the second input tensor.
     min_arity: 1
     tags:
       - differentiable

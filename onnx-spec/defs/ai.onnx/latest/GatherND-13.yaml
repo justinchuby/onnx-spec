@@ -107,9 +107,9 @@ inputs:
       - differentiable
   - name: indices
     type_str: tensor(int64)
-    description: Tensor of rank q >= 1. All index values are expected to be within
-      bounds [-s, s-1] along axis of size s. It is an error if any of the index values
-      are out of bounds.
+    description: Tensor of rank q >= 1. All index values are expected to be 
+      within bounds [-s, s-1] along axis of size s. It is an error if any of the
+      index values are out of bounds.
     min_arity: 1
     tags:
       - non-differentiable

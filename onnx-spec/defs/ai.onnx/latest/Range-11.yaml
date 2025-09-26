@@ -56,8 +56,8 @@ inputs:
 outputs:
   - name: output
     type_str: T
-    description: A 1-D tensor with same type as the inputs containing generated range
-      of values.
+    description: A 1-D tensor with same type as the inputs containing generated 
+      range of values.
     min_arity: 1
     tags: []
 type_constraints:

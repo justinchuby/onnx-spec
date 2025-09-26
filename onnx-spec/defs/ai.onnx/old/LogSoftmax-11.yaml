@@ -32,15 +32,15 @@ attributes:
 inputs:
   - name: input
     type_str: T
-    description: The input tensor that's coerced into a 2D matrix of size (NxD) as
-      described above.
+    description: The input tensor that's coerced into a 2D matrix of size (NxD) 
+      as described above.
     min_arity: 1
     tags: []
 outputs:
   - name: output
     type_str: T
-    description: The output values with the same shape as input tensor (the original
-      size without coercion).
+    description: The output values with the same shape as input tensor (the 
+      original size without coercion).
     min_arity: 1
     tags: []
 type_constraints:

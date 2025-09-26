@@ -18,18 +18,6 @@ doc: |-
   If the string default value is set, it will convert integers to strings.
   If the int default value is set, it will convert strings to integers.
 attributes:
-  - name: cats_int64s
-    description: >-
-      The integers of the map. This sequence must be the same length as the 'cats_strings'
-      sequence.
-    type: INTS
-    required: false
-  - name: cats_strings
-    description: >-
-      The strings of the map. This sequence must be the same length as the 'cats_int64s'
-      sequence
-    type: STRINGS
-    required: false
   - name: default_int64
     description: >-
       An integer to use when an input string value is not found in the map.
@@ -46,6 +34,18 @@ attributes:
     type: STRING
     required: false
     default_value: _Unused
+  - name: cats_int64s
+    description: >-
+      The integers of the map. This sequence must be the same length as the 'cats_strings'
+      sequence.
+    type: INTS
+    required: false
+  - name: cats_strings
+    description: >-
+      The strings of the map. This sequence must be the same length as the 'cats_int64s'
+      sequence
+    type: STRINGS
+    required: false
 inputs:
   - name: X
     type_str: T1
@@ -55,20 +55,20 @@ inputs:
 outputs:
   - name: Y
     type_str: T2
-    description: Output data. If strings are input, the output values are integers,
-      and vice versa.
+    description: Output data. If strings are input, the output values are 
+      integers, and vice versa.
     min_arity: 1
     tags: []
 type_constraints:
   - type_param_str: T1
-    description: The input must be a tensor of strings or integers, either [N,C] or
-      [C].
+    description: The input must be a tensor of strings or integers, either [N,C]
+      or [C].
     allowed_type_strs:
       - tensor(string)
       - tensor(int64)
   - type_param_str: T2
-    description: The output is a tensor of strings or integers. Its shape will be
-      the same as the input shape.
+    description: The output is a tensor of strings or integers. Its shape will 
+      be the same as the input shape.
     allowed_type_strs:
       - tensor(string)
       - tensor(int64)

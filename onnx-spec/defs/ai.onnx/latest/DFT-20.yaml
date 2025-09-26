@@ -63,10 +63,11 @@ inputs:
       - non-differentiable
   - name: axis
     type_str: tensor(int64)
-    description: The axis as a scalar on which to perform the DFT. Default is `-2`
-      (last signal axis). Negative value means counting dimensions from the back.
-      Accepted range is $[-r, -2] \cup [0, r-2]$ where `r = rank(input)`. The last
-      dimension is for representing complex numbers and thus is an invalid axis.
+    description: The axis as a scalar on which to perform the DFT. Default is 
+      `-2` (last signal axis). Negative value means counting dimensions from the
+      back. Accepted range is $[-r, -2] \cup [0, r-2]$ where `r = rank(input)`. 
+      The last dimension is for representing complex numbers and thus is an 
+      invalid axis.
     min_arity: 1
     tags:
       - optional

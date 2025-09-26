@@ -21,7 +21,8 @@ attributes:
 inputs:
   - name: X
     type_str: T1
-    description: An ordered collection of tensors, all with the same element type.
+    description: An ordered collection of tensors, all with the same element 
+      type.
     min_arity: 1
     tags:
       - variadic

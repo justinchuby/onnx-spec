@@ -26,9 +26,9 @@ type_constraints:
   - type_param_str: T
     description: Constrain input and output types to float tensors.
     allowed_type_strs:
+      - tensor(bfloat16)
       - tensor(float16)
       - tensor(float)
       - tensor(double)
-      - tensor(bfloat16)
 support_level: COMMON
 deprecated: false

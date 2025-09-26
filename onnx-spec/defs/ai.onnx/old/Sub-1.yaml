@@ -32,17 +32,17 @@ attributes:
       If set, defines the broadcast dimensions. See doc for details.
     type: INT
     required: false
+  - name: consumed_inputs
+    description: >-
+      legacy optimization attribute.
+    type: INTS
+    required: false
   - name: broadcast
     description: >-
       Pass 1 to enable broadcasting
     type: INT
     required: false
     default_value: 0
-  - name: consumed_inputs
-    description: >-
-      legacy optimization attribute.
-    type: INTS
-    required: false
 inputs:
   - name: A
     type_str: T
@@ -51,8 +51,8 @@ inputs:
     tags: []
   - name: B
     type_str: T
-    description: Second operand. With broadcasting can be of smaller size than A.
-      If broadcasting is disabled it should be of the same size.
+    description: Second operand. With broadcasting can be of smaller size than 
+      A. If broadcasting is disabled it should be of the same size.
     min_arity: 1
     tags: []
 outputs:

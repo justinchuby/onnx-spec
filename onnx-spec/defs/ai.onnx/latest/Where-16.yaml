@@ -35,8 +35,8 @@ inputs:
 outputs:
   - name: output
     type_str: T
-    description: Tensor of shape equal to the broadcasted shape of condition, X, and
-      Y.
+    description: Tensor of shape equal to the broadcasted shape of condition, X,
+      and Y.
     min_arity: 1
     tags:
       - differentiable
@@ -46,7 +46,8 @@ type_constraints:
     allowed_type_strs:
       - tensor(bool)
   - type_param_str: T
-    description: Constrain input and output types to all tensor types (including bfloat).
+    description: Constrain input and output types to all tensor types (including
+      bfloat).
     allowed_type_strs:
       - tensor(uint8)
       - tensor(uint16)

@@ -31,9 +31,9 @@ inputs:
 outputs:
   - name: outputs
     type_str: V
-    description: Values that are live-out to the enclosing scope. The return values
-      in the `then_branch` and `else_branch` must be of the same shape and same data
-      type.
+    description: Values that are live-out to the enclosing scope. The return 
+      values in the `then_branch` and `else_branch` must be of the same shape 
+      and same data type.
     min_arity: 1
     tags:
       - variadic

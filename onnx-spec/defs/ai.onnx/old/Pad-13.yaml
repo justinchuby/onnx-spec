@@ -107,8 +107,8 @@ inputs:
       - non-differentiable
   - name: constant_value
     type_str: T
-    description: (Optional) A scalar value to be used if the mode chosen is `constant`
-      (by default it is 0, empty string or False).
+    description: (Optional) A scalar value to be used if the mode chosen is 
+      `constant` (by default it is 0, empty string or False).
     min_arity: 1
     tags:
       - optional

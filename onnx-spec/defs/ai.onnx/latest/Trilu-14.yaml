@@ -35,9 +35,9 @@ inputs:
       - differentiable
   - name: k
     type_str: tensor(int64)
-    description: A 0-D tensor containing a single value corresponding to the number
-      diagonals above or below the main diagonal to exclude or include. Default value
-      is 0 if it's not specified.
+    description: A 0-D tensor containing a single value corresponding to the 
+      number diagonals above or below the main diagonal to exclude or include. 
+      Default value is 0 if it's not specified.
     min_arity: 1
     tags:
       - optional

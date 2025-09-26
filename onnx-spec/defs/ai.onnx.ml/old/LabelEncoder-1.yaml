@@ -21,19 +21,6 @@ doc: |-
   When converting from strings to integers, the string is looked up in the list
   and the index at which it is found is used as the converted value.
 attributes:
-  - name: classes_strings
-    description: >-
-      A list of labels.
-    type: STRINGS
-    required: false
-  - name: default_int64
-    description: >-
-      An integer to use when an input string value is not found in the map.
-
-      One and only one of the 'default_*' attributes must be defined.
-    type: INT
-    required: false
-    default_value: -1
   - name: default_string
     description: >-
       A string to use when an input integer value is not found in the map.
@@ -42,6 +29,19 @@ attributes:
     type: STRING
     required: false
     default_value: _Unused
+  - name: default_int64
+    description: >-
+      An integer to use when an input string value is not found in the map.
+
+      One and only one of the 'default_*' attributes must be defined.
+    type: INT
+    required: false
+    default_value: -1
+  - name: classes_strings
+    description: >-
+      A list of labels.
+    type: STRINGS
+    required: false
 inputs:
   - name: X
     type_str: T1
@@ -51,19 +51,20 @@ inputs:
 outputs:
   - name: Y
     type_str: T2
-    description: Output data. If strings are input, the output values are integers,
-      and vice versa.
+    description: Output data. If strings are input, the output values are 
+      integers, and vice versa.
     min_arity: 1
     tags: []
 type_constraints:
   - type_param_str: T1
-    description: The input type must be a tensor of integers or strings, of any shape.
+    description: The input type must be a tensor of integers or strings, of any 
+      shape.
     allowed_type_strs:
       - tensor(string)
       - tensor(int64)
   - type_param_str: T2
-    description: The output type will be a tensor of strings or integers, and will
-      have the same shape as the input.
+    description: The output type will be a tensor of strings or integers, and 
+      will have the same shape as the input.
     allowed_type_strs:
       - tensor(string)
       - tensor(int64)

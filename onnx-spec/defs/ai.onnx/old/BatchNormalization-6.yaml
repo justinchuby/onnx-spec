@@ -13,6 +13,13 @@ doc: |-
   Output case #1: Y, mean, var, saved_mean, saved_var (training mode)
   Output case #2: Y (test mode)
 attributes:
+  - name: momentum
+    description: >-
+      Factor used in computing the running mean and variance.e.g., running_mean =
+      running_mean * momentum + mean * (1 - momentum), default is 0.9f.
+    type: FLOAT
+    required: false
+    default_value: 0.8999999761581421
   - name: epsilon
     description: >-
       The epsilon value to use to avoid division by zero, default is 1e-5f.
@@ -26,13 +33,6 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: momentum
-    description: >-
-      Factor used in computing the running mean and variance.e.g., running_mean =
-      running_mean * momentum + mean * (1 - momentum), default is 0.9f.
-    type: FLOAT
-    required: false
-    default_value: 0.8999999761581421
   - name: spatial
     description: >-
       If true, compute the mean and variance across all spatial elements If false,
@@ -43,35 +43,35 @@ attributes:
 inputs:
   - name: X
     type_str: T
-    description: Input data tensor from the previous operator; dimensions for image
-      case are (N x C x H x W), where N is the batch size, C is the number of channels,
-      and H and W are the height and the width of the data. For non image case, the
-      dimensions are in the form of (N x C x D1 x D2 ... Dn), where N is the batch
-      size.
+    description: Input data tensor from the previous operator; dimensions for 
+      image case are (N x C x H x W), where N is the batch size, C is the number
+      of channels, and H and W are the height and the width of the data. For non
+      image case, the dimensions are in the form of (N x C x D1 x D2 ... Dn), 
+      where N is the batch size.
     min_arity: 1
     tags: []
   - name: scale
     type_str: T
-    description: The scale as a 1-dimensional tensor of size C to be applied to the
-      output.
+    description: The scale as a 1-dimensional tensor of size C to be applied to 
+      the output.
     min_arity: 1
     tags: []
   - name: B
     type_str: T
-    description: The bias as a 1-dimensional tensor of size C to be applied to the
-      output.
+    description: The bias as a 1-dimensional tensor of size C to be applied to 
+      the output.
     min_arity: 1
     tags: []
   - name: mean
     type_str: T
-    description: The running mean (training) or the estimated mean (testing) as a
-      1-dimensional tensor of size C.
+    description: The running mean (training) or the estimated mean (testing) as 
+      a 1-dimensional tensor of size C.
     min_arity: 1
     tags: []
   - name: var
     type_str: T
-    description: The running variance (training) or the estimated variance (testing)
-      as a 1-dimensional tensor of size C.
+    description: The running variance (training) or the estimated variance 
+      (testing) as a 1-dimensional tensor of size C.
     min_arity: 1
     tags: []
 outputs:
@@ -82,29 +82,29 @@ outputs:
     tags: []
   - name: mean
     type_str: T
-    description: The running mean after the BatchNormalization operator. Must be in-place
-      with the input mean. Should not be used for testing.
+    description: The running mean after the BatchNormalization operator. Must be
+      in-place with the input mean. Should not be used for testing.
     min_arity: 1
     tags:
       - optional
   - name: var
     type_str: T
-    description: The running variance after the BatchNormalization operator. Must
-      be in-place with the input var. Should not be used for testing.
+    description: The running variance after the BatchNormalization operator. 
+      Must be in-place with the input var. Should not be used for testing.
     min_arity: 1
     tags:
       - optional
   - name: saved_mean
     type_str: T
-    description: Saved mean used during training to speed up gradient computation.
-      Should not be used for testing.
+    description: Saved mean used during training to speed up gradient 
+      computation. Should not be used for testing.
     min_arity: 1
     tags:
       - optional
   - name: saved_var
     type_str: T
-    description: Saved variance used during training to speed up gradient computation.
-      Should not be used for testing.
+    description: Saved variance used during training to speed up gradient 
+      computation. Should not be used for testing.
     min_arity: 1
     tags:
       - optional

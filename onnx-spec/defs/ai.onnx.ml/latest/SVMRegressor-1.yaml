@@ -8,23 +8,15 @@ max_output: 1
 doc: |-
   Support Vector Machine regression prediction and one-class SVM anomaly detection.
 attributes:
+  - name: rho
+    description: >
+    type: FLOATS
+    required: false
   - name: coefficients
     description: >-
       Support vector coefficients.
     type: FLOATS
     required: false
-  - name: kernel_params
-    description: >-
-      List of 3 elements containing gamma, coef0, and degree, in that order. Zero
-      if unused for the kernel.
-    type: FLOATS
-    required: false
-  - name: kernel_type
-    description: >-
-      The kernel type, one of 'LINEAR,' 'POLY,' 'RBF,' 'SIGMOID'.
-    type: STRING
-    required: false
-    default_value: LINEAR
   - name: n_supports
     description: >-
       The number of support vectors.
@@ -37,6 +29,11 @@ attributes:
     type: INT
     required: false
     default_value: 0
+  - name: support_vectors
+    description: >-
+      Chosen support vectors
+    type: FLOATS
+    required: false
   - name: post_transform
     description: >-
       Indicates the transform to apply to the score. 
@@ -45,15 +42,18 @@ attributes:
     type: STRING
     required: false
     default_value: NONE
-  - name: rho
-    description: >
-    type: FLOATS
-    required: false
-  - name: support_vectors
+  - name: kernel_params
     description: >-
-      Chosen support vectors
+      List of 3 elements containing gamma, coef0, and degree, in that order. Zero
+      if unused for the kernel.
     type: FLOATS
     required: false
+  - name: kernel_type
+    description: >-
+      The kernel type, one of 'LINEAR,' 'POLY,' 'RBF,' 'SIGMOID'.
+    type: STRING
+    required: false
+    default_value: LINEAR
 inputs:
   - name: X
     type_str: T
@@ -68,8 +68,8 @@ outputs:
     tags: []
 type_constraints:
   - type_param_str: T
-    description: The input type must be a tensor of a numeric type, either [C] or
-      [N,C].
+    description: The input type must be a tensor of a numeric type, either [C] 
+      or [N,C].
     allowed_type_strs:
       - tensor(float)
       - tensor(double)

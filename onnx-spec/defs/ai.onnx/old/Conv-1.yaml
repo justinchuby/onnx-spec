@@ -9,33 +9,12 @@ doc: |-
   The convolution operator consumes an input tensor and a filter, and
   computes the output.
 attributes:
-  - name: auto_pad
-    description: >-
-      auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
-      value is NOTSET, which means explicit padding is used. SAME_UPPER or SAME_LOWER
-      mean pad the input so that the output spatial size match the input.In case of
-      odd number add the extra padding at the end for SAME_UPPER and at the beginning
-      for SAME_LOWER. VALID mean no padding.
-    type: STRING
-    required: false
-    default_value: NOTSET
-  - name: dilations
-    description: >-
-      dilation value along each spatial axis of the filter.
-    type: INTS
-    required: false
   - name: group
     description: >-
       number of groups input channels and output channels are divided into.
     type: INT
     required: false
     default_value: 1
-  - name: kernel_shape
-    description: >-
-      The shape of the convolution kernel. If not present, should be inferred from
-      input W.
-    type: INTS
-    required: false
   - name: pads
     description: >-
       Padding for the beginning and ending along each spatial axis, it can take any
@@ -48,20 +27,42 @@ attributes:
       end of each spatial axis.
     type: INTS
     required: false
+  - name: auto_pad
+    description: >-
+      auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
+      value is NOTSET, which means explicit padding is used. SAME_UPPER or SAME_LOWER
+      mean pad the input so that the output spatial size match the input.In case of
+      odd number add the extra padding at the end for SAME_UPPER and at the beginning
+      for SAME_LOWER. VALID mean no padding.
+    type: STRING
+    required: false
+    default_value: NOTSET
   - name: strides
     description: >-
       Stride along each spatial axis.
     type: INTS
     required: false
+  - name: dilations
+    description: >-
+      dilation value along each spatial axis of the filter.
+    type: INTS
+    required: false
+  - name: kernel_shape
+    description: >-
+      The shape of the convolution kernel. If not present, should be inferred from
+      input W.
+    type: INTS
+    required: false
 inputs:
   - name: X
     type_str: T
-    description: Input data tensor from previous layer; has size (N x C x H x W),
-      where N is the batch size, C is the number of channels, and H and W are the
-      height and width. Note that this is for the 2D image. Otherwise the size is
-      (N x C x D1 x D2 ... x Dn). Optionally, if dimension denotation is in effect,
-      the operation expects input data tensor to arrive with the dimension denotation
-      of [DATA_BATCH, DATA_CHANNEL, DATA_FEATURE, DATA_FEATURE ...].
+    description: Input data tensor from previous layer; has size (N x C x H x 
+      W), where N is the batch size, C is the number of channels, and H and W 
+      are the height and width. Note that this is for the 2D image. Otherwise 
+      the size is (N x C x D1 x D2 ... x Dn). Optionally, if dimension 
+      denotation is in effect, the operation expects input data tensor to arrive
+      with the dimension denotation of [DATA_BATCH, DATA_CHANNEL, DATA_FEATURE, 
+      DATA_FEATURE ...].
     min_arity: 1
     tags: []
   - name: W
@@ -87,8 +88,9 @@ inputs:
 outputs:
   - name: Y
     type_str: T
-    description: Output data tensor that contains the result of the convolution. The
-      output dimensions are functions of the kernel size, stride size, and pad lengths.
+    description: Output data tensor that contains the result of the convolution.
+      The output dimensions are functions of the kernel size, stride size, and 
+      pad lengths.
     min_arity: 1
     tags: []
 type_constraints:
