@@ -67,9 +67,9 @@ doc: |-
   concatenation of "X_1" and "X_2" (of course, their gradient and accumulate gradient should
   be concatenated too) and then our pseudo code becomes applicable.
 attributes:
-  - name: norm_coefficient
+  - name: alpha
     description: >-
-      Coefficient of 0.5 * norm_coefficient * ||X||^2.
+      The decay factor of momentum. It should be a scalar.
     type: FLOAT
     required: true
   - name: beta
@@ -84,9 +84,9 @@ attributes:
       method using standard momentum
     type: STRING
     required: true
-  - name: alpha
+  - name: norm_coefficient
     description: >-
-      The decay factor of momentum. It should be a scalar.
+      Coefficient of 0.5 * norm_coefficient * ||X||^2.
     type: FLOAT
     required: true
 inputs:

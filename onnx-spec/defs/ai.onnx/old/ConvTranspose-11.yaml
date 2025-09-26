@@ -19,12 +19,6 @@ doc: |-
     If (auto_pads == SAME_UPPER): pads[start_i] = total_padding[i]/2; pads[end_i] = total_padding[i] - (total_padding[i]/2)
     Else: pads[start_i] = total_padding[i] - (total_padding[i]/2); pads[end_i] = (total_padding[i]/2).
 attributes:
-  - name: group
-    description: >-
-      number of groups input channels and output channels are divided into.
-    type: INT
-    required: false
-    default_value: 1
   - name: auto_pad
     description: >-
       auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
@@ -37,22 +31,22 @@ attributes:
     type: STRING
     required: false
     default_value: NOTSET
-  - name: strides
+  - name: dilations
     description: >-
-      Stride along each spatial axis. If not present, the stride defaults to 1 along
-      each spatial axis.
+      dilation value along each spatial axis of the filter. If not present, the dilation
+      defaults to 1 along each spatial axis.
     type: INTS
     required: false
-  - name: pads
+  - name: group
     description: >-
-      Padding for the beginning and ending along each spatial axis, it can take any
-      value greater than or equal to 0. The value represent the number of pixels added
-      to the beginning and end part of the corresponding axis. `pads` format should
-      be as follow [x1_begin, x2_begin...x1_end, x2_end,...], where xi_begin the number
-      of pixels added at the beginning of axis `i` and xi_end, the number of pixels
-      added at the end of axis `i`. This attribute cannot be used simultaneously with
-      auto_pad attribute. If not present, the padding defaults to 0 along start and
-      end of each spatial axis.
+      number of groups input channels and output channels are divided into.
+    type: INT
+    required: false
+    default_value: 1
+  - name: kernel_shape
+    description: >-
+      The shape of the convolution kernel. If not present, should be inferred from
+      input W.
     type: INTS
     required: false
   - name: output_padding
@@ -68,12 +62,6 @@ attributes:
       in some frameworks.
     type: INTS
     required: false
-  - name: dilations
-    description: >-
-      dilation value along each spatial axis of the filter. If not present, the dilation
-      defaults to 1 along each spatial axis.
-    type: INTS
-    required: false
   - name: output_shape
     description: >-
       The shape of the output can be explicitly set which will cause pads values to
@@ -83,10 +71,22 @@ attributes:
       inferred.
     type: INTS
     required: false
-  - name: kernel_shape
+  - name: pads
     description: >-
-      The shape of the convolution kernel. If not present, should be inferred from
-      input W.
+      Padding for the beginning and ending along each spatial axis, it can take any
+      value greater than or equal to 0. The value represent the number of pixels added
+      to the beginning and end part of the corresponding axis. `pads` format should
+      be as follow [x1_begin, x2_begin...x1_end, x2_end,...], where xi_begin the number
+      of pixels added at the beginning of axis `i` and xi_end, the number of pixels
+      added at the end of axis `i`. This attribute cannot be used simultaneously with
+      auto_pad attribute. If not present, the padding defaults to 0 along start and
+      end of each spatial axis.
+    type: INTS
+    required: false
+  - name: strides
+    description: >-
+      Stride along each spatial axis. If not present, the stride defaults to 1 along
+      each spatial axis.
     type: INTS
     required: false
 inputs:

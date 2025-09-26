@@ -23,12 +23,6 @@ doc: |-
         ],
     ]
 attributes:
-  - name: value
-    description: >-
-      One float, indicates the value to be filled.
-    type: FLOAT
-    required: false
-    default_value: 0.0
   - name: mode
     description: >-
       Three modes: constant(default), reflect, edge
@@ -45,6 +39,12 @@ attributes:
       added at the end of axis `i`.
     type: INTS
     required: true
+  - name: value
+    description: >-
+      One float, indicates the value to be filled.
+    type: FLOAT
+    required: false
+    default_value: 0.0
 inputs:
   - name: data
     type_str: T

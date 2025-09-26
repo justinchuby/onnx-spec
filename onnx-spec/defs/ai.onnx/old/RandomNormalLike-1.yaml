@@ -20,24 +20,24 @@ attributes:
       we will use the data type of the input tensor.
     type: INT
     required: false
-  - name: seed
-    description: >-
-      (Optional) Seed to the random generator, if not specified we will auto generate
-      one.
-    type: FLOAT
-    required: false
-  - name: scale
-    description: >-
-      The standard deviation of the normal distribution.
-    type: FLOAT
-    required: false
-    default_value: 1.0
   - name: mean
     description: >-
       The mean of the normal distribution.
     type: FLOAT
     required: false
     default_value: 0.0
+  - name: scale
+    description: >-
+      The standard deviation of the normal distribution.
+    type: FLOAT
+    required: false
+    default_value: 1.0
+  - name: seed
+    description: >-
+      (Optional) Seed to the random generator, if not specified we will auto generate
+      one.
+    type: FLOAT
+    required: false
 inputs:
   - name: input
     type_str: T1

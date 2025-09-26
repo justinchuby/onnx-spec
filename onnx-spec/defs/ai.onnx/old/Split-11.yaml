@@ -10,11 +10,6 @@ doc: |-
   'axis'. Lengths of the parts can be specified using argument 'split'.
   Otherwise, the tensor is split to equal sized parts.
 attributes:
-  - name: split
-    description: >-
-      length of each output. Values should be >= 0.
-    type: INTS
-    required: false
   - name: axis
     description: >-
       Which axis to split on. A negative value means counting dimensions from the
@@ -22,6 +17,11 @@ attributes:
     type: INT
     required: false
     default_value: 0
+  - name: split
+    description: >-
+      length of each output. Values should be >= 0.
+    type: INTS
+    required: false
 inputs:
   - name: input
     type_str: T

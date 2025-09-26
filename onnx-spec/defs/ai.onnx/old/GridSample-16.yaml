@@ -29,6 +29,12 @@ attributes:
     type: INT
     required: false
     default_value: 0
+  - name: mode
+    description: >-
+      Three interpolation modes: bilinear (default), nearest and bicubic.
+    type: STRING
+    required: false
+    default_value: bilinear
   - name: padding_mode
     description: >-
       Support padding modes for outside grid values: `zeros`(default), `border`, `reflection`.
@@ -42,12 +48,6 @@ attributes:
     type: STRING
     required: false
     default_value: zeros
-  - name: mode
-    description: >-
-      Three interpolation modes: bilinear (default), nearest and bicubic.
-    type: STRING
-    required: false
-    default_value: bilinear
 inputs:
   - name: X
     type_str: T1

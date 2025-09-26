@@ -11,6 +11,12 @@ doc: |-
   By default 'new_axis' is 0, the behavior is similar to numpy.concatenate.
   When 'new_axis' is 1, the behavior is similar to numpy.stack.
 attributes:
+  - name: axis
+    description: >-
+      Which axis to concat on. Accepted range in `[-r, r - 1]`, where `r` is the rank
+      of input tensors. When `new_axis` is 1, accepted range is `[-r - 1, r]`.
+    type: INT
+    required: true
   - name: new_axis
     description: >-
       Insert and concatenate on a new axis or not, default 0 means do not insert new
@@ -18,12 +24,6 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: axis
-    description: >-
-      Which axis to concat on. Accepted range in `[-r, r - 1]`, where `r` is the rank
-      of input tensors. When `new_axis` is 1, accepted range is `[-r - 1, r]`.
-    type: INT
-    required: true
 inputs:
   - name: input_sequence
     type_str: S

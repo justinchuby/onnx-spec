@@ -27,17 +27,17 @@ doc: |-
         [3, 3, 4, 4]
     ]]]
 attributes:
+  - name: height_scale
+    description: >-
+      The scale along height dimension. It takes value greater than or equal to 1.
+    type: FLOAT
+    required: true
   - name: mode
     description: >-
       Two interpolation modes: nearest(default), bilinear
     type: STRING
     required: false
     default_value: nearest
-  - name: height_scale
-    description: >-
-      The scale along height dimension. It takes value greater than or equal to 1.
-    type: FLOAT
-    required: true
   - name: width_scale
     description: >-
       The scale along width dimension. It takes value greater than or equal to 1.

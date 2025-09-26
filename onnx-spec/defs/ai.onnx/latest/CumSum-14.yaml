@@ -26,17 +26,17 @@ doc: |-
   output = [5, 3, 0]
   ```
 attributes:
-  - name: reverse
-    description: >-
-      If set to 1 will perform the sums in reverse direction.
-    type: INT
-    required: false
-    default_value: 0
   - name: exclusive
     description: >-
       If set to 1 will return exclusive sum in which the top element is not included.
       In other terms, if set to 1, the j-th output element would be the sum of the
       first (j-1) elements. Otherwise, it would be the sum of the first j elements.
+    type: INT
+    required: false
+    default_value: 0
+  - name: reverse
+    description: >-
+      If set to 1 will perform the sums in reverse direction.
     type: INT
     required: false
     default_value: 0

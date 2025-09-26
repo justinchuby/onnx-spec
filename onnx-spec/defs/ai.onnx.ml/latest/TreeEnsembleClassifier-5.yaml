@@ -24,35 +24,49 @@ doc: |-
   All fields ending with <i>_as_tensor</i> can be used instead of the
   same parameter without the suffix if the element type is double and not float.
 attributes:
+  - name: base_values
+    description: >-
+      Base values for classification, added to final class score; the size must be
+      the same as the classes or can be left unassigned (assumed 0)
+    type: FLOATS
+    required: false
   - name: base_values_as_tensor
     description: >-
       Base values for classification, added to final class score; the size must be
       the same as the classes or can be left unassigned (assumed 0)
     type: TENSOR
     required: false
-  - name: post_transform
+  - name: class_ids
     description: >-
-      Indicates the transform to apply to the score. 
-       One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT.'
-    type: STRING
-    required: false
-    default_value: NONE
-  - name: classlabels_int64s
-    description: >-
-      Class labels if using integer labels.
-
-      One and only one of the 'classlabels_*' attributes must be defined.
+      The index of the class list that each weight is for.
     type: INTS
+    required: false
+  - name: class_nodeids
+    description: >-
+      node id that this weight is for.
+    type: INTS
+    required: false
+  - name: class_treeids
+    description: >-
+      The id of the tree that this node is in.
+    type: INTS
+    required: false
+  - name: class_weights
+    description: >-
+      The weight for the class in class_id.
+    type: FLOATS
     required: false
   - name: class_weights_as_tensor
     description: >-
       The weight for the class in class_id.
     type: TENSOR
     required: false
-  - name: class_weights
+  - name: classlabels_int64s
     description: >-
-      The weight for the class in class_id.
-    type: FLOATS
+      Class labels if using integer labels.
+
+      One and only one of the 'classlabels_*' attributes must be defined.
+    type: INTS
     required: false
   - name: classlabels_strings
     description: >-
@@ -61,10 +75,44 @@ attributes:
       One and only one of the 'classlabels_*' attributes must be defined.
     type: STRINGS
     required: false
-  - name: class_ids
+  - name: nodes_falsenodeids
     description: >-
-      The index of the class list that each weight is for.
+      Child node if expression is false.
     type: INTS
+    required: false
+  - name: nodes_featureids
+    description: >-
+      Feature id for each node.
+    type: INTS
+    required: false
+  - name: nodes_hitrates
+    description: >-
+      Popularity of each node, used for performance and may be omitted.
+    type: FLOATS
+    required: false
+  - name: nodes_hitrates_as_tensor
+    description: >-
+      Popularity of each node, used for performance and may be omitted.
+    type: TENSOR
+    required: false
+  - name: nodes_missing_value_tracks_true
+    description: >-
+      For each node, define what to do in the presence of a missing value: if a value
+      is missing (NaN), use the 'true' or 'false' branch based on the value in this
+      array.
+
+      This attribute may be left undefined, and the default value is false (0) for
+      all nodes.
+    type: INTS
+    required: false
+  - name: nodes_modes
+    description: >-
+      The node kind, that is, the comparison to make at the node. There is no comparison
+      to make at a leaf node.
+
+      One of 'BRANCH_LEQ', 'BRANCH_LT', 'BRANCH_GTE', 'BRANCH_GT', 'BRANCH_EQ', 'BRANCH_NEQ',
+      'LEAF'
+    type: STRINGS
     required: false
   - name: nodes_nodeids
     description: >-
@@ -77,40 +125,9 @@ attributes:
       Tree id for each node.
     type: INTS
     required: false
-  - name: nodes_featureids
+  - name: nodes_truenodeids
     description: >-
-      Feature id for each node.
-    type: INTS
-    required: false
-  - name: nodes_values_as_tensor
-    description: >-
-      Thresholds to do the splitting on for each node.
-    type: TENSOR
-    required: false
-  - name: nodes_falsenodeids
-    description: >-
-      Child node if expression is false.
-    type: INTS
-    required: false
-  - name: nodes_hitrates
-    description: >-
-      Popularity of each node, used for performance and may be omitted.
-    type: FLOATS
-    required: false
-  - name: base_values
-    description: >-
-      Base values for classification, added to final class score; the size must be
-      the same as the classes or can be left unassigned (assumed 0)
-    type: FLOATS
-    required: false
-  - name: nodes_missing_value_tracks_true
-    description: >-
-      For each node, define what to do in the presence of a missing value: if a value
-      is missing (NaN), use the 'true' or 'false' branch based on the value in this
-      array.
-
-      This attribute may be left undefined, and the default value is false (0) for
-      all nodes.
+      Child node if expression is true.
     type: INTS
     required: false
   - name: nodes_values
@@ -118,35 +135,18 @@ attributes:
       Thresholds to do the splitting on for each node.
     type: FLOATS
     required: false
-  - name: nodes_hitrates_as_tensor
+  - name: nodes_values_as_tensor
     description: >-
-      Popularity of each node, used for performance and may be omitted.
+      Thresholds to do the splitting on for each node.
     type: TENSOR
     required: false
-  - name: nodes_modes
+  - name: post_transform
     description: >-
-      The node kind, that is, the comparison to make at the node. There is no comparison
-      to make at a leaf node.
-
-      One of 'BRANCH_LEQ', 'BRANCH_LT', 'BRANCH_GTE', 'BRANCH_GT', 'BRANCH_EQ', 'BRANCH_NEQ',
-      'LEAF'
-    type: STRINGS
+      Indicates the transform to apply to the score. 
+       One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT.'
+    type: STRING
     required: false
-  - name: nodes_truenodeids
-    description: >-
-      Child node if expression is true.
-    type: INTS
-    required: false
-  - name: class_treeids
-    description: >-
-      The id of the tree that this node is in.
-    type: INTS
-    required: false
-  - name: class_nodeids
-    description: >-
-      node id that this weight is for.
-    type: INTS
-    required: false
+    default_value: NONE
 inputs:
   - name: X
     type_str: T1

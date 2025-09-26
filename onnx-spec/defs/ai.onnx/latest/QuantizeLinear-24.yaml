@@ -34,10 +34,22 @@ doc: |-
     blocking is performed. Given `x` shape `(D0, ..., Di, ..., Dn)`, `axis=i`, and block size `B`: `y_scale` shape is
     `(D0, ..., ceil(Di/B), ..., Dn)`.
 attributes:
-  - name: precision
+  - name: axis
     description: >-
-      (Optional) The precision of the division operation between `x` and `y_scale`.
-      If not provided, it will be the same as the type of `y_scale`.
+      (Optional) The axis of the dequantizing dimension of the input tensor. Used
+      only for per-axis and blocked quantization. Negative value means counting dimensions
+      from the back. Accepted range is `[-r, r-1]` where `r = rank(input)`. When the
+      rank of the input is 1, per-tensor quantization is applied, rendering the axis
+      unnecessary in this scenario.
+    type: INT
+    required: false
+    default_value: 1
+  - name: block_size
+    description: >-
+      (Optional) The size of the quantization block (number of times every scale is
+      replicated). Used only for blocked quantization. The block size is a positive
+      integer. Given `x` shape `(D0, ..., Di, ..., Dn)`, `y_scale` shape `(S0, ...
+      Si, ...Sn)` and `axis=i`, the accepted range is `[ceil(Di/Si), ceil(Di/(Si-1))-1]`
     type: INT
     required: false
     default_value: 0
@@ -50,12 +62,10 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: block_size
+  - name: precision
     description: >-
-      (Optional) The size of the quantization block (number of times every scale is
-      replicated). Used only for blocked quantization. The block size is a positive
-      integer. Given `x` shape `(D0, ..., Di, ..., Dn)`, `y_scale` shape `(S0, ...
-      Si, ...Sn)` and `axis=i`, the accepted range is `[ceil(Di/Si), ceil(Di/(Si-1))-1]`
+      (Optional) The precision of the division operation between `x` and `y_scale`.
+      If not provided, it will be the same as the type of `y_scale`.
     type: INT
     required: false
     default_value: 0
@@ -65,16 +75,6 @@ attributes:
       range of the destination type. It only applies for float 8 quantization (float8e4m3fn,
       float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default. All cases
       are fully described in two tables inserted in the operator description.
-    type: INT
-    required: false
-    default_value: 1
-  - name: axis
-    description: >-
-      (Optional) The axis of the dequantizing dimension of the input tensor. Used
-      only for per-axis and blocked quantization. Negative value means counting dimensions
-      from the back. Accepted range is `[-r, r-1]` where `r = rank(input)`. When the
-      rank of the input is 1, per-tensor quantization is applied, rendering the axis
-      unnecessary in this scenario.
     type: INT
     required: false
     default_value: 1

@@ -12,12 +12,6 @@ doc: |-
   If the tensor is not evenly splittable into `num_outputs`, the last chunk will be smaller.
   If the input 'split' is specified, it indicates the sizes of each output in the split.
 attributes:
-  - name: num_outputs
-    description: >-
-      Number of outputs to split parts of the tensor into. If the tensor is not evenly
-      splittable the last chunk will be smaller.
-    type: INT
-    required: false
   - name: axis
     description: >-
       Which axis to split on. A negative value means counting dimensions from the
@@ -25,6 +19,12 @@ attributes:
     type: INT
     required: false
     default_value: 0
+  - name: num_outputs
+    description: >-
+      Number of outputs to split parts of the tensor into. If the tensor is not evenly
+      splittable the last chunk will be smaller.
+    type: INT
+    required: false
 inputs:
   - name: input
     type_str: T

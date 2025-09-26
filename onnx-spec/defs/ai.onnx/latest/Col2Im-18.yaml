@@ -17,10 +17,10 @@ doc: |-
     convolution formulas, it is required as input for more advanced scenarios as explained
     at PyTorch's implementation (https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/Col2Im.cpp#L10)
 attributes:
-  - name: strides
+  - name: dilations
     description: >-
-      1-dimensional tensor with stride value along each spatial axis. If not present,
-      the stride defaults to 1 along each spatial axis.
+      1-dimensional tensor with dilation value along each spatial axis of the image.
+      If not present, the dilation defaults to 1 along each spatial axis of the image.
     type: INTS
     required: false
   - name: pads
@@ -34,10 +34,10 @@ attributes:
       the padding defaults to 0 along start and end of each spatial axis.
     type: INTS
     required: false
-  - name: dilations
+  - name: strides
     description: >-
-      1-dimensional tensor with dilation value along each spatial axis of the image.
-      If not present, the dilation defaults to 1 along each spatial axis of the image.
+      1-dimensional tensor with stride value along each spatial axis. If not present,
+      the stride defaults to 1 along each spatial axis.
     type: INTS
     required: false
 inputs:

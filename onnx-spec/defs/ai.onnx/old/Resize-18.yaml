@@ -11,61 +11,6 @@ doc: |-
     `output_dimension = floor(input_dimension * (roi_end - roi_start) * scale)` <br/>
   if input \"sizes\" is not specified.
 attributes:
-  - name: keep_aspect_ratio_policy
-    description: >-
-      This attribute describes how to interpret the `sizes` input with regard to keeping
-      the original aspect ratio of the input, and it is not applicable when
-
-      the `scales` input is used. <br/>
-
-
-      Given a set of `sizes`, associated with a subset of `axes` (explicitly provided
-      or default), and assuming `d = axes[i]`, with `i` being the index of the provided
-      `sizes`. <br/>
-
-
-      If `keep_aspect_ratio_policy` is `"stretch"`, the original aspect ratio is disregarded,
-      and the input is resized to the specified size: <br/>
-
-      `out_size[d] = sizes[i]` <br/>
-
-
-      If `keep_aspect_ratio_policy` is `"not_larger"`, the sizes are adjusted so that
-      no extent of the output is larger than the specified size, while keeping the
-      original aspect ratio: <br/>
-
-      `scale = Min(sizes[i] / in_size[d])` <br/>
-
-      `out_size[d] = round_int(scale * in_size[d])` <br/>
-
-
-      If `keep_aspect_ratio_policy` is `"not_smaller"`, the sizes are adjusted so
-      that no extent of the output is smaller than the specified size, while keeping
-      the original aspect ratio: <br/>
-
-      `scale = Max(sizes[i] / in_size[d])` <br/>
-
-      `out_size[d] = round_int(scale * in_size[d])` <br/>
-
-
-      For non-resizable axes (those not specified in `axes`), the output size will
-      be equal to the input size.
-
-
-      Note: `round_int` stands for computing the nearest integer value, rounding halfway
-      cases up.
-    type: STRING
-    required: false
-    default_value: stretch
-  - name: axes
-    description: >-
-      If provided, it specifies a subset of axes that 'roi', 'scales' and 'sizes'
-      refer to. If not provided, all axes are assumed [0, 1, ..., r-1], where r =
-      rank(data). Non-specified dimensions are interpreted as non-resizable. Negative
-      value means counting dimensions from the back. Accepted range is [-r, r-1],
-      where r = rank(data). Behavior is undefined if an axis is repeated.
-    type: INTS
-    required: false
   - name: antialias
     description: >-
       If set to 1, "linear" and "cubic" interpolation modes will use an antialiasing
@@ -75,31 +20,15 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: extrapolation_value
+  - name: axes
     description: >-
-      When coordinate_transformation_mode is "tf_crop_and_resize" and x_original is
-      outside the range [0, length_original - 1], this value is used as the corresponding
-      output value. Default is 0.0f.
-    type: FLOAT
+      If provided, it specifies a subset of axes that 'roi', 'scales' and 'sizes'
+      refer to. If not provided, all axes are assumed [0, 1, ..., r-1], where r =
+      rank(data). Non-specified dimensions are interpreted as non-resizable. Negative
+      value means counting dimensions from the back. Accepted range is [-r, r-1],
+      where r = rank(data). Behavior is undefined if an axis is repeated.
+    type: INTS
     required: false
-    default_value: 0.0
-  - name: exclude_outside
-    description: >-
-      If set to 1, the weight of sampling locations outside the tensor will be set
-      to 0 and the weight will be renormalized so that their sum is 1.0. The default
-      value is 0.
-    type: INT
-    required: false
-    default_value: 0
-  - name: nearest_mode
-    description: >-
-      Four modes: "round_prefer_floor" (default, as known as round half down), "round_prefer_ceil"
-      (as known as round half up), "floor", "ceil". Only used by nearest interpolation.
-      It indicates how to get "nearest" pixel in input tensor from x_original, so
-      this attribute is valid only if "mode" is "nearest".
-    type: STRING
-    required: false
-    default_value: round_prefer_floor
   - name: coordinate_transformation_mode
     description: >-
       This attribute describes how to transform the coordinate in the resized tensor
@@ -155,6 +84,68 @@ attributes:
     type: FLOAT
     required: false
     default_value: -0.75
+  - name: exclude_outside
+    description: >-
+      If set to 1, the weight of sampling locations outside the tensor will be set
+      to 0 and the weight will be renormalized so that their sum is 1.0. The default
+      value is 0.
+    type: INT
+    required: false
+    default_value: 0
+  - name: extrapolation_value
+    description: >-
+      When coordinate_transformation_mode is "tf_crop_and_resize" and x_original is
+      outside the range [0, length_original - 1], this value is used as the corresponding
+      output value. Default is 0.0f.
+    type: FLOAT
+    required: false
+    default_value: 0.0
+  - name: keep_aspect_ratio_policy
+    description: >-
+      This attribute describes how to interpret the `sizes` input with regard to keeping
+      the original aspect ratio of the input, and it is not applicable when
+
+      the `scales` input is used. <br/>
+
+
+      Given a set of `sizes`, associated with a subset of `axes` (explicitly provided
+      or default), and assuming `d = axes[i]`, with `i` being the index of the provided
+      `sizes`. <br/>
+
+
+      If `keep_aspect_ratio_policy` is `"stretch"`, the original aspect ratio is disregarded,
+      and the input is resized to the specified size: <br/>
+
+      `out_size[d] = sizes[i]` <br/>
+
+
+      If `keep_aspect_ratio_policy` is `"not_larger"`, the sizes are adjusted so that
+      no extent of the output is larger than the specified size, while keeping the
+      original aspect ratio: <br/>
+
+      `scale = Min(sizes[i] / in_size[d])` <br/>
+
+      `out_size[d] = round_int(scale * in_size[d])` <br/>
+
+
+      If `keep_aspect_ratio_policy` is `"not_smaller"`, the sizes are adjusted so
+      that no extent of the output is smaller than the specified size, while keeping
+      the original aspect ratio: <br/>
+
+      `scale = Max(sizes[i] / in_size[d])` <br/>
+
+      `out_size[d] = round_int(scale * in_size[d])` <br/>
+
+
+      For non-resizable axes (those not specified in `axes`), the output size will
+      be equal to the input size.
+
+
+      Note: `round_int` stands for computing the nearest integer value, rounding halfway
+      cases up.
+    type: STRING
+    required: false
+    default_value: stretch
   - name: mode
     description: >-
       Three interpolation modes: "nearest" (default), "linear" and "cubic". The "linear"
@@ -165,6 +156,15 @@ attributes:
     type: STRING
     required: false
     default_value: nearest
+  - name: nearest_mode
+    description: >-
+      Four modes: "round_prefer_floor" (default, as known as round half down), "round_prefer_ceil"
+      (as known as round half up), "floor", "ceil". Only used by nearest interpolation.
+      It indicates how to get "nearest" pixel in input tensor from x_original, so
+      this attribute is valid only if "mode" is "nearest".
+    type: STRING
+    required: false
+    default_value: round_prefer_floor
 inputs:
   - name: X
     type_str: T1

@@ -22,18 +22,6 @@ doc: |-
   Given two equivalent values, this operator uses the indices along the axis as
   a tiebreaker. That is, the element with the lower index will appear first.
 attributes:
-  - name: sorted
-    description: >-
-      Whether to return the elements in sorted order.
-    type: INT
-    required: false
-    default_value: 1
-  - name: largest
-    description: >-
-      Whether to return the top-K largest or smallest elements.
-    type: INT
-    required: false
-    default_value: 1
   - name: axis
     description: >-
       Dimension on which to do the sort. Negative value means counting dimensions
@@ -41,6 +29,18 @@ attributes:
     type: INT
     required: false
     default_value: -1
+  - name: largest
+    description: >-
+      Whether to return the top-K largest or smallest elements.
+    type: INT
+    required: false
+    default_value: 1
+  - name: sorted
+    description: >-
+      Whether to return the elements in sorted order.
+    type: INT
+    required: false
+    default_value: 1
 inputs:
   - name: X
     type_str: T

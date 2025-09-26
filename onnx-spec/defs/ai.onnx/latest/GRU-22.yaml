@@ -54,20 +54,6 @@ doc: |-
   * Ht = (1 - zt) (.) ht + zt (.) Ht-1
   This operator has **optional** inputs/outputs. See [the doc](IR.md) for more details about the representation of optional arguments. An empty string may be used in the place of an actual argument's name to indicate a missing argument. Trailing optional arguments (those not followed by an argument that is present) may also be simply omitted.
 attributes:
-  - name: clip
-    description: >-
-      Cell clip threshold. Clipping bounds the elements of a tensor in the range of
-      [-threshold, +threshold] and is applied to the input of activations. No clip
-      if not specified.
-    type: FLOAT
-    required: false
-  - name: activation_beta
-    description: >-
-      Optional scaling values used by some activation functions. The values are consumed
-      in the order of activation functions, for example (f, g, h) in LSTM. Default
-      values are the same as of corresponding ONNX operators.
-    type: FLOATS
-    required: false
   - name: activation_alpha
     description: >-
       Optional scaling values used by some activation functions. The values are consumed
@@ -76,6 +62,34 @@ attributes:
       the default alpha is 0.01.
     type: FLOATS
     required: false
+  - name: activation_beta
+    description: >-
+      Optional scaling values used by some activation functions. The values are consumed
+      in the order of activation functions, for example (f, g, h) in LSTM. Default
+      values are the same as of corresponding ONNX operators.
+    type: FLOATS
+    required: false
+  - name: activations
+    description: >-
+      A list of 2 (or 4 if bidirectional) activation functions for update, reset,
+      and hidden gates. The activation functions must be one of the activation functions
+      specified above. Optional: See the equations for default if not specified.
+    type: STRINGS
+    required: false
+  - name: clip
+    description: >-
+      Cell clip threshold. Clipping bounds the elements of a tensor in the range of
+      [-threshold, +threshold] and is applied to the input of activations. No clip
+      if not specified.
+    type: FLOAT
+    required: false
+  - name: direction
+    description: >-
+      Specify if the RNN is forward, reverse, or bidirectional. Must be one of forward
+      (default), reverse, or bidirectional.
+    type: STRING
+    required: false
+    default_value: forward
   - name: hidden_size
     description: >-
       Number of neurons in the hidden layer
@@ -93,13 +107,6 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: direction
-    description: >-
-      Specify if the RNN is forward, reverse, or bidirectional. Must be one of forward
-      (default), reverse, or bidirectional.
-    type: STRING
-    required: false
-    default_value: forward
   - name: linear_before_reset
     description: >-
       When computing the output of the hidden gate, apply the linear transformation
@@ -107,13 +114,6 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: activations
-    description: >-
-      A list of 2 (or 4 if bidirectional) activation functions for update, reset,
-      and hidden gates. The activation functions must be one of the activation functions
-      specified above. Optional: See the equations for default if not specified.
-    type: STRINGS
-    required: false
 inputs:
   - name: X
     type_str: T

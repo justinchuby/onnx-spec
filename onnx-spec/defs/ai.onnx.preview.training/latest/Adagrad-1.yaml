@@ -57,13 +57,6 @@ doc: |-
   In that reference paper, this operator is a special case of the Figure 1's composite mirror
   descent update.
 attributes:
-  - name: norm_coefficient
-    description: >-
-      Regularization coefficient in 0.5 * norm_coefficient * ||X||_2^2. Default to
-      0, which means no regularization.
-    type: FLOAT
-    required: false
-    default_value: 0.0
   - name: decay_factor
     description: >-
       The decay factor of learning rate after one update.The effective learning rate
@@ -78,6 +71,13 @@ attributes:
     type: FLOAT
     required: false
     default_value: 9.999999974752427e-07
+  - name: norm_coefficient
+    description: >-
+      Regularization coefficient in 0.5 * norm_coefficient * ||X||_2^2. Default to
+      0, which means no regularization.
+    type: FLOAT
+    required: false
+    default_value: 0.0
 inputs:
   - name: R
     type_str: T1

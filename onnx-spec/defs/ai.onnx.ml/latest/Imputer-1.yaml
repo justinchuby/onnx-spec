@@ -19,12 +19,11 @@ doc: |-
   The imputed_value attribute length can be 1 element, or it can have one element per input feature.
   In other words, if the input tensor has the shape [*,F], then the length of the attribute array may be 1 or F. If it is 1, then it is broadcast along the last dimension and applied to each feature.
 attributes:
-  - name: replaced_value_int64
+  - name: imputed_value_floats
     description: >-
-      A value that needs replacing.
-    type: INT
+      Value(s) to change to
+    type: FLOATS
     required: false
-    default_value: 0
   - name: imputed_value_int64s
     description: >-
       Value(s) to change to.
@@ -36,11 +35,12 @@ attributes:
     type: FLOAT
     required: false
     default_value: 0.0
-  - name: imputed_value_floats
+  - name: replaced_value_int64
     description: >-
-      Value(s) to change to
-    type: FLOATS
+      A value that needs replacing.
+    type: INT
     required: false
+    default_value: 0
 inputs:
   - name: X
     type_str: T

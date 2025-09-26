@@ -16,20 +16,14 @@ doc: |-
   The coefficients array is of length n, and the coefficients for each target are contiguous.
   Intercepts are optional but if provided must match the number of targets.
 attributes:
-  - name: targets
-    description: >-
-      The total number of regression targets, 1 if not defined.
-    type: INT
-    required: false
-    default_value: 1
-  - name: intercepts
-    description: >-
-      Weights of the intercepts, if used.
-    type: FLOATS
-    required: false
   - name: coefficients
     description: >-
       Weights of the model(s).
+    type: FLOATS
+    required: false
+  - name: intercepts
+    description: >-
+      Weights of the intercepts, if used.
     type: FLOATS
     required: false
   - name: post_transform
@@ -40,6 +34,12 @@ attributes:
     type: STRING
     required: false
     default_value: NONE
+  - name: targets
+    description: >-
+      The total number of regression targets, 1 if not defined.
+    type: INT
+    required: false
+    default_value: 1
 inputs:
   - name: X
     type_str: T

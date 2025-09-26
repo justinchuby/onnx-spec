@@ -10,6 +10,11 @@ doc: |-
   apply max pooling across each RoI, to produce output 4-D tensor of shape
   (num_rois, channels, pooled_shape[0], pooled_shape[1]).
 attributes:
+  - name: pooled_shape
+    description: >-
+      ROI pool output shape (height, width).
+    type: INTS
+    required: true
   - name: spatial_scale
     description: >-
       Multiplicative spatial scale factor to translate ROI coordinates from their
@@ -17,11 +22,6 @@ attributes:
     type: FLOAT
     required: false
     default_value: 1.0
-  - name: pooled_shape
-    description: >-
-      ROI pool output shape (height, width).
-    type: INTS
-    required: true
 inputs:
   - name: X
     type_str: T

@@ -39,6 +39,12 @@ attributes:
     type: INT
     required: false
     default_value: 1
+  - name: output_width
+    description: >-
+      default 1; Pooled output Y's width.
+    type: INT
+    required: false
+    default_value: 1
   - name: sampling_ratio
     description: >-
       Number of sampling points in the interpolation grid used to compute the output
@@ -49,12 +55,6 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: output_width
-    description: >-
-      default 1; Pooled output Y's width.
-    type: INT
-    required: false
-    default_value: 1
   - name: spatial_scale
     description: >-
       Multiplicative spatial scale factor to translate ROI coordinates from their

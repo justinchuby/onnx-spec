@@ -28,19 +28,48 @@ attributes:
     type: INT
     required: false
     default_value: 1
-  - name: post_transform
+  - name: leaf_targetids
     description: >-
-      Indicates the transform to apply to the score. 
-
-      One of 'NONE' (0), 'SOFTMAX' (1), 'LOGISTIC' (2), 'SOFTMAX_ZERO' (3) or 'PROBIT'
-      (4), defaults to 'NONE' (0)
+      The index of the target that this leaf contributes to (this must be in range
+      `[0, n_targets)`).
+    type: INTS
+    required: true
+  - name: leaf_weights
+    description: >-
+      The weight for each leaf.
+    type: TENSOR
+    required: true
+  - name: membership_values
+    description: >-
+      Members to test membership of for each set membership node. List all of the
+      members to test again in the order that the 'BRANCH_MEMBER' mode appears in
+      `node_modes`, delimited by `NaN`s. Will have the same number of sets of values
+      as nodes with mode 'BRANCH_MEMBER'. This may be omitted if the node doesn't
+      contain any 'BRANCH_MEMBER' nodes.
+    type: TENSOR
+    required: false
+  - name: n_targets
+    description: >-
+      The total number of targets.
     type: INT
     required: false
-    default_value: 0
-  - name: tree_roots
+  - name: nodes_falseleafs
     description: >-
-      Index into `nodes_*` for the root of each tree. The tree structure is derived
-      from the branching of each node.
+      1 if false branch is leaf for each node and 0 if an interior node. To represent
+      a tree that is a leaf (only has one node), one can do so by having a single
+      `nodes_*` entry with true and false branches referencing the same `leaf_*` entry
+    type: INTS
+    required: true
+  - name: nodes_falsenodeids
+    description: >-
+      If `nodes_falseleafs` is false at an entry, this represents the position of
+      the false branch node. This position can be used to index into a `nodes_*` entry.
+      If `nodes_falseleafs` is false, it is an index into the leaf_* attributes.
+    type: INTS
+    required: true
+  - name: nodes_featureids
+    description: >-
+      Feature id for each node.
     type: INTS
     required: true
   - name: nodes_hitrates
@@ -63,49 +92,14 @@ attributes:
       5 ('BRANCH_NEQ'), and 6 ('BRANCH_MEMBER'). Note this is a tensor of type uint8.
     type: TENSOR
     required: true
-  - name: leaf_weights
-    description: >-
-      The weight for each leaf.
-    type: TENSOR
-    required: true
-  - name: leaf_targetids
-    description: >-
-      The index of the target that this leaf contributes to (this must be in range
-      `[0, n_targets)`).
-    type: INTS
-    required: true
-  - name: nodes_falsenodeids
-    description: >-
-      If `nodes_falseleafs` is false at an entry, this represents the position of
-      the false branch node. This position can be used to index into a `nodes_*` entry.
-      If `nodes_falseleafs` is false, it is an index into the leaf_* attributes.
-    type: INTS
-    required: true
-  - name: n_targets
-    description: >-
-      The total number of targets.
-    type: INT
-    required: false
-  - name: nodes_trueleafs
-    description: >-
-      1 if true branch is leaf for each node and 0 an interior node. To represent
-      a tree that is a leaf (only has one node), one can do so by having a single
-      `nodes_*` entry with true and false branches referencing the same `leaf_*` entry
-    type: INTS
-    required: true
-  - name: nodes_featureids
-    description: >-
-      Feature id for each node.
-    type: INTS
-    required: true
   - name: nodes_splits
     description: >-
       Thresholds to do the splitting on for each node with mode that is not 'BRANCH_MEMBER'.
     type: TENSOR
     required: true
-  - name: nodes_falseleafs
+  - name: nodes_trueleafs
     description: >-
-      1 if false branch is leaf for each node and 0 if an interior node. To represent
+      1 if true branch is leaf for each node and 0 an interior node. To represent
       a tree that is a leaf (only has one node), one can do so by having a single
       `nodes_*` entry with true and false branches referencing the same `leaf_*` entry
     type: INTS
@@ -117,15 +111,21 @@ attributes:
       If `nodes_trueleafs` is false, it is an index into the leaf_* attributes.
     type: INTS
     required: true
-  - name: membership_values
+  - name: post_transform
     description: >-
-      Members to test membership of for each set membership node. List all of the
-      members to test again in the order that the 'BRANCH_MEMBER' mode appears in
-      `node_modes`, delimited by `NaN`s. Will have the same number of sets of values
-      as nodes with mode 'BRANCH_MEMBER'. This may be omitted if the node doesn't
-      contain any 'BRANCH_MEMBER' nodes.
-    type: TENSOR
+      Indicates the transform to apply to the score. 
+
+      One of 'NONE' (0), 'SOFTMAX' (1), 'LOGISTIC' (2), 'SOFTMAX_ZERO' (3) or 'PROBIT'
+      (4), defaults to 'NONE' (0)
+    type: INT
     required: false
+    default_value: 0
+  - name: tree_roots
+    description: >-
+      Index into `nodes_*` for the root of each tree. The tree structure is derived
+      from the branching of each node.
+    type: INTS
+    required: true
 inputs:
   - name: X
     type_str: T

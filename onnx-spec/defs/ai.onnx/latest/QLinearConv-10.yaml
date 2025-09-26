@@ -14,6 +14,24 @@ doc: |-
   When bias is present it must be quantized using scale = input scale * weight scale and
   zero point as 0.
 attributes:
+  - name: auto_pad
+    description: >-
+      auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
+      value is NOTSET, which means explicit padding is used. SAME_UPPER or SAME_LOWER
+      mean pad the input so that `output_shape[i] = ceil(input_shape[i] / strides[i])`
+      for each axis `i`. The padding is split between the two sides equally or almost
+      equally (depending on whether it is even or odd). In case the padding is an
+      odd number, the extra padding is added at the end for SAME_UPPER and at the
+      beginning for SAME_LOWER.
+    type: STRING
+    required: false
+    default_value: NOTSET
+  - name: dilations
+    description: >-
+      dilation value along each spatial axis of the filter. If not present, the dilation
+      defaults to 1 along each spatial axis.
+    type: INTS
+    required: false
   - name: group
     description: >-
       number of groups input channels and output channels are divided into. default
@@ -21,6 +39,12 @@ attributes:
     type: INT
     required: false
     default_value: 1
+  - name: kernel_shape
+    description: >-
+      The shape of the convolution kernel. If not present, should be inferred from
+      input 'w'.
+    type: INTS
+    required: false
   - name: pads
     description: >-
       Padding for the beginning and ending along each spatial axis, it can take any
@@ -39,30 +63,6 @@ attributes:
       each spatial axis.
     type: INTS
     required: false
-  - name: dilations
-    description: >-
-      dilation value along each spatial axis of the filter. If not present, the dilation
-      defaults to 1 along each spatial axis.
-    type: INTS
-    required: false
-  - name: kernel_shape
-    description: >-
-      The shape of the convolution kernel. If not present, should be inferred from
-      input 'w'.
-    type: INTS
-    required: false
-  - name: auto_pad
-    description: >-
-      auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
-      value is NOTSET, which means explicit padding is used. SAME_UPPER or SAME_LOWER
-      mean pad the input so that `output_shape[i] = ceil(input_shape[i] / strides[i])`
-      for each axis `i`. The padding is split between the two sides equally or almost
-      equally (depending on whether it is even or odd). In case the padding is an
-      odd number, the extra padding is added at the end for SAME_UPPER and at the
-      beginning for SAME_LOWER.
-    type: STRING
-    required: false
-    default_value: NOTSET
 inputs:
   - name: x
     type_str: T1

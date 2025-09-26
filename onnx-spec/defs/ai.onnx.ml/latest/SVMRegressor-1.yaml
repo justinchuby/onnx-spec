@@ -8,40 +8,11 @@ max_output: 1
 doc: |-
   Support Vector Machine regression prediction and one-class SVM anomaly detection.
 attributes:
-  - name: rho
-    description: >
-    type: FLOATS
-    required: false
   - name: coefficients
     description: >-
       Support vector coefficients.
     type: FLOATS
     required: false
-  - name: n_supports
-    description: >-
-      The number of support vectors.
-    type: INT
-    required: false
-    default_value: 0
-  - name: one_class
-    description: >-
-      Flag indicating whether the regression is a one-class SVM or not.
-    type: INT
-    required: false
-    default_value: 0
-  - name: support_vectors
-    description: >-
-      Chosen support vectors
-    type: FLOATS
-    required: false
-  - name: post_transform
-    description: >-
-      Indicates the transform to apply to the score. 
-
-      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT.'
-    type: STRING
-    required: false
-    default_value: NONE
   - name: kernel_params
     description: >-
       List of 3 elements containing gamma, coef0, and degree, in that order. Zero
@@ -54,6 +25,35 @@ attributes:
     type: STRING
     required: false
     default_value: LINEAR
+  - name: n_supports
+    description: >-
+      The number of support vectors.
+    type: INT
+    required: false
+    default_value: 0
+  - name: one_class
+    description: >-
+      Flag indicating whether the regression is a one-class SVM or not.
+    type: INT
+    required: false
+    default_value: 0
+  - name: post_transform
+    description: >-
+      Indicates the transform to apply to the score. 
+
+      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT.'
+    type: STRING
+    required: false
+    default_value: NONE
+  - name: rho
+    description: >
+    type: FLOATS
+    required: false
+  - name: support_vectors
+    description: >-
+      Chosen support vectors
+    type: FLOATS
+    required: false
 inputs:
   - name: X
     type_str: T

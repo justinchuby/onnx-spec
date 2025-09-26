@@ -10,31 +10,6 @@ doc: |-
   Each dimension value of the output tensor is:
     output_dimension = floor(input_dimension * (roi_end - roi_start) * scale) if input \"sizes\" is not specified.
 attributes:
-  - name: extrapolation_value
-    description: >-
-      When coordinate_transformation_mode is "tf_crop_and_resize" and x_original is
-      outside the range [0, length_original - 1], this value is used as the corresponding
-      output value. Default is 0.0f.
-    type: FLOAT
-    required: false
-    default_value: 0.0
-  - name: exclude_outside
-    description: >-
-      If set to 1, the weight of sampling locations outside the tensor will be set
-      to 0 and the weight will be renormalized so that their sum is 1.0. The default
-      value is 0.
-    type: INT
-    required: false
-    default_value: 0
-  - name: nearest_mode
-    description: >-
-      Four modes: round_prefer_floor (default, as known as round half down), round_prefer_ceil
-      (as known as round half up), floor, ceil. Only used by nearest interpolation.
-      It indicates how to get "nearest" pixel in input tensor from x_original, so
-      this attribute is valid only if "mode" is "nearest".
-    type: STRING
-    required: false
-    default_value: round_prefer_floor
   - name: coordinate_transformation_mode
     description: >-
       This attribute describes how to transform the coordinate in the resized tensor
@@ -93,6 +68,22 @@ attributes:
     type: FLOAT
     required: false
     default_value: -0.75
+  - name: exclude_outside
+    description: >-
+      If set to 1, the weight of sampling locations outside the tensor will be set
+      to 0 and the weight will be renormalized so that their sum is 1.0. The default
+      value is 0.
+    type: INT
+    required: false
+    default_value: 0
+  - name: extrapolation_value
+    description: >-
+      When coordinate_transformation_mode is "tf_crop_and_resize" and x_original is
+      outside the range [0, length_original - 1], this value is used as the corresponding
+      output value. Default is 0.0f.
+    type: FLOAT
+    required: false
+    default_value: 0.0
   - name: mode
     description: >-
       Three interpolation modes: nearest (default), linear and cubic. The "linear"
@@ -103,6 +94,15 @@ attributes:
     type: STRING
     required: false
     default_value: nearest
+  - name: nearest_mode
+    description: >-
+      Four modes: round_prefer_floor (default, as known as round half down), round_prefer_ceil
+      (as known as round half up), floor, ceil. Only used by nearest interpolation.
+      It indicates how to get "nearest" pixel in input tensor from x_original, so
+      this attribute is valid only if "mode" is "nearest".
+    type: STRING
+    required: false
+    default_value: round_prefer_floor
 inputs:
   - name: X
     type_str: T1

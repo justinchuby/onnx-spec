@@ -15,6 +15,13 @@ doc: |-
   the dimension requirement. A will be transposed before doing the computation
   if attribute transA is non-zero, same for B and transB.
 attributes:
+  - name: alpha
+    description: >-
+      Scalar multiplier for the product of input tensors A * B, the default value
+      is 1.0.
+    type: FLOAT
+    required: false
+    default_value: 1.0
   - name: beta
     description: >-
       Scalar multiplier for input tensor C, the default value is 1.0.
@@ -27,22 +34,15 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: transB
-    description: >-
-      Whether B should be transposed
-    type: INT
-    required: false
-    default_value: 0
-  - name: alpha
-    description: >-
-      Scalar multiplier for the product of input tensors A * B, the default value
-      is 1.0.
-    type: FLOAT
-    required: false
-    default_value: 1.0
   - name: transA
     description: >-
       Whether A should be transposed
+    type: INT
+    required: false
+    default_value: 0
+  - name: transB
+    description: >-
+      Whether B should be transposed
     type: INT
     required: false
     default_value: 0

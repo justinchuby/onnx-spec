@@ -35,9 +35,19 @@ doc: |-
   ```
   The output of each pooling window is maximum number of elements exclude pad.
 attributes:
-  - name: storage_order
+  - name: auto_pad
     description: >-
-      The storage order of the tensor. 0 is row major, and 1 is column major.
+      auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
+      value is NOTSET, which means explicit padding is used. SAME_UPPER or SAME_LOWER
+      mean pad the input so that the output spatial size match the input.In case of
+      odd number add the extra padding at the end for SAME_UPPER and at the beginning
+      for SAME_LOWER. VALID mean no padding.
+    type: STRING
+    required: false
+    default_value: NOTSET
+  - name: ceil_mode
+    description: >-
+      Whether to use ceil or floor (default) to compute the output shape.
     type: INT
     required: false
     default_value: 0
@@ -47,12 +57,11 @@ attributes:
       defaults to 1 along each spatial axis.
     type: INTS
     required: false
-  - name: ceil_mode
+  - name: kernel_shape
     description: >-
-      Whether to use ceil or floor (default) to compute the output shape.
-    type: INT
-    required: false
-    default_value: 0
+      The size of the kernel along each axis.
+    type: INTS
+    required: true
   - name: pads
     description: >-
       Padding for the beginning and ending along each spatial axis, it can take any
@@ -65,27 +74,18 @@ attributes:
       end of each spatial axis.
     type: INTS
     required: false
-  - name: auto_pad
+  - name: storage_order
     description: >-
-      auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
-      value is NOTSET, which means explicit padding is used. SAME_UPPER or SAME_LOWER
-      mean pad the input so that the output spatial size match the input.In case of
-      odd number add the extra padding at the end for SAME_UPPER and at the beginning
-      for SAME_LOWER. VALID mean no padding.
-    type: STRING
+      The storage order of the tensor. 0 is row major, and 1 is column major.
+    type: INT
     required: false
-    default_value: NOTSET
+    default_value: 0
   - name: strides
     description: >-
       Stride along each spatial axis. If not present, the stride defaults to 1 along
       each spatial axis.
     type: INTS
     required: false
-  - name: kernel_shape
-    description: >-
-      The size of the kernel along each axis.
-    type: INTS
-    required: true
 inputs:
   - name: X
     type_str: T

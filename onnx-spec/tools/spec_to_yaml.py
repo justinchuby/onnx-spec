@@ -92,7 +92,7 @@ class OpSchema:
                     required=attr.required,
                     default_value=_get_attribute_default_value(attr),
                 )
-                for attr in schema.attributes.values()
+                for attr in sorted(schema.attributes.values(), key=lambda a: a.name)
             ],
             inputs=[
                 FormalParameter(

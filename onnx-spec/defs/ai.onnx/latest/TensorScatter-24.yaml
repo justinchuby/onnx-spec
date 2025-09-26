@@ -33,6 +33,13 @@ doc: |-
   is also needed so that the incoming key or value update can be appended after the last valid token for each sample
   in the batch.
 attributes:
+  - name: axis
+    description: >-
+      Sequence dimension of the `past_cache` and `update` tensors. It cannot be 0
+      (the batch dimension). Default is -2.
+    type: INT
+    required: false
+    default_value: -2
   - name: mode
     description: >-
       Write mode of cache update. Supported modes include `linear` and `circular`.
@@ -42,13 +49,6 @@ attributes:
     type: STRING
     required: false
     default_value: linear
-  - name: axis
-    description: >-
-      Sequence dimension of the `past_cache` and `update` tensors. It cannot be 0
-      (the batch dimension). Default is -2.
-    type: INT
-    required: false
-    default_value: -2
 inputs:
   - name: past_cache
     type_str: T

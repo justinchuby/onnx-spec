@@ -61,6 +61,24 @@ doc: |-
                      Y
   ```
 attributes:
+  - name: is_causal
+    description: >-
+      If set to `1`, the attention masking is a lower triangular matrix when the mask
+      is a square matrix. The attention masking has the form of the upper left causal
+      bias due to the alignment.
+    type: INT
+    required: false
+    default_value: 0
+  - name: kv_num_heads
+    description: >-
+      Number of heads of key and value. Must be used with 3D inputs of Q, K and V.
+    type: INT
+    required: false
+  - name: q_num_heads
+    description: >-
+      Number of heads of query. Must be used with 3D inputs of Q, K and V.
+    type: INT
+    required: false
   - name: qk_matmul_output_mode
     description: >-
       If set to `0`, qk_matmul_output is the output of qk matmul. If set to `1`, qk_matmul_output
@@ -71,6 +89,13 @@ attributes:
     type: INT
     required: false
     default_value: 0
+  - name: scale
+    description: >-
+      Scaling factor applied to $Q*K^T$. Default value is `1/sqrt(head_size)`. To
+      prevent [numerical overflow](https://tinyurl.com/sudb9s96), scale `Q`, `K` by
+      `sqrt(scale)` before matmul.
+    type: FLOAT
+    required: false
   - name: softcap
     description: >-
       Softcap value for attention weights. Default value is 0.
@@ -83,31 +108,6 @@ attributes:
       is not provided, the same precision as the input of softmax (Q and K) is used.
     type: INT
     required: false
-  - name: kv_num_heads
-    description: >-
-      Number of heads of key and value. Must be used with 3D inputs of Q, K and V.
-    type: INT
-    required: false
-  - name: q_num_heads
-    description: >-
-      Number of heads of query. Must be used with 3D inputs of Q, K and V.
-    type: INT
-    required: false
-  - name: scale
-    description: >-
-      Scaling factor applied to $Q*K^T$. Default value is `1/sqrt(head_size)`. To
-      prevent [numerical overflow](https://tinyurl.com/sudb9s96), scale `Q`, `K` by
-      `sqrt(scale)` before matmul.
-    type: FLOAT
-    required: false
-  - name: is_causal
-    description: >-
-      If set to `1`, the attention masking is a lower triangular matrix when the mask
-      is a square matrix. The attention masking has the form of the upper left causal
-      bias due to the alignment.
-    type: INT
-    required: false
-    default_value: 0
 inputs:
   - name: Q
     type_str: T1

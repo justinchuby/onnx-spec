@@ -107,6 +107,12 @@ doc: |-
       return output
   ```
 attributes:
+  - name: interleaved
+    description: >-
+      Rotate using interleaved pattern. Default value is 0 (False).
+    type: INT
+    required: false
+    default_value: 0
   - name: num_heads
     description: >-
       Number of attention heads. Must be provided when input is a 3D tensor.
@@ -115,12 +121,6 @@ attributes:
   - name: rotary_embedding_dim
     description: >-
       Rotary embedding dimension used to apply partial rotary embeddings.
-    type: INT
-    required: false
-    default_value: 0
-  - name: interleaved
-    description: >-
-      Rotate using interleaved pattern. Default value is 0 (False).
     type: INT
     required: false
     default_value: 0

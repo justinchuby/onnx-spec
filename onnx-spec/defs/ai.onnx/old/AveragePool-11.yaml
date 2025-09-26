@@ -41,31 +41,6 @@ doc: |-
    ```
    The output of each pooling window is divided by the number of elements (exclude pad when attribute count_include_pad is zero).
 attributes:
-  - name: count_include_pad
-    description: >-
-      Whether include pad pixels when calculating values for the edges. Default is
-      0, doesn't count include pad.
-    type: INT
-    required: false
-    default_value: 0
-  - name: ceil_mode
-    description: >-
-      Whether to use ceil or floor (default) to compute the output shape.
-    type: INT
-    required: false
-    default_value: 0
-  - name: pads
-    description: >-
-      Padding for the beginning and ending along each spatial axis, it can take any
-      value greater than or equal to 0. The value represent the number of pixels added
-      to the beginning and end part of the corresponding axis. `pads` format should
-      be as follow [x1_begin, x2_begin...x1_end, x2_end,...], where xi_begin the number
-      of pixels added at the beginning of axis `i` and xi_end, the number of pixels
-      added at the end of axis `i`. This attribute cannot be used simultaneously with
-      auto_pad attribute. If not present, the padding defaults to 0 along start and
-      end of each spatial axis.
-    type: INTS
-    required: false
   - name: auto_pad
     description: >-
       auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
@@ -78,17 +53,42 @@ attributes:
     type: STRING
     required: false
     default_value: NOTSET
+  - name: ceil_mode
+    description: >-
+      Whether to use ceil or floor (default) to compute the output shape.
+    type: INT
+    required: false
+    default_value: 0
+  - name: count_include_pad
+    description: >-
+      Whether include pad pixels when calculating values for the edges. Default is
+      0, doesn't count include pad.
+    type: INT
+    required: false
+    default_value: 0
+  - name: kernel_shape
+    description: >-
+      The size of the kernel along each axis.
+    type: INTS
+    required: true
+  - name: pads
+    description: >-
+      Padding for the beginning and ending along each spatial axis, it can take any
+      value greater than or equal to 0. The value represent the number of pixels added
+      to the beginning and end part of the corresponding axis. `pads` format should
+      be as follow [x1_begin, x2_begin...x1_end, x2_end,...], where xi_begin the number
+      of pixels added at the beginning of axis `i` and xi_end, the number of pixels
+      added at the end of axis `i`. This attribute cannot be used simultaneously with
+      auto_pad attribute. If not present, the padding defaults to 0 along start and
+      end of each spatial axis.
+    type: INTS
+    required: false
   - name: strides
     description: >-
       Stride along each spatial axis. If not present, the stride defaults to 1 along
       each spatial axis.
     type: INTS
     required: false
-  - name: kernel_shape
-    description: >-
-      The size of the kernel along each axis.
-    type: INTS
-    required: true
 inputs:
   - name: X
     type_str: T

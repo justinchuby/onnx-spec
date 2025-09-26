@@ -10,17 +10,17 @@ doc: |-
   (Tensor<T>) where the function `f(x) = alpha * (exp(x) - 1.) for x <
   0`, `f(x) = x for x >= 0`., is applied to the tensor elementwise.
 attributes:
-  - name: consumed_inputs
-    description: >-
-      legacy optimization attribute.
-    type: INTS
-    required: false
   - name: alpha
     description: >-
       Coefficient of ELU default to 1.0.
     type: FLOAT
     required: false
     default_value: 1.0
+  - name: consumed_inputs
+    description: >-
+      legacy optimization attribute.
+    type: INTS
+    required: false
 inputs:
   - name: X
     type_str: T

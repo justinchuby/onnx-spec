@@ -11,18 +11,18 @@ doc: |-
   If keepdims equal 0, then the resulted tensor have the reduced dimension pruned.
   The type of the output tensor is integer.
 attributes:
-  - name: keepdims
-    description: >-
-      Keep the reduced dimension or not, default 1 means keep reduced dimension.
-    type: INT
-    required: false
-    default_value: 1
   - name: axis
     description: >-
       The axis in which to compute the arg indices.
     type: INT
     required: false
     default_value: 0
+  - name: keepdims
+    description: >-
+      Keep the reduced dimension or not, default 1 means keep reduced dimension.
+    type: INT
+    required: false
+    default_value: 1
 inputs:
   - name: data
     type_str: T

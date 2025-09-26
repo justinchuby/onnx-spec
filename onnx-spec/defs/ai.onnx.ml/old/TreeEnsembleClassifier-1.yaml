@@ -19,24 +19,37 @@ doc: |-
   One and only one of classlabels_strings or classlabels_int64s
   will be defined. The class_ids are indices into this list.
 attributes:
-  - name: post_transform
+  - name: base_values
     description: >-
-      Indicates the transform to apply to the score. 
-       One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT.'
-    type: STRING
+      Base values for classification, added to final class score; the size must be
+      the same as the classes or can be left unassigned (assumed 0)
+    type: FLOATS
     required: false
-    default_value: NONE
+  - name: class_ids
+    description: >-
+      The index of the class list that each weight is for.
+    type: INTS
+    required: false
+  - name: class_nodeids
+    description: >-
+      node id that this weight is for.
+    type: INTS
+    required: false
+  - name: class_treeids
+    description: >-
+      The id of the tree that this node is in.
+    type: INTS
+    required: false
+  - name: class_weights
+    description: >-
+      The weight for the class in class_id.
+    type: FLOATS
+    required: false
   - name: classlabels_int64s
     description: >-
       Class labels if using integer labels.
 
       One and only one of the 'classlabels_*' attributes must be defined.
-    type: INTS
-    required: false
-  - name: nodes_nodeids
-    description: >-
-      Node id for each node. Ids may restart at zero for each tree, but it not required
-      to.
     type: INTS
     required: false
   - name: classlabels_strings
@@ -46,19 +59,9 @@ attributes:
       One and only one of the 'classlabels_*' attributes must be defined.
     type: STRINGS
     required: false
-  - name: class_ids
+  - name: nodes_falsenodeids
     description: >-
-      The index of the class list that each weight is for.
-    type: INTS
-    required: false
-  - name: class_weights
-    description: >-
-      The weight for the class in class_id.
-    type: FLOATS
-    required: false
-  - name: nodes_treeids
-    description: >-
-      Tree id for each node.
+      Child node if expression is false.
     type: INTS
     required: false
   - name: nodes_featureids
@@ -66,25 +69,9 @@ attributes:
       Feature id for each node.
     type: INTS
     required: false
-  - name: nodes_values
-    description: >-
-      Thresholds to do the splitting on for each node.
-    type: FLOATS
-    required: false
-  - name: nodes_falsenodeids
-    description: >-
-      Child node if expression is false.
-    type: INTS
-    required: false
   - name: nodes_hitrates
     description: >-
       Popularity of each node, used for performance and may be omitted.
-    type: FLOATS
-    required: false
-  - name: base_values
-    description: >-
-      Base values for classification, added to final class score; the size must be
-      the same as the classes or can be left unassigned (assumed 0)
     type: FLOATS
     required: false
   - name: nodes_missing_value_tracks_true
@@ -106,21 +93,34 @@ attributes:
       'LEAF'
     type: STRINGS
     required: false
+  - name: nodes_nodeids
+    description: >-
+      Node id for each node. Ids may restart at zero for each tree, but it not required
+      to.
+    type: INTS
+    required: false
+  - name: nodes_treeids
+    description: >-
+      Tree id for each node.
+    type: INTS
+    required: false
   - name: nodes_truenodeids
     description: >-
       Child node if expression is true.
     type: INTS
     required: false
-  - name: class_treeids
+  - name: nodes_values
     description: >-
-      The id of the tree that this node is in.
-    type: INTS
+      Thresholds to do the splitting on for each node.
+    type: FLOATS
     required: false
-  - name: class_nodeids
+  - name: post_transform
     description: >-
-      node id that this weight is for.
-    type: INTS
+      Indicates the transform to apply to the score. 
+       One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT.'
+    type: STRING
     required: false
+    default_value: NONE
 inputs:
   - name: X
     type_str: T1

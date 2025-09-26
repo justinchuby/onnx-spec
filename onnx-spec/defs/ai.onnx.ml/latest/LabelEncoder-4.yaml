@@ -30,30 +30,55 @@ doc: |-
   Float keys with value 'NaN' match any input 'NaN' value regardless of bit
   value. If a key is repeated, the last key takes precedence.
 attributes:
-  - name: default_tensor
-    description: >-
-      A default tensor. {"_Unused"} if values_* has string type, {-1} if values_*
-      has integral type, and {-0.f} if values_* has float type.
-    type: TENSOR
-    required: false
-  - name: default_int64
-    description: >-
-      An integer.
-    type: INT
-    required: false
-    default_value: -1
   - name: default_float
     description: >-
       A float.
     type: FLOAT
     required: false
     default_value: -0.0
+  - name: default_int64
+    description: >-
+      An integer.
+    type: INT
+    required: false
+    default_value: -1
   - name: default_string
     description: >-
       A string.
     type: STRING
     required: false
     default_value: _Unused
+  - name: default_tensor
+    description: >-
+      A default tensor. {"_Unused"} if values_* has string type, {-1} if values_*
+      has integral type, and {-0.f} if values_* has float type.
+    type: TENSOR
+    required: false
+  - name: keys_floats
+    description: >-
+      A list of floats.
+    type: FLOATS
+    required: false
+  - name: keys_int64s
+    description: >-
+      A list of ints.
+    type: INTS
+    required: false
+  - name: keys_strings
+    description: >-
+      A list of strings.
+    type: STRINGS
+    required: false
+  - name: keys_tensor
+    description: >-
+      Keys encoded as a 1D tensor. One and only one of 'keys_*'s should be set.
+    type: TENSOR
+    required: false
+  - name: values_floats
+    description: >-
+      A list of floats.
+    type: FLOATS
+    required: false
   - name: values_int64s
     description: >-
       A list of ints.
@@ -67,31 +92,6 @@ attributes:
   - name: values_tensor
     description: >-
       Values encoded as a 1D tensor. One and only one of 'values_*'s should be set.
-    type: TENSOR
-    required: false
-  - name: keys_floats
-    description: >-
-      A list of floats.
-    type: FLOATS
-    required: false
-  - name: keys_strings
-    description: >-
-      A list of strings.
-    type: STRINGS
-    required: false
-  - name: values_floats
-    description: >-
-      A list of floats.
-    type: FLOATS
-    required: false
-  - name: keys_int64s
-    description: >-
-      A list of ints.
-    type: INTS
-    required: false
-  - name: keys_tensor
-    description: >-
-      Keys encoded as a 1D tensor. One and only one of 'keys_*'s should be set.
     type: TENSOR
     required: false
 inputs:

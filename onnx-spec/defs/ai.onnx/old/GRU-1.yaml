@@ -79,12 +79,11 @@ doc: |-
 
     - Ht = (1 - zt) (.) ht + zt (.) Ht-1
 attributes:
-  - name: clip
+  - name: activation_alpha
     description: >-
-      Cell clip threshold. Clipping bounds the elements of a tensor in the range of
-      [-threshold, +threshold] and is applied to the input of activations. No clip
-      if not specified.
-    type: FLOAT
+      Optional scaling values used by some activation functions. The values are consumed
+      in the order of activation functions, for example (f, g, h) in LSTM.
+    type: FLOATS
     required: false
   - name: activation_beta
     description: >-
@@ -92,22 +91,19 @@ attributes:
       in the order of activation functions, for example (f, g, h) in LSTM.
     type: FLOATS
     required: false
-  - name: output_sequence
+  - name: activations
     description: >-
-      The sequence output for the hidden is optional if 0. Default 0.
-    type: INT
+      A list of 2 (or 4 if bidirectional) activation functions for update, reset,
+      and hidden gates. The activation functions must be one of the activation functions
+      specified above. Optional: See the equations for default if not specified.
+    type: STRINGS
     required: false
-    default_value: 0
-  - name: activation_alpha
+  - name: clip
     description: >-
-      Optional scaling values used by some activation functions. The values are consumed
-      in the order of activation functions, for example (f, g, h) in LSTM.
-    type: FLOATS
-    required: false
-  - name: hidden_size
-    description: >-
-      Number of neurons in the hidden layer
-    type: INT
+      Cell clip threshold. Clipping bounds the elements of a tensor in the range of
+      [-threshold, +threshold] and is applied to the input of activations. No clip
+      if not specified.
+    type: FLOAT
     required: false
   - name: direction
     description: >-
@@ -116,13 +112,17 @@ attributes:
     type: STRING
     required: false
     default_value: foward
-  - name: activations
+  - name: hidden_size
     description: >-
-      A list of 2 (or 4 if bidirectional) activation functions for update, reset,
-      and hidden gates. The activation functions must be one of the activation functions
-      specified above. Optional: See the equations for default if not specified.
-    type: STRINGS
+      Number of neurons in the hidden layer
+    type: INT
     required: false
+  - name: output_sequence
+    description: >-
+      The sequence output for the hidden is optional if 0. Default 0.
+    type: INT
+    required: false
+    default_value: 0
 inputs:
   - name: X
     type_str: T

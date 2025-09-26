@@ -28,15 +28,16 @@ doc: |-
     blocking is performed. Given `x` shape `(D0, ..., Di, ..., Dn)`, `axis=i`, and block size `B`: `y_scale` shape is
     `(D0, ..., ceil(Di/B), ..., Dn)`.
 attributes:
-  - name: output_dtype
+  - name: axis
     description: >-
-      (Optional) The output data type. If not supplied, the output data type is inferred
-      from `y_zero_point` data type (`T2`). If neither `output_dtype` nor `y_zero_point`
-      are supplied, output data type is uint8. If both `output_dtype` and `y_zero_point`
-      are specified, `output_dtype` must be `T2`.
+      (Optional) The axis of the dequantizing dimension of the input tensor. Used
+      only for per-axis and blocked quantization. Negative value means counting dimensions
+      from the back. Accepted range is `[-r, r-1]` where `r = rank(input)`. When the
+      rank of the input is 1, per-tensor quantization is applied, rendering the axis
+      unnecessary in this scenario.
     type: INT
     required: false
-    default_value: 0
+    default_value: 1
   - name: block_size
     description: >-
       (Optional) The size of the quantization block (number of times every scale is
@@ -46,22 +47,21 @@ attributes:
     type: INT
     required: false
     default_value: 0
+  - name: output_dtype
+    description: >-
+      (Optional) The output data type. If not supplied, the output data type is inferred
+      from `y_zero_point` data type (`T2`). If neither `output_dtype` nor `y_zero_point`
+      are supplied, output data type is uint8. If both `output_dtype` and `y_zero_point`
+      are specified, `output_dtype` must be `T2`.
+    type: INT
+    required: false
+    default_value: 0
   - name: saturate
     description: >-
       The parameter defines how the conversion behaves if an input value is out of
       range of the destination type. It only applies for float 8 quantization (float8e4m3fn,
       float8e4m3fnuz, float8e5m2, float8e5m2fnuz). It is true by default. All cases
       are fully described in two tables inserted in the operator description.
-    type: INT
-    required: false
-    default_value: 1
-  - name: axis
-    description: >-
-      (Optional) The axis of the dequantizing dimension of the input tensor. Used
-      only for per-axis and blocked quantization. Negative value means counting dimensions
-      from the back. Accepted range is `[-r, r-1]` where `r = rank(input)`. When the
-      rank of the input is 1, per-tensor quantization is applied, rendering the axis
-      unnecessary in this scenario.
     type: INT
     required: false
     default_value: 1

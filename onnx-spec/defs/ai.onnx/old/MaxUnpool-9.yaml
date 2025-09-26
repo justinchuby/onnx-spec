@@ -25,6 +25,11 @@ doc: |-
    which define the exact unpooling op. The attributes typically have the same values as the corresponding
    pooling op that the unpooling op is trying to invert.
 attributes:
+  - name: kernel_shape
+    description: >-
+      The size of the kernel along each axis.
+    type: INTS
+    required: true
   - name: pads
     description: >-
       Padding for the beginning and ending along each spatial axis, it can take any
@@ -42,11 +47,6 @@ attributes:
       Stride along each spatial axis.
     type: INTS
     required: false
-  - name: kernel_shape
-    description: >-
-      The size of the kernel along each axis.
-    type: INTS
-    required: true
 inputs:
   - name: X
     type_str: T1

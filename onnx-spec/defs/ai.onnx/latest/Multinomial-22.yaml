@@ -16,18 +16,18 @@ attributes:
     type: INT
     required: false
     default_value: 6
-  - name: seed
-    description: >-
-      (Optional) Seed to the random generator, if not specified we will auto generate
-      one.
-    type: FLOAT
-    required: false
   - name: sample_size
     description: >-
       Number of times to sample.
     type: INT
     required: false
     default_value: 1
+  - name: seed
+    description: >-
+      (Optional) Seed to the random generator, if not specified we will auto generate
+      one.
+    type: FLOAT
+    required: false
 inputs:
   - name: input
     type_str: T1

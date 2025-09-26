@@ -22,18 +22,18 @@ doc: |-
   equivalent to InstanceNormalization. When there is only one group, this operator
   is equivalent to LayerNormalization.
 attributes:
-  - name: num_groups
-    description: >-
-      The number of groups of channels. It should be a divisor of the number of channels
-      `C`.
-    type: INT
-    required: true
   - name: epsilon
     description: >-
       The epsilon value to use to avoid division by zero.
     type: FLOAT
     required: false
     default_value: 9.999999747378752e-06
+  - name: num_groups
+    description: >-
+      The number of groups of channels. It should be a divisor of the number of channels
+      `C`.
+    type: INT
+    required: true
 inputs:
   - name: X
     type_str: T

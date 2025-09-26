@@ -18,13 +18,14 @@ doc: |-
   for consistency. The output type is determined by the attribute `output_dtype`. If `output_dtype` is not supplied then the output type
   is the same as `x_scale`. The output type also determines the precision of the multiplication operation.
 attributes:
-  - name: output_dtype
+  - name: axis
     description: >-
-      (Optional) The output data type. If not supplied, the output data type is inferred
-      from `x_scale` data type (`T2`)
+      (Optional) The axis of the dequantizing dimension of the input tensor. Used
+      for per-axis and blocked quantization. Negative value means counting dimensions
+      from the back. Accepted range is `[-r, r-1]` where `r = rank(input)`.
     type: INT
     required: false
-    default_value: 0
+    default_value: 1
   - name: block_size
     description: >-
       (Optional) The size of the quantization block (number of times every scale is
@@ -34,14 +35,13 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: axis
+  - name: output_dtype
     description: >-
-      (Optional) The axis of the dequantizing dimension of the input tensor. Used
-      for per-axis and blocked quantization. Negative value means counting dimensions
-      from the back. Accepted range is `[-r, r-1]` where `r = rank(input)`.
+      (Optional) The output data type. If not supplied, the output data type is inferred
+      from `x_scale` data type (`T2`)
     type: INT
     required: false
-    default_value: 1
+    default_value: 0
 inputs:
   - name: x
     type_str: T1

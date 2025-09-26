@@ -11,6 +11,12 @@ doc: |-
   `y = gamma * (alpha * e^x - alpha) for x <= 0`, `y = gamma * x for x > 0`,
   is applied to the tensor elementwise.
 attributes:
+  - name: alpha
+    description: >-
+      Coefficient of SELU default to 1.6732.
+    type: FLOAT
+    required: false
+    default_value: 1.673200011253357
   - name: consumed_inputs
     description: >-
       legacy optimization attribute.
@@ -22,12 +28,6 @@ attributes:
     type: FLOAT
     required: false
     default_value: 1.0506999492645264
-  - name: alpha
-    description: >-
-      Coefficient of SELU default to 1.6732.
-    type: FLOAT
-    required: false
-    default_value: 1.673200011253357
 inputs:
   - name: X
     type_str: T

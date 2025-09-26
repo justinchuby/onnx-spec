@@ -16,6 +16,14 @@ doc: |-
   `zero-point` is usually not used in the case of float8 types quantization, but the dequantization formula remains the same
   for consistency, and `x_scale` still determines the output type.
 attributes:
+  - name: axis
+    description: >-
+      (Optional) The axis of the dequantizing dimension of the input tensor. Used
+      for per-axis and blocked quantization. Negative value means counting dimensions
+      from the back. Accepted range is `[-r, r-1]` where `r = rank(input)`.
+    type: INT
+    required: false
+    default_value: 1
   - name: block_size
     description: >-
       (Optional) The size of the quantization block (number of times every scale is
@@ -25,14 +33,6 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: axis
-    description: >-
-      (Optional) The axis of the dequantizing dimension of the input tensor. Used
-      for per-axis and blocked quantization. Negative value means counting dimensions
-      from the back. Accepted range is `[-r, r-1]` where `r = rank(input)`.
-    type: INT
-    required: false
-    default_value: 1
 inputs:
   - name: x
     type_str: T1

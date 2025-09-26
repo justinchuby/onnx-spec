@@ -34,6 +34,17 @@ attributes:
     type: INT
     required: false
     default_value: 0
+  - name: mode
+    description: >-
+      Three interpolation modes: linear (default), nearest and cubic. The "linear"
+      mode includes linear and N-linear interpolation modes depending on the number
+      of spatial dimensions of the input tensor (i.e. linear for 1 spatial dimension,
+      bilinear for 2 spatial dimensions, etc.). The "cubic" mode also includes N-cubic
+      interpolation modes following the same rules. The "nearest" mode rounds to the
+      nearest even index when the sampling point falls halfway between two indices.
+    type: STRING
+    required: false
+    default_value: linear
   - name: padding_mode
     description: >-
       Support padding modes for outside grid values: `zeros`(default), `border`, `reflection`.
@@ -47,17 +58,6 @@ attributes:
     type: STRING
     required: false
     default_value: zeros
-  - name: mode
-    description: >-
-      Three interpolation modes: linear (default), nearest and cubic. The "linear"
-      mode includes linear and N-linear interpolation modes depending on the number
-      of spatial dimensions of the input tensor (i.e. linear for 1 spatial dimension,
-      bilinear for 2 spatial dimensions, etc.). The "cubic" mode also includes N-cubic
-      interpolation modes following the same rules. The "nearest" mode rounds to the
-      nearest even index when the sampling point falls halfway between two indices.
-    type: STRING
-    required: false
-    default_value: linear
 inputs:
   - name: X
     type_str: T1

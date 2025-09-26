@@ -17,6 +17,12 @@ doc: |-
   to flatten the input shape to (N x C*D1*D2 ..*Dn) before a BatchNormalization Op.
   This operator has **optional** inputs/outputs. See [the doc](IR.md) for more details about the representation of optional arguments. An empty string may be used in the place of an actual argument's name to indicate a missing argument. Trailing optional arguments (those not followed by an argument that is present) may also be simply omitted.
 attributes:
+  - name: epsilon
+    description: >-
+      The epsilon value to use to avoid division by zero.
+    type: FLOAT
+    required: false
+    default_value: 9.999999747378752e-06
   - name: momentum
     description: >-
       Factor used in computing the running mean and variance.e.g., running_mean =
@@ -24,12 +30,6 @@ attributes:
     type: FLOAT
     required: false
     default_value: 0.8999999761581421
-  - name: epsilon
-    description: >-
-      The epsilon value to use to avoid division by zero.
-    type: FLOAT
-    required: false
-    default_value: 9.999999747378752e-06
 inputs:
   - name: X
     type_str: T

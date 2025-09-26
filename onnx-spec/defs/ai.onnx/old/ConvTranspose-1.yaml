@@ -19,12 +19,6 @@ doc: |-
     If (auto_pads != SAME_UPPER): pads[start_i] = total_padding[i]/2; pads[end_i] = total_padding[i] - (total_padding[i]/2)
     Else: pads[start_i] = total_padding[i] - (total_padding[i]/2); pads[end_i] = (total_padding[i]/2).
 attributes:
-  - name: group
-    description: >-
-      number of groups input channels and output channels are divided into.
-    type: INT
-    required: false
-    default_value: 1
   - name: auto_pad
     description: >-
       auto_pad must be either NOTSET, SAME_UPPER, SAME_LOWER or VALID. Where default
@@ -35,9 +29,34 @@ attributes:
     type: STRING
     required: false
     default_value: NOTSET
-  - name: strides
+  - name: dilations
     description: >-
-      Stride along each spatial axis.
+      dilation value along each spatial axis of the filter.
+    type: INTS
+    required: false
+  - name: group
+    description: >-
+      number of groups input channels and output channels are divided into.
+    type: INT
+    required: false
+    default_value: 1
+  - name: kernel_shape
+    description: >-
+      The shape of the convolution kernel. If not present, should be inferred from
+      input W.
+    type: INTS
+    required: false
+  - name: output_padding
+    description: >-
+      The zero-padding added to one side of the output. This is also called adjs/adjustment
+      in some frameworks.
+    type: INTS
+    required: false
+  - name: output_shape
+    description: >-
+      The shape of the output can be explicitly set which will cause pads values to
+      be auto generated. If output_shape is specified pads values are ignored. See
+      doc for details for equations to generate pads
     type: INTS
     required: false
   - name: pads
@@ -52,28 +71,9 @@ attributes:
       end of each spatial axis.
     type: INTS
     required: false
-  - name: output_padding
+  - name: strides
     description: >-
-      The zero-padding added to one side of the output. This is also called adjs/adjustment
-      in some frameworks.
-    type: INTS
-    required: false
-  - name: dilations
-    description: >-
-      dilation value along each spatial axis of the filter.
-    type: INTS
-    required: false
-  - name: output_shape
-    description: >-
-      The shape of the output can be explicitly set which will cause pads values to
-      be auto generated. If output_shape is specified pads values are ignored. See
-      doc for details for equations to generate pads
-    type: INTS
-    required: false
-  - name: kernel_shape
-    description: >-
-      The shape of the convolution kernel. If not present, should be inferred from
-      input W.
+      Stride along each spatial axis.
     type: INTS
     required: false
 inputs:

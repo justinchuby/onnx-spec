@@ -18,13 +18,6 @@ attributes:
       legacy optimization attribute.
     type: INTS
     required: true
-  - name: momentum
-    description: >-
-      Factor used in computing the running mean and variance.e.g., running_mean =
-      running_mean * momentum + mean * (1 - momentum), default is 0.9f.
-    type: FLOAT
-    required: false
-    default_value: 0.8999999761581421
   - name: epsilon
     description: >-
       The epsilon value to use to avoid division by zero, default is 1e-5f.
@@ -38,6 +31,13 @@ attributes:
     type: INT
     required: false
     default_value: 0
+  - name: momentum
+    description: >-
+      Factor used in computing the running mean and variance.e.g., running_mean =
+      running_mean * momentum + mean * (1 - momentum), default is 0.9f.
+    type: FLOAT
+    required: false
+    default_value: 0.8999999761581421
   - name: spatial
     description: >-
       If true, compute the mean and variance across all spatial elements If false,

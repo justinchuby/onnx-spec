@@ -10,18 +10,18 @@ doc: |-
   (Tensor<T>) where the HardSigmoid function, y = max(0, min(1, alpha * x + beta)),
   is applied to the tensor elementwise.
 attributes:
-  - name: beta
-    description: >-
-      Value of beta.
-    type: FLOAT
-    required: false
-    default_value: 0.5
   - name: alpha
     description: >-
       Value of alpha.
     type: FLOAT
     required: false
     default_value: 0.20000000298023224
+  - name: beta
+    description: >-
+      Value of beta.
+    type: FLOAT
+    required: false
+    default_value: 0.5
 inputs:
   - name: X
     type_str: T

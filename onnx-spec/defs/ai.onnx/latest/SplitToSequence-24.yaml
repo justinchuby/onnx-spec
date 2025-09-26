@@ -19,13 +19,6 @@ doc: |-
   with lengths of the parts on 'axis' specified in 'split'. In this scenario, the sum of entries
   in 'split' must be equal to the dimension size of input tensor on 'axis'.
 attributes:
-  - name: keepdims
-    description: >-
-      Keep the split dimension or not. Default 1, which means we keep split dimension.
-      If input 'split' is specified, this attribute is ignored.
-    type: INT
-    required: false
-    default_value: 1
   - name: axis
     description: >-
       Which axis to split on. A negative value means counting dimensions from the
@@ -33,6 +26,13 @@ attributes:
     type: INT
     required: false
     default_value: 0
+  - name: keepdims
+    description: >-
+      Keep the split dimension or not. Default 1, which means we keep split dimension.
+      If input 'split' is specified, this attribute is ignored.
+    type: INT
+    required: false
+    default_value: 1
 inputs:
   - name: input
     type_str: T

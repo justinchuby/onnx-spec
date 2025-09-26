@@ -17,6 +17,12 @@ doc: |-
   The above behavior is similar to numpy, with the exception that numpy defaults `keepdims`
   to `False` instead of `True`.
 attributes:
+  - name: keepdims
+    description: >-
+      Keep the reduced dimension or not, default 1 means keep reduced dimension.
+    type: INT
+    required: false
+    default_value: 1
   - name: noop_with_empty_axes
     description: >-
       Defines behavior when axes is not provided or is empty. If false (default),
@@ -26,12 +32,6 @@ attributes:
     type: INT
     required: false
     default_value: 0
-  - name: keepdims
-    description: >-
-      Keep the reduced dimension or not, default 1 means keep reduced dimension.
-    type: INT
-    required: false
-    default_value: 1
 inputs:
   - name: data
     type_str: T

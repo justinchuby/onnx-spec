@@ -68,33 +68,6 @@ doc: |-
   If there are multiple inputs to be optimized, the pseudo code will be applied
   independently to each of them.
 attributes:
-  - name: epsilon
-    description: >-
-      Small scalar to avoid dividing by zero.
-    type: FLOAT
-    required: false
-    default_value: 9.999999974752427e-07
-  - name: norm_coefficient_post
-    description: >-
-      Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default to
-      0, which means no regularization.
-    type: FLOAT
-    required: false
-    default_value: 0.0
-  - name: norm_coefficient
-    description: >-
-      Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default to
-      0, which means no regularization.
-    type: FLOAT
-    required: false
-    default_value: 0.0
-  - name: beta
-    description: >-
-      Coefficient of previously accumulated squared-gradient in running average. Default
-      to 0.999.
-    type: FLOAT
-    required: false
-    default_value: 0.9990000128746033
   - name: alpha
     description: >-
       Coefficient of previously accumulated gradient in running average. Default to
@@ -102,6 +75,33 @@ attributes:
     type: FLOAT
     required: false
     default_value: 0.8999999761581421
+  - name: beta
+    description: >-
+      Coefficient of previously accumulated squared-gradient in running average. Default
+      to 0.999.
+    type: FLOAT
+    required: false
+    default_value: 0.9990000128746033
+  - name: epsilon
+    description: >-
+      Small scalar to avoid dividing by zero.
+    type: FLOAT
+    required: false
+    default_value: 9.999999974752427e-07
+  - name: norm_coefficient
+    description: >-
+      Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default to
+      0, which means no regularization.
+    type: FLOAT
+    required: false
+    default_value: 0.0
+  - name: norm_coefficient_post
+    description: >-
+      Regularization coefficient of 0.5 * norm_coefficient * ||X||_2^2. Default to
+      0, which means no regularization.
+    type: FLOAT
+    required: false
+    default_value: 0.0
 inputs:
   - name: R
     type_str: T1

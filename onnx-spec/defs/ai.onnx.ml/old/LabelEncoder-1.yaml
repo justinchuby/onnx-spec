@@ -21,14 +21,11 @@ doc: |-
   When converting from strings to integers, the string is looked up in the list
   and the index at which it is found is used as the converted value.
 attributes:
-  - name: default_string
+  - name: classes_strings
     description: >-
-      A string to use when an input integer value is not found in the map.
-
-      One and only one of the 'default_*' attributes must be defined.
-    type: STRING
+      A list of labels.
+    type: STRINGS
     required: false
-    default_value: _Unused
   - name: default_int64
     description: >-
       An integer to use when an input string value is not found in the map.
@@ -37,11 +34,14 @@ attributes:
     type: INT
     required: false
     default_value: -1
-  - name: classes_strings
+  - name: default_string
     description: >-
-      A list of labels.
-    type: STRINGS
+      A string to use when an input integer value is not found in the map.
+
+      One and only one of the 'default_*' attributes must be defined.
+    type: STRING
     required: false
+    default_value: _Unused
 inputs:
   - name: X
     type_str: T1

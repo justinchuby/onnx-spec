@@ -15,22 +15,6 @@ attributes:
       One and only one of the 'classlabels_*' attributes must be defined.
     type: INTS
     required: false
-  - name: rho
-    description: >
-    type: FLOATS
-    required: false
-  - name: prob_b
-    description: >-
-      Second set of probability coefficients. This array must be same size as prob_a.
-
-      If these are provided then output Z are probability estimates, otherwise they
-      are raw scores.
-    type: FLOATS
-    required: false
-  - name: coefficients
-    description: >
-    type: FLOATS
-    required: false
   - name: classlabels_strings
     description: >-
       Class labels if using string labels.
@@ -38,27 +22,10 @@ attributes:
       One and only one of the 'classlabels_*' attributes must be defined.
     type: STRINGS
     required: false
-  - name: prob_a
-    description: >-
-      First set of probability coefficients.
-    type: FLOATS
-    required: false
-  - name: support_vectors
+  - name: coefficients
     description: >
     type: FLOATS
     required: false
-  - name: vectors_per_class
-    description: >
-    type: INTS
-    required: false
-  - name: post_transform
-    description: >-
-      Indicates the transform to apply to the score. 
-
-      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
-    type: STRING
-    required: false
-    default_value: NONE
   - name: kernel_params
     description: >-
       List of 3 elements containing gamma, coef0, and degree, in that order. Zero
@@ -71,6 +38,39 @@ attributes:
     type: STRING
     required: false
     default_value: LINEAR
+  - name: post_transform
+    description: >-
+      Indicates the transform to apply to the score. 
+
+      One of 'NONE,' 'SOFTMAX,' 'LOGISTIC,' 'SOFTMAX_ZERO,' or 'PROBIT'
+    type: STRING
+    required: false
+    default_value: NONE
+  - name: prob_a
+    description: >-
+      First set of probability coefficients.
+    type: FLOATS
+    required: false
+  - name: prob_b
+    description: >-
+      Second set of probability coefficients. This array must be same size as prob_a.
+
+      If these are provided then output Z are probability estimates, otherwise they
+      are raw scores.
+    type: FLOATS
+    required: false
+  - name: rho
+    description: >
+    type: FLOATS
+    required: false
+  - name: support_vectors
+    description: >
+    type: FLOATS
+    required: false
+  - name: vectors_per_class
+    description: >
+    type: INTS
+    required: false
 inputs:
   - name: X
     type_str: T1

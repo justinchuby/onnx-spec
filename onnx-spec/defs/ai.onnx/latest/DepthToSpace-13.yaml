@@ -30,6 +30,11 @@ doc: |-
   y = np.reshape(tmp, [b, c // (blocksize ** 2), h * blocksize, w * blocksize])
   ```
 attributes:
+  - name: blocksize
+    description: >-
+      Blocks of [blocksize, blocksize] are moved.
+    type: INT
+    required: true
   - name: mode
     description: >-
       DCR (default) for depth-column-row order re-arrangement. Use CRD for column-row-depth
@@ -37,11 +42,6 @@ attributes:
     type: STRING
     required: false
     default_value: DCR
-  - name: blocksize
-    description: >-
-      Blocks of [blocksize, blocksize] are moved.
-    type: INT
-    required: true
 inputs:
   - name: input
     type_str: T

@@ -129,6 +129,13 @@ doc: |-
   forward pass can be reused if the gradient is computed via reverse-mode
   auto-differentiation.
 attributes:
+  - name: xs
+    description: >-
+      Input tensor names of the differentiated sub-graph. It contains only the necessary
+      differentiated inputs of a (sub-)graph. Variables (usually called intermediate
+      variables) that can be generated from inputs cannot be included in this attribute.
+    type: STRINGS
+    required: true
   - name: y
     description: >-
       The targeted tensor. It can be viewed as the output of the differentiated function.
@@ -143,13 +150,6 @@ attributes:
       variables) that can be generated from inputs cannot be included in this attribute.
     type: STRINGS
     required: false
-  - name: xs
-    description: >-
-      Input tensor names of the differentiated sub-graph. It contains only the necessary
-      differentiated inputs of a (sub-)graph. Variables (usually called intermediate
-      variables) that can be generated from inputs cannot be included in this attribute.
-    type: STRINGS
-    required: true
 inputs:
   - name: Inputs
     type_str: T1
